@@ -1,7 +1,13 @@
 # main links
 main:
-  - title: "Quick-Start Guide"
-    url: https://mmistakes.github.io/minimal-mistakes/docs/quick-start-guide/
+  - title: "Home"
+    url: https://codemcd.github.io/
+  - title: "Tag"
+    url: https://codemcd.github.io/
+    # 미구현
+  - title: "Search"
+    url: https://codemcd.github.io/  
+    # 미구현
   # - title: "About"
   #   url: https://mmistakes.github.io/minimal-mistakes/about/
   # - title: "Sample Posts"
