@@ -278,12 +278,16 @@ compress_html:
   ignore:
     envs: development
     
+ collections:
+    portfolio:
+        output: true
+    
 # Defaults
 defaults:
   # _posts
   - scope:
       path: ""
-      type: posts
+      type: portfolio
     values:
       layout: single
       author_profile: true
