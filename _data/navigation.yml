@@ -3,13 +3,14 @@ main:
   - title: "Home"
     url: https://codemcd.github.io/
   - title: "Algorithm"
-    url: /algorithm/README/
+    url: /_algorithm/README.md/
   - title: "Search"
     url: https://codemcd.github.io/
     
-    
+
+# documentation links
 algorithm:
     - title: TEST
       children:
         - title: "READ"
-          url: /algorithm/README/
+          url: /_algorithm/README.md/
