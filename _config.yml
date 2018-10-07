@@ -211,7 +211,39 @@ kramdown:
   smart_quotes: lsquo,rsquo,ldquo,rdquo
   enable_coderay: false
 
+  
+ collections:
+    algorithm:
+        output: true
+        permalink: /:collection/:path/
 
+        
+# Defaults
+defaults:
+  # _posts
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: single
+      author_profile: true
+      read_time: false
+      comments: true
+      share: true
+      related: true
+  # algorithm
+  - scope:
+      path: ""
+      type: algorithm
+    values:
+      layout: single
+      read_time: false
+      author_profile: false
+      share: false
+      comments: true
+      
+
+      
 # Sass/SCSS
 sass:
   sass_dir: _sass
@@ -277,30 +309,3 @@ compress_html:
   clippings: all
   ignore:
     envs: development
-    
- collections:
-    portfolio:
-        output: true
-        permalink: /:collection/:path/
-    
-# Defaults
-defaults:
-  # _posts
-  - scope:
-      path: ""
-      type: posts
-    values:
-      layout: single
-      author_profile: true
-      read_time: false
-      comments: true
-      share: true
-      related: true
-  # _portfolio
-  - scope:
-      path: ""
-      type: portfolio
-    values:
-      layout: single
-      author_profile: false
-      share: true

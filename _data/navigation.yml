@@ -2,17 +2,14 @@
 main:
   - title: "Home"
     url: https://codemcd.github.io/
-  - title: "Tag"
-    url: https://codemcd.github.io/
-    # 미구현
+  - title: "Algorithm"
+    url: /algorithm/README/
   - title: "Search"
-    url: https://codemcd.github.io/  
-    # 미구현
-  # - title: "About"
-  #   url: https://mmistakes.github.io/minimal-mistakes/about/
-  # - title: "Sample Posts"
-  #   url: /year-archive/
-  # - title: "Sample Collections"
-  #   url: /collection-archive/
-  # - title: "Sitemap"
-  #   url: /sitemap/
+    url: https://codemcd.github.io/
+    
+    
+algorithm:
+    - title: TEST
+      children:
+        - title: "READ"
+          url: /algorithm/README/
