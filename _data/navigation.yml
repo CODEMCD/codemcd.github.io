@@ -4,3 +4,7 @@ main:
     url: https://codemcd.github.io/
   - title: "About"
     url: /about/
+  - title: "Category"
+    url: /categories/
+  - title: "Algorithm"
+    url: /algorithms/
