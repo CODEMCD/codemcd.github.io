@@ -248,9 +248,6 @@ whitelist:
 category_archive:
   type: liquid
   path: /categories/
- algorithm_archive:
-  type: liquid
-  path: /algorithms/
 tag_archive:
   type: liquid
   path: /tags/
