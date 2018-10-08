@@ -2,15 +2,7 @@
 main:
   - title: "Home"
     url: https://codemcd.github.io/
-  - title: "Algorithm"
-    url: /_algorithm/README.md/
+  - title: "About"
+    url: /about/
   - title: "Search"
     url: https://codemcd.github.io/
-    
-
-# documentation links
-algorithm:
-    - title: TEST
-      children:
-        - title: "READ"
-          url: /_algorithm/README.md/
