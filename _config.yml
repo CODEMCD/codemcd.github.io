@@ -274,6 +274,21 @@ compress_html:
 
 # Defaults
 defaults:
+   # _posts/PS
+  - scope:
+      path: "_posts/PS"
+      type: posts
+    values:
+      layout: single
+      classes: wide
+      author_profile: true
+      read_time: true
+      comments: true
+      share: true
+      related: true
+      sidebar:
+        nav: sidebar-PS
+
   # _posts
   - scope:
       path: ""
