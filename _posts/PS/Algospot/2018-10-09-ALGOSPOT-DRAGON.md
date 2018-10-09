@@ -1,5 +1,5 @@
 ---
-title:  [ALGOSPOT]DRAGON
+title: [ALGOSPOT]DRAGON
 search: true
 categories: 
   - PS
