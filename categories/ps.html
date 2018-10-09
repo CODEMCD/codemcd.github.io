@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>Site Title</title>
+<!-- begin _includes/seo.html --><title>PS - Site Title</title>
 <meta name="description" content="An amazing website.">
 
 
@@ -17,8 +17,8 @@
 <meta property="og:type" content="website">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="Site Title">
-<meta property="og:title" content="Site Title">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/">
+<meta property="og:title" content="PS">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/categories/ps">
 
 
 
@@ -36,7 +36,7 @@
   
 
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/">
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/categories/ps">
 
 
 
@@ -101,7 +101,7 @@
 
   </head>
 
-  <body class="layout--home">
+  <body class="layout--archive">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -252,52 +252,41 @@
   
   
   
+    <nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+        <span class="nav__sub-title" v-on:click='togglec()'>Categories</span>
+        <ul v-show="flag_c">
+        
+           <li><a href="/categories/ps" class="">Ps (2)</a></li>
+        
+        </ul>
+        
+        <span class="nav__sub-title" v-on:click='togglet()'>tags</span>
+        <ul v-show="flag_t">
+        
+           <li><a href="/tags/#test" class="">Test (2)</a></li>
+        
+        </ul>
+        
+      </li>
+    
+  </ul>
+</nav>
+  
   
   </div>
 
 
   <div class="archive">
     
-      <h1 id="page-title" class="page__title"></h1>
+      <h1 id="page-title" class="page__title">PS</h1>
     
     
-
-<h3 class="archive__subtitle">최근 포스트</h3>
-
-
-  
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/aboutTest/" rel="permalink">Abouttest
-</a>
-      
-    </h2>
-    
-      <p class="page__meta"><i class="far fa-clock" aria-hidden="true"></i> 
-
-
-
-
-  최대 1 분 소요
-</p>
-    
-    <p class="archive__item-excerpt" itemprop="description">
-</p>
-  </article>
-</div>
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
     
     <h2 class="archive__item-title" itemprop="headline">
       
@@ -319,12 +308,8 @@
   </article>
 </div>
 
-  
-
-
-
 <div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
     
     <h2 class="archive__item-title" itemprop="headline">
       
@@ -345,10 +330,6 @@
 </p>
   </article>
 </div>
-
-
-
-
 
   </div>
 </div>
