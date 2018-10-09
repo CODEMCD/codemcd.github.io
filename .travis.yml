@@ -1,9 +1,12 @@
 language: ruby
 cache: bundler
-gemfile: docs/Gemfile
+
+install:
+  # Install Jekyll and dependencies
+  - bundle install
 
 script:
-  - bundle exec jekyll algolia --source docs --destination docs/_site --config docs/_config.yml
+  - bundle exec rake site:deploy --quiet
 branches:
   only:
     # Change this to gh-pages if you're deploying using the gh-pages branch
