@@ -6,6 +6,8 @@ author_profile: true
 sidebar_main: true
 ---
 
+# PS(Problem Solve)
+
 {% assign posts = site.categories.PS | sort:"date" %}
 
 {% for post in posts %}
