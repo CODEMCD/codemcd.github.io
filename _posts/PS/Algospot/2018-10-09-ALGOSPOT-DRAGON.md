@@ -1,5 +1,5 @@
 ---
-title:  test
+title:  [ALGOSPOT]DRAGON
 search: true
 categories: 
   - PS
