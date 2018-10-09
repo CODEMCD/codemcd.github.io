@@ -295,7 +295,8 @@ defaults:
       layout: single
       author_profile: true
       read_time: true
-      comments: # true
+      comments: true
+      search: true
       share: true
       related: true
   # _pages 
