@@ -1,6 +1,7 @@
 language: ruby
 cache: bundler
 gemfile: docs/Gemfile
+
 script:
   - bundle exec jekyll algolia --source docs --destination docs/_site --config docs/_config.yml
 branches:
@@ -9,3 +10,21 @@ branches:
     - master
 rvm:
  - 2.4
+ 
+ # Generate your secure token with the travis gem:
+# get Github token from your Travis CI profile page
+# gem install travis
+# GH_TOKEN from https://github.com/settings/tokens
+# travis encrypt 'GIT_NAME="YOUR_USERNAME" GIT_EMAIL="YOUR_EMAIL" GH_TOKEN=YOUR_TOKEN'
+
+env:
+  global:
+    secure: "iiJtybzzDzvTaJsYvNb/h0S3CoNYTxJP4KTK6zGv0d1SO11Uc0ogEm3tPAVPLjSAk0WVA
+7rBrBbFGtZt1nifGMesp4mKWeOzBXc5+GzpkJCe9RMNHvemAP4Fz4TpakXYFH9G+IjlCVDdUCQTBILE3
+qKSFdYgdL7IJLiANbKWoqOtd1Y5Py8Mya+enumcDORZs18Zd9GJU9spqdpItmrTmrHlXYFxH7HppdiMm
+O8maJI2IfP6S3C4L1Q/ZHha12CCXelLTt7fwEhPLhHQfzFHm3cyemdhgIIgUNJ8yhiwDYRTcr6umEbMr
+t1mGW7pL096LBrtt1nbFIf18687IfK6xgtkgXs5urZTBQUlZ39wOr10InCtProxFu0o2rPu6USTdpt8O
+yvhD+PCUroiAu1zGNDskArgk8cnykgDdqzlsviL6y5p+2dkQi/ag6Eamup3M8HNPCDsN03jAKk/etGlB
+fiiikjpheGV0ktjqgKBRI/2mWhoJZHigrE21CP6nIwSpfm3vdNmZcgNNFGVGgh1pu3c7/6JCtJU91MAL
+NA54+96FamQ90A5Kjx9pBohxrLLLGitfeVNaaBdAr37yjaDBIeQzfHo9Bd4Fth/Ua2Ke7NYby3gh0i+E
+2hO3KPRuaMuym1Y66weGNTrjgm4RJ1Rvj30E0UEJAWPzgKIBiT0kOY="
