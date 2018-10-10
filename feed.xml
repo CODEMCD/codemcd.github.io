@@ -1,1 +1,114 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-10-09T08:09:49+00:00</updated><id>https://codemcd.github.io/pages/CODEMCD/</id><title type="html">Site Title</title><subtitle>An amazing website.</subtitle><author><name>Your Name</name></author><entry><title type="html">Abouttest</title><link href="https://codemcd.github.io/pages/CODEMCD/aboutTest/" rel="alternate" type="text/html" title="Abouttest" /><published>2018-10-08T00:00:00+00:00</published><updated>2018-10-08T00:00:00+00:00</updated><id>https://codemcd.github.io/pages/CODEMCD/aboutTest</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/aboutTest/"></content><author><name>Your Name</name></author><summary type="html"></summary></entry><entry><title type="html">test2</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/TEST2/" rel="alternate" type="text/html" title="test2" /><published>2018-10-03T00:00:00+00:00</published><updated>2018-10-03T00:00:00+00:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/TEST2</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/TEST2/">&lt;p&gt;test2&lt;/p&gt;</content><author><name>Your Name</name></author><category term="test" /><summary type="html">test2</summary></entry><entry><title type="html">test</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/TEST/" rel="alternate" type="text/html" title="test" /><published>2018-10-03T00:00:00+00:00</published><updated>2018-10-03T00:00:00+00:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/TEST</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/TEST/">&lt;p&gt;test&lt;/p&gt;</content><author><name>Your Name</name></author><category term="test" /><summary type="html">test</summary></entry></feed>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-10-10T17:37:14+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/</id><title type="html">CODEMCD’s Tech Blog</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[ALGOSPOT]DRAGON</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/" rel="alternate" type="text/html" title="[ALGOSPOT]DRAGON" /><published>2018-10-09T00:00:00+09:00</published><updated>2018-10-09T18:04:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/">&lt;h1 id=&quot;드래곤-커브&quot;&gt;드래곤 커브&lt;/h1&gt;
+
+&lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;https://algospot.com/judge/problem/read/DRAGON&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;코드-분석&quot;&gt;코드 분석&lt;/h2&gt;
+&lt;h3 id=&quot;k번째-답을-계산하는-동적-계획법&quot;&gt;k번째 답을 계산하는 동적 계획법&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;더 간단한 문제 풀기
+    &lt;ul&gt;
+      &lt;li&gt;드래곤 커브 문자열의 일부를 계산하는 문제 대신 문자열 중 주어진 위치의 한 글자만을 계산하는 문제로 바꾼다.&lt;/li&gt;
+      &lt;li&gt;이 문제를 빠르게 풀 수 있다면 l번 반복만 한다면 문제를 해결할 수 있다.&lt;/li&gt;
+      &lt;li&gt;결과적으로, n세대 드래곤 커브의 p번째 글자를 찾는 것으로 변경한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;p번째 글자를 찾는 함수
+    &lt;ul&gt;
+      &lt;li&gt;먼저 전체 드래곤 커브 문자열을 생성하는 알고리즘을 재귀적인 방법으로 구현한다.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;curve(seed, generations)&lt;/code&gt; = 초기 문자열 seed를 generations세대 진화시킨 결과를 출력한다.&lt;/li&gt;
+      &lt;li&gt;위 함수에서 p번째 글자만을 출력하기 위해 skip 전역변수(건너뛰어야 하는 글자 수)를 두어, 문자열 혹은 문자를 출력할 때마다 skip과 출력할 부분의 길이를 비교한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;계산 결과 미리 계산하기(동적 계획법)
+    &lt;ul&gt;
+      &lt;li&gt;p번째 글자를 출력하는 재귀 호출 코드를 최적화하려면, 재귀 호출 때마다 몇 글자를 출력할지를 미리 알고 skip과 이 값을 비교할 수 있어야 한다.&lt;/li&gt;
+      &lt;li&gt;genrations 세대 값의 크기에 상관 없이, 이전 세대의 드래곤 커브를 계속 유지하며 확장하기 때문에 skip 값의 길이 만큼의 generations 세대까지만 가면 된다.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;curve(seed, generations)&lt;/code&gt;함수에서 seed는 ‘X+TF’ 혹은 ‘FX-Y’로 확장하기 때문에 간단히 동적 계획법 알고리즘을 만들 수 있다.
+        &lt;ul&gt;
+          &lt;li&gt;xLength(n) = 문자열 “X”를 n세대  진화시킨 결과의 길이 반환&lt;/li&gt;
+          &lt;li&gt;yLength(n) = 문자열 “Y”를 n세대  진화시킨 결과의 길이 반환&lt;/li&gt;
+          &lt;li&gt;xLength(n) = xLength(n - 1) + yLength(n - 1) + 2&lt;/li&gt;
+          &lt;li&gt;yLength(n) = xLength(n - 1) + yLength(n - 1) + 2&lt;/li&gt;
+          &lt;li&gt;최적화: length(n) = length(n - 1) * 2 + 2&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;시간 복잡도
+    &lt;ul&gt;
+      &lt;li&gt;재귀 호출 함수가 최대 n번 호출되고, 출력 길이 l의 최대 값이 50이므로, &lt;code class=&quot;highlighter-rouge&quot;&gt;O(n * 50)&lt;/code&gt;이다.&lt;/li&gt;
+      &lt;li&gt;결과적으로, &lt;code class=&quot;highlighter-rouge&quot;&gt;O(n)&lt;/code&gt;이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;결과-코드&quot;&gt;결과 코드&lt;/h2&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#define _CRT_SECURE_NO_WARNINGS
+
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;cassert&amp;gt;
+using namespace std;
+#define min(a,b) ((a) &amp;lt; (b) ? (a) : (b))
+#define N 51
+//오버 플로 방지
+const int MAX = 1000000000 + 51;
+//length[i] = X나 Y를 i번 치환 후의 길이
+int length[N];
+
+//계산 결과를 미리 계산하는 동적 계획법 알고리즘
+void precalc() {
+	length[0] = 1;
+	for (int i = 1; i &amp;lt; N; ++i)
+		length[i] = min(MAX, length[i - 1] * 2 + 2);
+}
+
+const string EXPAND_X = &quot;X+YF&quot;;
+const string EXPAND_Y = &quot;FX-Y&quot;;
+
+//dragonCurve를 generations 진화시킨 결과에서 skip번째 문자를 반환한다.
+char expand(const string &amp;amp;dragonCurve, int generations, int skip) {
+	//기저 사례
+	if (generations == 0) {
+		//assert(skip &amp;lt; (int)dragonCurve.size());
+		return dragonCurve[skip];
+	}
+	for (int i = 0; i &amp;lt; (int)dragonCurve.size(); ++i) {
+		//문자열이 확장되는 경우
+		if (dragonCurve[i] == 'X' || dragonCurve[i] == 'Y') {
+			if (skip &amp;gt;= length[generations])
+				skip -= length[generations];
+			else if (dragonCurve[i] == 'X')
+				return expand(EXPAND_X, generations - 1, skip);
+			else
+				return expand(EXPAND_Y, generations - 1, skip);
+		}
+		//확장되진 않지만 건너뛰어야 할 경우
+		else if (skip &amp;gt; 0)
+			--skip;
+		//답을 찾은 경우
+		else
+			return dragonCurve[i];
+	}
+	return '#';  //이 줄은 수행되지 않음
+}
+
+int main()
+{
+	int tc; scanf(&quot;%d&quot;, &amp;amp;tc);
+	precalc();
+	while (tc--) {
+		int n, p, l; scanf(&quot;%d %d %d&quot;, &amp;amp;n, &amp;amp;p, &amp;amp;l);
+		string seed = &quot;FX&quot;;
+		for (int skip = p - 1; skip &amp;lt; p + l - 1; ++skip)
+			printf(&quot;%c&quot;, expand(seed, n, skip));
+		printf(&quot;\n&quot;);
+	}
+
+	return 0;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">드래곤 커브</summary></entry></feed>
