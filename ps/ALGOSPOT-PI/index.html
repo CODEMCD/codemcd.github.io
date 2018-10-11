@@ -9,31 +9,29 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[ALGOSPOT]DRAGON - CODEMCD’s Tech Blog</title>
-<meta name="description" content="Dragon">
+<!-- begin _includes/seo.html --><title>[ALGOSPOT]PI - CODEMCD’s Tech Blog</title>
+<meta name="description" content="PI">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech Blog">
-<meta property="og:title" content="[ALGOSPOT]DRAGON">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/">
+<meta property="og:title" content="[ALGOSPOT]PI">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PI/">
 
 
-  <meta property="og:description" content="Dragon">
-
-
-
+  <meta property="og:description" content="PI">
 
 
 
 
-  <meta property="article:published_time" content="2018-10-09T00:00:00+09:00">
 
 
 
-  <meta property="article:modified_time" content="2018-10-09T18:04:00+09:00">
+  <meta property="article:published_time" content="2018-10-11T00:00:00+09:00">
+
+
 
 
 
@@ -42,7 +40,7 @@
   
 
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/">
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PI/">
 
 
 
@@ -273,15 +271,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[ALGOSPOT]DRAGON">
-    <meta itemprop="description" content="Dragon">
-    <meta itemprop="datePublished" content="October 09, 2018">
-    <meta itemprop="dateModified" content="October 09, 2018">
+    <meta itemprop="headline" content="[ALGOSPOT]PI">
+    <meta itemprop="description" content="PI">
+    <meta itemprop="datePublished" content="October 11, 2018">
+    
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[ALGOSPOT]DRAGON
+          <h1 id="page-title" class="page__title" itemprop="headline">[ALGOSPOT]PI
 </h1>
           
         </header>
@@ -289,120 +287,202 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="dragon">Dragon</h1>
+        <h1 id="pi">PI</h1>
 
 <h2 id="문제-링크">문제 링크</h2>
 <ul>
-  <li><a href="https://algospot.com/judge/problem/read/DRAGON">https://algospot.com/judge/problem/read/DRAGON</a></li>
+  <li><a href="https://algospot.com/judge/problem/read/PI">https://algospot.com/judge/problem/read/PI</a></li>
 </ul>
 
-<h2 id="코드-분석">코드 분석</h2>
-<h3 id="k번째-답을-계산하는-동적-계획법">k번째 답을 계산하는 동적 계획법</h3>
-<ul>
-  <li>더 간단한 문제 풀기
+<h2 id="테스트-케이스">테스트 케이스</h2>
+<ol>
+  <li>기본 테스트 케이스
     <ul>
-      <li>드래곤 커브 문자열의 일부를 계산하는 문제 대신 문자열 중 주어진 위치의 한 글자만을 계산하는 문제로 바꾼다.</li>
-      <li>이 문제를 빠르게 풀 수 있다면 l번 반복만 한다면 문제를 해결할 수 있다.</li>
-      <li>결과적으로, n세대 드래곤 커브의 p번째 글자를 찾는 것으로 변경한다.</li>
-    </ul>
-  </li>
-  <li>p번째 글자를 찾는 함수
-    <ul>
-      <li>먼저 전체 드래곤 커브 문자열을 생성하는 알고리즘을 재귀적인 방법으로 구현한다.</li>
-      <li><code class="highlighter-rouge">curve(seed, generations)</code> = 초기 문자열 seed를 generations세대 진화시킨 결과를 출력한다.</li>
-      <li>위 함수에서 p번째 글자만을 출력하기 위해 skip 전역변수(건너뛰어야 하는 글자 수)를 두어, 문자열 혹은 문자를 출력할 때마다 skip과 출력할 부분의 길이를 비교한다.</li>
-    </ul>
-  </li>
-  <li>계산 결과 미리 계산하기(동적 계획법)
-    <ul>
-      <li>p번째 글자를 출력하는 재귀 호출 코드를 최적화하려면, 재귀 호출 때마다 몇 글자를 출력할지를 미리 알고 skip과 이 값을 비교할 수 있어야 한다.</li>
-      <li>genrations 세대 값의 크기에 상관 없이, 이전 세대의 드래곤 커브를 계속 유지하며 확장하기 때문에 skip 값의 길이 만큼의 generations 세대까지만 가면 된다.</li>
-      <li><code class="highlighter-rouge">curve(seed, generations)</code>함수에서 seed는 ‘X+TF’ 혹은 ‘FX-Y’로 확장하기 때문에 간단히 동적 계획법 알고리즘을 만들 수 있다.
-        <ul>
-          <li>xLength(n) = 문자열 “X”를 n세대  진화시킨 결과의 길이 반환</li>
-          <li>yLength(n) = 문자열 “Y”를 n세대  진화시킨 결과의 길이 반환</li>
-          <li>xLength(n) = xLength(n - 1) + yLength(n - 1) + 2</li>
-          <li>yLength(n) = xLength(n - 1) + yLength(n - 1) + 2</li>
-          <li>최적화: length(n) = length(n - 1) * 2 + 2</li>
-        </ul>
+      <li>입력
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5
+12341234
+11111222
+12122222
+22222222
+12673939
+</code></pre></div>        </div>
+      </li>
+      <li>출력
+        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4
+2
+5
+2
+14
+</code></pre></div>        </div>
       </li>
     </ul>
   </li>
-  <li>시간 복잡도
+</ol>
+
+<h2 id="코드-분석">코드 분석</h2>
+<ul>
+  <li>동적 계획법(메모이제이션)
     <ul>
-      <li>재귀 호출 함수가 최대 n번 호출되고, 출력 길이 l의 최대 값이 50이므로, <code class="highlighter-rouge">O(n * 50)</code>이다.</li>
-      <li>결과적으로, <code class="highlighter-rouge">O(n)</code>이다.</li>
+      <li>첫 조각의 길이는 3, 4, 5 중의 하나이므로 각 경우마다 하나씩의 부분 문제를 해결한다, 이때 세 개의 부분 문제의 최적화(최소값)을 각각 구하면 전체 문제의 최적해가 된다.
+        <ol>
+          <li>길이 3인 조각의 난이도 +3글자 빼고 나머지 수열에 대한 최적해</li>
+          <li>길이 4인 조각의 난이도 +4글자 빼고 나머지 수열에 대한 최적해</li>
+          <li>길이 5인 조각의 난이도 +5글자 빼고 나머지 수열에 대한 최적해</li>
+        </ol>
+      </li>
+      <li>begin: 부분 수열의 시작 위치, memorize(): 최소 난이도를 반환하는 함수, returnLevel(): 해당 수열의 난이도를 반환하는 함수</li>
+      <li><strong><em>memorize(begin) = min(memorize(begin + L) + returnLevel(N[begin…begin + L])), L: 3 ~ 5</em></strong></li>
+    </ul>
+  </li>
+  <li>returnLevel() 함수
+    <ul>
+      <li>checkLevel() 함수
+        <ol>
+          <li>수열의 길이 3, 4, 5에 대해서만 적용할 수 있는 함수이다.</li>
+          <li>시간복잡도면에서 효율적이다. (소요시간: 24ms)</li>
+        </ol>
+      </li>
+      <li>classify() 함수
+        <ol>
+          <li>모든 수열의 길이에 대해 적용 가능하다.</li>
+          <li>시간이 오래 걸린다. (소요시간: 250ms)</li>
+        </ol>
+      </li>
     </ul>
   </li>
 </ul>
 
 <h2 id="결과-코드">결과 코드</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _CRT_SECURE_NO_WARNINGS
+<ul>
+  <li>링크:
+```
+#define _CRT_SECURE_NO_WARNINGS</li>
+</ul>
 
-#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
-#include &lt;string&gt;
-#include &lt;cassert&gt;
+<p>#include <iostream>
+#include <cstdio>
+#include <string>
+#include <cstring>
+#include <cmath>
+#include <limits.h>
 using namespace std;
-#define min(a,b) ((a) &lt; (b) ? (a) : (b))
-#define N 51
-//오버 플로 방지
-const int MAX = 1000000000 + 51;
-//length[i] = X나 Y를 i번 치환 후의 길이
-int length[N];
+#define N 10001
+#define min(a, b) ((a) &lt; (b) ? (a) : (b))
+string arr;
+const int INF = 987654321;
+int cache[N];</limits.h></cmath></cstring></string></cstdio></iostream></p>
 
-//계산 결과를 미리 계산하는 동적 계획법 알고리즘
-void precalc() {
-	length[0] = 1;
-	for (int i = 1; i &lt; N; ++i)
-		length[i] = min(MAX, length[i - 1] * 2 + 2);
-}
-
-const string EXPAND_X = "X+YF";
-const string EXPAND_Y = "FX-Y";
-
-//dragonCurve를 generations 진화시킨 결과에서 skip번째 문자를 반환한다.
-char expand(const string &amp;dragonCurve, int generations, int skip) {
-	//기저 사례
-	if (generations == 0) {
-		//assert(skip &lt; (int)dragonCurve.size());
-		return dragonCurve[skip];
-	}
-	for (int i = 0; i &lt; (int)dragonCurve.size(); ++i) {
-		//문자열이 확장되는 경우
-		if (dragonCurve[i] == 'X' || dragonCurve[i] == 'Y') {
-			if (skip &gt;= length[generations])
-				skip -= length[generations];
-			else if (dragonCurve[i] == 'X')
-				return expand(EXPAND_X, generations - 1, skip);
-			else
-				return expand(EXPAND_Y, generations - 1, skip);
-		}
-		//확장되진 않지만 건너뛰어야 할 경우
-		else if (skip &gt; 0)
-			--skip;
-		//답을 찾은 경우
-		else
-			return dragonCurve[i];
-	}
-	return '#';  //이 줄은 수행되지 않음
-}
-
-int main()
+<p>//1) arr[s]부터 size만큼 크기의 난이도를 반환
+int checkLevel(int s, int size)
 {
-	int tc; scanf("%d", &amp;tc);
-	precalc();
-	while (tc--) {
-		int n, p, l; scanf("%d %d %d", &amp;n, &amp;p, &amp;l);
-		string seed = "FX";
-		for (int skip = p - 1; skip &lt; p + l - 1; ++skip)
-			printf("%c", expand(seed, n, skip));
-		printf("\n");
+	if (size == 3) {
+		int s1, s2, s3;
+		s1 = arr[s]; s2 = arr[s + 1]; s3 = arr[s + 2];
+		if (s1 == s2 &amp;&amp; s2 == s3)
+			return 1;
+		int d1, d2;
+		d1 = s2 - s1; d2 = s3 - s2;
+		if (d1 == d2) {
+			if (d1 == 1 || d1 == -1)
+				return 2;
+			else
+				return 5;
+		}
+		if (s1 == s3)
+			return 4;
 	}
+	else if (size == 4) {
+		int s1, s2, s3, s4;
+		s1 = arr[s]; s2 = arr[s + 1]; s3 = arr[s + 2]; s4 = arr[s + 3];
+		if (s1 == s2 &amp;&amp; s2 == s3 &amp;&amp; s3 == s4)
+			return 1;
+		int d1, d2, d3;
+		d1 = s2 - s1; d2 = s3 - s2; d3 = s4 - s3;
+		if (d1 == d2 &amp;&amp; d2 == d3) {
+			if (d1 == 1 || d1 == -1)
+				return 2;
+			else
+				return 5;
+		}
+		if (s1 == s3 &amp;&amp; s2 == s4)
+			return 4;
+	}
+	else if (size == 5) {
+		int s1, s2, s3, s4, s5;
+		s1 = arr[s]; s2 = arr[s + 1]; s3 = arr[s + 2];
+		s4 = arr[s + 3]; s5 = arr[s + 4];
+		if (s1 == s2 &amp;&amp; s2 == s3 &amp;&amp; s3 == s4 &amp;&amp; s4 == s5)
+			return 1;
+		int d1, d2, d3, d4;
+		d1 = s2 - s1; d2 = s3 - s2; d3 = s4 - s3; d4 = s5 - s4;
+		if (d1 == d2 &amp;&amp; d2 == d3 &amp;&amp; d3 == d4) {
+			if (d1 == 1 || d1 == -1)
+				return 2;
+			else
+				return 5;
+		}
+		if ((s1 == s3 &amp;&amp; s3 == s5) &amp;&amp; s2 == s4)
+			return 4;
+	}
+	return 10;
+}</p>
 
-	return 0;
-}
+<p>//2) arr[a,b]구간의 난이도를 반환한다.
+int classify(int a, int b)
+{
+	//숫자 조각을 가져온다.
+	string M = arr.substr(a, b - a + 1);
+	//첫 글자만으로 이루어진 문자열과 같은으면 난이도 1
+	if (M == string(M.size(), M[0])) return 1;
+	//등차수열인지 검사한다.
+	bool progressive = true;
+	for (int i = 0; i &lt; (int)M.size() - 1; i++)
+		if (M[i + 1] - M[i] != M[1] - M[0])
+			progressive = false;
+	//등차수열이고 공차가 1 or -1 이면 난이도 2
+	if (progressive &amp;&amp; abs(M[1] - M[0]) == 1)
+		return 2;
+	//두 수가 번갈아 등장하는지 확인한다.
+	bool alternating = true;
+	for (int i = 0; i &lt; (int)M.size(); i++)
+		if (M[i] != M[i % 2])
+			alternating = false;
+	if (alternating) return 4;  //두 수가 번갈아 등장하면 난이도 4
+	if (progressive) return 5;  //공차가 1 아닌 등차수열이면 난이도 5
+	return 10;                  //이 외는 모두 난이도 10
+}</p>
+
+<p>//수열 arr[begin…]를 외우는 방법 중 난이도의 최소 합을 출력한다.
+int memorize(int begin)
+{
+	//기저 사례: 수열의 끝에 도달했을 경우
+	if (begin == arr.size()) return 0;
+	//메모이제이션
+	int &amp;ret = cache[begin];
+	if (ret != -1) return ret;
+	ret = INF;
+	for (int L = 3; L &lt;= 5; ++L) {
+		if (begin + L &lt;= (int)arr.size())
+			ret = min(ret, memorize(begin + L) + checkLevel(begin, L));              //방법 1)
+			//ret = min(ret, memorize(begin + L) + classify(begin, begin + L - 1));  //방법 2)
+	}
+	return ret;
+}</p>
+
+<p>int main(void)
+{
+	int tc;
+	scanf(“%d”, &amp;tc);
+	while (tc–) {
+		memset(cache, -1, sizeof(cache));
+		arr.clear();
+		cin » arr;
+		printf(“%d\n”, memorize(0));
+	}</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>return 0; } ```
 </code></pre></div></div>
+
 <p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
@@ -452,7 +532,7 @@ int main()
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-09">October 09, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-11T00:00:00+09:00">October 11, 2018</time></p>
         
       </footer>
 
@@ -461,23 +541,24 @@ int main()
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BALGOSPOT%5DDRAGON%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BALGOSPOT%5DPI%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-PI%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-PI%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-PI%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-PI%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="#" class="pagination--pager disabled">이전</a>
+      <a href="/pages/CODEMCD/ps/ALGOSPOT-PACKING/" class="pagination--pager" title="[ALGOSPOT]PACKING
+">이전</a>
     
     
-      <a href="/pages/CODEMCD/ps/ALGOSPOT-ARCTIC/" class="pagination--pager" title="[ALGOSPOT]ARCTIC
+      <a href="/pages/CODEMCD/ps/ALGOSPOT-PICNIC/" class="pagination--pager" title="[ALGOSPOT]PICNIC
 ">다음</a>
     
   </nav>
@@ -697,8 +778,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/ps/ALGOSPOT-DRAGON"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PI/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/ps/ALGOSPOT-PI"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');

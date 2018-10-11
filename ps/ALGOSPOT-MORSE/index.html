@@ -9,31 +9,29 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[ALGOSPOT]DRAGON - CODEMCD’s Tech Blog</title>
-<meta name="description" content="Dragon">
+<!-- begin _includes/seo.html --><title>[ALGOSPOT]MORSE - CODEMCD’s Tech Blog</title>
+<meta name="description" content="모스 부호 사전">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech Blog">
-<meta property="og:title" content="[ALGOSPOT]DRAGON">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/">
+<meta property="og:title" content="[ALGOSPOT]MORSE">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-MORSE/">
 
 
-  <meta property="og:description" content="Dragon">
-
-
-
+  <meta property="og:description" content="모스 부호 사전">
 
 
 
 
-  <meta property="article:published_time" content="2018-10-09T00:00:00+09:00">
 
 
 
-  <meta property="article:modified_time" content="2018-10-09T18:04:00+09:00">
+  <meta property="article:published_time" content="2018-10-11T00:00:00+09:00">
+
+
 
 
 
@@ -42,7 +40,7 @@
   
 
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/">
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-MORSE/">
 
 
 
@@ -273,15 +271,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[ALGOSPOT]DRAGON">
-    <meta itemprop="description" content="Dragon">
-    <meta itemprop="datePublished" content="October 09, 2018">
-    <meta itemprop="dateModified" content="October 09, 2018">
+    <meta itemprop="headline" content="[ALGOSPOT]MORSE">
+    <meta itemprop="description" content="모스 부호 사전">
+    <meta itemprop="datePublished" content="October 11, 2018">
+    
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[ALGOSPOT]DRAGON
+          <h1 id="page-title" class="page__title" itemprop="headline">[ALGOSPOT]MORSE
 </h1>
           
         </header>
@@ -289,49 +287,82 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="dragon">Dragon</h1>
+        <h1 id="모스-부호-사전">모스 부호 사전</h1>
 
 <h2 id="문제-링크">문제 링크</h2>
 <ul>
-  <li><a href="https://algospot.com/judge/problem/read/DRAGON">https://algospot.com/judge/problem/read/DRAGON</a></li>
+  <li>K번째 답 계산하기</li>
+  <li><a href="https://algospot.com/judge/problem/read/MORSE">https://algospot.com/judge/problem/read/MORSE</a></li>
 </ul>
 
 <h2 id="코드-분석">코드 분석</h2>
-<h3 id="k번째-답을-계산하는-동적-계획법">k번째 답을 계산하는 동적 계획법</h3>
+<h3 id="1-완전-탐색">1. 완전 탐색</h3>
 <ul>
-  <li>더 간단한 문제 풀기
+  <li>장점인 신호가 단점인 신호보다 사전순으로 항상 앞으로 오는 모든 신호 만들기
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//s: 지금까지 만든 신호
+//n: 더 필요한 '-'의 개수
+//m: 더 필요한 'o'의 개수
+void generate(int n, int m, string s) {
+  //기저 사례: n = m = 0
+  if (n == 0 &amp;&amp; m == 0) {
+      if (skip == 0) cout &lt;&lt; s &lt;&lt; endl;
+      --skip;
+      return;
+  }
+  if (bino[n + m][n] &lt;= skip) {
+      skip -= bino[n + m][n];
+      return;
+  }
+  if (n &gt; 0) generate(n - 1, m, s + "-");
+  if (m &gt; 0) generate(n, m - 1, s + "o");
+}
+</code></pre></div>    </div>
+  </li>
+  <li>k - 1개 건너뛰기
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//skip개를 건너뛰고 출력한다.
+void generate(int n, int m, string s) {
+  //기저 사례: skip &lt; 0 (skip=-1이란 것은 이미 k번째 신호가 출력됨)
+  if (skip &lt; 0) return;
+  //기저 사례: n = m = 0
+  if (n == 0 &amp;&amp; m == 0) {
+      //더 건너뛸 신호가 없는 경우
+      if (skip == 0) cout &lt;&lt; s &lt;&lt; endl;
+      --skip;
+      return;
+  }
+  if (bino[n + m][n] &lt;= skip) {
+      skip -= bino[n + m][n];
+      return;
+  }
+  if (n &gt; 0) generate(n - 1, m, s + "-");
+  if (m &gt; 0) generate(n, m - 1, s + "o");
+}
+</code></pre></div>    </div>
+  </li>
+  <li>전역 변수 skip은 k - 1로 초기화해야 한다.</li>
+  <li>시간 복잡도
     <ul>
-      <li>드래곤 커브 문자열의 일부를 계산하는 문제 대신 문자열 중 주어진 위치의 한 글자만을 계산하는 문제로 바꾼다.</li>
-      <li>이 문제를 빠르게 풀 수 있다면 l번 반복만 한다면 문제를 해결할 수 있다.</li>
-      <li>결과적으로, n세대 드래곤 커브의 p번째 글자를 찾는 것으로 변경한다.</li>
+      <li>n, m의 최대 크기는 각각 100이다.</li>
+      <li>모든 경우의 수는 이항 계수 <code class="highlighter-rouge">C(n + m, n)</code>이므로 <code class="highlighter-rouge">C(200, 100)</code>이다. 이는 시간내에 절대 계산할 수 없다.</li>
     </ul>
   </li>
-  <li>p번째 글자를 찾는 함수
+</ul>
+
+<h3 id="2-동적-계획법">2. 동적 계획법</h3>
+<ul>
+  <li>모든 신호를 만드는 경우의 수는 <code class="highlighter-rouge">C(n + m. n)</code>이다.</li>
+  <li>skip이 <code class="highlighter-rouge">C(n + m. n)</code>와 같거나 크다면 <code class="highlighter-rouge">generate(n, m, s)</code>가 종료될 때, skip은 <code class="highlighter-rouge">C(n + m. n)</code>만큼 줄어 있고 답은 못찾은 상태이다.</li>
+  <li>그렇다면, 함수를 실행할 필요 없이 skip만 줄여 버리고 종료해도 똑같은 결과가 나온다.</li>
+  <li>skip 변수의 오버플로를 막기 위해 문제에서 k가 항상 10억 이하라는 점을 이용한다.
     <ul>
-      <li>먼저 전체 드래곤 커브 문자열을 생성하는 알고리즘을 재귀적인 방법으로 구현한다.</li>
-      <li><code class="highlighter-rouge">curve(seed, generations)</code> = 초기 문자열 seed를 generations세대 진화시킨 결과를 출력한다.</li>
-      <li>위 함수에서 p번째 글자만을 출력하기 위해 skip 전역변수(건너뛰어야 하는 글자 수)를 두어, 문자열 혹은 문자를 출력할 때마다 skip과 출력할 부분의 길이를 비교한다.</li>
-    </ul>
-  </li>
-  <li>계산 결과 미리 계산하기(동적 계획법)
-    <ul>
-      <li>p번째 글자를 출력하는 재귀 호출 코드를 최적화하려면, 재귀 호출 때마다 몇 글자를 출력할지를 미리 알고 skip과 이 값을 비교할 수 있어야 한다.</li>
-      <li>genrations 세대 값의 크기에 상관 없이, 이전 세대의 드래곤 커브를 계속 유지하며 확장하기 때문에 skip 값의 길이 만큼의 generations 세대까지만 가면 된다.</li>
-      <li><code class="highlighter-rouge">curve(seed, generations)</code>함수에서 seed는 ‘X+TF’ 혹은 ‘FX-Y’로 확장하기 때문에 간단히 동적 계획법 알고리즘을 만들 수 있다.
-        <ul>
-          <li>xLength(n) = 문자열 “X”를 n세대  진화시킨 결과의 길이 반환</li>
-          <li>yLength(n) = 문자열 “Y”를 n세대  진화시킨 결과의 길이 반환</li>
-          <li>xLength(n) = xLength(n - 1) + yLength(n - 1) + 2</li>
-          <li>yLength(n) = xLength(n - 1) + yLength(n - 1) + 2</li>
-          <li>최적화: length(n) = length(n - 1) * 2 + 2</li>
-        </ul>
-      </li>
+      <li>이항계수 계산을 <code class="highlighter-rouge">C(n, r)</code>대신 <code class="highlighter-rouge">min( C(n, r), 10^9 )</code>으로 한다.</li>
     </ul>
   </li>
   <li>시간 복잡도
     <ul>
-      <li>재귀 호출 함수가 최대 n번 호출되고, 출력 길이 l의 최대 값이 50이므로, <code class="highlighter-rouge">O(n * 50)</code>이다.</li>
-      <li>결과적으로, <code class="highlighter-rouge">O(n)</code>이다.</li>
+      <li><code class="highlighter-rouge">generate()</code> 함수는 k번째 신호 외에는 어떤 신호도 만들지 않는다. =&gt; <code class="highlighter-rouge">O(n + m)</code></li>
+      <li><code class="highlighter-rouge">calcBino()</code> 함수는 이항 계수를 미리 모두 계산하는 함수이다. =&gt; <code class="highlighter-rouge">O(nm)</code></li>
+      <li>결과적으로, 총 시간 복잡도는 <code class="highlighter-rouge">O(nm)</code>이다.</li>
     </ul>
   </li>
 </ul>
@@ -341,68 +372,64 @@
 
 #include &lt;iostream&gt;
 #include &lt;cstdio&gt;
+#include &lt;cstring&gt;
 #include &lt;string&gt;
-#include &lt;cassert&gt;
 using namespace std;
 #define min(a,b) ((a) &lt; (b) ? (a) : (b))
-#define N 51
-//오버 플로 방지
-const int MAX = 1000000000 + 51;
-//length[i] = X나 Y를 i번 치환 후의 길이
-int length[N];
+#define N 201
+//k의 최대값  + 100, 오버플로를 막기 위해 이보다 큰 값은 구하지 않는다.
+const int M = 1000000000 + 100;
+int bino[N][N];
+int skip;
 
-//계산 결과를 미리 계산하는 동적 계획법 알고리즘
-void precalc() {
-	length[0] = 1;
-	for (int i = 1; i &lt; N; ++i)
-		length[i] = min(MAX, length[i - 1] * 2 + 2);
+//필요한 모든 이항계수를 미리 계산해 둔다.
+void calcBino() {
+	memset(bino, 0, sizeof(bino));
+	for (int i = 0; i &lt; N; i++) {
+		bino[i][0] = bino[i][i] = 1;
+		for (int j = 1; j &lt; i; j++)
+			bino[i][j] = min(M, bino[i - 1][j - 1] + bino[i - 1][j]);
+	}
 }
 
-const string EXPAND_X = "X+YF";
-const string EXPAND_Y = "FX-Y";
-
-//dragonCurve를 generations 진화시킨 결과에서 skip번째 문자를 반환한다.
-char expand(const string &amp;dragonCurve, int generations, int skip) {
-	//기저 사례
-	if (generations == 0) {
-		//assert(skip &lt; (int)dragonCurve.size());
-		return dragonCurve[skip];
+//s: 지금까지 만든 신호
+//n: 더 필요한 '-'의 개수
+//m: 더 필요한 'o'의 개수
+//skip개를 건너뛰고 출력한다.
+void generate(int n, int m, string s) {
+	//기저 사례: skip &lt; 0 (skip=-1이란 것은 이미 k번째 신호가 출력됨)
+	if (skip &lt; 0) return;
+	//기저 사례: n = m = 0
+	if (n == 0 &amp;&amp; m == 0) {
+		//더 건너뛸 신호가 없는 경우
+		if (skip == 0) cout &lt;&lt; s &lt;&lt; endl;
+		--skip;
+		return;
 	}
-	for (int i = 0; i &lt; (int)dragonCurve.size(); ++i) {
-		//문자열이 확장되는 경우
-		if (dragonCurve[i] == 'X' || dragonCurve[i] == 'Y') {
-			if (skip &gt;= length[generations])
-				skip -= length[generations];
-			else if (dragonCurve[i] == 'X')
-				return expand(EXPAND_X, generations - 1, skip);
-			else
-				return expand(EXPAND_Y, generations - 1, skip);
-		}
-		//확장되진 않지만 건너뛰어야 할 경우
-		else if (skip &gt; 0)
-			--skip;
-		//답을 찾은 경우
-		else
-			return dragonCurve[i];
+	if (bino[n + m][n] &lt;= skip) {
+		skip -= bino[n + m][n];
+		return;
 	}
-	return '#';  //이 줄은 수행되지 않음
+	if (n &gt; 0) generate(n - 1, m, s + "-");
+	if (m &gt; 0) generate(n, m - 1, s + "o");
 }
 
 int main()
 {
 	int tc; scanf("%d", &amp;tc);
-	precalc();
+	calcBino();
 	while (tc--) {
-		int n, p, l; scanf("%d %d %d", &amp;n, &amp;p, &amp;l);
-		string seed = "FX";
-		for (int skip = p - 1; skip &lt; p + l - 1; ++skip)
-			printf("%c", expand(seed, n, skip));
-		printf("\n");
+		int n, m, k; scanf("%d %d %d", &amp;n, &amp;m, &amp;k);
+		string s;
+		//skip 초기화
+		skip = k - 1;
+		generate(n, m, s);
 	}
 
 	return 0;
 }
 </code></pre></div></div>
+
 <p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
@@ -452,7 +479,7 @@ int main()
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-09">October 09, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-11T00:00:00+09:00">October 11, 2018</time></p>
         
       </footer>
 
@@ -461,23 +488,24 @@ int main()
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BALGOSPOT%5DDRAGON%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BALGOSPOT%5DMORSE%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-MORSE%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-MORSE%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-MORSE%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-MORSE%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="#" class="pagination--pager disabled">이전</a>
+      <a href="/pages/CODEMCD/ps/ALGOSPOT-LIS/" class="pagination--pager" title="[ALGOSPOT]LIS
+">이전</a>
     
     
-      <a href="/pages/CODEMCD/ps/ALGOSPOT-ARCTIC/" class="pagination--pager" title="[ALGOSPOT]ARCTIC
+      <a href="/pages/CODEMCD/ps/ALGOSPOT-PACKING/" class="pagination--pager" title="[ALGOSPOT]PACKING
 ">다음</a>
     
   </nav>
@@ -697,8 +725,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/ps/ALGOSPOT-DRAGON"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-MORSE/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/ps/ALGOSPOT-MORSE"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');

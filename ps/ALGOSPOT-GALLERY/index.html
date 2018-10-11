@@ -9,31 +9,29 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[ALGOSPOT]DRAGON - CODEMCD’s Tech Blog</title>
-<meta name="description" content="Dragon">
+<!-- begin _includes/seo.html --><title>[ALGOSPOT]GALLERY - CODEMCD’s Tech Blog</title>
+<meta name="description" content="감시 카메라 설치">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech Blog">
-<meta property="og:title" content="[ALGOSPOT]DRAGON">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/">
+<meta property="og:title" content="[ALGOSPOT]GALLERY">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-GALLERY/">
 
 
-  <meta property="og:description" content="Dragon">
-
-
-
+  <meta property="og:description" content="감시 카메라 설치">
 
 
 
 
-  <meta property="article:published_time" content="2018-10-09T00:00:00+09:00">
 
 
 
-  <meta property="article:modified_time" content="2018-10-09T18:04:00+09:00">
+  <meta property="article:published_time" content="2018-10-11T00:00:00+09:00">
+
+
 
 
 
@@ -42,7 +40,7 @@
   
 
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/">
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-GALLERY/">
 
 
 
@@ -273,15 +271,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[ALGOSPOT]DRAGON">
-    <meta itemprop="description" content="Dragon">
-    <meta itemprop="datePublished" content="October 09, 2018">
-    <meta itemprop="dateModified" content="October 09, 2018">
+    <meta itemprop="headline" content="[ALGOSPOT]GALLERY">
+    <meta itemprop="description" content="감시 카메라 설치">
+    <meta itemprop="datePublished" content="October 11, 2018">
+    
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[ALGOSPOT]DRAGON
+          <h1 id="page-title" class="page__title" itemprop="headline">[ALGOSPOT]GALLERY
 </h1>
           
         </header>
@@ -289,120 +287,145 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="dragon">Dragon</h1>
+        <h1 id="감시-카메라-설치">감시 카메라 설치</h1>
 
 <h2 id="문제-링크">문제 링크</h2>
 <ul>
-  <li><a href="https://algospot.com/judge/problem/read/DRAGON">https://algospot.com/judge/problem/read/DRAGON</a></li>
+  <li><a href="https://algospot.com/judge/problem/read/GALLERY">https://algospot.com/judge/problem/read/GALLERY</a></li>
 </ul>
 
 <h2 id="코드-분석">코드 분석</h2>
-<h3 id="k번째-답을-계산하는-동적-계획법">k번째 답을 계산하는 동적 계획법</h3>
+<h3 id="루트-없는-트리의-지배-집합-찾기">루트 없는 트리의 지배 집합 찾기</h3>
 <ul>
-  <li>더 간단한 문제 풀기
+  <li>지배 집합(domination set): 각 정점이 자기 자신과 모든 인접한 정점들을 지배한다고 할때, 그래프의 모든 정점을 지배하는 정점들의 부분집합을 그래프의 지배 집합이라고 한다.
     <ul>
-      <li>드래곤 커브 문자열의 일부를 계산하는 문제 대신 문자열 중 주어진 위치의 한 글자만을 계산하는 문제로 바꾼다.</li>
-      <li>이 문제를 빠르게 풀 수 있다면 l번 반복만 한다면 문제를 해결할 수 있다.</li>
-      <li>결과적으로, n세대 드래곤 커브의 p번째 글자를 찾는 것으로 변경한다.</li>
-    </ul>
-  </li>
-  <li>p번째 글자를 찾는 함수
-    <ul>
-      <li>먼저 전체 드래곤 커브 문자열을 생성하는 알고리즘을 재귀적인 방법으로 구현한다.</li>
-      <li><code class="highlighter-rouge">curve(seed, generations)</code> = 초기 문자열 seed를 generations세대 진화시킨 결과를 출력한다.</li>
-      <li>위 함수에서 p번째 글자만을 출력하기 위해 skip 전역변수(건너뛰어야 하는 글자 수)를 두어, 문자열 혹은 문자를 출력할 때마다 skip과 출력할 부분의 길이를 비교한다.</li>
-    </ul>
-  </li>
-  <li>계산 결과 미리 계산하기(동적 계획법)
-    <ul>
-      <li>p번째 글자를 출력하는 재귀 호출 코드를 최적화하려면, 재귀 호출 때마다 몇 글자를 출력할지를 미리 알고 skip과 이 값을 비교할 수 있어야 한다.</li>
-      <li>genrations 세대 값의 크기에 상관 없이, 이전 세대의 드래곤 커브를 계속 유지하며 확장하기 때문에 skip 값의 길이 만큼의 generations 세대까지만 가면 된다.</li>
-      <li><code class="highlighter-rouge">curve(seed, generations)</code>함수에서 seed는 ‘X+TF’ 혹은 ‘FX-Y’로 확장하기 때문에 간단히 동적 계획법 알고리즘을 만들 수 있다.
-        <ul>
-          <li>xLength(n) = 문자열 “X”를 n세대  진화시킨 결과의 길이 반환</li>
-          <li>yLength(n) = 문자열 “Y”를 n세대  진화시킨 결과의 길이 반환</li>
-          <li>xLength(n) = xLength(n - 1) + yLength(n - 1) + 2</li>
-          <li>yLength(n) = xLength(n - 1) + yLength(n - 1) + 2</li>
-          <li>최적화: length(n) = length(n - 1) * 2 + 2</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>시간 복잡도
-    <ul>
-      <li>재귀 호출 함수가 최대 n번 호출되고, 출력 길이 l의 최대 값이 50이므로, <code class="highlighter-rouge">O(n * 50)</code>이다.</li>
-      <li>결과적으로, <code class="highlighter-rouge">O(n)</code>이다.</li>
+      <li>그래프에서 지배 집합을 찾는 문제는 NP-완전 문제 중 하나로, 정점 개수의 지수 함수에 비례한다.</li>
     </ul>
   </li>
 </ul>
 
-<h2 id="결과-코드">결과 코드</h2>
+<p><strong>1. 루트 없는 트리(unrooted tree)</strong></p>
+<ul>
+  <li>이 문제가 그래프가 아닌 루트 없는 트리라는 것을 알 수 있는 점은 문제 속에 있다.
+    <ul>
+      <li>문제 설명의 마지막에 미술관에서 한 번 지나간 갤러리를 다시 지나기 위해서는 전에 지난 복도를 반드시 지나야 한다.</li>
+      <li>사이클이 없다. = 트리로 표현할 수 있다.</li>
+    </ul>
+  </li>
+  <li>위와 같이 그래프가 트리의 형태를 하는 것을 루트 없는 트리라고 부른다.</li>
+  <li>어떤 그래프가 루트 없는 트리인지를 알기 위해서는 아래와 같은 특징 중 한 가지가 성립해야 한다.(서로 동치 관계에 있음)
+    <ul>
+      <li>정확히 V - 1개의 간선이 있다.</li>
+      <li>사이클이 존재하지 않는다.</li>
+      <li>두 정점 사이를 연결하는 단순 경로가 정확히 하나만 존재한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<p><strong>2. 루트 없는 트리 문제 풀기</strong></p>
+<ul>
+  <li>루트 없는 트리를 다루는 가장 간단한 방법은 임의의 시작점에서 깊이 우선 탐색을 수행하는 것이다.</li>
+  <li>이 결과로 얻은 깊이 탐색 스패닝 트리는 원래 그래프의 구조를 그대로 가지면서, 부모 자식 관계르르 갖는 일반적인 트리 형태가 된다.</li>
+  <li>문제 설명에서 모든 갤러리가 서로 연결되어 있을 필요가 없다고 명시되어 있기 때문에, 그래프의 각 컴포넌트는 트리 형태인 것을 알 수 있다.</li>
+</ul>
+
+<p><strong>3. 트리의 지배 집합 찾기</strong></p>
+<ul>
+  <li>트리의 최소 지배 집합을 찾는 가장 간단한 방법은 트리의 맨 아래에서부터 시작해서 위로 올라오는 것이다.
+    <ul>
+      <li>잎 노드는 부모 노드와 자기 자신밖에 지배하지 못하므로, 최소 지배 집합을 만들 수 없기 때문에 절대 선택해선 안된다.</li>
+    </ul>
+  </li>
+  <li>알고리즘 과정
+    <ul>
+      <li>잎 노드는 선택하지 않는다.</li>
+      <li>이 외의 노드에 대해, 트리의 맨 밑에서부터 올라오면서 다음과 같이 선택 여부를 결정 한다.
+        <ol>
+          <li>자기 자손 중 아직 지배당하지 않은 노드가 하나라도 있다면 현재 노드를 선택한다.</li>
+          <li>이 외의 경우는 현재 노드를 선택하지 않는다.</li>
+        </ol>
+      </li>
+    </ul>
+  </li>
+  <li>첫 번째 예제 데이터 그래프 형태</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/44188712-02266780-a15a-11e8-8635-479b2645ddfb.JPG" alt="gallery" /></p>
+
+<h2 id="구현">구현</h2>
+<ul>
+  <li><code class="highlighter-rouge">dfs(here)</code>는 here를 루트로 하는 서브트리를 방문하고, 반환하면서 해당 노드가 지배 집합의 일부인지, 다른 노드에 지배당하고 있는지, 지배당하지 않고 있는지 3가지 중 하나를 반환한다.</li>
+  <li>시간 복잡도: <code class="highlighter-rouge">O(g + h)</code></li>
+</ul>
+
+<p><strong><em>구현 코드</em></strong></p>
 <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _CRT_SECURE_NO_WARNINGS
 
 #include &lt;iostream&gt;
 #include &lt;cstdio&gt;
-#include &lt;string&gt;
-#include &lt;cassert&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+#include &lt;queue&gt;
 using namespace std;
-#define min(a,b) ((a) &lt; (b) ? (a) : (b))
-#define N 51
-//오버 플로 방지
-const int MAX = 1000000000 + 51;
-//length[i] = X나 Y를 i번 치환 후의 길이
-int length[N];
-
-//계산 결과를 미리 계산하는 동적 계획법 알고리즘
-void precalc() {
-	length[0] = 1;
-	for (int i = 1; i &lt; N; ++i)
-		length[i] = min(MAX, length[i - 1] * 2 + 2);
+#define MAX_V 1001
+int V;
+vector&lt;int&gt; adj[MAX_V];
+vector&lt;bool&gt; visited;
+const int UNWATCHED = 0;
+const int WATCHED = 1;
+const int INSTALLED = 2;
+//지금까지 설치한 카메라의 총 수
+int installed;
+//here로부터 깊이 우선 탐색을 하고, here의 정보를 반환한다.
+int dfs(int here) {
+	visited[here] = true;
+	int children[3] = { 0,0,0 }; //UNWATCHED, WATCHED, INSTALLED 정보
+	for (int i = 0; i &lt; adj[here].size(); ++i) {
+		int there = adj[here][i];
+		if (!visited[there])
+			++children[dfs(there)];
+	}
+	//자손 노드 중 감시되지 않는 노드가 있을 경우 카메라를 설치한다.
+	if (children[UNWATCHED]) {
+		++installed;
+		return INSTALLED;
+	}
+	//자손 노드 중 카메라가 설치된 노드가 있을 경우 설치할 필요가 없다.
+	if (children[INSTALLED])
+		return WATCHED;
+	return UNWATCHED;
 }
 
-const string EXPAND_X = "X+YF";
-const string EXPAND_Y = "FX-Y";
-
-//dragonCurve를 generations 진화시킨 결과에서 skip번째 문자를 반환한다.
-char expand(const string &amp;dragonCurve, int generations, int skip) {
-	//기저 사례
-	if (generations == 0) {
-		//assert(skip &lt; (int)dragonCurve.size());
-		return dragonCurve[skip];
-	}
-	for (int i = 0; i &lt; (int)dragonCurve.size(); ++i) {
-		//문자열이 확장되는 경우
-		if (dragonCurve[i] == 'X' || dragonCurve[i] == 'Y') {
-			if (skip &gt;= length[generations])
-				skip -= length[generations];
-			else if (dragonCurve[i] == 'X')
-				return expand(EXPAND_X, generations - 1, skip);
-			else
-				return expand(EXPAND_Y, generations - 1, skip);
-		}
-		//확장되진 않지만 건너뛰어야 할 경우
-		else if (skip &gt; 0)
-			--skip;
-		//답을 찾은 경우
-		else
-			return dragonCurve[i];
-	}
-	return '#';  //이 줄은 수행되지 않음
+//그래프를 감시하는데 필요한 카메라의 최소 수를 반환한다.
+int installCamera() {
+	installed = 0;
+	visited = vector&lt;bool&gt;(V, false);
+	for (int u = 0; u &lt; V; ++u)
+		if (!visited[u] &amp;&amp; dfs(u) == UNWATCHED)
+			++installed;
+	return installed;
 }
 
 int main()
 {
 	int tc; scanf("%d", &amp;tc);
-	precalc();
 	while (tc--) {
-		int n, p, l; scanf("%d %d %d", &amp;n, &amp;p, &amp;l);
-		string seed = "FX";
-		for (int skip = p - 1; skip &lt; p + l - 1; ++skip)
-			printf("%c", expand(seed, n, skip));
-		printf("\n");
+		for (int i = 0; i &lt; MAX_V; ++i)
+			adj[i].clear();
+
+		int h; scanf("%d %d", &amp;V, &amp;h);
+		for (int i = 0; i &lt; h; ++i) {
+			int s, e; scanf("%d %d", &amp;s, &amp;e);
+			adj[s].push_back(e);
+			adj[e].push_back(s);
+		}
+		printf("%d\n", installCamera());
 	}
 
 	return 0;
 }
 </code></pre></div></div>
+
 <p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
@@ -452,7 +475,7 @@ int main()
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-09">October 09, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-11T00:00:00+09:00">October 11, 2018</time></p>
         
       </footer>
 
@@ -461,23 +484,24 @@ int main()
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BALGOSPOT%5DDRAGON%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BALGOSPOT%5DGALLERY%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-GALLERY%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-GALLERY%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-GALLERY%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-GALLERY%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="#" class="pagination--pager disabled">이전</a>
+      <a href="/pages/CODEMCD/ps/ALGOSPOT-FIRETRUCKS/" class="pagination--pager" title="[ALGOSPOT]FIRETRUCKS
+">이전</a>
     
     
-      <a href="/pages/CODEMCD/ps/ALGOSPOT-ARCTIC/" class="pagination--pager" title="[ALGOSPOT]ARCTIC
+      <a href="/pages/CODEMCD/ps/ALGOSPOT-LIS/" class="pagination--pager" title="[ALGOSPOT]LIS
 ">다음</a>
     
   </nav>
@@ -697,8 +721,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/ps/ALGOSPOT-DRAGON"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-GALLERY/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/ps/ALGOSPOT-GALLERY"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');

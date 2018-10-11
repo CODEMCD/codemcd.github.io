@@ -9,31 +9,29 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[ALGOSPOT]DRAGON - CODEMCD’s Tech Blog</title>
-<meta name="description" content="Dragon">
+<!-- begin _includes/seo.html --><title>[ALGOSPOT]BOARDCOVER - CODEMCD’s Tech Blog</title>
+<meta name="description" content="BOARDCOVER">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech Blog">
-<meta property="og:title" content="[ALGOSPOT]DRAGON">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/">
+<meta property="og:title" content="[ALGOSPOT]BOARDCOVER">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-BOARDCOVER/">
 
 
-  <meta property="og:description" content="Dragon">
-
-
-
+  <meta property="og:description" content="BOARDCOVER">
 
 
 
 
-  <meta property="article:published_time" content="2018-10-09T00:00:00+09:00">
 
 
 
-  <meta property="article:modified_time" content="2018-10-09T18:04:00+09:00">
+  <meta property="article:published_time" content="2018-10-11T00:00:00+09:00">
+
+
 
 
 
@@ -42,7 +40,7 @@
   
 
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/">
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-BOARDCOVER/">
 
 
 
@@ -273,15 +271,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[ALGOSPOT]DRAGON">
-    <meta itemprop="description" content="Dragon">
-    <meta itemprop="datePublished" content="October 09, 2018">
-    <meta itemprop="dateModified" content="October 09, 2018">
+    <meta itemprop="headline" content="[ALGOSPOT]BOARDCOVER">
+    <meta itemprop="description" content="BOARDCOVER">
+    <meta itemprop="datePublished" content="October 11, 2018">
+    
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[ALGOSPOT]DRAGON
+          <h1 id="page-title" class="page__title" itemprop="headline">[ALGOSPOT]BOARDCOVER
 </h1>
           
         </header>
@@ -289,120 +287,163 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="dragon">Dragon</h1>
+        <h1 id="boardcover">BOARDCOVER</h1>
 
 <h2 id="문제-링크">문제 링크</h2>
 <ul>
-  <li><a href="https://algospot.com/judge/problem/read/DRAGON">https://algospot.com/judge/problem/read/DRAGON</a></li>
+  <li><a href="https://algospot.com/judge/problem/read/BOARDCOVER">https://algospot.com/judge/problem/read/BOARDCOVER</a></li>
 </ul>
 
-<h2 id="코드-분석">코드 분석</h2>
-<h3 id="k번째-답을-계산하는-동적-계획법">k번째 답을 계산하는 동적 계획법</h3>
+<h2 id="내-코드-분석">내 코드 분석</h2>
+<h3 id="논리-분석">논리 분석</h3>
 <ul>
-  <li>더 간단한 문제 풀기
-    <ul>
-      <li>드래곤 커브 문자열의 일부를 계산하는 문제 대신 문자열 중 주어진 위치의 한 글자만을 계산하는 문제로 바꾼다.</li>
-      <li>이 문제를 빠르게 풀 수 있다면 l번 반복만 한다면 문제를 해결할 수 있다.</li>
-      <li>결과적으로, n세대 드래곤 커브의 p번째 글자를 찾는 것으로 변경한다.</li>
-    </ul>
+  <li>한 칸에 8개의 L자 모양을 만들 수 있다.</li>
+  <li>재귀 함수를 이용하여, 전체 경우의 수를 계산한다.</li>
+  <li>하지만, 아직 재귀 함수가 익숙하지 않아 완성하지 못하였다.</li>
+  <li>재귀 함수 공부를 위해 다른 방법은 생각하지 않았다.</li>
+</ul>
+
+<h2 id="해답">해답</h2>
+<h3 id="논리-분석-1">논리 분석</h3>
+<ul>
+  <li>재귀 호출의 각 단계마다 아직 흰 칸중에서 가장 윗 줄, 가장 왼쪽 칸부터 덮도록 규칙을 정한다.</li>
+  <li>위 규칙을 적용하면, 위에서 정한 칸 이전은 모두 채워졌다는 것을 알 수 있으므로 내가 생각했던 8가지 모양이 아니라 4가지 모양이 나온다. (아래 그림 참고)</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/40338256-100041bc-5daf-11e8-98fb-4ecea329cc0a.png" alt="boardcover_l" /></p>
+
+<h3 id="코드">코드</h3>
+<ul>
+  <li>출처 : 알고리즘 문제해결전략 책
+~~~
+#define _CRT_SECURE_NO_WARNINGS</li>
+</ul>
+
+<p>#include <iostream>
+#include <cstdio>
+#include <vector>
+using namespace std;</vector></cstdio></iostream></p>
+
+<p>//주어진 칸을 덮을 수 있는 네 가지 방법
+//블록을 구성하는 세 칸의 상대적 위치 (dy, dx)의 목록(위 그림 참고)
+const int coverType[4][3][2] = {
+	{ { 0, 0 },{ 1, 0 },{ 0, 1 } },
+	{ { 0, 0 },{ 0, 1 },{ 1, 1 } },
+	{ { 0, 0 },{ 1, 0 },{ 1, 1 } },
+	{ { 0, 0 },{ 1, 0 },{ 1, -1 } }
+};
+//board의 (y, x)를 type번 방법으로 덮거나, 덮었던 블록을 없앤다.
+//delta = 1이면 덮고, -1이면 덮었던 블록을 없앤다.
+//만약 블록이 제대로 덮이지 않은 경우(게임판 밖으로 나가거나, 겹쳐지거나, 검은 칸일 때) false를 반환한다.
+bool set(vector&lt;vector<int>&gt;&amp;board, int y, int x, int type, int delta)
+{
+	bool ok = true;
+	for (int i = 0; i &lt; 3; i++) {
+		const int ny = y + coverType[type][i][0];
+		const int nx = x + coverType[type][i][1];
+		if (ny &lt; 0 || ny &gt;= (int)board.size() || nx &lt; 0 || nx &gt;= (int)board[0].size())
+			ok = false;
+		else if ((board[ny][nx] += delta) &gt; 1)
+			ok = false;
+	}
+	return ok;
+}</int></p>
+
+<p>//board의 모든 빈 칸을 덮을 수 있는 방법의 수를 반환한다.
+//board[i][j] = 1 이미 덮인 칸 혹은 검은 칸
+//board[i][j] = 0 아직 덮이지 않은 칸
+int cover(vector&lt;vector<int>&gt;&amp;board)
+{
+	//아직 채우지 못한 칸 중 가장 윗줄 왼쪽에 있는 칸을 찾는다.
+	int y = -1, x = -1;  //flag 기능을 추가하기 위해 -1로 초기화
+	for (int i = 0; i &lt; (int)board.size(); i++) {
+		for (int j = 0; j &lt; (int)board[i].size(); j++) {
+			if (board[i][j] == 0) {
+				y = i;
+				x = j;
+				break;
+			}
+		}
+		if (y != -1) break;
+	}
+	//기저 사례: 모든 칸을 채웠으면 1을 반환한다.
+	if (y == -1) return 1;
+	int ret = 0;
+	for (int type = 0; type &lt; 4; type++) {
+		//만약 board[y][x]를 type 형태로 덮을 수 있으면 재귀 호출한다.
+		if (set(board, y, x, type, 1))
+			ret += cover(board);
+		//덮었던 블록을 치운다.
+		set(board, y, x, type, -1);
+	}
+	return ret;
+}</int></p>
+
+<p>int main(void)
+{
+	int tc;
+	scanf(“%d”, &amp;tc);
+	while (tc–) {
+		vector&lt;vector<int>&gt; board;
+		vector<int> v;
+		char row[21];
+		int h, w;
+		scanf("%d %d", &amp;h, &amp;w);
+		for (int i = 0; i &lt; h; i++) {
+			scanf("%s", row);
+			for (int j = 0; j &lt; w; j++) {
+				if (row[j] == '#')
+					v.push_back(1);
+				else
+					v.push_back(0);
+			}
+			board.push_back(v);
+			v.clear();
+		}
+		/*for (int i = 0; i &lt; (int)board.size(); i++) {
+			for (int j = 0; j &lt; (int)board[i].size(); j++) {
+				printf("%d ", board[i][j]);
+			}
+			printf("\n");
+		}*/</int></int></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>	printf("%d\n", cover(board));
+}
+
+return 0; } ~~~ ### 결과 및 코드 분석 - 수행 시간: 0ms - 최대 시간 복잡도: 블록을 하나 놓을 때마다 4가지 선택지가 있다. 최대 16개의 블록을 놓기 때문에 가능한 최대 연산 수는 4^16(2^32)으로 시간내에 불가능하게 느껴진다. 하지만 6칸이 있다고 가정하면, 4^2으로 16가지 방법이 있어야 하는데 실제로 계산하면 2가지 방법밖에 없다. 이렇게 프로그램을 작성하고 직접 여러 예제를 넣어 이론과 다른 실제 시간복잡도를 계산할 수 있어야 한다.
+</code></pre></div></div>
+
+<h3 id="알아둘-점">알아둘 점</h3>
+<p>1) 재귀를 구현하는 논리 흐름
+2) 이중 Vector 함수</p>
+<ul>
+  <li>사용법 (위 main함수 참고)
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>vector&lt;vector&lt;int&gt;&gt; board;
+vector&lt;int&gt; v;
+char row[21];
+int h, w;
+scanf("%d %d", &amp;h, &amp;w);
+for (int i = 0; i &lt; h; i++) {
+      scanf("%s", row);
+      for (int j = 0; j &lt; w; j++) {
+          if (row[j] == '#')
+              v.push_back(1);
+          else
+              v.push_back(0);
+      }
+      board.push_back(v);
+      v.clear();
+}
+</code></pre></div>    </div>
   </li>
-  <li>p번째 글자를 찾는 함수
+  <li>장점
     <ul>
-      <li>먼저 전체 드래곤 커브 문자열을 생성하는 알고리즘을 재귀적인 방법으로 구현한다.</li>
-      <li><code class="highlighter-rouge">curve(seed, generations)</code> = 초기 문자열 seed를 generations세대 진화시킨 결과를 출력한다.</li>
-      <li>위 함수에서 p번째 글자만을 출력하기 위해 skip 전역변수(건너뛰어야 하는 글자 수)를 두어, 문자열 혹은 문자를 출력할 때마다 skip과 출력할 부분의 길이를 비교한다.</li>
-    </ul>
-  </li>
-  <li>계산 결과 미리 계산하기(동적 계획법)
-    <ul>
-      <li>p번째 글자를 출력하는 재귀 호출 코드를 최적화하려면, 재귀 호출 때마다 몇 글자를 출력할지를 미리 알고 skip과 이 값을 비교할 수 있어야 한다.</li>
-      <li>genrations 세대 값의 크기에 상관 없이, 이전 세대의 드래곤 커브를 계속 유지하며 확장하기 때문에 skip 값의 길이 만큼의 generations 세대까지만 가면 된다.</li>
-      <li><code class="highlighter-rouge">curve(seed, generations)</code>함수에서 seed는 ‘X+TF’ 혹은 ‘FX-Y’로 확장하기 때문에 간단히 동적 계획법 알고리즘을 만들 수 있다.
-        <ul>
-          <li>xLength(n) = 문자열 “X”를 n세대  진화시킨 결과의 길이 반환</li>
-          <li>yLength(n) = 문자열 “Y”를 n세대  진화시킨 결과의 길이 반환</li>
-          <li>xLength(n) = xLength(n - 1) + yLength(n - 1) + 2</li>
-          <li>yLength(n) = xLength(n - 1) + yLength(n - 1) + 2</li>
-          <li>최적화: length(n) = length(n - 1) * 2 + 2</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>시간 복잡도
-    <ul>
-      <li>재귀 호출 함수가 최대 n번 호출되고, 출력 길이 l의 최대 값이 50이므로, <code class="highlighter-rouge">O(n * 50)</code>이다.</li>
-      <li>결과적으로, <code class="highlighter-rouge">O(n)</code>이다.</li>
+      <li>크기를 지정하지 않고 입력을 줄 수 있다.</li>
+      <li>STL이기 때문에 효율성을 보장받을 수 있다.</li>
     </ul>
   </li>
 </ul>
 
-<h2 id="결과-코드">결과 코드</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _CRT_SECURE_NO_WARNINGS
-
-#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
-#include &lt;string&gt;
-#include &lt;cassert&gt;
-using namespace std;
-#define min(a,b) ((a) &lt; (b) ? (a) : (b))
-#define N 51
-//오버 플로 방지
-const int MAX = 1000000000 + 51;
-//length[i] = X나 Y를 i번 치환 후의 길이
-int length[N];
-
-//계산 결과를 미리 계산하는 동적 계획법 알고리즘
-void precalc() {
-	length[0] = 1;
-	for (int i = 1; i &lt; N; ++i)
-		length[i] = min(MAX, length[i - 1] * 2 + 2);
-}
-
-const string EXPAND_X = "X+YF";
-const string EXPAND_Y = "FX-Y";
-
-//dragonCurve를 generations 진화시킨 결과에서 skip번째 문자를 반환한다.
-char expand(const string &amp;dragonCurve, int generations, int skip) {
-	//기저 사례
-	if (generations == 0) {
-		//assert(skip &lt; (int)dragonCurve.size());
-		return dragonCurve[skip];
-	}
-	for (int i = 0; i &lt; (int)dragonCurve.size(); ++i) {
-		//문자열이 확장되는 경우
-		if (dragonCurve[i] == 'X' || dragonCurve[i] == 'Y') {
-			if (skip &gt;= length[generations])
-				skip -= length[generations];
-			else if (dragonCurve[i] == 'X')
-				return expand(EXPAND_X, generations - 1, skip);
-			else
-				return expand(EXPAND_Y, generations - 1, skip);
-		}
-		//확장되진 않지만 건너뛰어야 할 경우
-		else if (skip &gt; 0)
-			--skip;
-		//답을 찾은 경우
-		else
-			return dragonCurve[i];
-	}
-	return '#';  //이 줄은 수행되지 않음
-}
-
-int main()
-{
-	int tc; scanf("%d", &amp;tc);
-	precalc();
-	while (tc--) {
-		int n, p, l; scanf("%d %d %d", &amp;n, &amp;p, &amp;l);
-		string seed = "FX";
-		for (int skip = p - 1; skip &lt; p + l - 1; ++skip)
-			printf("%c", expand(seed, n, skip));
-		printf("\n");
-	}
-
-	return 0;
-}
-</code></pre></div></div>
 <p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
@@ -452,7 +493,7 @@ int main()
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-09">October 09, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-11T00:00:00+09:00">October 11, 2018</time></p>
         
       </footer>
 
@@ -461,23 +502,24 @@ int main()
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BALGOSPOT%5DDRAGON%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BALGOSPOT%5DBOARDCOVER%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-BOARDCOVER%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-BOARDCOVER%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-BOARDCOVER%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DRAGON%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-BOARDCOVER%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="#" class="pagination--pager disabled">이전</a>
+      <a href="/pages/CODEMCD/ps/ALGOSPOT-ASYMTILNG/" class="pagination--pager" title="[ALGOSPOT]ASYMTILING
+">이전</a>
     
     
-      <a href="/pages/CODEMCD/ps/ALGOSPOT-ARCTIC/" class="pagination--pager" title="[ALGOSPOT]ARCTIC
+      <a href="/pages/CODEMCD/ps/ALGOSPOT-BOGGLE/" class="pagination--pager" title="[ALGOSPOT]BOGGLE
 ">다음</a>
     
   </nav>
@@ -697,8 +739,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DRAGON/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/ps/ALGOSPOT-DRAGON"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-BOARDCOVER/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/ps/ALGOSPOT-BOARDCOVER"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
