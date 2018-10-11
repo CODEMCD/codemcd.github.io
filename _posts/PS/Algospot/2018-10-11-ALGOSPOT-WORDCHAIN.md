@@ -23,6 +23,7 @@ tags:
 ![wordchain1](https://user-images.githubusercontent.com/34755287/44067837-560a5d24-9fb2-11e8-86b2-ba00d44078ef.JPG)
 
 - 구현 코드
+
 ```
 #define N 101
 bool check[N];
