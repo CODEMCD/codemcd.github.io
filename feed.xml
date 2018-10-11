@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-10-11T22:48:37+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/</id><title type="html">CODEMCD’s Tech Blog</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[ALGOSPOT]WORDCHAIN</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN/" rel="alternate" type="text/html" title="[ALGOSPOT]WORDCHAIN" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN/">&lt;h1 id=&quot;단어-제한-끝말잇기&quot;&gt;단어 제한 끝말잇기&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-10-11T22:56:51+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/</id><title type="html">CODEMCD’s Tech Blog</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[ALGOSPOT]WORDCHAIN</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN/" rel="alternate" type="text/html" title="[ALGOSPOT]WORDCHAIN" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN/">&lt;h1 id=&quot;단어-제한-끝말잇기&quot;&gt;단어 제한 끝말잇기&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -21,16 +21,16 @@
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/44067837-560a5d24-9fb2-11e8-86b2-ba00d44078ef.JPG&quot; alt=&quot;wordchain1&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;구현 코드
-```
-#define N 101
-bool check[N];
-int adj[N][N];
-vector&lt;string&gt; sv, ans;
-int n;&lt;/string&gt;&lt;/li&gt;
+  &lt;li&gt;구현 코드&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;//행의 마지막 글자가 열의 첫 번째 글자와 일치하면 1값을 넣어,
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#define N 101
+bool check[N];
+int adj[N][N];
+vector&amp;lt;string&amp;gt; sv, ans;
+int n;
+
+//행의 마지막 글자가 열의 첫 번째 글자와 일치하면 1값을 넣어,
 //각각 단어를 이을 수 있는 지를 그래프로 표현한다.(인접 행렬)
 void makeAdj() {
 	for (int i = 0; i &amp;lt; n; ++i)
@@ -41,31 +41,31 @@ void makeAdj() {
 				if (iBackCh == jFrontCh)
 					adj[i][j] = 1;
 			}
-}&lt;/p&gt;
+}
 
-&lt;p&gt;//단어 정점을 하나씩 방문하며 경로가 되는지 검사한다.(DFS)
+//단어 정점을 하나씩 방문하며 경로가 되는지 검사한다.(DFS)
 bool dfs(int here) {
 	check[here] = true;
-	ans.push_back(sv[here]);&lt;/p&gt;
+	ans.push_back(sv[here]);
 
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;bool flag = true;
-for (int j = 0; j &amp;lt; n; ++j)
-	if (!check[j]) {
-		flag = false;
-		break;
-	}
-if (flag) return true;
+	bool flag = true;
+	for (int j = 0; j &amp;lt; n; ++j)
+		if (!check[j]) {
+			flag = false;
+			break;
+		}
+	if (flag) return true;
 
-for (int there = 0; there &amp;lt; n; ++there) {
-	if (!check[there] &amp;amp;&amp;amp; adj[here][there]) {
-		if (dfs(there)) return true;
-		check[there] = false;
+	for (int there = 0; there &amp;lt; n; ++there) {
+		if (!check[there] &amp;amp;&amp;amp; adj[here][there]) {
+			if (dfs(there)) return true;
+			check[there] = false;
+		}
 	}
+	return false;
 }
-return false; }
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;//모든 정점에서 경로를 만들 수 있는지 검사한다.
+//모든 정점에서 경로를 만들 수 있는지 검사한다.
 bool dfsAll() {
 	makeAdj();
 	for (int i = 0; i &amp;lt; n; ++i) {
@@ -75,25 +75,36 @@ bool dfsAll() {
 			return true;
 	}
 	return false;
-}&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;
-### 2. 오일러 트레일 혹은 서킷
-- 입력으로 주어진 각 단어를 정점이 아닌 간선으로 갖는 방향 그래프를 만든다.
-- 각 정점은 알파벳으로 이루어져 있고, 각 단어의 첫글자에서 마지막 글자로 가는 간선을 만든다.
-
-![wordchain2](https://user-images.githubusercontent.com/34755287/44067839-5638e540-9fb2-11e8-86a2-ed8191c53558.JPG)
-
-- 위 그림에서와 같은 그래프에서 오일러 트레일 혹은 서킷을 활용하면, 답이 될 수 있는 것을 알 수 있다.
-- 오일러 서킷 및 트레일의 자세한 내용은 링크: (추가 예정)
-- 방향 그래프에서의 오일러 서킷
-  - 무향 그래프에서는 각 정점에서ㅓ 인접하나 간선이 짝수 개여야 하지만, 방향 그래프에서는 둘 중 한 방향만 쓸 수 있기 때문에 **각 정점에 들어오는 간선의 수와 나가는 간선의 수가 같아야 한다.**
-  - 방향 그래프에서 오일러 서킷을 통해 오일러 트레일(a에서 시작, b에 도착)을 찾는 방법
-    - 간선 (b, a)를 추가 한다.
-    - 정점 a에서는 나가는 간선이 들어오는 간선보다 하나 많고, 정점 b는 들어오는 간선이 나가는 간선보다 하나 많아야 한다.
-    - 위 두 정점을 제외한 나머지 정점은 나가는 간선과 들어오는 간선의 수가 같아야 한다.
-- 구현 코드
+}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;p&gt;#define _CRT_SECURE_NO_WARNINGS&lt;/p&gt;
+
+&lt;h3 id=&quot;2-오일러-트레일-혹은-서킷&quot;&gt;2. 오일러 트레일 혹은 서킷&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;입력으로 주어진 각 단어를 정점이 아닌 간선으로 갖는 방향 그래프를 만든다.&lt;/li&gt;
+  &lt;li&gt;각 정점은 알파벳으로 이루어져 있고, 각 단어의 첫글자에서 마지막 글자로 가는 간선을 만든다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/44067839-5638e540-9fb2-11e8-86a2-ed8191c53558.JPG&quot; alt=&quot;wordchain2&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;위 그림에서와 같은 그래프에서 오일러 트레일 혹은 서킷을 활용하면, 답이 될 수 있는 것을 알 수 있다.&lt;/li&gt;
+  &lt;li&gt;오일러 서킷 및 트레일의 자세한 내용은 링크: (추가 예정)&lt;/li&gt;
+  &lt;li&gt;방향 그래프에서의 오일러 서킷
+    &lt;ul&gt;
+      &lt;li&gt;무향 그래프에서는 각 정점에서ㅓ 인접하나 간선이 짝수 개여야 하지만, 방향 그래프에서는 둘 중 한 방향만 쓸 수 있기 때문에 &lt;strong&gt;각 정점에 들어오는 간선의 수와 나가는 간선의 수가 같아야 한다.&lt;/strong&gt;&lt;/li&gt;
+      &lt;li&gt;방향 그래프에서 오일러 서킷을 통해 오일러 트레일(a에서 시작, b에 도착)을 찾는 방법
+        &lt;ul&gt;
+          &lt;li&gt;간선 (b, a)를 추가 한다.&lt;/li&gt;
+          &lt;li&gt;정점 a에서는 나가는 간선이 들어오는 간선보다 하나 많고, 정점 b는 들어오는 간선이 나가는 간선보다 하나 많아야 한다.&lt;/li&gt;
+          &lt;li&gt;위 두 정점을 제외한 나머지 정점은 나가는 간선과 들어오는 간선의 수가 같아야 한다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;구현 코드
+```
+#define _CRT_SECURE_NO_WARNINGS&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;p&gt;#include &lt;iostream&gt;
 #include &lt;cstdio&gt;
@@ -235,75 +246,79 @@ nurse
 이때 w는 pos+1이후를 패턴 w’으로 하고, s의 pos + skip(현재 인덱스(pos) 이후 문자열 끝까지) 이후를 문자열 s’로 하여 match(w’, s’)로
 재귀 호출했을 때 답이 하나라도 참이면 대응 가능하다.&lt;/p&gt;
   &lt;/li&gt;
-  &lt;li&gt;DP
+  &lt;li&gt;
+    &lt;p&gt;DP&lt;/p&gt;
     &lt;ul&gt;
       &lt;li&gt;w와 s는 각각 최대 101개이다.&lt;/li&gt;
       &lt;li&gt;match()가 &lt;code class=&quot;highlighter-rouge&quot;&gt;101 * 101 = 10201&lt;/code&gt;번 이상 호출되었다면 비둘기집의 원리에 따라 어떤 부분 문제가 반드시 여러 번 계산되고 있다는 뜻이다.&lt;/li&gt;
       &lt;li&gt;중복되는 계산은 메모이제이션을 사용하여 해결 가능하다.&lt;/li&gt;
-      &lt;li&gt;w는 항상 전체 패턴 W의 접미사이기 때문에 w의 길이가 결정되면 w 또한 결정된다. 이를 이용하여 101 X 101 크기의 배열에 모든 부분 문제를 저장할 수 있다.
-        &lt;h2 id=&quot;결과-코드&quot;&gt;결과 코드&lt;/h2&gt;
-      &lt;/li&gt;
+      &lt;li&gt;w는 항상 전체 패턴 W의 접미사이기 때문에 w의 길이가 결정되면 w 또한 결정된다. 이를 이용하여 101 X 101 크기의 배열에 모든 부분 문제를 저장할 수 있다.&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;완전 탐색
-```
-#define _CRT_SECURE_NO_WARNINGS&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
-#include &lt;vector&gt;
-#include &lt;string&gt;
-#include &lt;algorithm&gt;
+&lt;h2 id=&quot;결과-코드&quot;&gt;결과 코드&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;완전 탐색&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;#define _CRT_SECURE_NO_WARNINGS
+
+#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;string&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
 using namespace std;
 #define N 1001
-vector&lt;string&gt; res;&lt;/string&gt;&lt;/algorithm&gt;&lt;/string&gt;&lt;/vector&gt;&lt;/cstdio&gt;&lt;/iostream&gt;&lt;/p&gt;
+vector&amp;lt;string&amp;gt; res;
 
-&lt;p&gt;//와일드카드 패턴 w가 문자열 s에 대응되는지 여부를 반환한다.
+//와일드카드 패턴 w가 문자열 s에 대응되는지 여부를 반환한다.
 bool match(const string &amp;amp;w, const string &amp;amp;s)
 {
 	//w[pos]와 s[pos]를 맞춰나간다.
 	int pos = 0;
 	while (pos &amp;lt; (int)s.size() &amp;amp;&amp;amp; pos &amp;lt; (int)w.size() &amp;amp;&amp;amp;
-		(w[pos] == ‘?’ || w[pos] == s[pos]))
+		(w[pos] == '?' || w[pos] == s[pos]))
 		++pos;
 	//더이상 대응할 수 없으면 왜 while문이 끝났는지 확인한다.
 	//2. 패턴 끝에 도달해서 끝난 경우: 문자열도 끝났어야 대응됨
 	if (pos == w.size())
 		return pos == s.size();
-	//4. &lt;em&gt;를 만나서 끝난 경우: *에 몇 글자를 대응해야 할지 재귀 호출하면서 확인한다.
-	if (w[pos] == ‘&lt;/em&gt;’)
+	//4. *를 만나서 끝난 경우: *에 몇 글자를 대응해야 할지 재귀 호출하면서 확인한다.
+	if (w[pos] == '*')
 		for (int skip = 0; pos + skip &amp;lt;= (int)s.size(); ++skip)
 			//하나라도 대응되는 것이 있으면 TRUE 반환
 			if (match(w.substr(pos + 1), s.substr(pos + skip)))
 				return true;
 	//이 외의 경우에는 모두 대응되지 않는다.
 	return false;
-}&lt;/p&gt;
-
-&lt;p&gt;int main(void)
-{
-	int tc;
-	scanf(“%d”, &amp;amp;tc);
-	while (tc–) {
-		string wild;
-		cin » wild;
-		int n;
-		scanf(“%d”, &amp;amp;n);
-		while (n–) {
-			string file;
-			cin » file;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;		if (match(wild, file))
-			res.push_back(file);
-	}
-	sort(res.begin(), res.end());
-	for (int i = 0; i &amp;lt; (int)res.size(); i++)
-		cout &amp;lt;&amp;lt; res[i] &amp;lt;&amp;lt; endl;
-	res.clear();
 }
 
-return 0; } ```
+int main(void)
+{
+	int tc;
+	scanf(&quot;%d&quot;, &amp;amp;tc);
+	while (tc--) {
+		string wild;
+		cin &amp;gt;&amp;gt; wild;
+		int n;
+		scanf(&quot;%d&quot;, &amp;amp;n);
+		while (n--) {
+			string file;
+			cin &amp;gt;&amp;gt; file;
+
+			if (match(wild, file))
+				res.push_back(file);
+		}
+		sort(res.begin(), res.end());
+		for (int i = 0; i &amp;lt; (int)res.size(); i++)
+			cout &amp;lt;&amp;lt; res[i] &amp;lt;&amp;lt; endl;
+		res.clear();
+	}
+
+	return 0;
+}
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;ul&gt;

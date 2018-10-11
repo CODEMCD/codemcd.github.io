@@ -310,16 +310,16 @@
 <p><img src="https://user-images.githubusercontent.com/34755287/44067837-560a5d24-9fb2-11e8-86b2-ba00d44078ef.JPG" alt="wordchain1" /></p>
 
 <ul>
-  <li>구현 코드
-```
-#define N 101
-bool check[N];
-int adj[N][N];
-vector<string> sv, ans;
-int n;</string></li>
+  <li>구현 코드</li>
 </ul>
 
-<p>//행의 마지막 글자가 열의 첫 번째 글자와 일치하면 1값을 넣어,
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define N 101
+bool check[N];
+int adj[N][N];
+vector&lt;string&gt; sv, ans;
+int n;
+
+//행의 마지막 글자가 열의 첫 번째 글자와 일치하면 1값을 넣어,
 //각각 단어를 이을 수 있는 지를 그래프로 표현한다.(인접 행렬)
 void makeAdj() {
 	for (int i = 0; i &lt; n; ++i)
@@ -330,31 +330,31 @@ void makeAdj() {
 				if (iBackCh == jFrontCh)
 					adj[i][j] = 1;
 			}
-}</p>
+}
 
-<p>//단어 정점을 하나씩 방문하며 경로가 되는지 검사한다.(DFS)
+//단어 정점을 하나씩 방문하며 경로가 되는지 검사한다.(DFS)
 bool dfs(int here) {
 	check[here] = true;
-	ans.push_back(sv[here]);</p>
+	ans.push_back(sv[here]);
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bool flag = true;
-for (int j = 0; j &lt; n; ++j)
-	if (!check[j]) {
-		flag = false;
-		break;
-	}
-if (flag) return true;
+	bool flag = true;
+	for (int j = 0; j &lt; n; ++j)
+		if (!check[j]) {
+			flag = false;
+			break;
+		}
+	if (flag) return true;
 
-for (int there = 0; there &lt; n; ++there) {
-	if (!check[there] &amp;&amp; adj[here][there]) {
-		if (dfs(there)) return true;
-		check[there] = false;
+	for (int there = 0; there &lt; n; ++there) {
+		if (!check[there] &amp;&amp; adj[here][there]) {
+			if (dfs(there)) return true;
+			check[there] = false;
+		}
 	}
+	return false;
 }
-return false; }
-</code></pre></div></div>
 
-<p>//모든 정점에서 경로를 만들 수 있는지 검사한다.
+//모든 정점에서 경로를 만들 수 있는지 검사한다.
 bool dfsAll() {
 	makeAdj();
 	for (int i = 0; i &lt; n; ++i) {
@@ -364,25 +364,36 @@ bool dfsAll() {
 			return true;
 	}
 	return false;
-}</p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
-### 2. 오일러 트레일 혹은 서킷
-- 입력으로 주어진 각 단어를 정점이 아닌 간선으로 갖는 방향 그래프를 만든다.
-- 각 정점은 알파벳으로 이루어져 있고, 각 단어의 첫글자에서 마지막 글자로 가는 간선을 만든다.
-
-![wordchain2](https://user-images.githubusercontent.com/34755287/44067839-5638e540-9fb2-11e8-86a2-ed8191c53558.JPG)
-
-- 위 그림에서와 같은 그래프에서 오일러 트레일 혹은 서킷을 활용하면, 답이 될 수 있는 것을 알 수 있다.
-- 오일러 서킷 및 트레일의 자세한 내용은 링크: (추가 예정)
-- 방향 그래프에서의 오일러 서킷
-  - 무향 그래프에서는 각 정점에서ㅓ 인접하나 간선이 짝수 개여야 하지만, 방향 그래프에서는 둘 중 한 방향만 쓸 수 있기 때문에 **각 정점에 들어오는 간선의 수와 나가는 간선의 수가 같아야 한다.**
-  - 방향 그래프에서 오일러 서킷을 통해 오일러 트레일(a에서 시작, b에 도착)을 찾는 방법
-    - 간선 (b, a)를 추가 한다.
-    - 정점 a에서는 나가는 간선이 들어오는 간선보다 하나 많고, 정점 b는 들어오는 간선이 나가는 간선보다 하나 많아야 한다.
-    - 위 두 정점을 제외한 나머지 정점은 나가는 간선과 들어오는 간선의 수가 같아야 한다.
-- 구현 코드
+}
 </code></pre></div></div>
-<p>#define _CRT_SECURE_NO_WARNINGS</p>
+
+<h3 id="2-오일러-트레일-혹은-서킷">2. 오일러 트레일 혹은 서킷</h3>
+<ul>
+  <li>입력으로 주어진 각 단어를 정점이 아닌 간선으로 갖는 방향 그래프를 만든다.</li>
+  <li>각 정점은 알파벳으로 이루어져 있고, 각 단어의 첫글자에서 마지막 글자로 가는 간선을 만든다.</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/44067839-5638e540-9fb2-11e8-86a2-ed8191c53558.JPG" alt="wordchain2" /></p>
+
+<ul>
+  <li>위 그림에서와 같은 그래프에서 오일러 트레일 혹은 서킷을 활용하면, 답이 될 수 있는 것을 알 수 있다.</li>
+  <li>오일러 서킷 및 트레일의 자세한 내용은 링크: (추가 예정)</li>
+  <li>방향 그래프에서의 오일러 서킷
+    <ul>
+      <li>무향 그래프에서는 각 정점에서ㅓ 인접하나 간선이 짝수 개여야 하지만, 방향 그래프에서는 둘 중 한 방향만 쓸 수 있기 때문에 <strong>각 정점에 들어오는 간선의 수와 나가는 간선의 수가 같아야 한다.</strong></li>
+      <li>방향 그래프에서 오일러 서킷을 통해 오일러 트레일(a에서 시작, b에 도착)을 찾는 방법
+        <ul>
+          <li>간선 (b, a)를 추가 한다.</li>
+          <li>정점 a에서는 나가는 간선이 들어오는 간선보다 하나 많고, 정점 b는 들어오는 간선이 나가는 간선보다 하나 많아야 한다.</li>
+          <li>위 두 정점을 제외한 나머지 정점은 나가는 간선과 들어오는 간선의 수가 같아야 한다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>구현 코드
+```
+#define _CRT_SECURE_NO_WARNINGS</li>
+</ul>
 
 <p>#include <iostream>
 #include <cstdio>
