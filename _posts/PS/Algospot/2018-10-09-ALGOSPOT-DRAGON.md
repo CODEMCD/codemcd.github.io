@@ -11,7 +11,7 @@ last_modified_at: 2018-10-09T18:04+09:00
 # 드래곤 커브
 
 ## 문제 링크
-- <https://algospot.com/judge/problem/read/DRAGON>
+- [https://algospot.com/judge/problem/read/DRAGON](https://algospot.com/judge/problem/read/DRAGON)
 
 ## 코드 분석
 ### k번째 답을 계산하는 동적 계획법
@@ -104,3 +104,4 @@ int main()
 	return 0;
 }
 ```
+[위로](#드래곤커브)
