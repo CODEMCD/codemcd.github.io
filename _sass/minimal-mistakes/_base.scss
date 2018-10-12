@@ -93,7 +93,6 @@ table,
 fieldset {
   orphans: 3;
   widows: 3;
-  font-size: $type-size-7;
 }
 
 /* abbreviations */
@@ -195,11 +194,13 @@ hr {
 ul li,
 ol li {
   margin-bottom: 0.5em;
+  font-size: $type-size-7;
 }
 
 li ul,
 li ol {
   margin-top: 0.5em;
+  font-size: $type-size-7;
 }
 
 /*
