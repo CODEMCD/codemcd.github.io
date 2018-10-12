@@ -20,11 +20,11 @@ tags:
   - 이 문제 최대 크기인 100인 경우 ```100!```이므로, 시간안에 절대 해결할 수 없다.
 - 예제 그림
 
-![wordchain1](https://user-images.githubusercontent.com/34755287/44067837-560a5d24-9fb2-11e8-86b2-ba00d44078ef.JPG)
+![wordchain1](https://user-images.githubusercontent.com/34755287/46850104-7402f080-ce2d-11e8-8b50-48344ec6a7b5.JPG)
 
 - 구현 코드
 
-```
+```cpp
 #define N 101
 bool check[N];
 int adj[N][N];
@@ -83,7 +83,7 @@ bool dfsAll() {
 - 입력으로 주어진 각 단어를 정점이 아닌 간선으로 갖는 방향 그래프를 만든다.
 - 각 정점은 알파벳으로 이루어져 있고, 각 단어의 첫글자에서 마지막 글자로 가는 간선을 만든다.
 
-![wordchain2](https://user-images.githubusercontent.com/34755287/44067839-5638e540-9fb2-11e8-86a2-ed8191c53558.JPG)
+![wordchain2](https://user-images.githubusercontent.com/34755287/46850105-749b8700-ce2d-11e8-9c4a-e2836a595bfd.JPG)
 
 - 위 그림에서와 같은 그래프에서 오일러 트레일 혹은 서킷을 활용하면, 답이 될 수 있는 것을 알 수 있다.
 - 오일러 서킷 및 트레일의 자세한 내용은 링크: (추가 예정)
@@ -94,7 +94,8 @@ bool dfsAll() {
     - 정점 a에서는 나가는 간선이 들어오는 간선보다 하나 많고, 정점 b는 들어오는 간선이 나가는 간선보다 하나 많아야 한다.
     - 위 두 정점을 제외한 나머지 정점은 나가는 간선과 들어오는 간선의 수가 같아야 한다.
 - 구현 코드
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -204,6 +205,7 @@ int main()
   - 결과는 정답으로 나온다.
 - ```getEulerCircuit()```함수에서 갈 수 없는 경로를 가는 경우가 발생하여 vector에 추가하지 못하는데, ```solve()```함수에서 정답을 출력하려 하기 때문에 존재하지 않는 vector 인덱스에 접근하여 오류로 강제 종료된다.
 - 예외 테스트 케이스
+
 ```
 1
 5
@@ -214,5 +216,3 @@ new
 nurse
 ```
 - 나중에 수정 및 해결 해볼것...
-
-[HOME](https://codemcd.github.io/)
