@@ -108,7 +108,7 @@ author:
   links:
     - label: "Email"
       icon: "fas fa-fw fa-envelope-square"
-      url: https://codemcd.github.io
+      # url: https://codemcd.github.io
     - label: "Website"
       icon: "fas fa-fw fa-link"
       # url: "https://your-website.com"
@@ -121,6 +121,12 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/CODEMCD"
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: https://codemcd.github.io
+    - label: "Website"
+      icon: "fas fa-fw fa-link"
+      url: https://codemcd.github.io
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
