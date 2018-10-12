@@ -121,12 +121,12 @@ author:
     - label: "GitHub"
       icon: "fab fa-fw fa-github"
       url: "https://github.com/CODEMCD"
-    - label: "Website"
+    - label: "HOME"
       icon: "fas fa-fw fa-link"
       url: https://codemcd.github.io
-    - label: "Website"
+    - label: "CATEGORY"
       icon: "fas fa-fw fa-link"
-      url: https://codemcd.github.io
+      url: https://codemcd.github.io/categories/
     - label: "Instagram"
       icon: "fab fa-fw fa-instagram"
       # url: "https://instagram.com/"
