@@ -20,11 +20,9 @@ layout: archive
   <section id="{{ year.name }}" class="taxonomy__section">
     <h2 class="archive__subtitle">{{ year.name }}</h2>
     <div class="entries-{{ page.entries_layout | default: 'list' }}">
-		<font size="3">
       {% for post in year.items %}
         {% include archive-single.html type=page.entries_layout %}
       {% endfor %}
-	  </font>
     </div>
     <a href="#page-title" class="back-to-top">{{ site.data.ui-text[site.locale].back_to_top | default: 'Back to Top' }} &uarr;</a>
   </section>
