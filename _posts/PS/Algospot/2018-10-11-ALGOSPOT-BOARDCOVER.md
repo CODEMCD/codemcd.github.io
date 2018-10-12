@@ -24,11 +24,11 @@ tags:
 - 재귀 호출의 각 단계마다 아직 흰 칸중에서 가장 윗 줄, 가장 왼쪽 칸부터 덮도록 규칙을 정한다.
 - 위 규칙을 적용하면, 위에서 정한 칸 이전은 모두 채워졌다는 것을 알 수 있으므로 내가 생각했던 8가지 모양이 아니라 4가지 모양이 나온다. (아래 그림 참고)
 
-![boardcover_l](https://user-images.githubusercontent.com/34755287/40338256-100041bc-5daf-11e8-98fb-4ecea329cc0a.png)
+![boardcover_l](https://user-images.githubusercontent.com/34755287/46851091-4750d800-ce31-11e8-994b-706b7e20db6d.png)
 
 ### 코드
-- 출처 : 알고리즘 문제해결전략 책
-~~~
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -124,7 +124,8 @@ int main(void)
 
 	return 0;
 }
-~~~
+```
+
 ### 결과 및 코드 분석
 - 수행 시간: 0ms
 - 최대 시간 복잡도: 블록을 하나 놓을 때마다 4가지 선택지가 있다. 최대 16개의 블록을 놓기 때문에 가능한 최대 연산 수는 4^16(2^32)으로
@@ -135,7 +136,8 @@ int main(void)
 1) 재귀를 구현하는 논리 흐름
 2) 이중 Vector 함수
 - 사용법 (위 main함수 참고)
-~~~
+
+```cpp
 vector<vector<int>> board;
 vector<int> v;
 char row[21];
@@ -152,10 +154,8 @@ for (int i = 0; i < h; i++) {
 		board.push_back(v);
 		v.clear();
 }
-~~~
+```
+
 - 장점
   - 크기를 지정하지 않고 입력을 줄 수 있다.
   - STL이기 때문에 효율성을 보장받을 수 있다.
-
-
-[HOME](https://codemcd.github.io/)

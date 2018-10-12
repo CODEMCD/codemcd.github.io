@@ -16,7 +16,8 @@ tags:
 ## 코드 분석
 ### 1. 완전 탐색
 - 장점인 신호가 단점인 신호보다 사전순으로 항상 앞으로 오는 모든 신호 만들기
-```
+
+```cpp
 //s: 지금까지 만든 신호
 //n: 더 필요한 '-'의 개수
 //m: 더 필요한 'o'의 개수
@@ -35,8 +36,10 @@ void generate(int n, int m, string s) {
 	if (m > 0) generate(n, m - 1, s + "o");
 }
 ```
+
 - k - 1개 건너뛰기
-```
+
+```cpp
 //skip개를 건너뛰고 출력한다.
 void generate(int n, int m, string s) {
 	//기저 사례: skip < 0 (skip=-1이란 것은 이미 k번째 신호가 출력됨)
@@ -56,6 +59,7 @@ void generate(int n, int m, string s) {
 	if (m > 0) generate(n, m - 1, s + "o");
 }
 ```
+
 - 전역 변수 skip은 k - 1로 초기화해야 한다.
 - 시간 복잡도
   - n, m의 최대 크기는 각각 100이다.
@@ -73,7 +77,8 @@ void generate(int n, int m, string s) {
   - 결과적으로, 총 시간 복잡도는 ```O(nm)```이다.
 
 ## 결과 코드
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -135,5 +140,3 @@ int main()
 	return 0;
 }
 ```
-
-[HOME](https://codemcd.github.io/)

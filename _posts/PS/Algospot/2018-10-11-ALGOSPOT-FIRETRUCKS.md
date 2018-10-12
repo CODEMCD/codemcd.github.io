@@ -21,13 +21,14 @@ tags:
 - 이 문제는 어느 소방서에서 소방차가 오느냐는 중요하지 않고, 무조건 소방서로부터 거리만 최소로 하면 된다.
 - 따라서, 모든 소방서를 임의의 한 정점으로 연결한 후, 거리를 0으로 두면 단 한번의 다익스트라 알고리즘으로 문제를 해결할 수 있다.
 
-![firetrucks](https://user-images.githubusercontent.com/34755287/44615068-946df000-a86b-11e8-903f-d9a552d5828c.JPG)
+![firetrucks](https://user-images.githubusercontent.com/34755287/46851226-c6461080-ce31-11e8-833d-103c4d08fc81.jpg)
 
 - 위 그래프는 임의의 정점을 추가한 모습이다.
 - 시간 복잡도는 다익스트라 알고리즘과 같다.
 
 ## 구현 코드
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -114,5 +115,3 @@ int main()
    return 0;
 }
 ```
-
-[HOME](https://codemcd.github.io/)

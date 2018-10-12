@@ -16,7 +16,8 @@ tags:
 **동적 계획법을 활용한 확률 계산**
 - 예제 문제: 우물의 깊이 n미터, 장마 기간 m일, 비가올 확률 50%, 달팽이는 비가 안올 때 1m 올라가고 비가 올 때 2m를 올라간다. 이때, 올라갈 수 있는
 확률을 구하라.
-```
+
+```cpp
 int cache[N][2 * N + 1];
 int n, m;
 //달팽이가 days일 동안 climbed미터를 기어올라 왔다고 할 때,
@@ -31,6 +32,7 @@ int climb(int days, int climbed)
 	return ret = climb(days + 1, climbed + 2) + climb(days + 1, climbed + 1);
 }
 ```
+
 - 완전 탐색 알고리즘에서 동적 계획법으로 순서
   - 완전 탐색
   - climb(C): 지금까지 만든 날씨 조합C를 완성해서 원소의 합이 n이상이 되도록 하는 방법의 수
@@ -50,7 +52,8 @@ int climb(int days, int climbed)
   - 위의 예제와 달리 날씨의 조합마다 출현할 확률이 달라지므로, 재귀함수 결과를 경우의 수가 아닌 직접 확률을 계산해야 한다.
 
 ## 결과 코드
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -85,5 +88,3 @@ int main(void)
 	return 0;
 }
 ```
-
-[HOME](https://codemcd.github.io/)

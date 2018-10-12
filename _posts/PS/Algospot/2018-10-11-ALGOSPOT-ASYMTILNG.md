@@ -13,11 +13,11 @@ tags:
 - https://algospot.com/judge/problem/read/ASYMTILING](https://algospot.com/judge/problem/read/ASYMTILING)
 
 ## 코드 분석
-**전체 타일링 경우의 수 - 대칭 타일링 경우의 수**
+### 전체 타일링 경우의 수 - 대칭 타일링 경우의 수
 - 전체 타일링 경우의 수는 쉽게 구할 수 있다.
 - 비대칭 타일링 경우의 수를 찾는 것 보다 대칭 타일링 경우의 수를 찾는 것이 더욱 간단하다.
 
-![asmytiling1](https://user-images.githubusercontent.com/34755287/43117548-4dc6d6a8-8f48-11e8-9171-0312a40ae87e.JPG)
+![asmytiling1](https://user-images.githubusercontent.com/34755287/46851055-26888280-ce31-11e8-804c-b970edc94f47.JPG)
 
 - n이 홀수인 경우, 위 그림의 (a)에 해당한다.
 - n이 짝수인 경우, 위 그림의 (b)와 (c)에 해당한다.
@@ -25,10 +25,10 @@ tags:
 - 두 값을 빼줄 때, mod계산에 주의하자!
 - 시간복잡도: 전체 타일링의 경우의 수 ```O(n)``` + 대칭 타일링 경우의 수 ```O(n)``` = 총 ```O(n)``` 이다.
 
-**비대칭 타일링 경우의 수**
+### 비대칭 타일링 경우의 수
 - 총 4가지 패턴의 비대칭 방법이 있다.
 
-![asmytiling2](https://user-images.githubusercontent.com/34755287/43117549-4df15b8a-8f48-11e8-8ffa-b43dcf61e26e.JPG)
+![asmytiling2](https://user-images.githubusercontent.com/34755287/46851056-27211900-ce31-11e8-8957-b8bd58dbe71f.JPG)
 
 - (a), (b): 가운데 남은 회색 부분을 덮은 방법을 재귀 호출로 찾는다. 물론 이 방법은 대칭이 아니어야 한다.
 - (c), (d): 가운데 남은 회색 부분을 덮는 방법을 찾으며, 이는 대칭이어도 상관없다.
@@ -37,7 +37,8 @@ tags:
 
 ## 결과 코드
 - 전체 타일링 경우의 수 - 대칭 타일링 경우의 수
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -79,5 +80,3 @@ int main(void)
 	return 0;
 }
 ```
-
-[HOME](https://codemcd.github.io/)

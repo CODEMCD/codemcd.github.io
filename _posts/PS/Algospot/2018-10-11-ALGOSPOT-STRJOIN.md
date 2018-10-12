@@ -25,7 +25,8 @@ tags:
 
 ## 결과 코드
 - vector로 구현한 코드
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -76,7 +77,4 @@ int main()
 
 	return 0;
 }
-
 ```
-
-[HOME](https://codemcd.github.io/)

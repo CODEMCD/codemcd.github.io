@@ -32,7 +32,8 @@ tags:
   설치한 카메라의 수가 문제에서 요구한 설치 개수 이상이 되면 참을 반환한다
 
 ## 결과 코드
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -90,5 +91,3 @@ int main()
 	return 0;
 }
 ```
-
-[HOME](https://codemcd.github.io/)

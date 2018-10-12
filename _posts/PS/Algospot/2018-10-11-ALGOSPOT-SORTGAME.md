@@ -18,13 +18,14 @@ tags:
 - 각 배열을 정점으로 표현하고, 부분 구간을 뒤집어 한 배열에서 다른 배열을 만들 수 있을 때 두 정점을 간선으로 연결한다.
 - n원소가 있을 때 이들을 배열하는 방법은 ```n!```이며, 최대 정점의 개수도 이와 같다.
 
-![sortgame](https://user-images.githubusercontent.com/34755287/44374098-85173b80-a527-11e8-8296-76aa93b430b2.JPG)
+![sortgame](https://user-images.githubusercontent.com/34755287/46851493-a236ff00-ce32-11e8-88b5-1db02f35eb1d.JPG)
 
 - 위 그래프를 넓이 우선 탐색하면서 정렬된 상태를 나타내는 정점까지의 거리를 계산한다.
 - 구현
   - 그래프를 생성하는 과정은 생략하고, 입력 배열의 부분 구간을 뒤집으면서 그때 그때 그래프의 간선을 만들어 넓이 우선 탐색을 실행한다.
   - 정점 큐의 각 원소를 정수 배열로 하며, 거리를 계산할 ```distance[]```는 정수 배열을 키(key)로 갖는 map을 사용한다.
-```
+
+```cpp
 //perm을 정렬하기 위해 필요한 최소 뒤집기 연산의 수를 계산 후 반환한다.
 int bfs(const vector<int> &perm) {
 	int n = perm.size();
@@ -74,7 +75,8 @@ int bfs(const vector<int> &perm) {
 - 입력 배열을 [0, n-1] 범위의 값으로 상대적인 크기를 유지한 상태로 바꾸면 위에서 미리 계산된 연산의 수로 답을 바로 알 수 있다.
 
 **3. 구현 코드**
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -143,5 +145,3 @@ int main()
 	return 0;
 }
 ```
-
-[HOME](https://codemcd.github.io/)

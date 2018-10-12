@@ -13,23 +13,24 @@ tags:
 - [https://algospot.com/judge/problem/read/LIS](https://algospot.com/judge/problem/read/LIS)
 
 ## 코드 분석
-- Bottom-up
-  - DP[N]: 현재 인덱스에서 가장 긴 증가 부분 수열의 길이를 저장한다.
-  - Input[N]: 입력 값을 저장한다.
-  - 현재 인덱스가 i일 때, j: (1 ~ i - 1)중 만약 ```input[i] < input[j]```이라면 DP[i] = DP[j] + 1로 갱신한다.
-  - 갱신된 값 중 가장 큰 값을 해당 인덱스의 최적해로 판단한다.
-  - 시간 복잡도: ```1 + 2 + 3 + ... + n```이므로, O(n^2)이다.
+### Bottom-up
+- DP[N]: 현재 인덱스에서 가장 긴 증가 부분 수열의 길이를 저장한다.
+- Input[N]: 입력 값을 저장한다.
+- 현재 인덱스가 i일 때, j: (1 ~ i - 1)중 만약 ```input[i] < input[j]```이라면 DP[i] = DP[j] + 1로 갱신한다.
+- 갱신된 값 중 가장 큰 값을 해당 인덱스의 최적해로 판단한다.
+- 시간 복잡도: ```1 + 2 + 3 + ... + n```이므로, O(n^2)이다.
 
-- Top-down
-	- chache[N]: 현재 인덱스에서 가장 긴 증가 부분 수열의 길이를 저장한다.(메모이제이션)
-	- S[N]: 입력 배열
-	- lis(start) = S[start]에서 시작하는 부분 증가 수열 중 최대의 길이를 반환한다.
-	- 별도의 기저 사례 없이, for문의 조건문을 이용한다.
-	- 시간 복잡도: 총 n개의 부분 문제를 갖고, 하나를 해결할 때마다 n번 연산하므로 O(n^2)이다.
+### Top-down
+- chache[N]: 현재 인덱스에서 가장 긴 증가 부분 수열의 길이를 저장한다.(메모이제이션)
+- S[N]: 입력 배열
+- lis(start) = S[start]에서 시작하는 부분 증가 수열 중 최대의 길이를 반환한다.
+- 별도의 기저 사례 없이, for문의 조건문을 이용한다.
+- 시간 복잡도: 총 n개의 부분 문제를 갖고, 하나를 해결할 때마다 n번 연산하므로 O(n^2)이다.
 
 ## 결과 코드
 - Bottom-up
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -81,7 +82,7 @@ int main(void)
 ```
 
 - Top-down
-```
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -127,5 +128,3 @@ int main(void)
 	return 0;
 }
 ```
-
-[HOME](https://codemcd.github.io/)

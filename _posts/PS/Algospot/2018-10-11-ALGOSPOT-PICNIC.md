@@ -12,8 +12,7 @@ tags:
 ## 문제 링크
 - [https://algospot.com/judge/problem/read/PICNIC](https://algospot.com/judge/problem/read/PICNIC)
 
-## 내 코드 분석
-
+## 코드 분석
 ### 논리 분석
 - 입력받은 친구가 가능한 쌍을 2차원 배열에 중복없이 저장한다. ((1,0), (0,1)도 중복으로 처리한다.)
 - 경우의 수를 체크하기 위해 가능한 쌍의 최대 크기(45)만큼 가로, 세로 크기를 갖는 2차원 배열을 선언한다.
@@ -21,7 +20,8 @@ tags:
 - 최대 시간복잡도는 O(m^2)로 예상한다. (최대 반복 수는 45 * (45 + 45) 로 예사됨)
 
 ### 구현 코드
-~~~
+
+~~~cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -153,7 +153,8 @@ int main(void)
 ## 해답
 ### 코드
 - 출처 : 알고리즘 문제해결전략 책
-~~~
+
+~~~cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -222,5 +223,3 @@ int main(void)
 ### 알아둘 점
 **1) 재귀 함수 구현 능력**
 </br>**2) 재귀 함수를 사용하기 위한 입력 형식을 만드는 방법**
-
-[HOME](https://codemcd.github.io/)

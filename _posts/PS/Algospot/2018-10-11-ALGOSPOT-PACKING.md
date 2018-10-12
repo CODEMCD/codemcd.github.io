@@ -37,7 +37,8 @@ tags:
   - 다르면, 목록에 item을 추가한다.
 
 ## 결과 코드
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -119,5 +120,3 @@ int main()
 	return 0;
 }
 ```
-
-[HOME](https://codemcd.github.io/)

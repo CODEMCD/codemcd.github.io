@@ -5,7 +5,6 @@ categories:
   - PS
 tags:
   - Algospot
-last_modified_at: 2018-10-09T18:04+09:00
 ---
 
 # Dragon
@@ -37,7 +36,8 @@ last_modified_at: 2018-10-09T18:04+09:00
   - 결과적으로, ```O(n)```이다.
 
 ## 결과 코드
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -104,4 +104,3 @@ int main()
 	return 0;
 }
 ```
-[HOME](https://codemcd.github.io/)

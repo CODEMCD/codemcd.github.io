@@ -13,26 +13,27 @@ tags:
 - [https://algospot.com/judge/problem/read/TRIANGLEPATH](https://algospot.com/judge/problem/read/TRIANGLEPATH)
 
 ## 코드 분석
-- Bottom-up
-  - DP[y][x] = (y,x)일 때, 최대합
-  - DP[0][0] = triangle[0][0]
-  - DP[y][x] = triangle[y][x] + max(DP[y-1][x], DP[y-1][x-1])
-  - 시간복잡도: O(n^2), 부분 문제 수 n^2 * 부분 문제 계산 2
+### Bottom-up
+- DP[y][x] = (y,x)일 때, 최대합
+- DP[0][0] = triangle[0][0]
+- DP[y][x] = triangle[y][x] + max(DP[y-1][x], DP[y-1][x-1])
+- 시간복잡도: O(n^2), 부분 문제 수 n^2 * 부분 문제 계산 2
 
-- Top-down + 메모이제이션
-  - y, x는 재귀 호출이 풀어야 할 부분 문제를 지정한다. 즉, 이들은 앞으로 풀어야 할 조각들에 대한 정볼르 주는 입력들이다.
-  - path(y,x)는 (y,x)에서 시작해서 맨 아래줄까지 내려가는 부분 경로의 최대합을 반환한다.
-  - 점화식: path(y,x) = trinangle[y][x] + max(path(y+1,x), path(y+1, x+1))
-  - 시간복잡도: O(n^2), 부분 문제수 n^2 * 부분 문제 계산 시간 M(상수)
+### Top-down + 메모이제이션
+- y, x는 재귀 호출이 풀어야 할 부분 문제를 지정한다. 즉, 이들은 앞으로 풀어야 할 조각들에 대한 정볼르 주는 입력들이다.
+- path(y,x)는 (y,x)에서 시작해서 맨 아래줄까지 내려가는 부분 경로의 최대합을 반환한다.
+- 점화식: path(y,x) = trinangle[y][x] + max(path(y+1,x), path(y+1, x+1))
+- 시간복잡도: O(n^2), 부분 문제수 n^2 * 부분 문제 계산 시간 M(상수)
 
-- ___최적 부분 구조___
-  - 동적 계획법의 중요한 요소로서, 어떤 문제와 분할 방식에 성립하는 조건이다.
-  - 각 부분 문제의 최적해만 있으면 전체 문제의 최적해를 쉽게 얻어낼 수 있는 경우이다.
-  - 대두분의 최적 부분 구조는 직관적으로 이해할 수 있지만, 그렇지 않은 경우는 대게 귀류법이나 대우를 이용해 증명할 수 있다.
+### ___최적 부분 구조___
+- 동적 계획법의 중요한 요소로서, 어떤 문제와 분할 방식에 성립하는 조건이다.
+- 각 부분 문제의 최적해만 있으면 전체 문제의 최적해를 쉽게 얻어낼 수 있는 경우이다.
+- 대두분의 최적 부분 구조는 직관적으로 이해할 수 있지만, 그렇지 않은 경우는 대게 귀류법이나 대우를 이용해 증명할 수 있다.
 
 ## 결과 코드
 - Bottom-up
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -94,7 +95,8 @@ int main(void)
 ```
 
 - Top-down + 메모이제이션
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -144,5 +146,3 @@ int main(void)
   - 시간: 12ms
 - Top-down + 메모이제이션
   - 시간: 8ms
-
-[HOME](https://codemcd.github.io/)

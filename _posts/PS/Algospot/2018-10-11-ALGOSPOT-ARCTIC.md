@@ -34,7 +34,8 @@ tags:
 
 ## 결과 코드
 - 최적화 문제 결정문제로 바꿔 풀기
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -116,5 +117,3 @@ int main()
 	return 0;
 }
 ```
-
-[HOME](https://codemcd.github.io/)

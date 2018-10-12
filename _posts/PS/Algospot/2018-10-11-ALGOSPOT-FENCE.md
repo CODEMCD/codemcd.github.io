@@ -21,7 +21,8 @@ tags:
   - 중요 조건: 가장 큰 직사각형은 반드시 부분 문제 경계에 있는 두 판자를 포함한다.
 
 ## 결과 코드
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -85,5 +86,3 @@ int main(void)
 	return 0;
 }
 ```
-
-[HOME](https://codemcd.github.io/)

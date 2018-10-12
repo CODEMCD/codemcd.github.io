@@ -22,7 +22,8 @@ tags:
   - 재귀 함수를 호출할 때 마다 주어진 문자열의 한 글자씩을 사용한다.
 
 ## 결과 코드
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -65,5 +66,3 @@ int main(void)
 
 ## 결과 분석
 - 수행시간: 4ms
-
-[HOME](https://codemcd.github.io/)

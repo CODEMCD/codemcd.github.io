@@ -27,7 +27,8 @@ W[u][v] = min(C_w(u, w) + C_w(w, v) + E[w])
 ```
 
 ## 구현 코드
-```
+
+```cpp
 #define _CRT_SECURE_NO_WARNINGS
 
 #include <iostream>
@@ -98,5 +99,3 @@ int main()
 	return 0;
 }
 ```
-
-[HOME](https://codemcd.github.io/)
