@@ -310,55 +310,55 @@
   <li>n원소가 있을 때 이들을 배열하는 방법은 <code class="highlighter-rouge">n!</code>이며, 최대 정점의 개수도 이와 같다.</li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/34755287/44374098-85173b80-a527-11e8-8296-76aa93b430b2.JPG" alt="sortgame" /></p>
+<p><img src="https://user-images.githubusercontent.com/34755287/46851493-a236ff00-ce32-11e8-88b5-1db02f35eb1d.JPG" alt="sortgame" /></p>
 
 <ul>
   <li>위 그래프를 넓이 우선 탐색하면서 정렬된 상태를 나타내는 정점까지의 거리를 계산한다.</li>
   <li>구현
     <ul>
       <li>그래프를 생성하는 과정은 생략하고, 입력 배열의 부분 구간을 뒤집으면서 그때 그때 그래프의 간선을 만들어 넓이 우선 탐색을 실행한다.</li>
-      <li>정점 큐의 각 원소를 정수 배열로 하며, 거리를 계산할 <code class="highlighter-rouge">distance[]</code>는 정수 배열을 키(key)로 갖는 map을 사용한다.
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//perm을 정렬하기 위해 필요한 최소 뒤집기 연산의 수를 계산 후 반환한다.
-int bfs(const vector&lt;int&gt; &amp;perm) {
-int n = perm.size();
-//목표 정점을 미리 계산한다.(오름차순된 배열)
-vector&lt;int&gt; sorted = perm;
-sort(sorted.begin(), sorted.end());
-//방문 목록(큐)
-queue&lt;vector&lt;int&gt;&gt; q;
-//시작점으로부터 각 정점까지의 거리(map)
-map&lt;vector&lt;int&gt;, int&gt; distance;
-//시작점의 거리는 0
-distance[perm] = 0;
-//시작점을 큐에 넣는다.
-q.push(perm);
-while (!q.empty()) {
-    vector&lt;int&gt; here = q.front();
-    q.pop();
-    //목표 정점을 발견했으면 곧장 종료한다.
-    if (here == sorted) return distance[here];
-    int cost = distance[here];
-    //가능한 모든 부분 구간을 뒤집어 본다.
-    for (int i = 0; i &lt; n; ++i) {
-        //reverse함수의 배열 범위에 주의한다.
-        for (int j = i + 1; j &lt;= n; ++j) {
-            reverse(here.begin() + i, here.begin() + j);
-            if (distance.count(here) == 0) {
-                distance[here] = cost + 1;
-                q.push(here);
-            }
-            reverse(here.begin() + i, here.begin() + j);
-        }
-    }
-}
-//실행되지 않음
-return -1;
-}
-</code></pre></div>        </div>
-      </li>
+      <li>정점 큐의 각 원소를 정수 배열로 하며, 거리를 계산할 <code class="highlighter-rouge">distance[]</code>는 정수 배열을 키(key)로 갖는 map을 사용한다.</li>
     </ul>
   </li>
 </ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//perm을 정렬하기 위해 필요한 최소 뒤집기 연산의 수를 계산 후 반환한다.
+</span><span class="kt">int</span> <span class="nf">bfs</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">perm</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">perm</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+	<span class="c1">//목표 정점을 미리 계산한다.(오름차순된 배열)
+</span>	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">sorted</span> <span class="o">=</span> <span class="n">perm</span><span class="p">;</span>
+	<span class="n">sort</span><span class="p">(</span><span class="n">sorted</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">sorted</span><span class="p">.</span><span class="n">end</span><span class="p">());</span>
+	<span class="c1">//방문 목록(큐)
+</span>	<span class="n">queue</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">q</span><span class="p">;</span>
+	<span class="c1">//시작점으로부터 각 정점까지의 거리(map)
+</span>	<span class="n">map</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">distance</span><span class="p">;</span>
+	<span class="c1">//시작점의 거리는 0
+</span>	<span class="n">distance</span><span class="p">[</span><span class="n">perm</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="c1">//시작점을 큐에 넣는다.
+</span>	<span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">perm</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">here</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+		<span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+		<span class="c1">//목표 정점을 발견했으면 곧장 종료한다.
+</span>		<span class="k">if</span> <span class="p">(</span><span class="n">here</span> <span class="o">==</span> <span class="n">sorted</span><span class="p">)</span> <span class="k">return</span> <span class="n">distance</span><span class="p">[</span><span class="n">here</span><span class="p">];</span>
+		<span class="kt">int</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">distance</span><span class="p">[</span><span class="n">here</span><span class="p">];</span>
+		<span class="c1">//가능한 모든 부분 구간을 뒤집어 본다.
+</span>		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+			<span class="c1">//reverse함수의 배열 범위에 주의한다.
+</span>			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+				<span class="n">reverse</span><span class="p">(</span><span class="n">here</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">here</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">j</span><span class="p">);</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">distance</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">here</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+					<span class="n">distance</span><span class="p">[</span><span class="n">here</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+					<span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">here</span><span class="p">);</span>
+				<span class="p">}</span>
+				<span class="n">reverse</span><span class="p">(</span><span class="n">here</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">here</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">j</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="c1">//실행되지 않음
+</span>	<span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
 <p><strong>2. 더 빠른 해결방법</strong></p>
 <ul>
@@ -382,76 +382,75 @@ return -1;
 </ul>
 
 <p><strong>3. 구현 코드</strong></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _CRT_SECURE_NO_WARNINGS
 
-#include &lt;iostream&gt;
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
+</span>
+<span class="cp">#include &lt;iostream&gt;
 #include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;vector&gt;
 #include &lt;algorithm&gt;
 #include &lt;queue&gt;
 #include &lt;map&gt;
-using namespace std;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-map&lt;vector&lt;int&gt;, int&gt; toSort;
-//[0, ..., n-1]의 모든 순열에 대해 toSort[]를 계산해 저장한다.
-void precalc(int n) {
-	vector&lt;int&gt; perm(n);
-	for (int i = 0; i &lt; n; ++i) perm[i] = i;
-	queue&lt;vector&lt;int&gt;&gt; q;
-	q.push(perm);
-	toSort[perm] = 0;
-	while (!q.empty()) {
-		vector&lt;int&gt; here = q.front();
-		q.pop();
-		int cost = toSort[here];
-		for (int i = 0; i &lt; n; ++i) {
-			for (int j = i + 1; j &lt;= n; ++j) {
-				reverse(here.begin() + i, here.begin() + j);
-				if (toSort.count(here) == 0) {
-					toSort[here] = cost + 1;
-					q.push(here);
-				}
-				reverse(here.begin() + i, here.begin() + j);
-			}
-		}
-	}
-}
+<span class="n">map</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;</span> <span class="n">toSort</span><span class="p">;</span>
+<span class="c1">//[0, ..., n-1]의 모든 순열에 대해 toSort[]를 계산해 저장한다.
+</span><span class="kt">void</span> <span class="nf">precalc</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">perm</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="n">perm</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span><span class="p">;</span>
+	<span class="n">queue</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">q</span><span class="p">;</span>
+	<span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">perm</span><span class="p">);</span>
+	<span class="n">toSort</span><span class="p">[</span><span class="n">perm</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">q</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">here</span> <span class="o">=</span> <span class="n">q</span><span class="p">.</span><span class="n">front</span><span class="p">();</span>
+		<span class="n">q</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+		<span class="kt">int</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">toSort</span><span class="p">[</span><span class="n">here</span><span class="p">];</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;=</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+				<span class="n">reverse</span><span class="p">(</span><span class="n">here</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">here</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">j</span><span class="p">);</span>
+				<span class="k">if</span> <span class="p">(</span><span class="n">toSort</span><span class="p">.</span><span class="n">count</span><span class="p">(</span><span class="n">here</span><span class="p">)</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+					<span class="n">toSort</span><span class="p">[</span><span class="n">here</span><span class="p">]</span> <span class="o">=</span> <span class="n">cost</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+					<span class="n">q</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">here</span><span class="p">);</span>
+				<span class="p">}</span>
+				<span class="n">reverse</span><span class="p">(</span><span class="n">here</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">i</span><span class="p">,</span> <span class="n">here</span><span class="p">.</span><span class="n">begin</span><span class="p">()</span> <span class="o">+</span> <span class="n">j</span><span class="p">);</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+<span class="p">}</span>
 
-int solve(const vector&lt;int&gt; &amp;perm) {
-  //perm을 [0, ..., n-1]의 순열로 변환한다.
-	int n = perm.size();
-	vector&lt;int&gt; fixed(n);
-	for (int i = 0; i &lt; n; ++i) {
-		int smaller = 0;
-		for (int j = 0; j &lt; n; ++j) {
-			if (perm[j] &lt; perm[i])
-				smaller++;
-		}
-		fixed[i] = smaller;
-	}
-	return toSort[fixed];
-}
+<span class="kt">int</span> <span class="nf">solve</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">perm</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">//perm을 [0, ..., n-1]의 순열로 변환한다.
+</span>	<span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="n">perm</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">fixed</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">smaller</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">perm</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">perm</span><span class="p">[</span><span class="n">i</span><span class="p">])</span>
+				<span class="n">smaller</span><span class="o">++</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="n">fixed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">smaller</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">toSort</span><span class="p">[</span><span class="n">fixed</span><span class="p">];</span>
+<span class="p">}</span>
 
-int main()
-{
-	for (int i = 1; i &lt;= 8; ++i)
-		precalc(i);
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">8</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+		<span class="n">precalc</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
 
-	int tc; scanf("%d", &amp;tc);
-	while (tc--) {
-		int n; scanf("%d", &amp;n);
-		vector&lt;int&gt; in(n);
-		for (int i = 0; i &lt; n; ++i)
-			scanf("%d", &amp;in[i]);
-		printf("%d\n", solve(in));
-	}
+	<span class="kt">int</span> <span class="n">tc</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">in</span><span class="p">(</span><span class="n">n</span><span class="p">);</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+			<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="n">in</span><span class="p">));</span>
+	<span class="p">}</span>
 
-	return 0;
-}
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
-<p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
       </section>

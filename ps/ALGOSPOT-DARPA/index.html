@@ -339,65 +339,64 @@
 </ul>
 
 <h2 id="결과-코드">결과 코드</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _CRT_SECURE_NO_WARNINGS
 
-#include &lt;iostream&gt;
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
+</span>
+<span class="cp">#include &lt;iostream&gt;
 #include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;vector&gt;
-using namespace std;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 
-//결정 문제: 정렬되어 있는 locations 중 cameras를 선택해 모든 카메라 간의 간격이
+<span class="c1">//결정 문제: 정렬되어 있는 locations 중 cameras를 선택해 모든 카메라 간의 간격이
 //gap 이상이 되는 방법이 있는지를 반환한다.
-bool decision(const vector&lt;double&gt; &amp;location, int cameras, double gap) {
-	//카메라를 설치할 수 있을 때마다 설치하는 탐욕적 알고리즘
-	double limit = -1;
-	int installed = 0;
-	for (int i = 0; i &lt; (int)location.size(); i++) {
-		if (limit &lt;= location[i]) {
-			++installed;
-			//location[i] + gap 이후는 되어야 카메라를 설치할 수 있다.
-			limit = location[i] + gap;
-		}
-	}
-	//결과적으로 cameras대 이상을 설치할 수 있으면 참 반환
-	return installed &gt;= cameras;
-}
+</span><span class="kt">bool</span> <span class="nf">decision</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">location</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cameras</span><span class="p">,</span> <span class="kt">double</span> <span class="n">gap</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">//카메라를 설치할 수 있을 때마다 설치하는 탐욕적 알고리즘
+</span>	<span class="kt">double</span> <span class="n">limit</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">installed</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">location</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">limit</span> <span class="o">&lt;=</span> <span class="n">location</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
+			<span class="o">++</span><span class="n">installed</span><span class="p">;</span>
+			<span class="c1">//location[i] + gap 이후는 되어야 카메라를 설치할 수 있다.
+</span>			<span class="n">limit</span> <span class="o">=</span> <span class="n">location</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">gap</span><span class="p">;</span>
+		<span class="p">}</span>
+	<span class="p">}</span>
+	<span class="c1">//결과적으로 cameras대 이상을 설치할 수 있으면 참 반환
+</span>	<span class="k">return</span> <span class="n">installed</span> <span class="o">&gt;=</span> <span class="n">cameras</span><span class="p">;</span>
+<span class="p">}</span>
 
-//최적화 문제: 정렬되어 있는 locations 중 cameras를 선택해 최소 간격을 최대화 한다.
-double optimize(const vector&lt;double&gt; &amp;location, int cameras) {
-	double lo = 0., hi = 241.;
-	//반복문 불변식: decision(lo) &amp;&amp; !decision(hi)
-	for (int it = 0; it &lt; 100; it++) {
-		double mid = (lo + hi) / 2.0;
-		//간격이 mid 이상이 되도록 할 수 있으면 답은 [mid, hi]에 있다.
-		if (decision(location, cameras, mid))
-			lo = mid;
-		//간격이 mid 이상이 되도록 할 수 없으면 답은 [lo, mid]에 있다.
-		else
-			hi = mid;
-	}
-	return lo;
-}
+<span class="c1">//최적화 문제: 정렬되어 있는 locations 중 cameras를 선택해 최소 간격을 최대화 한다.
+</span><span class="kt">double</span> <span class="nf">optimize</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">location</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cameras</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">double</span> <span class="n">lo</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="mf">241.</span><span class="p">;</span>
+	<span class="c1">//반복문 불변식: decision(lo) &amp;&amp; !decision(hi)
+</span>	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">double</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">lo</span> <span class="o">+</span> <span class="n">hi</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
+		<span class="c1">//간격이 mid 이상이 되도록 할 수 있으면 답은 [mid, hi]에 있다.
+</span>		<span class="k">if</span> <span class="p">(</span><span class="n">decision</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">cameras</span><span class="p">,</span> <span class="n">mid</span><span class="p">))</span>
+			<span class="n">lo</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span>
+		<span class="c1">//간격이 mid 이상이 되도록 할 수 없으면 답은 [lo, mid]에 있다.
+</span>		<span class="k">else</span>
+			<span class="n">hi</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">lo</span><span class="p">;</span>
+<span class="p">}</span>
 
-int main()
-{
-	int tc; scanf("%d", &amp;tc);
-	while (tc--) {
-		int n, m; scanf("%d %d", &amp;n, &amp;m);
-		vector&lt;double&gt; lv;
-		for (int i = 0; i &lt; m; i++) {
-			double in; scanf("%lf", &amp;in);
-			lv.push_back(in);
-		}
-		printf("%.2lf\n", optimize(lv, n));
-	}
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">tc</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">lv</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="kt">double</span> <span class="n">in</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%lf"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="p">);</span>
+			<span class="n">lv</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">in</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%.2lf</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">optimize</span><span class="p">(</span><span class="n">lv</span><span class="p">,</span> <span class="n">n</span><span class="p">));</span>
+	<span class="p">}</span>
 
-	return 0;
-}
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
-<p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
       </section>

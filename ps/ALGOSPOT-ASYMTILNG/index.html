@@ -303,13 +303,13 @@
 </ul>
 
 <h2 id="코드-분석">코드 분석</h2>
-<p><strong>전체 타일링 경우의 수 - 대칭 타일링 경우의 수</strong></p>
+<h3 id="전체-타일링-경우의-수---대칭-타일링-경우의-수">전체 타일링 경우의 수 - 대칭 타일링 경우의 수</h3>
 <ul>
   <li>전체 타일링 경우의 수는 쉽게 구할 수 있다.</li>
   <li>비대칭 타일링 경우의 수를 찾는 것 보다 대칭 타일링 경우의 수를 찾는 것이 더욱 간단하다.</li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/34755287/43117548-4dc6d6a8-8f48-11e8-9171-0312a40ae87e.JPG" alt="asmytiling1" /></p>
+<p><img src="https://user-images.githubusercontent.com/34755287/46851055-26888280-ce31-11e8-804c-b970edc94f47.JPG" alt="asmytiling1" /></p>
 
 <ul>
   <li>n이 홀수인 경우, 위 그림의 (a)에 해당한다.</li>
@@ -319,12 +319,12 @@
   <li>시간복잡도: 전체 타일링의 경우의 수 <code class="highlighter-rouge">O(n)</code> + 대칭 타일링 경우의 수 <code class="highlighter-rouge">O(n)</code> = 총 <code class="highlighter-rouge">O(n)</code> 이다.</li>
 </ul>
 
-<p><strong>비대칭 타일링 경우의 수</strong></p>
+<h3 id="비대칭-타일링-경우의-수">비대칭 타일링 경우의 수</h3>
 <ul>
   <li>총 4가지 패턴의 비대칭 방법이 있다.</li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/34755287/43117549-4df15b8a-8f48-11e8-8ffa-b43dcf61e26e.JPG" alt="asmytiling2" /></p>
+<p><img src="https://user-images.githubusercontent.com/34755287/46851056-27211900-ce31-11e8-8957-b8bd58dbe71f.JPG" alt="asmytiling2" /></p>
 
 <ul>
   <li>(a), (b): 가운데 남은 회색 부분을 덮은 방법을 재귀 호출로 찾는다. 물론 이 방법은 대칭이 아니어야 한다.</li>
@@ -335,51 +335,50 @@
 
 <h2 id="결과-코드">결과 코드</h2>
 <ul>
-  <li>전체 타일링 경우의 수 - 대칭 타일링 경우의 수
-```
-#define _CRT_SECURE_NO_WARNINGS</li>
+  <li>전체 타일링 경우의 수 - 대칭 타일링 경우의 수</li>
 </ul>
 
-<p>#include <iostream>
-#include <cstdio>
-#include <cstring>
-using namespace std;
-#define N 101
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
+</span>
+<span class="cp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="cp">#define N 101
 #define M 1000000007
-int tile[N];</cstring></cstdio></iostream></p>
+</span><span class="kt">int</span> <span class="n">tile</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 
-<p>int asymmetric(int width)
-{
-	if (width % 2 == 1)  //(a)
-		return (tile[width] - tile[width / 2] + M) % M;
-	int ret = tile[width];
-	ret = (ret - tile[width / 2 - 1] + M) % M;  //(b)
-	ret = (ret - tile[width / 2] + M) % M;      //(c)
-	return ret;
-}</p>
+<span class="kt">int</span> <span class="nf">asymmetric</span><span class="p">(</span><span class="kt">int</span> <span class="n">width</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">width</span> <span class="o">%</span> <span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1">//(a)
+</span>		<span class="k">return</span> <span class="p">(</span><span class="n">tile</span><span class="p">[</span><span class="n">width</span><span class="p">]</span> <span class="o">-</span> <span class="n">tile</span><span class="p">[</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">M</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">tile</span><span class="p">[</span><span class="n">width</span><span class="p">];</span>
+	<span class="n">ret</span> <span class="o">=</span> <span class="p">(</span><span class="n">ret</span> <span class="o">-</span> <span class="n">tile</span><span class="p">[</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">M</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span><span class="p">;</span>  <span class="c1">//(b)
+</span>	<span class="n">ret</span> <span class="o">=</span> <span class="p">(</span><span class="n">ret</span> <span class="o">-</span> <span class="n">tile</span><span class="p">[</span><span class="n">width</span> <span class="o">/</span> <span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="n">M</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span><span class="p">;</span>      <span class="c1">//(c)
+</span>	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
 
-<p>int main(void)
-{
-	//전체 타일링 경우의 수 구하기
-	tile[1] = 1; tile[2] = 2;
-	for (int i = 3; i &lt; N; i++)
-		tile[i] = (tile[i - 1] % M + tile[i - 2] % M) % M;</p>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">//전체 타일링 경우의 수 구하기
+</span>	<span class="n">tile</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">tile</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+		<span class="n">tile</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">tile</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">%</span> <span class="n">M</span> <span class="o">+</span> <span class="n">tile</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">2</span><span class="p">]</span> <span class="o">%</span> <span class="n">M</span><span class="p">)</span> <span class="o">%</span> <span class="n">M</span><span class="p">;</span>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int tc;
-scanf("%d", &amp;tc);
-while (tc--) {
-	int n;
-	scanf("%d", &amp;n);
-	if (n == 1 || n == 2)
-		printf("0\n");
-	else
-		printf("%d\n", asymmetric(n));
-}
+	<span class="kt">int</span> <span class="n">tc</span><span class="p">;</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">n</span> <span class="o">==</span> <span class="mi">2</span><span class="p">)</span>
+			<span class="n">printf</span><span class="p">(</span><span class="s">"0</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+		<span class="k">else</span>
+			<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">asymmetric</span><span class="p">(</span><span class="n">n</span><span class="p">));</span>
+	<span class="p">}</span>
 
-return 0; } ```
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
-<p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
       </section>

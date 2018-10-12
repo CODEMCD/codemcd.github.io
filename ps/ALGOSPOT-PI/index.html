@@ -302,196 +302,171 @@
   <li><a href="https://algospot.com/judge/problem/read/PI">https://algospot.com/judge/problem/read/PI</a></li>
 </ul>
 
-<h2 id="테스트-케이스">테스트 케이스</h2>
+<h2 id="코드-분석">코드 분석</h2>
+<h3 id="동적-계획법메모이제이션">동적 계획법(메모이제이션)</h3>
+<ul>
+  <li>첫 조각의 길이는 3, 4, 5 중의 하나이므로 각 경우마다 하나씩의 부분 문제를 해결한다, 이때 세 개의 부분 문제의 최적화(최소값)을 각각 구하면 전체 문제의 최적해가 된다.
+    <ol>
+      <li>길이 3인 조각의 난이도 +3글자 빼고 나머지 수열에 대한 최적해</li>
+    </ol>
+  </li>
+</ul>
+
 <ol>
-  <li>기본 테스트 케이스
+  <li>
+    <p>길이 4인 조각의 난이도 +4글자 빼고 나머지 수열에 대한 최적해</p>
+  </li>
+  <li>길이 5인 조각의 난이도 +5글자 빼고 나머지 수열에 대한 최적해
     <ul>
-      <li>입력
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>5
-12341234
-11111222
-12122222
-22222222
-12673939
-</code></pre></div>        </div>
+      <li>begin: 부분 수열의 시작 위치, memorize(): 최소 난이도를 반환하는 함수, returnLevel(): 해당 수열의 난이도를 반환하는 함수</li>
+      <li><strong><em>memorize(begin) = min(memorize(begin + L) + returnLevel(N[begin…begin + L])), L: 3 ~ 5</em></strong>
+        <h3 id="returnlevel-함수">returnLevel() 함수</h3>
       </li>
-      <li>출력
-        <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>4
-2
-5
-2
-14
-</code></pre></div>        </div>
-      </li>
+      <li>checkLevel() 함수</li>
     </ul>
   </li>
+  <li>
+    <p>수열의 길이 3, 4, 5에 대해서만 적용할 수 있는 함수이다.</p>
+  </li>
+  <li>시간복잡도면에서 효율적이다. (소요시간: 24ms)
+    <ul>
+      <li>classify() 함수</li>
+    </ul>
+  </li>
+  <li>
+    <p>모든 수열의 길이에 대해 적용 가능하다.</p>
+  </li>
+  <li>시간이 오래 걸린다. (소요시간: 250ms)</li>
 </ol>
 
-<h2 id="코드-분석">코드 분석</h2>
-<ul>
-  <li>동적 계획법(메모이제이션)
-    <ul>
-      <li>첫 조각의 길이는 3, 4, 5 중의 하나이므로 각 경우마다 하나씩의 부분 문제를 해결한다, 이때 세 개의 부분 문제의 최적화(최소값)을 각각 구하면 전체 문제의 최적해가 된다.
-        <ol>
-          <li>길이 3인 조각의 난이도 +3글자 빼고 나머지 수열에 대한 최적해</li>
-          <li>길이 4인 조각의 난이도 +4글자 빼고 나머지 수열에 대한 최적해</li>
-          <li>길이 5인 조각의 난이도 +5글자 빼고 나머지 수열에 대한 최적해</li>
-        </ol>
-      </li>
-      <li>begin: 부분 수열의 시작 위치, memorize(): 최소 난이도를 반환하는 함수, returnLevel(): 해당 수열의 난이도를 반환하는 함수</li>
-      <li><strong><em>memorize(begin) = min(memorize(begin + L) + returnLevel(N[begin…begin + L])), L: 3 ~ 5</em></strong></li>
-    </ul>
-  </li>
-  <li>returnLevel() 함수
-    <ul>
-      <li>checkLevel() 함수
-        <ol>
-          <li>수열의 길이 3, 4, 5에 대해서만 적용할 수 있는 함수이다.</li>
-          <li>시간복잡도면에서 효율적이다. (소요시간: 24ms)</li>
-        </ol>
-      </li>
-      <li>classify() 함수
-        <ol>
-          <li>모든 수열의 길이에 대해 적용 가능하다.</li>
-          <li>시간이 오래 걸린다. (소요시간: 250ms)</li>
-        </ol>
-      </li>
-    </ul>
-  </li>
-</ul>
-
 <h2 id="결과-코드">결과 코드</h2>
-<ul>
-  <li>링크:
-```
-#define _CRT_SECURE_NO_WARNINGS</li>
-</ul>
 
-<p>#include <iostream>
-#include <cstdio>
-#include <string>
-#include <cstring>
-#include <cmath>
-#include <limits.h>
-using namespace std;
-#define N 10001
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
+</span>
+<span class="cp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;string&gt;
+#include &lt;cstring&gt;
+#include &lt;cmath&gt;
+#include &lt;limits.h&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="cp">#define N 10001
 #define min(a, b) ((a) &lt; (b) ? (a) : (b))
-string arr;
-const int INF = 987654321;
-int cache[N];</limits.h></cmath></cstring></string></cstdio></iostream></p>
+</span><span class="n">string</span> <span class="n">arr</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">INF</span> <span class="o">=</span> <span class="mi">987654321</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">cache</span><span class="p">[</span><span class="n">N</span><span class="p">];</span>
 
-<p>//1) arr[s]부터 size만큼 크기의 난이도를 반환
-int checkLevel(int s, int size)
-{
-	if (size == 3) {
-		int s1, s2, s3;
-		s1 = arr[s]; s2 = arr[s + 1]; s3 = arr[s + 2];
-		if (s1 == s2 &amp;&amp; s2 == s3)
-			return 1;
-		int d1, d2;
-		d1 = s2 - s1; d2 = s3 - s2;
-		if (d1 == d2) {
-			if (d1 == 1 || d1 == -1)
-				return 2;
-			else
-				return 5;
-		}
-		if (s1 == s3)
-			return 4;
-	}
-	else if (size == 4) {
-		int s1, s2, s3, s4;
-		s1 = arr[s]; s2 = arr[s + 1]; s3 = arr[s + 2]; s4 = arr[s + 3];
-		if (s1 == s2 &amp;&amp; s2 == s3 &amp;&amp; s3 == s4)
-			return 1;
-		int d1, d2, d3;
-		d1 = s2 - s1; d2 = s3 - s2; d3 = s4 - s3;
-		if (d1 == d2 &amp;&amp; d2 == d3) {
-			if (d1 == 1 || d1 == -1)
-				return 2;
-			else
-				return 5;
-		}
-		if (s1 == s3 &amp;&amp; s2 == s4)
-			return 4;
-	}
-	else if (size == 5) {
-		int s1, s2, s3, s4, s5;
-		s1 = arr[s]; s2 = arr[s + 1]; s3 = arr[s + 2];
-		s4 = arr[s + 3]; s5 = arr[s + 4];
-		if (s1 == s2 &amp;&amp; s2 == s3 &amp;&amp; s3 == s4 &amp;&amp; s4 == s5)
-			return 1;
-		int d1, d2, d3, d4;
-		d1 = s2 - s1; d2 = s3 - s2; d3 = s4 - s3; d4 = s5 - s4;
-		if (d1 == d2 &amp;&amp; d2 == d3 &amp;&amp; d3 == d4) {
-			if (d1 == 1 || d1 == -1)
-				return 2;
-			else
-				return 5;
-		}
-		if ((s1 == s3 &amp;&amp; s3 == s5) &amp;&amp; s2 == s4)
-			return 4;
-	}
-	return 10;
-}</p>
+<span class="c1">//1) arr[s]부터 size만큼 크기의 난이도를 반환
+</span><span class="kt">int</span> <span class="nf">checkLevel</span><span class="p">(</span><span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">size</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">3</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">;</span>
+		<span class="n">s1</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span><span class="p">];</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span> <span class="n">s3</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">2</span><span class="p">];</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="o">&amp;&amp;</span> <span class="n">s2</span> <span class="o">==</span> <span class="n">s3</span><span class="p">)</span>
+			<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="kt">int</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">;</span>
+		<span class="n">d1</span> <span class="o">=</span> <span class="n">s2</span> <span class="o">-</span> <span class="n">s1</span><span class="p">;</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">s3</span> <span class="o">-</span> <span class="n">s2</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">d1</span> <span class="o">==</span> <span class="n">d2</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">d1</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">d1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+				<span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+			<span class="k">else</span>
+				<span class="k">return</span> <span class="mi">5</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">s1</span> <span class="o">==</span> <span class="n">s3</span><span class="p">)</span>
+			<span class="k">return</span> <span class="mi">4</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">4</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="n">s4</span><span class="p">;</span>
+		<span class="n">s1</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span><span class="p">];</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span> <span class="n">s3</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">2</span><span class="p">];</span> <span class="n">s4</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">3</span><span class="p">];</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="o">&amp;&amp;</span> <span class="n">s2</span> <span class="o">==</span> <span class="n">s3</span> <span class="o">&amp;&amp;</span> <span class="n">s3</span> <span class="o">==</span> <span class="n">s4</span><span class="p">)</span>
+			<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="kt">int</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">d3</span><span class="p">;</span>
+		<span class="n">d1</span> <span class="o">=</span> <span class="n">s2</span> <span class="o">-</span> <span class="n">s1</span><span class="p">;</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">s3</span> <span class="o">-</span> <span class="n">s2</span><span class="p">;</span> <span class="n">d3</span> <span class="o">=</span> <span class="n">s4</span> <span class="o">-</span> <span class="n">s3</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">d1</span> <span class="o">==</span> <span class="n">d2</span> <span class="o">&amp;&amp;</span> <span class="n">d2</span> <span class="o">==</span> <span class="n">d3</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">d1</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">d1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+				<span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+			<span class="k">else</span>
+				<span class="k">return</span> <span class="mi">5</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">s1</span> <span class="o">==</span> <span class="n">s3</span> <span class="o">&amp;&amp;</span> <span class="n">s2</span> <span class="o">==</span> <span class="n">s4</span><span class="p">)</span>
+			<span class="k">return</span> <span class="mi">4</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="mi">5</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="n">s4</span><span class="p">,</span> <span class="n">s5</span><span class="p">;</span>
+		<span class="n">s1</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span><span class="p">];</span> <span class="n">s2</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span> <span class="n">s3</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">2</span><span class="p">];</span>
+		<span class="n">s4</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">3</span><span class="p">];</span> <span class="n">s5</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">s</span> <span class="o">+</span> <span class="mi">4</span><span class="p">];</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">s1</span> <span class="o">==</span> <span class="n">s2</span> <span class="o">&amp;&amp;</span> <span class="n">s2</span> <span class="o">==</span> <span class="n">s3</span> <span class="o">&amp;&amp;</span> <span class="n">s3</span> <span class="o">==</span> <span class="n">s4</span> <span class="o">&amp;&amp;</span> <span class="n">s4</span> <span class="o">==</span> <span class="n">s5</span><span class="p">)</span>
+			<span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="kt">int</span> <span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">,</span> <span class="n">d3</span><span class="p">,</span> <span class="n">d4</span><span class="p">;</span>
+		<span class="n">d1</span> <span class="o">=</span> <span class="n">s2</span> <span class="o">-</span> <span class="n">s1</span><span class="p">;</span> <span class="n">d2</span> <span class="o">=</span> <span class="n">s3</span> <span class="o">-</span> <span class="n">s2</span><span class="p">;</span> <span class="n">d3</span> <span class="o">=</span> <span class="n">s4</span> <span class="o">-</span> <span class="n">s3</span><span class="p">;</span> <span class="n">d4</span> <span class="o">=</span> <span class="n">s5</span> <span class="o">-</span> <span class="n">s4</span><span class="p">;</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">d1</span> <span class="o">==</span> <span class="n">d2</span> <span class="o">&amp;&amp;</span> <span class="n">d2</span> <span class="o">==</span> <span class="n">d3</span> <span class="o">&amp;&amp;</span> <span class="n">d3</span> <span class="o">==</span> <span class="n">d4</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">d1</span> <span class="o">==</span> <span class="mi">1</span> <span class="o">||</span> <span class="n">d1</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+				<span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+			<span class="k">else</span>
+				<span class="k">return</span> <span class="mi">5</span><span class="p">;</span>
+		<span class="p">}</span>
+		<span class="k">if</span> <span class="p">((</span><span class="n">s1</span> <span class="o">==</span> <span class="n">s3</span> <span class="o">&amp;&amp;</span> <span class="n">s3</span> <span class="o">==</span> <span class="n">s5</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="n">s2</span> <span class="o">==</span> <span class="n">s4</span><span class="p">)</span>
+			<span class="k">return</span> <span class="mi">4</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="mi">10</span><span class="p">;</span>
+<span class="p">}</span>
 
-<p>//2) arr[a,b]구간의 난이도를 반환한다.
-int classify(int a, int b)
-{
-	//숫자 조각을 가져온다.
-	string M = arr.substr(a, b - a + 1);
-	//첫 글자만으로 이루어진 문자열과 같은으면 난이도 1
-	if (M == string(M.size(), M[0])) return 1;
-	//등차수열인지 검사한다.
-	bool progressive = true;
-	for (int i = 0; i &lt; (int)M.size() - 1; i++)
-		if (M[i + 1] - M[i] != M[1] - M[0])
-			progressive = false;
-	//등차수열이고 공차가 1 or -1 이면 난이도 2
-	if (progressive &amp;&amp; abs(M[1] - M[0]) == 1)
-		return 2;
-	//두 수가 번갈아 등장하는지 확인한다.
-	bool alternating = true;
-	for (int i = 0; i &lt; (int)M.size(); i++)
-		if (M[i] != M[i % 2])
-			alternating = false;
-	if (alternating) return 4;  //두 수가 번갈아 등장하면 난이도 4
-	if (progressive) return 5;  //공차가 1 아닌 등차수열이면 난이도 5
-	return 10;                  //이 외는 모두 난이도 10
-}</p>
+<span class="c1">//2) arr[a,b]구간의 난이도를 반환한다.
+</span><span class="kt">int</span> <span class="nf">classify</span><span class="p">(</span><span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">//숫자 조각을 가져온다.
+</span>	<span class="n">string</span> <span class="n">M</span> <span class="o">=</span> <span class="n">arr</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span> <span class="o">-</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+	<span class="c1">//첫 글자만으로 이루어진 문자열과 같은으면 난이도 1
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">M</span> <span class="o">==</span> <span class="n">string</span><span class="p">(</span><span class="n">M</span><span class="p">.</span><span class="n">size</span><span class="p">(),</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span> <span class="k">return</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="c1">//등차수열인지 검사한다.
+</span>	<span class="kt">bool</span> <span class="n">progressive</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">M</span><span class="p">.</span><span class="n">size</span><span class="p">()</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+			<span class="n">progressive</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+	<span class="c1">//등차수열이고 공차가 1 or -1 이면 난이도 2
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">progressive</span> <span class="o">&amp;&amp;</span> <span class="n">abs</span><span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">-</span> <span class="n">M</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+		<span class="k">return</span> <span class="mi">2</span><span class="p">;</span>
+	<span class="c1">//두 수가 번갈아 등장하는지 확인한다.
+</span>	<span class="kt">bool</span> <span class="n">alternating</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">M</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">M</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">!=</span> <span class="n">M</span><span class="p">[</span><span class="n">i</span> <span class="o">%</span> <span class="mi">2</span><span class="p">])</span>
+			<span class="n">alternating</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">alternating</span><span class="p">)</span> <span class="k">return</span> <span class="mi">4</span><span class="p">;</span>  <span class="c1">//두 수가 번갈아 등장하면 난이도 4
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">progressive</span><span class="p">)</span> <span class="k">return</span> <span class="mi">5</span><span class="p">;</span>  <span class="c1">//공차가 1 아닌 등차수열이면 난이도 5
+</span>	<span class="k">return</span> <span class="mi">10</span><span class="p">;</span>                  <span class="c1">//이 외는 모두 난이도 10
+</span><span class="p">}</span>
 
-<p>//수열 arr[begin…]를 외우는 방법 중 난이도의 최소 합을 출력한다.
-int memorize(int begin)
-{
-	//기저 사례: 수열의 끝에 도달했을 경우
-	if (begin == arr.size()) return 0;
-	//메모이제이션
-	int &amp;ret = cache[begin];
-	if (ret != -1) return ret;
-	ret = INF;
-	for (int L = 3; L &lt;= 5; ++L) {
-		if (begin + L &lt;= (int)arr.size())
-			ret = min(ret, memorize(begin + L) + checkLevel(begin, L));              //방법 1)
-			//ret = min(ret, memorize(begin + L) + classify(begin, begin + L - 1));  //방법 2)
-	}
-	return ret;
-}</p>
+<span class="c1">//수열 arr[begin...]를 외우는 방법 중 난이도의 최소 합을 출력한다.
+</span><span class="kt">int</span> <span class="nf">memorize</span><span class="p">(</span><span class="kt">int</span> <span class="n">begin</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">//기저 사례: 수열의 끝에 도달했을 경우
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">begin</span> <span class="o">==</span> <span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">())</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="c1">//메모이제이션
+</span>	<span class="kt">int</span> <span class="o">&amp;</span><span class="n">ret</span> <span class="o">=</span> <span class="n">cache</span><span class="p">[</span><span class="n">begin</span><span class="p">];</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+	<span class="n">ret</span> <span class="o">=</span> <span class="n">INF</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">L</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span> <span class="n">L</span> <span class="o">&lt;=</span> <span class="mi">5</span><span class="p">;</span> <span class="o">++</span><span class="n">L</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">begin</span> <span class="o">+</span> <span class="n">L</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">arr</span><span class="p">.</span><span class="n">size</span><span class="p">())</span>
+			<span class="n">ret</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">memorize</span><span class="p">(</span><span class="n">begin</span> <span class="o">+</span> <span class="n">L</span><span class="p">)</span> <span class="o">+</span> <span class="n">checkLevel</span><span class="p">(</span><span class="n">begin</span><span class="p">,</span> <span class="n">L</span><span class="p">));</span>              <span class="c1">//방법 1)
+</span>			<span class="c1">//ret = min(ret, memorize(begin + L) + classify(begin, begin + L - 1));  //방법 2)
+</span>	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
 
-<p>int main(void)
-{
-	int tc;
-	scanf(“%d”, &amp;tc);
-	while (tc–) {
-		memset(cache, -1, sizeof(cache));
-		arr.clear();
-		cin » arr;
-		printf(“%d\n”, memorize(0));
-	}</p>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">tc</span><span class="p">;</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">memset</span><span class="p">(</span><span class="n">cache</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cache</span><span class="p">));</span>
+		<span class="n">arr</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+		<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">arr</span><span class="p">;</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">memorize</span><span class="p">(</span><span class="mi">0</span><span class="p">));</span>
+	<span class="p">}</span>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>return 0; } ```
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
-<p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
       </section>

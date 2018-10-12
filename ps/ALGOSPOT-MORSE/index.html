@@ -306,47 +306,53 @@
 <h2 id="코드-분석">코드 분석</h2>
 <h3 id="1-완전-탐색">1. 완전 탐색</h3>
 <ul>
-  <li>장점인 신호가 단점인 신호보다 사전순으로 항상 앞으로 오는 모든 신호 만들기
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//s: 지금까지 만든 신호
+  <li>장점인 신호가 단점인 신호보다 사전순으로 항상 앞으로 오는 모든 신호 만들기</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//s: 지금까지 만든 신호
 //n: 더 필요한 '-'의 개수
 //m: 더 필요한 'o'의 개수
-void generate(int n, int m, string s) {
-  //기저 사례: n = m = 0
-  if (n == 0 &amp;&amp; m == 0) {
-      if (skip == 0) cout &lt;&lt; s &lt;&lt; endl;
-      --skip;
-      return;
-  }
-  if (bino[n + m][n] &lt;= skip) {
-      skip -= bino[n + m][n];
-      return;
-  }
-  if (n &gt; 0) generate(n - 1, m, s + "-");
-  if (m &gt; 0) generate(n, m - 1, s + "o");
-}
-</code></pre></div>    </div>
-  </li>
-  <li>k - 1개 건너뛰기
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//skip개를 건너뛰고 출력한다.
-void generate(int n, int m, string s) {
-  //기저 사례: skip &lt; 0 (skip=-1이란 것은 이미 k번째 신호가 출력됨)
-  if (skip &lt; 0) return;
-  //기저 사례: n = m = 0
-  if (n == 0 &amp;&amp; m == 0) {
-      //더 건너뛸 신호가 없는 경우
-      if (skip == 0) cout &lt;&lt; s &lt;&lt; endl;
-      --skip;
-      return;
-  }
-  if (bino[n + m][n] &lt;= skip) {
-      skip -= bino[n + m][n];
-      return;
-  }
-  if (n &gt; 0) generate(n - 1, m, s + "-");
-  if (m &gt; 0) generate(n, m - 1, s + "o");
-}
-</code></pre></div>    </div>
-  </li>
+</span><span class="kt">void</span> <span class="nf">generate</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">//기저 사례: n = m = 0
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span> <span class="p">(</span><span class="n">skip</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+		<span class="o">--</span><span class="n">skip</span><span class="p">;</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">bino</span><span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">skip</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">skip</span> <span class="o">-=</span> <span class="n">bino</span><span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">generate</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="s">"-"</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">generate</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="s">"o"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>k - 1개 건너뛰기</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//skip개를 건너뛰고 출력한다.
+</span><span class="kt">void</span> <span class="nf">generate</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">//기저 사례: skip &lt; 0 (skip=-1이란 것은 이미 k번째 신호가 출력됨)
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">skip</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+	<span class="c1">//기저 사례: n = m = 0
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">//더 건너뛸 신호가 없는 경우
+</span>		<span class="k">if</span> <span class="p">(</span><span class="n">skip</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+		<span class="o">--</span><span class="n">skip</span><span class="p">;</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">bino</span><span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">skip</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">skip</span> <span class="o">-=</span> <span class="n">bino</span><span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">generate</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="s">"-"</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">generate</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="s">"o"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
   <li>전역 변수 skip은 k - 1로 초기화해야 한다.</li>
   <li>시간 복잡도
     <ul>
@@ -376,69 +382,68 @@ void generate(int n, int m, string s) {
 </ul>
 
 <h2 id="결과-코드">결과 코드</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _CRT_SECURE_NO_WARNINGS
 
-#include &lt;iostream&gt;
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
+</span>
+<span class="cp">#include &lt;iostream&gt;
 #include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;string&gt;
-using namespace std;
-#define min(a,b) ((a) &lt; (b) ? (a) : (b))
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="cp">#define min(a,b) ((a) &lt; (b) ? (a) : (b))
 #define N 201
-//k의 최대값  + 100, 오버플로를 막기 위해 이보다 큰 값은 구하지 않는다.
-const int M = 1000000000 + 100;
-int bino[N][N];
-int skip;
+</span><span class="c1">//k의 최대값  + 100, 오버플로를 막기 위해 이보다 큰 값은 구하지 않는다.
+</span><span class="k">const</span> <span class="kt">int</span> <span class="n">M</span> <span class="o">=</span> <span class="mi">1000000000</span> <span class="o">+</span> <span class="mi">100</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">bino</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">skip</span><span class="p">;</span>
 
-//필요한 모든 이항계수를 미리 계산해 둔다.
-void calcBino() {
-	memset(bino, 0, sizeof(bino));
-	for (int i = 0; i &lt; N; i++) {
-		bino[i][0] = bino[i][i] = 1;
-		for (int j = 1; j &lt; i; j++)
-			bino[i][j] = min(M, bino[i - 1][j - 1] + bino[i - 1][j]);
-	}
-}
+<span class="c1">//필요한 모든 이항계수를 미리 계산해 둔다.
+</span><span class="kt">void</span> <span class="nf">calcBino</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">memset</span><span class="p">(</span><span class="n">bino</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">bino</span><span class="p">));</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">bino</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">bino</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">i</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+			<span class="n">bino</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">M</span><span class="p">,</span> <span class="n">bino</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">bino</span><span class="p">[</span><span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">][</span><span class="n">j</span><span class="p">]);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
 
-//s: 지금까지 만든 신호
+<span class="c1">//s: 지금까지 만든 신호
 //n: 더 필요한 '-'의 개수
 //m: 더 필요한 'o'의 개수
 //skip개를 건너뛰고 출력한다.
-void generate(int n, int m, string s) {
-	//기저 사례: skip &lt; 0 (skip=-1이란 것은 이미 k번째 신호가 출력됨)
-	if (skip &lt; 0) return;
-	//기저 사례: n = m = 0
-	if (n == 0 &amp;&amp; m == 0) {
-		//더 건너뛸 신호가 없는 경우
-		if (skip == 0) cout &lt;&lt; s &lt;&lt; endl;
-		--skip;
-		return;
-	}
-	if (bino[n + m][n] &lt;= skip) {
-		skip -= bino[n + m][n];
-		return;
-	}
-	if (n &gt; 0) generate(n - 1, m, s + "-");
-	if (m &gt; 0) generate(n, m - 1, s + "o");
-}
+</span><span class="kt">void</span> <span class="nf">generate</span><span class="p">(</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="kt">int</span> <span class="n">m</span><span class="p">,</span> <span class="n">string</span> <span class="n">s</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">//기저 사례: skip &lt; 0 (skip=-1이란 것은 이미 k번째 신호가 출력됨)
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">skip</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+	<span class="c1">//기저 사례: n = m = 0
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="n">m</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">//더 건너뛸 신호가 없는 경우
+</span>		<span class="k">if</span> <span class="p">(</span><span class="n">skip</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span> <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">s</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+		<span class="o">--</span><span class="n">skip</span><span class="p">;</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">bino</span><span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">skip</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">skip</span> <span class="o">-=</span> <span class="n">bino</span><span class="p">[</span><span class="n">n</span> <span class="o">+</span> <span class="n">m</span><span class="p">][</span><span class="n">n</span><span class="p">];</span>
+		<span class="k">return</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">generate</span><span class="p">(</span><span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="s">"-"</span><span class="p">);</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">m</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="n">generate</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">s</span> <span class="o">+</span> <span class="s">"o"</span><span class="p">);</span>
+<span class="p">}</span>
 
-int main()
-{
-	int tc; scanf("%d", &amp;tc);
-	calcBino();
-	while (tc--) {
-		int n, m, k; scanf("%d %d %d", &amp;n, &amp;m, &amp;k);
-		string s;
-		//skip 초기화
-		skip = k - 1;
-		generate(n, m, s);
-	}
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">tc</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
+	<span class="n">calcBino</span><span class="p">();</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">k</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">k</span><span class="p">);</span>
+		<span class="n">string</span> <span class="n">s</span><span class="p">;</span>
+		<span class="c1">//skip 초기화
+</span>		<span class="n">skip</span> <span class="o">=</span> <span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="n">generate</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">,</span> <span class="n">s</span><span class="p">);</span>
+	<span class="p">}</span>
 
-	return 0;
-}
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
-<p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
       </section>

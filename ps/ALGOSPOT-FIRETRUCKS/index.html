@@ -316,7 +316,7 @@
   <li>따라서, 모든 소방서를 임의의 한 정점으로 연결한 후, 거리를 0으로 두면 단 한번의 다익스트라 알고리즘으로 문제를 해결할 수 있다.</li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/34755287/44615068-946df000-a86b-11e8-903f-d9a552d5828c.JPG" alt="firetrucks" /></p>
+<p><img src="https://user-images.githubusercontent.com/34755287/46851226-c6461080-ce31-11e8-833d-103c4d08fc81.jpg" alt="firetrucks" /></p>
 
 <ul>
   <li>위 그래프는 임의의 정점을 추가한 모습이다.</li>
@@ -324,9 +324,10 @@
 </ul>
 
 <h2 id="구현-코드">구현 코드</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _CRT_SECURE_NO_WARNINGS
 
-#include &lt;iostream&gt;
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
+</span>
+<span class="cp">#include &lt;iostream&gt;
 #include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;algorithm&gt;
@@ -335,83 +336,81 @@
 #include &lt;stack&gt;
 #include &lt;deque&gt;
 #include &lt;map&gt;
-using namespace std;
-#define MAX_V 1001
-const int INF = 987654321;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="cp">#define MAX_V 1001
+</span><span class="k">const</span> <span class="kt">int</span> <span class="n">INF</span> <span class="o">=</span> <span class="mi">987654321</span><span class="p">;</span>
 
-int v, e, n, m;
-vector&lt;pair&lt;int, int&gt;&gt; adj[MAX_V];
-//minDist: 한 소방서에서 각 불난 위치의 정점까지 최소 거리
+<span class="kt">int</span> <span class="n">v</span><span class="p">,</span> <span class="n">e</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">adj</span><span class="p">[</span><span class="n">MAX_V</span><span class="p">];</span>
+<span class="c1">//minDist: 한 소방서에서 각 불난 위치의 정점까지 최소 거리
 //fireStation: 소방서 정점
 //fire: 불난 위치 정점
-int minDist[MAX_V], fireStation[MAX_V], fire[MAX_V];
+</span><span class="kt">int</span> <span class="n">minDist</span><span class="p">[</span><span class="n">MAX_V</span><span class="p">],</span> <span class="n">fireStation</span><span class="p">[</span><span class="n">MAX_V</span><span class="p">],</span> <span class="n">fire</span><span class="p">[</span><span class="n">MAX_V</span><span class="p">];</span>
 
-void dijkstra(int src) {
-   vector&lt;int&gt; dist(v + 1, INF);
-   dist[src] = 0;
-   priority_queue&lt;pair&lt;int, int&gt;&gt; pq;
-   pq.push(make_pair(0, src));
-   while (!pq.empty()) {
-      int here = pq.top().second;
-      int cost = -pq.top().first;
-      pq.pop();
-      if (dist[here] &lt; cost) continue;
-      for (int i = 0; i &lt; adj[here].size(); ++i) {
-         int there = adj[here][i].first;
-         int nextDist = cost + adj[here][i].second;
-         if (dist[there] &gt; nextDist) {
-            dist[there] = nextDist;
-            pq.push(make_pair(-nextDist, there));
-         }
-         //해당 정점이 불난 위치이며, 현재까지의 거리보다 짧다면 갱신한다.
-         for (int j = 0; j &lt; n; ++j)
-            if (there == fire[j] &amp;&amp; minDist[fire[j]] &gt; nextDist)
-               minDist[fire[j]] = nextDist;
-      }
-   }
-}
+<span class="kt">void</span> <span class="nf">dijkstra</span><span class="p">(</span><span class="kt">int</span> <span class="n">src</span><span class="p">)</span> <span class="p">{</span>
+   <span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">dist</span><span class="p">(</span><span class="n">v</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">INF</span><span class="p">);</span>
+   <span class="n">dist</span><span class="p">[</span><span class="n">src</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+   <span class="n">priority_queue</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">pq</span><span class="p">;</span>
+   <span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">src</span><span class="p">));</span>
+   <span class="k">while</span> <span class="p">(</span><span class="o">!</span><span class="n">pq</span><span class="p">.</span><span class="n">empty</span><span class="p">())</span> <span class="p">{</span>
+      <span class="kt">int</span> <span class="n">here</span> <span class="o">=</span> <span class="n">pq</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">second</span><span class="p">;</span>
+      <span class="kt">int</span> <span class="n">cost</span> <span class="o">=</span> <span class="o">-</span><span class="n">pq</span><span class="p">.</span><span class="n">top</span><span class="p">().</span><span class="n">first</span><span class="p">;</span>
+      <span class="n">pq</span><span class="p">.</span><span class="n">pop</span><span class="p">();</span>
+      <span class="k">if</span> <span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">here</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">cost</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">adj</span><span class="p">[</span><span class="n">here</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+         <span class="kt">int</span> <span class="n">there</span> <span class="o">=</span> <span class="n">adj</span><span class="p">[</span><span class="n">here</span><span class="p">][</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">;</span>
+         <span class="kt">int</span> <span class="n">nextDist</span> <span class="o">=</span> <span class="n">cost</span> <span class="o">+</span> <span class="n">adj</span><span class="p">[</span><span class="n">here</span><span class="p">][</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">;</span>
+         <span class="k">if</span> <span class="p">(</span><span class="n">dist</span><span class="p">[</span><span class="n">there</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">nextDist</span><span class="p">)</span> <span class="p">{</span>
+            <span class="n">dist</span><span class="p">[</span><span class="n">there</span><span class="p">]</span> <span class="o">=</span> <span class="n">nextDist</span><span class="p">;</span>
+            <span class="n">pq</span><span class="p">.</span><span class="n">push</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="o">-</span><span class="n">nextDist</span><span class="p">,</span> <span class="n">there</span><span class="p">));</span>
+         <span class="p">}</span>
+         <span class="c1">//해당 정점이 불난 위치이며, 현재까지의 거리보다 짧다면 갱신한다.
+</span>         <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+            <span class="k">if</span> <span class="p">(</span><span class="n">there</span> <span class="o">==</span> <span class="n">fire</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">minDist</span><span class="p">[</span><span class="n">fire</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">&gt;</span> <span class="n">nextDist</span><span class="p">)</span>
+               <span class="n">minDist</span><span class="p">[</span><span class="n">fire</span><span class="p">[</span><span class="n">j</span><span class="p">]]</span> <span class="o">=</span> <span class="n">nextDist</span><span class="p">;</span>
+      <span class="p">}</span>
+   <span class="p">}</span>
+<span class="p">}</span>
 
-int main()
-{
-   int tc; scanf("%d", &amp;tc);
-   while (tc--) {
-      for (int i = 0; i &lt; MAX_V; ++i) {
-         adj[i].clear();
-         minDist[i] = INF;
-         fireStation[i] = 0;
-         fire[i] = 0;
-      }
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+   <span class="kt">int</span> <span class="n">tc</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
+   <span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_V</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">adj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">clear</span><span class="p">();</span>
+         <span class="n">minDist</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">INF</span><span class="p">;</span>
+         <span class="n">fireStation</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+         <span class="n">fire</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="p">}</span>
 
-      scanf("%d %d %d %d", &amp;v, &amp;e, &amp;n, &amp;m);
+      <span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d %d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">v</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
 
-      for (int i = 0; i &lt; e; ++i) {
-         int a, b, t;
-         scanf("%d %d %d", &amp;a, &amp;b, &amp;t);
-         adj[a].push_back(make_pair(b, t));
-         adj[b].push_back(make_pair(a, t));
-      }
-      for (int i = 0; i &lt; n; ++i)
-         scanf("%d", &amp;fire[i]);
-      //소방서의 정점을 입력 받은 후, 임의의 정점 0을 연결한다.(거리 0)
-      for (int i = 0; i &lt; m; ++i) {
-         scanf("%d", &amp;fireStation[i]);
-         adj[0].push_back(make_pair(fireStation[i], 0));
-      }
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">e</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+         <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">;</span>
+         <span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">a</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">b</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">);</span>
+         <span class="n">adj</span><span class="p">[</span><span class="n">a</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">t</span><span class="p">));</span>
+         <span class="n">adj</span><span class="p">[</span><span class="n">b</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">t</span><span class="p">));</span>
+      <span class="p">}</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+         <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">fire</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+      <span class="c1">//소방서의 정점을 입력 받은 후, 임의의 정점 0을 연결한다.(거리 0)
+</span>      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+         <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">fireStation</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+         <span class="n">adj</span><span class="p">[</span><span class="mi">0</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">make_pair</span><span class="p">(</span><span class="n">fireStation</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="mi">0</span><span class="p">));</span>
+      <span class="p">}</span>
 
-      //임의의 정점 0을 시작으로 다익스트라 알고리즘을 한번 실행한다.
-      dijkstra(0);
+      <span class="c1">//임의의 정점 0을 시작으로 다익스트라 알고리즘을 한번 실행한다.
+</span>      <span class="n">dijkstra</span><span class="p">(</span><span class="mi">0</span><span class="p">);</span>
 
-      int ans = 0;
-      for (int i = 0; i &lt; n; ++i)
-         ans += minDist[fire[i]];
-      printf("%d\n", ans);
-   }
+      <span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+      <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+         <span class="n">ans</span> <span class="o">+=</span> <span class="n">minDist</span><span class="p">[</span><span class="n">fire</span><span class="p">[</span><span class="n">i</span><span class="p">]];</span>
+      <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
+   <span class="p">}</span>
 
-   return 0;
-}
+   <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
-<p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
       </section>

@@ -348,89 +348,88 @@
 </ul>
 
 <h2 id="결과-코드">결과 코드</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _CRT_SECURE_NO_WARNINGS
 
-#include &lt;iostream&gt;
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
+</span>
+<span class="cp">#include &lt;iostream&gt;
 #include &lt;cstdio&gt;
 #include &lt;cstring&gt;
 #include &lt;vector&gt;
 #include &lt;string&gt;
-using namespace std;
-#define max(a,b) ((a) &gt; (b) ? (a) : (b))
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="cp">#define max(a,b) ((a) &gt; (b) ? (a) : (b))
 #define N 101
-int n, w;
-int cache[1001][N];
+</span><span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">w</span><span class="p">;</span>
+<span class="kt">int</span> <span class="n">cache</span><span class="p">[</span><span class="mi">1001</span><span class="p">][</span><span class="n">N</span><span class="p">];</span>
 
-//물건의 정보를 저장할 구조체
-typedef struct _product
-{
-	string name;
-	int volume;
-	int need;
-}product;
+<span class="c1">//물건의 정보를 저장할 구조체
+</span><span class="k">typedef</span> <span class="k">struct</span> <span class="n">_product</span>
+<span class="p">{</span>
+	<span class="n">string</span> <span class="n">name</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">volume</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">need</span><span class="p">;</span>
+<span class="p">}</span><span class="n">product</span><span class="p">;</span>
 
-vector&lt;product&gt; pv;
+<span class="n">vector</span><span class="o">&lt;</span><span class="n">product</span><span class="o">&gt;</span> <span class="n">pv</span><span class="p">;</span>
 
-//캐리어에 남은 용량이 capacity일때, item 이후의 물건들을
+<span class="c1">//캐리어에 남은 용량이 capacity일때, item 이후의 물건들을
 //담아 얻을 수 있는 최대 절박도의 합을 반환한다.
-int pack(int capacity, int item) {
-	//기저 사례: 더 담을 물건이 없을 때
-	if (item == n) return 0;
-	int &amp;ret = cache[capacity][item];
-	if (ret != -1) return ret;
-	//이 물건을 담지 않을 경우
-	ret = pack(capacity, item + 1);
-	//이 물건을 담을 경우
-	if (capacity &gt;= pv[item].volume)
-		ret = max(ret, pack(capacity - pv[item].volume, item + 1) +
-			pv[item].need);
-	return ret;
-}
+</span><span class="kt">int</span> <span class="nf">pack</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">,</span> <span class="kt">int</span> <span class="n">item</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">//기저 사례: 더 담을 물건이 없을 때
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">item</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span> <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="o">&amp;</span><span class="n">ret</span> <span class="o">=</span> <span class="n">cache</span><span class="p">[</span><span class="n">capacity</span><span class="p">][</span><span class="n">item</span><span class="p">];</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+	<span class="c1">//이 물건을 담지 않을 경우
+</span>	<span class="n">ret</span> <span class="o">=</span> <span class="n">pack</span><span class="p">(</span><span class="n">capacity</span><span class="p">,</span> <span class="n">item</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+	<span class="c1">//이 물건을 담을 경우
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">capacity</span> <span class="o">&gt;=</span> <span class="n">pv</span><span class="p">[</span><span class="n">item</span><span class="p">].</span><span class="n">volume</span><span class="p">)</span>
+		<span class="n">ret</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">pack</span><span class="p">(</span><span class="n">capacity</span> <span class="o">-</span> <span class="n">pv</span><span class="p">[</span><span class="n">item</span><span class="p">].</span><span class="n">volume</span><span class="p">,</span> <span class="n">item</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span>
+			<span class="n">pv</span><span class="p">[</span><span class="n">item</span><span class="p">].</span><span class="n">need</span><span class="p">);</span>
+	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
 
-//pack(capacity, item)이 선택한 물건들의 목록을 packed에 저장한다.
-void reconstruct(int capacity, int item, vector&lt;string&gt; &amp;packed) {
-	//기저 사례: 모든 물건을 다 고려했을 때
-	if (item == n) return;
-	if (pack(capacity, item) == pack(capacity, item + 1))
-		reconstruct(capacity, item + 1, packed);
-	else {
-		packed.push_back(pv[item].name);
-		reconstruct(capacity - pv[item].volume, item + 1, packed);
-	}
-}
+<span class="c1">//pack(capacity, item)이 선택한 물건들의 목록을 packed에 저장한다.
+</span><span class="kt">void</span> <span class="nf">reconstruct</span><span class="p">(</span><span class="kt">int</span> <span class="n">capacity</span><span class="p">,</span> <span class="kt">int</span> <span class="n">item</span><span class="p">,</span> <span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">packed</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">//기저 사례: 모든 물건을 다 고려했을 때
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">item</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">pack</span><span class="p">(</span><span class="n">capacity</span><span class="p">,</span> <span class="n">item</span><span class="p">)</span> <span class="o">==</span> <span class="n">pack</span><span class="p">(</span><span class="n">capacity</span><span class="p">,</span> <span class="n">item</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+		<span class="n">reconstruct</span><span class="p">(</span><span class="n">capacity</span><span class="p">,</span> <span class="n">item</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">packed</span><span class="p">);</span>
+	<span class="k">else</span> <span class="p">{</span>
+		<span class="n">packed</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">pv</span><span class="p">[</span><span class="n">item</span><span class="p">].</span><span class="n">name</span><span class="p">);</span>
+		<span class="n">reconstruct</span><span class="p">(</span><span class="n">capacity</span> <span class="o">-</span> <span class="n">pv</span><span class="p">[</span><span class="n">item</span><span class="p">].</span><span class="n">volume</span><span class="p">,</span> <span class="n">item</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">packed</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
 
-//초기화
-void init() {
-	memset(cache, -1, sizeof(cache));
-	pv.clear();
-}
+<span class="c1">//초기화
+</span><span class="kt">void</span> <span class="nf">init</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">memset</span><span class="p">(</span><span class="n">cache</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">cache</span><span class="p">));</span>
+	<span class="n">pv</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+<span class="p">}</span>
 
-int main()
-{
-	int tc; scanf("%d", &amp;tc);
-	while (tc--) {
-		init();
-		scanf("%d %d", &amp;n, &amp;w);
-		for (int i = 0; i &lt; n; i++) {
-			product in;
-			cin &gt;&gt; in.name;
-			scanf("%d %d", &amp;in.volume, &amp;in.need);
-			pv.push_back(in);
-		}
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">tc</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">init</span><span class="p">();</span>
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">w</span><span class="p">);</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">product</span> <span class="n">in</span><span class="p">;</span>
+			<span class="n">cin</span> <span class="o">&gt;&gt;</span> <span class="n">in</span><span class="p">.</span><span class="n">name</span><span class="p">;</span>
+			<span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="p">.</span><span class="n">volume</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="p">.</span><span class="n">need</span><span class="p">);</span>
+			<span class="n">pv</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">in</span><span class="p">);</span>
+		<span class="p">}</span>
 
-		vector&lt;string&gt; packed;
-		reconstruct(w, 0, packed);
-		int psize = packed.size();
-		printf("%d %d\n", pack(w, 0), psize);
-		for (int i = 0; i &lt; psize; i++)
-			cout &lt;&lt; packed[i] &lt;&lt; endl;
-	}
+		<span class="n">vector</span><span class="o">&lt;</span><span class="n">string</span><span class="o">&gt;</span> <span class="n">packed</span><span class="p">;</span>
+		<span class="n">reconstruct</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">packed</span><span class="p">);</span>
+		<span class="kt">int</span> <span class="n">psize</span> <span class="o">=</span> <span class="n">packed</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">pack</span><span class="p">(</span><span class="n">w</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="n">psize</span><span class="p">);</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">psize</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+			<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">packed</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+	<span class="p">}</span>
 
-	return 0;
-}
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
-<p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
       </section>

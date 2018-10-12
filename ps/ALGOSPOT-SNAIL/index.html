@@ -306,22 +306,25 @@
 <p><strong>동적 계획법을 활용한 확률 계산</strong></p>
 <ul>
   <li>예제 문제: 우물의 깊이 n미터, 장마 기간 m일, 비가올 확률 50%, 달팽이는 비가 안올 때 1m 올라가고 비가 올 때 2m를 올라간다. 이때, 올라갈 수 있는
-확률을 구하라.
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>int cache[N][2 * N + 1];
-int n, m;
-//달팽이가 days일 동안 climbed미터를 기어올라 왔다고 할 때,
+확률을 구하라.</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="n">cache</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
+<span class="c1">//달팽이가 days일 동안 climbed미터를 기어올라 왔다고 할 때,
 //m일 전까지 n미터를 기어올라갈 수 있는 경우의 수
-int climb(int days, int climbed)
-{
-  //기저 사례: m일이 모두 지난 경우
-  if (days == m) return climbed &gt;= n ? 1 : 0;
-  //메모이제이션
-  int &amp;ret = cache[days][climbed];
-  if (ret != -1) return ret;
-  return ret = climb(days + 1, climbed + 2) + climb(days + 1, climbed + 1);
-}
-</code></pre></div>    </div>
-  </li>
+</span><span class="kt">int</span> <span class="nf">climb</span><span class="p">(</span><span class="kt">int</span> <span class="n">days</span><span class="p">,</span> <span class="kt">int</span> <span class="n">climbed</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">//기저 사례: m일이 모두 지난 경우
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">days</span> <span class="o">==</span> <span class="n">m</span><span class="p">)</span> <span class="k">return</span> <span class="n">climbed</span> <span class="o">&gt;=</span> <span class="n">n</span> <span class="o">?</span> <span class="mi">1</span> <span class="o">:</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="c1">//메모이제이션
+</span>	<span class="kt">int</span> <span class="o">&amp;</span><span class="n">ret</span> <span class="o">=</span> <span class="n">cache</span><span class="p">[</span><span class="n">days</span><span class="p">][</span><span class="n">climbed</span><span class="p">];</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">climb</span><span class="p">(</span><span class="n">days</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">climbed</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="n">climb</span><span class="p">(</span><span class="n">days</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">climbed</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<ul>
   <li>완전 탐색 알고리즘에서 동적 계획법으로 순서
     <ul>
       <li>완전 탐색</li>
@@ -356,42 +359,41 @@ int climb(int days, int climbed)
 </ul>
 
 <h2 id="결과-코드">결과 코드</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _CRT_SECURE_NO_WARNINGS
 
-#include &lt;iostream&gt;
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
+</span>
+<span class="cp">#include &lt;iostream&gt;
 #include &lt;cstdio&gt;
-using namespace std;
-#define N 1001
-double cache[N][2 * N + 1];
-int n, m;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="cp">#define N 1001
+</span><span class="kt">double</span> <span class="n">cache</span><span class="p">[</span><span class="n">N</span><span class="p">][</span><span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span>
 
-double climb(int days, int climbed)
-{
-	//기저 사례
-	if (days == m) return climbed &gt;= n ? 1. : 0.;
-	//메모이제이션
-	double &amp;ret = cache[days][climbed];
-	if (ret != -1.) return ret;
-	return ret = 0.75 * climb(days + 1, climbed + 2) + 0.25 * climb(days + 1, climbed + 1);
-}
+<span class="kt">double</span> <span class="nf">climb</span><span class="p">(</span><span class="kt">int</span> <span class="n">days</span><span class="p">,</span> <span class="kt">int</span> <span class="n">climbed</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">//기저 사례
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">days</span> <span class="o">==</span> <span class="n">m</span><span class="p">)</span> <span class="k">return</span> <span class="n">climbed</span> <span class="o">&gt;=</span> <span class="n">n</span> <span class="o">?</span> <span class="mf">1.</span> <span class="o">:</span> <span class="mf">0.</span><span class="p">;</span>
+	<span class="c1">//메모이제이션
+</span>	<span class="kt">double</span> <span class="o">&amp;</span><span class="n">ret</span> <span class="o">=</span> <span class="n">cache</span><span class="p">[</span><span class="n">days</span><span class="p">][</span><span class="n">climbed</span><span class="p">];</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">ret</span> <span class="o">!=</span> <span class="o">-</span><span class="mf">1.</span><span class="p">)</span> <span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">ret</span> <span class="o">=</span> <span class="mf">0.75</span> <span class="o">*</span> <span class="n">climb</span><span class="p">(</span><span class="n">days</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">climbed</span> <span class="o">+</span> <span class="mi">2</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.25</span> <span class="o">*</span> <span class="n">climb</span><span class="p">(</span><span class="n">days</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">climbed</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
+<span class="p">}</span>
 
-int main(void)
-{
-	int tc;
-	scanf("%d", &amp;tc);
-	while (tc--) {
-		for (int i = 0; i &lt; N; i++)
-			for (int j = 0; j &lt; 2 * N + 1; j++)
-				cache[i][j] = -1.;
-		scanf("%d %d", &amp;n, &amp;m);
-		printf("%.10lf\n", climb(0, 0));
-	}
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">tc</span><span class="p">;</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">N</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">N</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span> <span class="n">j</span><span class="o">++</span><span class="p">)</span>
+				<span class="n">cache</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="o">-</span><span class="mf">1.</span><span class="p">;</span>
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%.10lf</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">climb</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">));</span>
+	<span class="p">}</span>
 
-	return 0;
-}
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
-<p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
       </section>

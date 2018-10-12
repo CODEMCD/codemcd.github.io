@@ -316,71 +316,70 @@
 </ul>
 
 <h2 id="결과-코드">결과 코드</h2>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _CRT_SECURE_NO_WARNINGS
 
-#include &lt;iostream&gt;
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
+</span>
+<span class="cp">#include &lt;iostream&gt;
 #include &lt;cstdio&gt;
 #include &lt;vector&gt;
-using namespace std;
-#define max(a, b) ((a) &gt; (b) ? (a) : (b))
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="cp">#define max(a, b) ((a) &gt; (b) ? (a) : (b))
 #define min(a, b) ((a) &lt; (b) ? (a) : (b))
+</span>
+<span class="c1">//각 판자의 높이를 저장하는 배열
+</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">h</span><span class="p">;</span>
 
-//각 판자의 높이를 저장하는 배열
-vector&lt;int&gt; h;
+<span class="c1">//h[left,...,right]구간에서 찾아낼 수 있는 가장 큰 사각형의 넓이를 반환
+</span><span class="kt">int</span> <span class="nf">solve</span><span class="p">(</span><span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="c1">//기저 사례: 판자가 하나밖에 없는 경우
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">left</span> <span class="o">==</span> <span class="n">right</span><span class="p">)</span> <span class="k">return</span> <span class="n">h</span><span class="p">[</span><span class="n">left</span><span class="p">];</span>
+	<span class="c1">//[left, mid],[mid+1, right]의 두 구간으로 문제를 분할
+</span>	<span class="kt">int</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+	<span class="c1">//분할한 문제를 각개격파(부분문제1, 부분문제2)
+</span>	<span class="kt">int</span> <span class="n">ret</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">solve</span><span class="p">(</span><span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="p">),</span> <span class="n">solve</span><span class="p">(</span><span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="p">));</span>
+	<span class="c1">//부분문제3: 두 부분에 모두 걸치는 사각형 중 가장 큰 것을 찾는다.
+</span>	<span class="kt">int</span> <span class="n">lo</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">hi</span> <span class="o">=</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">height</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">h</span><span class="p">[</span><span class="n">lo</span><span class="p">],</span> <span class="n">h</span><span class="p">[</span><span class="n">hi</span><span class="p">]);</span>
+	<span class="c1">//[mid, mid+1]만 포합하는 너비 2인 사각형을 고려한다.
+</span>	<span class="n">ret</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">height</span> <span class="o">*</span> <span class="mi">2</span><span class="p">);</span>
+	<span class="c1">//사각형이 입력 전체를 덮을 때까지 확장해 나간다.
+</span>	<span class="k">while</span> <span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">lo</span> <span class="o">||</span> <span class="n">hi</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">//left ~ right 범위안에 있을 경우
+</span>		<span class="k">if</span> <span class="p">(</span><span class="n">hi</span> <span class="o">&lt;</span> <span class="n">right</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">lo</span> <span class="o">==</span> <span class="n">left</span> <span class="o">||</span> <span class="n">h</span><span class="p">[</span><span class="n">lo</span> <span class="o">-</span> <span class="mi">1</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">[</span><span class="n">hi</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]))</span> <span class="p">{</span>
+			<span class="n">hi</span><span class="o">++</span><span class="p">;</span>
+			<span class="n">height</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">h</span><span class="p">[</span><span class="n">hi</span><span class="p">]);</span>
+		<span class="p">}</span>
+		<span class="k">else</span> <span class="p">{</span>
+			<span class="n">lo</span><span class="o">--</span><span class="p">;</span>
+			<span class="n">height</span> <span class="o">=</span> <span class="n">min</span><span class="p">(</span><span class="n">height</span><span class="p">,</span> <span class="n">h</span><span class="p">[</span><span class="n">lo</span><span class="p">]);</span>
+		<span class="p">}</span>
+		<span class="c1">//확장한 후 사각형의 넓이
+</span>		<span class="n">ret</span> <span class="o">=</span> <span class="n">max</span><span class="p">(</span><span class="n">ret</span><span class="p">,</span> <span class="n">height</span> <span class="o">*</span> <span class="p">(</span><span class="n">hi</span> <span class="o">-</span> <span class="n">lo</span> <span class="o">+</span> <span class="mi">1</span><span class="p">));</span>
+	<span class="p">}</span>
+	<span class="k">return</span> <span class="n">ret</span><span class="p">;</span>
+<span class="p">}</span>
 
-//h[left,...,right]구간에서 찾아낼 수 있는 가장 큰 사각형의 넓이를 반환
-int solve(int left, int right)
-{
-	//기저 사례: 판자가 하나밖에 없는 경우
-	if (left == right) return h[left];
-	//[left, mid],[mid+1, right]의 두 구간으로 문제를 분할
-	int mid = (left + right) / 2;
-	//분할한 문제를 각개격파(부분문제1, 부분문제2)
-	int ret = max(solve(left, mid), solve(mid + 1, right));
-	//부분문제3: 두 부분에 모두 걸치는 사각형 중 가장 큰 것을 찾는다.
-	int lo = mid;
-	int hi = mid + 1;
-	int height = min(h[lo], h[hi]);
-	//[mid, mid+1]만 포합하는 너비 2인 사각형을 고려한다.
-	ret = max(ret, height * 2);
-	//사각형이 입력 전체를 덮을 때까지 확장해 나간다.
-	while (left &lt; lo || hi &lt; right) {
-		//left ~ right 범위안에 있을 경우
-		if (hi &lt; right &amp;&amp; (lo == left || h[lo - 1] &lt; h[hi + 1])) {
-			hi++;
-			height = min(height, h[hi]);
-		}
-		else {
-			lo--;
-			height = min(height, h[lo]);
-		}
-		//확장한 후 사각형의 넓이
-		ret = max(ret, height * (hi - lo + 1));
-	}
-	return ret;
-}
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">tc</span><span class="p">;</span>
+	<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+			<span class="kt">int</span> <span class="n">height</span><span class="p">;</span>
+			<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">height</span><span class="p">);</span>
+			<span class="n">h</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">height</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">solve</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">n</span> <span class="o">-</span> <span class="mi">1</span><span class="p">));</span>
+		<span class="n">h</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+	<span class="p">}</span>
 
-int main(void)
-{
-	int tc;
-	scanf("%d", &amp;tc);
-	while (tc--) {
-		int n;
-		scanf("%d", &amp;n);
-		for (int i = 0; i &lt; n; i++) {
-			int height;
-			scanf("%d", &amp;height);
-			h.push_back(height);
-		}
-		printf("%d\n", solve(0, n - 1));
-		h.clear();
-	}
-
-	return 0;
-}
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
-<p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
       </section>

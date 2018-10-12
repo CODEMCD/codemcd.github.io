@@ -312,7 +312,7 @@
   </li>
 </ul>
 
-<p><strong>1. 루트 없는 트리(unrooted tree)</strong></p>
+<h3 id="1-루트-없는-트리unrooted-tree">1. 루트 없는 트리(unrooted tree)</h3>
 <ul>
   <li>이 문제가 그래프가 아닌 루트 없는 트리라는 것을 알 수 있는 점은 문제 속에 있다.
     <ul>
@@ -330,14 +330,14 @@
   </li>
 </ul>
 
-<p><strong>2. 루트 없는 트리 문제 풀기</strong></p>
+<h3 id="2-루트-없는-트리-문제-풀기">2. 루트 없는 트리 문제 풀기</h3>
 <ul>
   <li>루트 없는 트리를 다루는 가장 간단한 방법은 임의의 시작점에서 깊이 우선 탐색을 수행하는 것이다.</li>
   <li>이 결과로 얻은 깊이 탐색 스패닝 트리는 원래 그래프의 구조를 그대로 가지면서, 부모 자식 관계르르 갖는 일반적인 트리 형태가 된다.</li>
   <li>문제 설명에서 모든 갤러리가 서로 연결되어 있을 필요가 없다고 명시되어 있기 때문에, 그래프의 각 컴포넌트는 트리 형태인 것을 알 수 있다.</li>
 </ul>
 
-<p><strong>3. 트리의 지배 집합 찾기</strong></p>
+<h3 id="3-트리의-지배-집합-찾기">3. 트리의 지배 집합 찾기</h3>
 <ul>
   <li>트리의 최소 지배 집합을 찾는 가장 간단한 방법은 트리의 맨 아래에서부터 시작해서 위로 올라오는 것이다.
     <ul>
@@ -358,7 +358,7 @@
   <li>첫 번째 예제 데이터 그래프 형태</li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/34755287/44188712-02266780-a15a-11e8-8635-479b2645ddfb.JPG" alt="gallery" /></p>
+<p><img src="https://user-images.githubusercontent.com/34755287/46851252-de1d9480-ce31-11e8-9470-34550ebe1004.JPG" alt="gallery" /></p>
 
 <h2 id="구현">구현</h2>
 <ul>
@@ -367,74 +367,73 @@
 </ul>
 
 <p><strong><em>구현 코드</em></strong></p>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>#define _CRT_SECURE_NO_WARNINGS
 
-#include &lt;iostream&gt;
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
+</span>
+<span class="cp">#include &lt;iostream&gt;
 #include &lt;cstdio&gt;
 #include &lt;vector&gt;
 #include &lt;algorithm&gt;
 #include &lt;queue&gt;
-using namespace std;
-#define MAX_V 1001
-int V;
-vector&lt;int&gt; adj[MAX_V];
-vector&lt;bool&gt; visited;
-const int UNWATCHED = 0;
-const int WATCHED = 1;
-const int INSTALLED = 2;
-//지금까지 설치한 카메라의 총 수
-int installed;
-//here로부터 깊이 우선 탐색을 하고, here의 정보를 반환한다.
-int dfs(int here) {
-	visited[here] = true;
-	int children[3] = { 0,0,0 }; //UNWATCHED, WATCHED, INSTALLED 정보
-	for (int i = 0; i &lt; adj[here].size(); ++i) {
-		int there = adj[here][i];
-		if (!visited[there])
-			++children[dfs(there)];
-	}
-	//자손 노드 중 감시되지 않는 노드가 있을 경우 카메라를 설치한다.
-	if (children[UNWATCHED]) {
-		++installed;
-		return INSTALLED;
-	}
-	//자손 노드 중 카메라가 설치된 노드가 있을 경우 설치할 필요가 없다.
-	if (children[INSTALLED])
-		return WATCHED;
-	return UNWATCHED;
-}
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="cp">#define MAX_V 1001
+</span><span class="kt">int</span> <span class="n">V</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">adj</span><span class="p">[</span><span class="n">MAX_V</span><span class="p">];</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span> <span class="n">visited</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">UNWATCHED</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">WATCHED</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">INSTALLED</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="c1">//지금까지 설치한 카메라의 총 수
+</span><span class="kt">int</span> <span class="n">installed</span><span class="p">;</span>
+<span class="c1">//here로부터 깊이 우선 탐색을 하고, here의 정보를 반환한다.
+</span><span class="kt">int</span> <span class="nf">dfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">here</span><span class="p">)</span> <span class="p">{</span>
+	<span class="n">visited</span><span class="p">[</span><span class="n">here</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">children</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span> <span class="p">};</span> <span class="c1">//UNWATCHED, WATCHED, INSTALLED 정보
+</span>	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">adj</span><span class="p">[</span><span class="n">here</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">there</span> <span class="o">=</span> <span class="n">adj</span><span class="p">[</span><span class="n">here</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
+		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">there</span><span class="p">])</span>
+			<span class="o">++</span><span class="n">children</span><span class="p">[</span><span class="n">dfs</span><span class="p">(</span><span class="n">there</span><span class="p">)];</span>
+	<span class="p">}</span>
+	<span class="c1">//자손 노드 중 감시되지 않는 노드가 있을 경우 카메라를 설치한다.
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">children</span><span class="p">[</span><span class="n">UNWATCHED</span><span class="p">])</span> <span class="p">{</span>
+		<span class="o">++</span><span class="n">installed</span><span class="p">;</span>
+		<span class="k">return</span> <span class="n">INSTALLED</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="c1">//자손 노드 중 카메라가 설치된 노드가 있을 경우 설치할 필요가 없다.
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">children</span><span class="p">[</span><span class="n">INSTALLED</span><span class="p">])</span>
+		<span class="k">return</span> <span class="n">WATCHED</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">UNWATCHED</span><span class="p">;</span>
+<span class="p">}</span>
 
-//그래프를 감시하는데 필요한 카메라의 최소 수를 반환한다.
-int installCamera() {
-	installed = 0;
-	visited = vector&lt;bool&gt;(V, false);
-	for (int u = 0; u &lt; V; ++u)
-		if (!visited[u] &amp;&amp; dfs(u) == UNWATCHED)
-			++installed;
-	return installed;
-}
+<span class="c1">//그래프를 감시하는데 필요한 카메라의 최소 수를 반환한다.
+</span><span class="kt">int</span> <span class="nf">installCamera</span><span class="p">()</span> <span class="p">{</span>
+	<span class="n">installed</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="n">visited</span> <span class="o">=</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">bool</span><span class="o">&gt;</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="nb">false</span><span class="p">);</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">u</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">u</span> <span class="o">&lt;</span> <span class="n">V</span><span class="p">;</span> <span class="o">++</span><span class="n">u</span><span class="p">)</span>
+		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">visited</span><span class="p">[</span><span class="n">u</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">dfs</span><span class="p">(</span><span class="n">u</span><span class="p">)</span> <span class="o">==</span> <span class="n">UNWATCHED</span><span class="p">)</span>
+			<span class="o">++</span><span class="n">installed</span><span class="p">;</span>
+	<span class="k">return</span> <span class="n">installed</span><span class="p">;</span>
+<span class="p">}</span>
 
-int main()
-{
-	int tc; scanf("%d", &amp;tc);
-	while (tc--) {
-		for (int i = 0; i &lt; MAX_V; ++i)
-			adj[i].clear();
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">tc</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
+	<span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">MAX_V</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+			<span class="n">adj</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">clear</span><span class="p">();</span>
 
-		int h; scanf("%d %d", &amp;V, &amp;h);
-		for (int i = 0; i &lt; h; ++i) {
-			int s, e; scanf("%d %d", &amp;s, &amp;e);
-			adj[s].push_back(e);
-			adj[e].push_back(s);
-		}
-		printf("%d\n", installCamera());
-	}
+		<span class="kt">int</span> <span class="n">h</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">V</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">h</span><span class="p">);</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">h</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+			<span class="kt">int</span> <span class="n">s</span><span class="p">,</span> <span class="n">e</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">s</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">e</span><span class="p">);</span>
+			<span class="n">adj</span><span class="p">[</span><span class="n">s</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">e</span><span class="p">);</span>
+			<span class="n">adj</span><span class="p">[</span><span class="n">e</span><span class="p">].</span><span class="n">push_back</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+		<span class="p">}</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">installCamera</span><span class="p">());</span>
+	<span class="p">}</span>
 
-	return 0;
-}
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
 </code></pre></div></div>
-
-<p><a href="https://codemcd.github.io/">HOME</a></p>
 
         
       </section>
