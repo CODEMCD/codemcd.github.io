@@ -13,7 +13,6 @@ body {
   padding: 0;
   color: $text-color;
   font-family: $global-font-family;
-  font-size: $type-size-7;
   line-height: 1.5;
 
   &.overflow--hidden {
@@ -66,7 +65,6 @@ small,
 
 p {
   margin-bottom: 1.3em;
-  font-size: $type-size-7;
 }
 
 u,
@@ -75,13 +73,11 @@ ins {
   border-bottom: 1px solid $text-color;
   a {
     color: inherit;
-	font-size: $type-size-7;
   }
 }
 
 del a {
   color: inherit;
-  font-size: $type-size-7;
 }
 
 /* reduce orphans and widows when printing */
