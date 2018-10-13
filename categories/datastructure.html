@@ -1,0 +1,971 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.13.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>DataStructure - CODEMCD’s Tech Blog</title>
+<meta name="description" content="My Tech Blog">
+
+
+
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="CODEMCD's Tech Blog">
+<meta property="og:title" content="DataStructure">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/categories/datastructure">
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/categories/datastructure">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "CODEMCD",
+      "url": "https://codemcd.github.io/pages/CODEMCD",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/pages/CODEMCD/feed.xml" type="application/atom+xml" rel="alternate" title="CODEMCD's Tech Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/pages/CODEMCD/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--archive wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/pages/CODEMCD/">CODEMCD's Tech Blog</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://codemcd.github.io/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/about/" >About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/categories/" >Category</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">CODEMCD</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Hello World!
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/CODEMCD"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://codemcd.github.io"><i class="fas fa-fw fa-link" aria-hidden="true"></i> HOME</a></li>
+          
+        
+          
+            <li><a href="https://codemcd.github.io/categories/"><i class="fas fa-fw fa-link" aria-hidden="true"></i> CATEGORY</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:psbum1609@gmail.com">
+            <meta itemprop="email" content="psbum1609@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  <!-- Add category side bar -->
+  
+    <nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+        <span class="nav__sub-title" v-on:click='togglec()'>Categories</span>
+        <ul v-show="flag_c">
+        
+           <li><a href="/categories/ps" class="">Ps (35)</a></li>
+        
+        </ul>
+        
+        <span class="nav__sub-title" v-on:click='togglet()'>tags</span>
+		
+        <ul v-show="flag_t">
+        
+           <li><a href="/tags/#algospot" class="">Algospot (24)</a></li>
+        
+           <li><a href="/tags/#sw-expert-academy" class="">Sw expert academy (11)</a></li>
+        
+        </ul>       
+      </li> 
+  </ul>
+</nav>
+  
+  
+  </div>
+
+
+  <div class="archive">
+    
+      <h1 id="page-title" class="page__title">DataStructure</h1>
+    
+    <ul>
+  <li>자료구조 개념 정리</li>
+</ul>
+
+<hr />
+<h1 id="index">INDEX</h1>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-DRAGON/" rel="permalink">[ALGOSPOT]DRAGON
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN/" rel="permalink">[ALGOSPOT]WORDCHAIN
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">해밀토니안 경로
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-WILDCARD/" rel="permalink">[ALGOSPOT]WILDCARD
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-TRIANCLEPATH/" rel="permalink">[ALGOSPOT]TRIANGLEPATH
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-STRJOIN/" rel="permalink">[ALGOSPOT]STRJOIN
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">그리디
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-SORTGAME/" rel="permalink">[ALGOSPOT]SORTGAME
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">그래프
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-SNAIL/" rel="permalink">[ALGOSPOT]SNAIL
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-QUANTIZE/" rel="permalink">[ALGOSPOT]QUANTIZE
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-QUADTREE/" rel="permalink">[ALGOSPOT]QUADTREE
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">분할 정복
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-PICNIC/" rel="permalink">[ALGOSPOT]PICNIC
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">완전 탐색
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-PI/" rel="permalink">[ALGOSPOT]PI
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-PACKING/" rel="permalink">[ALGOSPOT]PACKING
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-MORSE/" rel="permalink">[ALGOSPOT]MORSE
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-LIS/" rel="permalink">[ALGOSPOT]LIS
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-GALLERY/" rel="permalink">[ALGOSPOT]GALLERY
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">그래프, 트리
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-FIRETRUCKS/" rel="permalink">[ALGOSPOT]FIRETRUCKS
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">다익스트라 알고리즘
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-FENCE/" rel="permalink">[ALGOSPOT]FENCE
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">분할 정복
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-DRUNKEN/" rel="permalink">[ALGOSPOT]DRUNKEN
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">플로이드 알고리즘
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-DICTIONARY/" rel="permalink">[ALGOSPOT]DICTIONARY
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">위상 정렬
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-DARPA/" rel="permalink">[ALGOSPOT]DARPA
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP, 이진 탐색
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-BOGGLE/" rel="permalink">[ALGOSPOT]BOGGLE
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-BOARDCOVER/" rel="permalink">[ALGOSPOT]BOARDCOVER
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">완전 탐색
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-ASYMTILNG/" rel="permalink">[ALGOSPOT]ASYMTILING
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">DP
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/ALGOSPOT-ARCTIC/" rel="permalink">[ALGOSPOT]ARCTIC
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">그래프, 이진 탐색
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-5658.%EB%B3%B4%EB%AC%BC%EC%83%81%EC%9E%90-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8/" rel="permalink">[SW Expert Academy] 5658.보물상자 비밀번호
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">구현
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-5653.%EC%A4%84%EA%B8%B0%EC%84%B8%ED%8F%AC%EB%B0%B0%EC%96%91/" rel="permalink">[SW Expert Academy] 5653.줄기세포배양
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">시뮬레이션
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-5644.%EB%AC%B4%EC%84%A0-%EC%B6%A9%EC%A0%84/" rel="permalink">[SW Expert Academy] 5644.무선 충전
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">시뮬레이션
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-4014.%ED%99%9C%EC%A3%BC%EB%A1%9C-%EA%B1%B4%EC%84%A4/" rel="permalink">[SW Expert Academy] 4014.활주로 건설
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">구현
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-4013.%ED%8A%B9%EC%9D%B4%ED%95%9C-%EC%9E%90%EC%84%9D/" rel="permalink">[SW Expert Academy] 4013.특이한 자석
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">구현
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-4012.%EC%9A%94%EB%A6%AC%EC%82%AC/" rel="permalink">[SW Expert Academy] 4012.요리사
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">조합, 완전 탐색
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-4008.%EC%88%AB%EC%9E%90-%EB%A7%8C%EB%93%A4%EA%B8%B0/" rel="permalink">[SW Expert Academy] 4008.숫자 만들기
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">순열, 완전 탐색
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-2477.%EC%B0%A8%EB%9F%89-%EC%A0%95%EB%B9%84%EC%86%8C/" rel="permalink">[SW Expert Academy] 2477.차량 정비소
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">시뮬레이션
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-2383.%EC%A0%90%EC%8B%AC-%EC%8B%9D%EC%82%AC%EC%8B%9C%EA%B0%84/" rel="permalink">[SW Expert Academy] 2383.점심 식사시간
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">조합, 시뮬레이션
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-2382.%EB%AF%B8%EC%83%9D%EB%AC%BC-%EA%B2%A9%EB%A6%AC/" rel="permalink">[SW Expert Academy] 2382.미생물 격리
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">시뮬레이션
+</p>
+  </article>
+</div>
+
+<div class="list__item">
+  <article class="archive__item" itemscope="" itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-2117.%ED%99%88-%EB%B0%A9%EB%B2%94-%EC%84%9C%EB%B9%84%EC%8A%A4/" rel="permalink">[SW Expert Academy] 2117.홈 방범 서비스
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">완전 탐색
+</p>
+  </article>
+</div>
+
+
+  </div>
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+    <div class="search-hits"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/pages/CODEMCD/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 CODEMCD. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/pages/CODEMCD/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'I6UE8BVP0C',
+  apiKey: 'f6718f69889fabcb9d71088ba50236b5',
+  indexName: 'GITHUB_BLOG',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="/pages/CODEMCD${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: 'Enter your search term...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+// Starting the search
+search.start();
+</script>
+
+
+
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  new Vue({
+    el : '#category_tag_menu',
+    data : {
+      flag_c : true,
+      flag_t : false
+    },
+    methods : {
+      togglec: function(){
+        this.flag_c = !this.flag_c;
+      },
+      togglet: function(){
+        this.flag_t = !this.flag_t;
+      }
+    }
+  });
+</script>
+
+
+  </body>
+</html>
