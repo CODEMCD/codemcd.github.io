@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-10-12T21:54:01+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/</id><title type="html">CODEMCD’s Tech Blog</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[ALGOSPOT]WORDCHAIN</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN/" rel="alternate" type="text/html" title="[ALGOSPOT]WORDCHAIN" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN/">&lt;h1 id=&quot;단어-제한-끝말잇기&quot;&gt;단어 제한 끝말잇기&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-10-13T16:43:09+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/</id><title type="html">CODEMCD’s Tech Blog</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[ALGOSPOT]WORDCHAIN</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN/" rel="alternate" type="text/html" title="[ALGOSPOT]WORDCHAIN" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WORDCHAIN/">&lt;h1 id=&quot;단어-제한-끝말잇기&quot;&gt;단어 제한 끝말잇기&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -229,7 +229,7 @@ nurse
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 &lt;ul&gt;
   &lt;li&gt;나중에 수정 및 해결 해볼것…&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">단어 제한 끝말잇기</summary></entry><entry><title type="html">[ALGOSPOT]WILDCARD</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WILDCARD/" rel="alternate" type="text/html" title="[ALGOSPOT]WILDCARD" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WILDCARD</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WILDCARD/">&lt;h1 id=&quot;wildcard&quot;&gt;WILDCARD&lt;/h1&gt;
+&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">해밀토니안 경로</summary></entry><entry><title type="html">[ALGOSPOT]WILDCARD</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WILDCARD/" rel="alternate" type="text/html" title="[ALGOSPOT]WILDCARD" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WILDCARD</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-WILDCARD/">&lt;h1 id=&quot;wildcard&quot;&gt;WILDCARD&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -401,7 +401,7 @@ nurse
       &lt;li&gt;소요 시간: 4ms&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">WILDCARD</summary></entry><entry><title type="html">[ALGOSPOT]TRIANGLEPATH</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-TRIANCLEPATH/" rel="alternate" type="text/html" title="[ALGOSPOT]TRIANGLEPATH" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-TRIANCLEPATH</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-TRIANCLEPATH/">&lt;h1 id=&quot;trianglepath&quot;&gt;TRIANGLEPATH&lt;/h1&gt;
+&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">DP</summary></entry><entry><title type="html">[ALGOSPOT]TRIANGLEPATH</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-TRIANCLEPATH/" rel="alternate" type="text/html" title="[ALGOSPOT]TRIANGLEPATH" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-TRIANCLEPATH</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-TRIANCLEPATH/">&lt;h1 id=&quot;trianglepath&quot;&gt;TRIANGLEPATH&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -557,7 +557,7 @@ nurse
       &lt;li&gt;시간: 8ms&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">TRIANGLEPATH</summary></entry><entry><title type="html">[ALGOSPOT]STRJOIN</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-STRJOIN/" rel="alternate" type="text/html" title="[ALGOSPOT]STRJOIN" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-STRJOIN</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-STRJOIN/">&lt;h1 id=&quot;문자열-합치기&quot;&gt;문자열 합치기&lt;/h1&gt;
+&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">DP</summary></entry><entry><title type="html">[ALGOSPOT]STRJOIN</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-STRJOIN/" rel="alternate" type="text/html" title="[ALGOSPOT]STRJOIN" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-STRJOIN</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-STRJOIN/">&lt;h1 id=&quot;문자열-합치기&quot;&gt;문자열 합치기&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -641,7 +641,7 @@ nurse
 
 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">문자열 합치기</summary></entry><entry><title type="html">[ALGOSPOT]SORTGAME</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SORTGAME/" rel="alternate" type="text/html" title="[ALGOSPOT]SORTGAME" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SORTGAME</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SORTGAME/">&lt;h1 id=&quot;sorting-game&quot;&gt;Sorting Game&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">그리디</summary></entry><entry><title type="html">[ALGOSPOT]SORTGAME</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SORTGAME/" rel="alternate" type="text/html" title="[ALGOSPOT]SORTGAME" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SORTGAME</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SORTGAME/">&lt;h1 id=&quot;sorting-game&quot;&gt;Sorting Game&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -796,7 +796,7 @@ nurse
 
 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">Sorting Game</summary></entry><entry><title type="html">[ALGOSPOT]SNAIL</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SNAIL/" rel="alternate" type="text/html" title="[ALGOSPOT]SNAIL" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SNAIL</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SNAIL/">&lt;h1 id=&quot;장마가-찾아왔다&quot;&gt;장마가 찾아왔다&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">그래프</summary></entry><entry><title type="html">[ALGOSPOT]SNAIL</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SNAIL/" rel="alternate" type="text/html" title="[ALGOSPOT]SNAIL" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SNAIL</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-SNAIL/">&lt;h1 id=&quot;장마가-찾아왔다&quot;&gt;장마가 찾아왔다&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -894,7 +894,7 @@ nurse
 
 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">장마가 찾아왔다</summary></entry><entry><title type="html">[ALGOSPOT]QUANTIZE</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUANTIZE/" rel="alternate" type="text/html" title="[ALGOSPOT]QUANTIZE" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUANTIZE</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUANTIZE/">&lt;h1 id=&quot;quantize&quot;&gt;QUANTIZE&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">DP</summary></entry><entry><title type="html">[ALGOSPOT]QUANTIZE</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUANTIZE/" rel="alternate" type="text/html" title="[ALGOSPOT]QUANTIZE" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUANTIZE</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUANTIZE/">&lt;h1 id=&quot;quantize&quot;&gt;QUANTIZE&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -1013,7 +1013,7 @@ nurse
 
 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">QUANTIZE</summary></entry><entry><title type="html">[ALGOSPOT]QUADTREE</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUADTREE/" rel="alternate" type="text/html" title="[ALGOSPOT]QUADTREE" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUADTREE</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUADTREE/">&lt;h1 id=&quot;quadtree&quot;&gt;QUADTREE&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">DP</summary></entry><entry><title type="html">[ALGOSPOT]QUADTREE</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUADTREE/" rel="alternate" type="text/html" title="[ALGOSPOT]QUADTREE" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUADTREE</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-QUADTREE/">&lt;h1 id=&quot;quadtree&quot;&gt;QUADTREE&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -1079,7 +1079,7 @@ nurse
 &lt;h2 id=&quot;결과-분석&quot;&gt;결과 분석&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;수행시간: 4ms&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">QUADTREE</summary></entry><entry><title type="html">[ALGOSPOT]PICNIC</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PICNIC/" rel="alternate" type="text/html" title="[ALGOSPOT]PICNIC" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PICNIC</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PICNIC/">&lt;h1 id=&quot;picnic&quot;&gt;PICNIC&lt;/h1&gt;
+&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">분할 정복</summary></entry><entry><title type="html">[ALGOSPOT]PICNIC</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PICNIC/" rel="alternate" type="text/html" title="[ALGOSPOT]PICNIC" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PICNIC</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PICNIC/">&lt;h1 id=&quot;picnic&quot;&gt;PICNIC&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -1304,7 +1304,7 @@ nurse
 
 &lt;h3 id=&quot;알아둘-점-1&quot;&gt;알아둘 점&lt;/h3&gt;
 &lt;p&gt;&lt;strong&gt;1) 재귀 함수 구현 능력&lt;/strong&gt;
-&amp;lt;/br&amp;gt;&lt;strong&gt;2) 재귀 함수를 사용하기 위한 입력 형식을 만드는 방법&lt;/strong&gt;&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">PICNIC</summary></entry><entry><title type="html">[ALGOSPOT]PI</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PI/" rel="alternate" type="text/html" title="[ALGOSPOT]PI" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PI</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PI/">&lt;h1 id=&quot;pi&quot;&gt;PI&lt;/h1&gt;
+&amp;lt;/br&amp;gt;&lt;strong&gt;2) 재귀 함수를 사용하기 위한 입력 형식을 만드는 방법&lt;/strong&gt;&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">완전 탐색</summary></entry><entry><title type="html">[ALGOSPOT]PI</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PI/" rel="alternate" type="text/html" title="[ALGOSPOT]PI" /><published>2018-10-11T00:00:00+09:00</published><updated>2018-10-11T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PI</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-PI/">&lt;h1 id=&quot;pi&quot;&gt;PI&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -1475,4 +1475,4 @@ nurse
 
 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">PI</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algospot" /><summary type="html">DP</summary></entry></feed>
