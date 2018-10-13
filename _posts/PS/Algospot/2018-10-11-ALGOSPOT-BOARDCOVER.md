@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]BOARDCOVER"
+excerpt: "완전 탐색"
 search: true
 categories:
   - PS

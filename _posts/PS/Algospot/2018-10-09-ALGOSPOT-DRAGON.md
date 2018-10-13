@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]DRAGON"
+excerpt: "DP"
 search: true
 categories:
   - PS

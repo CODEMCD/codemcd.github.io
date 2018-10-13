@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]QUANTIZE"
+excerpt: "DP"
 search: true
 categories:
   - PS

@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]WILDCARD"
+excerpt: "DP"
 search: true
 categories:
   - PS

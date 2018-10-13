@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]DRUNKEN"
+excerpt: "플로이드 알고리즘"
 search: true
 categories:
   - PS

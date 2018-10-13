@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]PICNIC"
+excerpt: "완전 탐색"
 search: true
 categories:
   - PS

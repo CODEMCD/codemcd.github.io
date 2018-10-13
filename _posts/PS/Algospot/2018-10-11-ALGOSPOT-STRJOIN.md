@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]STRJOIN"
+excerpt: "그리디"
 search: true
 categories:
   - PS

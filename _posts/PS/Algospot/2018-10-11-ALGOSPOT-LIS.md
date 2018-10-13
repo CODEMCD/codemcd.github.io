@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]LIS"
+excerpt: "DP"
 search: true
 categories:
   - PS

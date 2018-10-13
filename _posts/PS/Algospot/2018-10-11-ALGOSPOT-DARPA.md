@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]DARPA"
+excerpt: "DP, 이진 탐색"
 search: true
 categories:
   - PS

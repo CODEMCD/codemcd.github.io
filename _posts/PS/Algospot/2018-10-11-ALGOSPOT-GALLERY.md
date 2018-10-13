@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]GALLERY"
+excerpt: "그래프, 트리"
 search: true
 categories:
   - PS

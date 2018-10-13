@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]PACKING"
+excerpt: "DP"
 search: true
 categories:
   - PS

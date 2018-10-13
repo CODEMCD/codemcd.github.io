@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]SNAIL"
+excerpt: "DP"
 search: true
 categories:
   - PS

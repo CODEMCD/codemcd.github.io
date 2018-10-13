@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]SORTGAME"
+excerpt: "그래프"
 search: true
 categories:
   - PS

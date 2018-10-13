@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]WORDCHAIN"
+excerpt: "해밀토니안 경로"
 search: true
 categories:
   - PS

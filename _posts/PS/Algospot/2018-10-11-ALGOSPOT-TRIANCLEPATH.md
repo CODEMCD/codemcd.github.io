@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]TRIANGLEPATH"
+excerpt: "DP"
 search: true
 categories:
   - PS

@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]MORSE"
+excerpt: "DP"
 search: true
 categories:
   - PS

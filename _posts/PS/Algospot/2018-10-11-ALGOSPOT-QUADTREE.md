@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]QUADTREE"
+excerpt: "분할 정복"
 search: true
 categories:
   - PS

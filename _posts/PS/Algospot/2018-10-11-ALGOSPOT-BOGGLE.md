@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]BOGGLE"
+excerpt: "DP"
 search: true
 categories:
   - PS

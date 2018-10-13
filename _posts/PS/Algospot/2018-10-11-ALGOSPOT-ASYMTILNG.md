@@ -1,5 +1,6 @@
 ---
 title: "[ALGOSPOT]ASYMTILING"
+excerpt: "DP"
 search: true
 categories:
   - PS
