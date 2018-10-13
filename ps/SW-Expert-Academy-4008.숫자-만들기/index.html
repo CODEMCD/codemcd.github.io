@@ -9,38 +9,38 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[ALGOSPOT]DARPA - CODEMCD’s Tech Blog</title>
-<meta name="description" content="DP, 이진 탐색">
+<!-- begin _includes/seo.html --><title>[SW Expert Academy] 4008.숫자 만들기 - CODEMCD’s Tech Blog</title>
+<meta name="description" content="순열, 완전 탐색">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech Blog">
-<meta property="og:title" content="[ALGOSPOT]DARPA">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DARPA/">
+<meta property="og:title" content="[SW Expert Academy] 4008.숫자 만들기">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/SW-Expert-Academy-4008.%EC%88%AB%EC%9E%90-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
 
 
-  <meta property="og:description" content="DP, 이진 탐색">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2018-10-11T00:00:00+09:00">
+  <meta property="og:description" content="순열, 완전 탐색">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2018-10-13T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DARPA/">
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/SW-Expert-Academy-4008.%EC%88%AB%EC%9E%90-%EB%A7%8C%EB%93%A4%EA%B8%B0/">
 
 
 
@@ -279,16 +279,16 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[ALGOSPOT]DARPA">
-    <meta itemprop="description" content="DP, 이진 탐색">
-    <meta itemprop="datePublished" content="October 11, 2018">
+    <meta itemprop="headline" content="[SW Expert Academy] 4008.숫자 만들기">
+    <meta itemprop="description" content="순열, 완전 탐색">
+    <meta itemprop="datePublished" content="October 13, 2018">
     
 
     <div class="page__inner-wrap">
 	<font size="3">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[ALGOSPOT]DARPA
+          <h1 id="page-title" class="page__title" itemprop="headline">[SW Expert Academy] 4008.숫자 만들기
 </h1>
           
         </header>
@@ -296,47 +296,34 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="darpa-grand-challenge">DARPA Grand Challenge</h1>
+        <h1 id="숫자-만들기">숫자 만들기</h1>
 
 <h2 id="문제-링크">문제 링크</h2>
 <ul>
-  <li><a href="https://algospot.com/judge/problem/read/DARPA">https://algospot.com/judge/problem/read/DARPA</a></li>
+  <li><a href="https://www.swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIeRZV6kBUDFAVH&amp;categoryId=AWIeRZV6kBUDFAVH&amp;categoryType=CODE">https://www.swexpertacademy.com/main/code/problem/problemDetail.do?contestProbId=AWIeRZV6kBUDFAVH&amp;categoryId=AWIeRZV6kBUDFAVH&amp;categoryType=CODE</a></li>
 </ul>
 
-<h2 id="코드-분석">코드 분석</h2>
-<h3 id="최적화-문제-결정-문제로-바꿔-풀기">최적화 문제 결정 문제로 바꿔 풀기</h3>
+<h2 id="해결-방법">해결 방법</h2>
+<h3 id="순열--완전탐색">순열 + 완전탐색</h3>
 <ul>
-  <li>최적화 문제
+  <li>주어진 연산자들이 정해진 숫자 사이의 공간에 위치하는 모든 경우의 수를 순열로 계산하여 해결한다.
     <ul>
-      <li><code class="highlighter-rouge">optimize(locations, cameras)</code> = 카메라를 설치할 수 있는 위치 locations와 카메라의 수 cameras가 주어질 때, 카메라 간 최소 간격의 최대치를
-반환한다.</li>
+      <li>연산자의 종류는 4개이므로 4개보다 많은 연산자를 사용하면 반드시 중복이 생긴다.</li>
+      <li>중복이 m개 있는 수열 n에서 r개를 뽑는 순열은 <code class="highlighter-rouge">nPr / m!</code>이다.</li>
     </ul>
   </li>
-  <li>결정 문제
-    <ul>
-      <li><code class="highlighter-rouge">decision(locations, cameras, gap)</code> = 카메라를 설치할 수 있는 위치 locations와 카메라의 수 cameras가 주어질 때, 이들을 적절히 배치해
-모든 카메라의 간격이 gap이상이 되도록 하는 방법이 있는가?</li>
-      <li>“카메라 간의 최소 간격이 gap인 방법이 있는가?”가 아니라 “카메라들의 간의 최소 간격이 gap이상인 방법이 있는가?” 임을 유의하자.
-        <ul>
-          <li>이와 같이 질문해야 최적화 문제를 풀 수 있다.</li>
-          <li>“이상”이라 함은 그 범위의 값들을 모두 포함할 수 있기 때문에 답의 후보 범위를 계속 반으로 줄여서 최적화를 할 수 있다.(이분법)</li>
-        </ul>
-      </li>
-      <li>카메라들이 항상 xkm 이상 떨어져 있다고 할때, 0km위치에 카메라를 항상 설치할 수 있다.
-        <ul>
-          <li>만약, 0km에 설치하지 않는다고 하면 이를 0km로 옮겨도 똑같은 답이 된다.</li>
-          <li>결과적으로, 탐욕법으로 이 문제를 해결할 수 있다는 사실을 떠올릴 수 있어야 한다.</li>
-        </ul>
-      </li>
-    </ul>
-  </li>
-  <li>구현 함수
-    <ul>
-      <li><code class="highlighter-rouge">optimize()</code>: 이분법을 구현하는 함수이다.</li>
-      <li><code class="highlighter-rouge">decision()</code>: 첫 번째로 만나는 위치에 무조건 카메라를 설치한 뒤, 각 위치를 순회하며 카메라를 설치할 수 있을때마다 카메라를 설치한다. 그 후
-설치한 카메라의 수가 문제에서 요구한 설치 개수 이상이 되면 참을 반환한다</li>
-    </ul>
-  </li>
+</ul>
+
+<h2 id="시간-복잡도">시간 복잡도</h2>
+<ul>
+  <li>최대 연산자 개수(n): <code class="highlighter-rouge">11</code></li>
+  <li>최대 주어진 공간(r): <code class="highlighter-rouge">11</code></li>
+  <li><code class="highlighter-rouge">11P11(= 11!) / m!</code></li>
+</ul>
+
+<h2 id="notice">Notice</h2>
+<ul>
+  <li>음수가 나올 수 있으므로, 가장 작은 값을 설정할 때 0이 아닌 최대 음수값으로 설정해야 한다.</li>
 </ul>
 
 <h2 id="결과-코드">결과 코드</h2>
@@ -346,53 +333,62 @@
 <span class="cp">#include &lt;iostream&gt;
 #include &lt;cstdio&gt;
 #include &lt;cstring&gt;
+#include &lt;algorithm&gt;
 #include &lt;vector&gt;
+#include &lt;string&gt;
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">INF</span> <span class="o">=</span> <span class="mi">987654321</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">int</span> <span class="n">RINF</span> <span class="o">=</span> <span class="o">-</span><span class="mi">987654321</span><span class="p">;</span>
 
-<span class="c1">//결정 문제: 정렬되어 있는 locations 중 cameras를 선택해 모든 카메라 간의 간격이
-//gap 이상이 되는 방법이 있는지를 반환한다.
-</span><span class="kt">bool</span> <span class="nf">decision</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">location</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cameras</span><span class="p">,</span> <span class="kt">double</span> <span class="n">gap</span><span class="p">)</span> <span class="p">{</span>
-	<span class="c1">//카메라를 설치할 수 있을 때마다 설치하는 탐욕적 알고리즘
-</span>	<span class="kt">double</span> <span class="n">limit</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-	<span class="kt">int</span> <span class="n">installed</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="n">location</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-		<span class="k">if</span> <span class="p">(</span><span class="n">limit</span> <span class="o">&lt;=</span> <span class="n">location</span><span class="p">[</span><span class="n">i</span><span class="p">])</span> <span class="p">{</span>
-			<span class="o">++</span><span class="n">installed</span><span class="p">;</span>
-			<span class="c1">//location[i] + gap 이후는 되어야 카메라를 설치할 수 있다.
-</span>			<span class="n">limit</span> <span class="o">=</span> <span class="n">location</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+</span> <span class="n">gap</span><span class="p">;</span>
-		<span class="p">}</span>
-	<span class="p">}</span>
-	<span class="c1">//결과적으로 cameras대 이상을 설치할 수 있으면 참 반환
-</span>	<span class="k">return</span> <span class="n">installed</span> <span class="o">&gt;=</span> <span class="n">cameras</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="c1">//최적화 문제: 정렬되어 있는 locations 중 cameras를 선택해 최소 간격을 최대화 한다.
-</span><span class="kt">double</span> <span class="nf">optimize</span><span class="p">(</span><span class="k">const</span> <span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">location</span><span class="p">,</span> <span class="kt">int</span> <span class="n">cameras</span><span class="p">)</span> <span class="p">{</span>
-	<span class="kt">double</span> <span class="n">lo</span> <span class="o">=</span> <span class="mf">0.</span><span class="p">,</span> <span class="n">hi</span> <span class="o">=</span> <span class="mf">241.</span><span class="p">;</span>
-	<span class="c1">//반복문 불변식: decision(lo) &amp;&amp; !decision(hi)
-</span>	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">it</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">it</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="p">;</span> <span class="n">it</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-		<span class="kt">double</span> <span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">lo</span> <span class="o">+</span> <span class="n">hi</span><span class="p">)</span> <span class="o">/</span> <span class="mf">2.0</span><span class="p">;</span>
-		<span class="c1">//간격이 mid 이상이 되도록 할 수 있으면 답은 [mid, hi]에 있다.
-</span>		<span class="k">if</span> <span class="p">(</span><span class="n">decision</span><span class="p">(</span><span class="n">location</span><span class="p">,</span> <span class="n">cameras</span><span class="p">,</span> <span class="n">mid</span><span class="p">))</span>
-			<span class="n">lo</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span>
-		<span class="c1">//간격이 mid 이상이 되도록 할 수 없으면 답은 [lo, mid]에 있다.
-</span>		<span class="k">else</span>
-			<span class="n">hi</span> <span class="o">=</span> <span class="n">mid</span><span class="p">;</span>
-	<span class="p">}</span>
-	<span class="k">return</span> <span class="n">lo</span><span class="p">;</span>
-<span class="p">}</span>
-
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 <span class="p">{</span>
 	<span class="kt">int</span> <span class="n">tc</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
-	<span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
-		<span class="kt">int</span> <span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d %d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
-		<span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">lv</span><span class="p">;</span>
-		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-			<span class="kt">double</span> <span class="n">in</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%lf"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">in</span><span class="p">);</span>
-			<span class="n">lv</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">in</span><span class="p">);</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">t</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">t</span> <span class="o">&lt;=</span> <span class="n">tc</span><span class="p">;</span> <span class="o">++</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+		<span class="c1">// 0: +, 1: -, 2: *, 3: /
+</span>		<span class="kt">int</span> <span class="n">oper</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span>
+		<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">opv</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">oper</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+			<span class="c1">//연산자별로 저장하기(조합 탐색을 위해)
+</span>			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="n">oper</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+				<span class="n">opv</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
 		<span class="p">}</span>
-		<span class="n">printf</span><span class="p">(</span><span class="s">"%.2lf</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">optimize</span><span class="p">(</span><span class="n">lv</span><span class="p">,</span> <span class="n">n</span><span class="p">));</span>
+		<span class="kt">int</span> <span class="n">num</span><span class="p">[</span><span class="mi">13</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="p">};</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+			<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+		<span class="c1">//최대값은 음수를 포함한 범위안에서 가장 작은수
+</span>		<span class="c1">//최소값은 가장 큰수로 초기화한다.
+</span>		<span class="kt">int</span> <span class="n">ans_max</span> <span class="o">=</span> <span class="n">RINF</span><span class="p">,</span> <span class="n">ans_min</span> <span class="o">=</span> <span class="n">INF</span><span class="p">;</span>
+		<span class="k">do</span> <span class="p">{</span>
+			<span class="kt">int</span> <span class="n">cal_res</span> <span class="o">=</span> <span class="n">num</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+			<span class="kt">int</span> <span class="n">cnt</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+				<span class="k">switch</span> <span class="p">(</span><span class="n">opv</span><span class="p">[</span><span class="n">cnt</span><span class="o">++</span><span class="p">])</span> <span class="p">{</span>
+				<span class="k">case</span> <span class="mi">0</span><span class="p">:</span> <span class="n">cal_res</span> <span class="o">+=</span> <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="k">break</span><span class="p">;</span>
+				<span class="k">case</span> <span class="mi">1</span><span class="p">:</span> <span class="n">cal_res</span> <span class="o">-=</span> <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="k">break</span><span class="p">;</span>
+				<span class="k">case</span> <span class="mi">2</span><span class="p">:</span> <span class="n">cal_res</span> <span class="o">*=</span> <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="k">break</span><span class="p">;</span>
+				<span class="k">case</span> <span class="mi">3</span><span class="p">:</span> <span class="n">cal_res</span> <span class="o">/=</span> <span class="n">num</span><span class="p">[</span><span class="n">i</span><span class="p">];</span> <span class="k">break</span><span class="p">;</span>
+				<span class="nl">default:</span> <span class="k">break</span><span class="p">;</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+			<span class="n">ans_max</span> <span class="o">=</span> <span class="n">ans_max</span> <span class="o">&gt;</span> <span class="n">cal_res</span> <span class="o">?</span> <span class="n">ans_max</span> <span class="o">:</span> <span class="n">cal_res</span><span class="p">;</span>
+			<span class="n">ans_min</span> <span class="o">=</span> <span class="n">ans_min</span> <span class="o">&lt;</span> <span class="n">cal_res</span> <span class="o">?</span> <span class="n">ans_min</span> <span class="o">:</span> <span class="n">cal_res</span><span class="p">;</span>
+
+			<span class="cm">/* //연산자의 모든 경우의 수 출력해보기
+			for (int i = 1; i &lt; n; ++i) {
+				switch (opv[cnt++]) {
+				case 0: printf("+ "); break;
+				case 1: printf("- "); break;
+				case 2: printf("* "); break;
+				case 3: printf("/ "); break;
+				default: break;
+				}
+			}
+			printf("\n");*/</span>
+		<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">next_permutation</span><span class="p">(</span><span class="n">opv</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">opv</span><span class="p">.</span><span class="n">end</span><span class="p">()));</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"#%d %d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">t</span><span class="p">,</span> <span class="n">ans_max</span> <span class="o">-</span> <span class="n">ans_min</span><span class="p">);</span>
 	<span class="p">}</span>
 
 	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
@@ -418,7 +414,7 @@
     
       
       
-      <a href="/pages/CODEMCD/tags/#algospot" class="page__taxonomy-item" rel="tag">Algospot</a>
+      <a href="/pages/CODEMCD/tags/#sw-expert-academy" class="page__taxonomy-item" rel="tag">SW Expert Academy</a>
     
     </span>
   </p>
@@ -446,7 +442,7 @@
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-11T00:00:00+09:00">October 11, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-13T00:00:00+09:00">October 13, 2018</time></p>
         
       </footer>
 
@@ -455,24 +451,24 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BALGOSPOT%5DDARPA%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DARPA%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BSW+Expert+Academy%5D+4008.%EC%88%AB%EC%9E%90+%EB%A7%8C%EB%93%A4%EA%B8%B0%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FSW-Expert-Academy-4008.%25EC%2588%25AB%25EC%259E%2590-%25EB%25A7%258C%25EB%2593%25A4%25EA%25B8%25B0%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DARPA%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FSW-Expert-Academy-4008.%25EC%2588%25AB%25EC%259E%2590-%25EB%25A7%258C%25EB%2593%25A4%25EA%25B8%25B0%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DARPA%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FSW-Expert-Academy-4008.%25EC%2588%25AB%25EC%259E%2590-%25EB%25A7%258C%25EB%2593%25A4%25EA%25B8%25B0%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FALGOSPOT-DARPA%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FSW-Expert-Academy-4008.%25EC%2588%25AB%25EC%259E%2590-%25EB%25A7%258C%25EB%2593%25A4%25EA%25B8%25B0%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/ps/ALGOSPOT-BOGGLE/" class="pagination--pager" title="[ALGOSPOT]BOGGLE
+      <a href="/pages/CODEMCD/ps/SW-Expert-Academy-2477.%EC%B0%A8%EB%9F%89-%EC%A0%95%EB%B9%84%EC%86%8C/" class="pagination--pager" title="[SW Expert Academy] 2477.차량 정비소
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/ps/ALGOSPOT-DICTIONARY/" class="pagination--pager" title="[ALGOSPOT]DICTIONARY
+      <a href="/pages/CODEMCD/ps/SW-Expert-Academy-4012.%EC%9A%94%EB%A6%AC%EC%82%AC/" class="pagination--pager" title="[SW Expert Academy] 4012.요리사
 ">다음</a>
     
   </nav>
@@ -690,8 +686,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/ALGOSPOT-DARPA/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/ps/ALGOSPOT-DARPA"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/SW-Expert-Academy-4008.%EC%88%AB%EC%9E%90-%EB%A7%8C%EB%93%A4%EA%B8%B0/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/ps/SW Expert Academy-4008.숫자 만들기"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
