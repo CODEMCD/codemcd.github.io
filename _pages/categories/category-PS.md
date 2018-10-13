@@ -19,9 +19,10 @@ sidebar_main: true
 - 삼성
 
 ## 그 외 알고리즘 문제 코드
-- [https://github.com/CODEMCD/Algorithm/tree/master/CODE](https://github.com/CODEMCD/Algorithm/tree/master/CODE)
+- [https://github.com/CODEMCD/Algorithm](https://github.com/CODEMCD/Algorithm)
 
 ---
+# INDEX
 
 {% assign posts = site.categories.PS | sort:"date" %}
 
