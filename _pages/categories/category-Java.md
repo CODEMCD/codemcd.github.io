@@ -11,7 +11,7 @@ sidebar_main: true
 ---
 # INDEX
 
-{% assign posts = site.categories.PS | sort:"date" %}
+{% assign posts = site.categories.Java | sort:"date" %}
 
 {% for post in posts %}
   {% include archive-single.html type=page.entries_layout %}
