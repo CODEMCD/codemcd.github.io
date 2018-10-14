@@ -1,0 +1,929 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.13.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Kotlin]2. 기본 자료형 - CODEMCD’s Tech Blog</title>
+<meta name="description" content="Kotlin 개념">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="CODEMCD's Tech Blog">
+<meta property="og:title" content="[Kotlin]2. 기본 자료형">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/kotlin/Kotlin-2.%EA%B8%B0%EB%B3%B8%EC%9E%90%EB%A3%8C%ED%98%95/">
+
+
+  <meta property="og:description" content="Kotlin 개념">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/kotlin/Kotlin-2.%EA%B8%B0%EB%B3%B8%EC%9E%90%EB%A3%8C%ED%98%95/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "CODEMCD",
+      "url": "https://codemcd.github.io/pages/CODEMCD",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/pages/CODEMCD/feed.xml" type="application/atom+xml" rel="alternate" title="CODEMCD's Tech Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/pages/CODEMCD/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/pages/CODEMCD/">CODEMCD's Tech Blog</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://codemcd.github.io/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/about/" >About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/categories/" >Category</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">CODEMCD</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Hello World!
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/CODEMCD"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://codemcd.github.io"><i class="fas fa-fw fa-link" aria-hidden="true"></i> HOME</a></li>
+          
+        
+          
+            <li><a href="https://codemcd.github.io/categories/"><i class="fas fa-fw fa-link" aria-hidden="true"></i> CATEGORY</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:psbum1609@gmail.com">
+            <meta itemprop="email" content="psbum1609@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  <!-- Add category side bar -->
+  
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Kotlin]2. 기본 자료형">
+    <meta itemprop="description" content="Kotlin 개념">
+    <meta itemprop="datePublished" content="October 14, 2018">
+    
+
+    <div class="page__inner-wrap">
+	<font size="3">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Kotlin]2. 기본 자료형
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#기본-자료형">기본 자료형</a>
+    <ul>
+      <li><a href="#특징">특징</a></li>
+      <li><a href="#숫자">숫자</a></li>
+      <li><a href="#문자">문자</a></li>
+      <li><a href="#논리">논리</a></li>
+      <li><a href="#문자열">문자열</a></li>
+      <li><a href="#배열">배열</a></li>
+    </ul>
+  </li>
+</ul>
+            </nav>
+          </aside>
+        
+        <h1 id="기본-자료형">기본 자료형</h1>
+
+<h2 id="특징">특징</h2>
+<ul>
+  <li>자바의 자료형은 원시 타입과 참조 타입 두 가지로 나뉜다.
+    <ul>
+      <li>원시 타입(primitive type; int, double 등): 값 자체를 저장함.</li>
+      <li>참조 타입(reference type; String 등): 객체의 참조 값을 저장함.</li>
+    </ul>
+  </li>
+  <li>코틀린은 모든 타입을 객체로 표현한다.
+    <ul>
+      <li>원시 타입과 래퍼(wrapper; Integer, Double 등)클래스를 구분하지 않는다.
+        <ul>
+          <li>wrapper class: 기본 자료형을 객체로 사용하기 위해 기본 자료형 값을 객체로 포장해주는 클래스</li>
+        </ul>
+      </li>
+      <li>자바의 원시 타입 및 래퍼 클래스를 코틀린에서 사용하는 자료형으로 처리한다.</li>
+    </ul>
+  </li>
+  <li>코틀린 코드를 작성하는 시점에서는 원시 타입과 래퍼를 구분하지 않지만, 컴파일 단계를 거치면서 가장 효율적인 타입으로 변환된다.
+    <ul>
+      <li>값이나 변수 타입으로 사용되는 경우: 원시 타입으로 변환</li>
+      <li>컬렉션의 타입 인자로 사용되는 경우: 래퍼로 변환</li>
+      <li>컴파일 단계는 intelliJ 플랫폼에서 디컴파일 하는 기능으로 컴파일 단계의 자바코드를 확인할 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Java(원시 타입)</th>
+      <th style="text-align: center">Java(래퍼)</th>
+      <th style="text-align: center">Kotlin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">byte</td>
+      <td style="text-align: center">java.lang.Byte</td>
+      <td style="text-align: center">kotlin.Byte</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">short</td>
+      <td style="text-align: center">java.lang.Short</td>
+      <td style="text-align: center">kotlin.Short</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">int</td>
+      <td style="text-align: center">java.lang.Integer</td>
+      <td style="text-align: center">kotlin.Int</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">long</td>
+      <td style="text-align: center">java.lang.Long</td>
+      <td style="text-align: center">kotlin.Long</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">char</td>
+      <td style="text-align: center">java.lang.Character</td>
+      <td style="text-align: center">kotlin.Char</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">float</td>
+      <td style="text-align: center">java.lang.Float</td>
+      <td style="text-align: center">kotlin.Float</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">double</td>
+      <td style="text-align: center">java.lang.Double</td>
+      <td style="text-align: center">kotlin.Double</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">boolean</td>
+      <td style="text-align: center">java.lang.Boolean</td>
+      <td style="text-align: center">kotlin.Boolean</td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="숫자">숫자</h2>
+<ul>
+  <li>숫자를 표현하는 모든 자료형은 Number 클래스를 상속합니다.</li>
+  <li>자료형 변환
+    <ul>
+      <li>코틀린은 작은 타입이 큰 타입으로 대입될 때, 자동으로 형변환을 해주지 않는다.(무조건 명시적 변환을 해주어야 함)</li>
+    </ul>
+  </li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">java.lang.Number</th>
+      <th style="text-align: center">kotlin.Number</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">byte byteValue()</td>
+      <td style="text-align: center">fun toByte(): Byte</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">없음</td>
+      <td style="text-align: center">fun toChar(): Char</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">double doubleValue()</td>
+      <td style="text-align: center">fun toDouble(): Double</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">float floatValue()</td>
+      <td style="text-align: center">fun toFloat(): Float</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">int intValue()</td>
+      <td style="text-align: center">fun toInt(): Int</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">long longValue()</td>
+      <td style="text-align: center">fun toLong(): Long</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">short shortValue()</td>
+      <td style="text-align: center">fun toShort(): Short</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>리터럴(Literal) 표기법
+    <ul>
+      <li>Long 타입은 대문자 ‘L’을 사용하는 것 외에는 자바와 모두 동일하다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val dec: Int = 100
+val hex: Int = 0x100
+val binary: Int = 0b100
+val longValue: Long = 100L
+val doubleValue: Double = 100.1 //(= 1.001e2)
+val flaotValue: Float = 100.0f
+</code></pre></div></div>
+
+<ul>
+  <li>숫자 연산에 사용하는 사칙연산(+, -, *, /)은 자바와 동일하지만, 비트 연산자의 이름은 좀더 직관적으로 바뀌었다.</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Java</th>
+      <th style="text-align: center">Kotlin</th>
+      <th>의미</th>
+      <th> </th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">&amp;</td>
+      <td style="text-align: center">and</td>
+      <td>비트 연산 AND</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center"> </td>
+      <td>or</td>
+      <td>비트 연산 OR</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">^</td>
+      <td style="text-align: center">xor</td>
+      <td>비트 연산 XOR</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">~</td>
+      <td style="text-align: center">inv</td>
+      <td>비트 연산 NOT</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">«</td>
+      <td style="text-align: center">shl</td>
+      <td>왼쪽으로 시프트(부호 비트 유지)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">»</td>
+      <td style="text-align: center">shr</td>
+      <td>오른쪽으로 시프트(부호 비트 유지)</td>
+      <td> </td>
+    </tr>
+    <tr>
+      <td style="text-align: center">»&gt;</td>
+      <td style="text-align: center">ushr</td>
+      <td>오른쪽으로 시프트(부호 비트 무시)</td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<h2 id="문자">문자</h2>
+<ul>
+  <li>코틀리은 자바와 달리 문자 자료형에 숫자의 형태로 대입할 경우 컴파일 에러가 발생한다.
+    <ul>
+      <li>해당 문자의 아스키 코드 값을 알고 싶을 때, <code class="highlighter-rouge">toChar()</code>를 사용하여 위 문제를 해결할 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="논리">논리</h2>
+<ul>
+  <li>논리 연산자는 자바와 동일하다. (Boolean 사용)</li>
+</ul>
+
+<h2 id="문자열">문자열</h2>
+<ul>
+  <li>String 클래스로 표현하며, 자바와 거의 동일하다.</li>
+  <li>get() 메서드 혹은 대괄호([])와 인덱스를 통해 특정 문자에 접근 가능하다.</li>
+  <li>문자열 리터럴
+    <ul>
+      <li>escaped string(“ “): 전통 적인 방식으로 자바와 거의 동일하다.</li>
+      <li>raw string(“”” “””): 개행이나 어떠한 문자열도 사용가능하다.</li>
+    </ul>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val espstr = "Hello, kotlin!"
+val rawstr = """
+"Hello, kotlin.
+I'm John."
+"""
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="배열">배열</h2>
+<ul>
+  <li>자바에서는 배열 타입이 별도로 존재하지만, 코틀린에서의 배열은 타입 인자를 갖는 Array클래스로 표현한다.</li>
+  <li>get(), set(), [], size 등 다양한 기능을 제공한다.</li>
+  <li>예제</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val words: Array&lt;String&gt; = arrayOf("Lorem", "ipsum", "dolor", "sit")
+val intArr: IntArray = intArrayOf(1, 2, 3, 4, 5)
+</code></pre></div></div>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">Java</th>
+      <th style="text-align: center">Kotlin</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">byte[]</td>
+      <td style="text-align: center">kotlin.ByteArray</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">double[]</td>
+      <td style="text-align: center">kotlin.DoubleArray</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">float[]</td>
+      <td style="text-align: center">kotlin.FloatArray</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">int[]</td>
+      <td style="text-align: center">kotlin.IntArray</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">long[]</td>
+      <td style="text-align: center">kotlin.LongArray</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">short[]</td>
+      <td style="text-align: center">kotlin.ShortArray</td>
+    </tr>
+  </tbody>
+</table>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/tags/#%EA%B0%9C%EB%85%90-%EC%A0%95%EB%A6%AC" class="page__taxonomy-item" rel="tag">개념 정리</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/categories/#kotlin" class="page__taxonomy-item" rel="tag">Kotlin</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%5BKotlin%5D2.+%EA%B8%B0%EB%B3%B8+%EC%9E%90%EB%A3%8C%ED%98%95%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fkotlin%2FKotlin-2.%25EA%25B8%25B0%25EB%25B3%25B8%25EC%259E%2590%25EB%25A3%258C%25ED%2598%2595%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fkotlin%2FKotlin-2.%25EA%25B8%25B0%25EB%25B3%25B8%25EC%259E%2590%25EB%25A3%258C%25ED%2598%2595%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fkotlin%2FKotlin-2.%25EA%25B8%25B0%25EB%25B3%25B8%25EC%259E%2590%25EB%25A3%258C%25ED%2598%2595%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fkotlin%2FKotlin-2.%25EA%25B8%25B0%25EB%25B3%25B8%25EC%259E%2590%25EB%25A3%258C%25ED%2598%2595%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/pages/CODEMCD/kotlin/Kotlin-1.%EC%BD%94%ED%8B%80%EB%A6%B0%EC%9D%B4%EB%9E%80_/" class="pagination--pager" title="[Kotlin]1. 코틀린이란?
+">이전</a>
+    
+    
+      <a href="/pages/CODEMCD/kotlin/Kotlin-3.%EC%BB%AC%EB%A0%89%EC%85%98/" class="pagination--pager" title="[Kotlin]3. 컬렉션(collection)
+">다음</a>
+    
+  </nav>
+
+	  </font>
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">댓글남기기</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/kotlin/Kotlin-6.%ED%9D%90%EB%A6%84%EC%A0%9C%EC%96%B4/" rel="permalink">[Kotlin]6. 흐름 제어(control flow)
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">Kotlin 개념
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/kotlin/Kotlin-5.%EC%BD%94%ED%8B%80%EB%A6%B0%EB%A7%8C%EC%9D%98%ED%81%B4%EB%9E%98%EC%8A%A4/" rel="permalink">[Kotlin]5. 코틀린만의 클래스
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">Kotlin 개념
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/kotlin/Kotlin-4.%ED%81%B4%EB%9E%98%EC%8A%A4%EB%B0%8F%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/" rel="permalink">[Kotlin]4. 클래스 및 인터페이스
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">Kotlin 개념
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/kotlin/Kotlin-3.%EC%BB%AC%EB%A0%89%EC%85%98/" rel="permalink">[Kotlin]3. 컬렉션(collection)
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">Kotlin 개념
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+    <div class="search-hits"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/pages/CODEMCD/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 CODEMCD. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/pages/CODEMCD/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'I6UE8BVP0C',
+  apiKey: 'f6718f69889fabcb9d71088ba50236b5',
+  indexName: 'GITHUB_BLOG',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="/pages/CODEMCD${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: 'Enter your search term...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+// Starting the search
+search.start();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/kotlin/Kotlin-2.%EA%B8%B0%EB%B3%B8%EC%9E%90%EB%A3%8C%ED%98%95/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/kotlin/Kotlin-2.기본자료형"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://CODEMCD's Blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  new Vue({
+    el : '#category_tag_menu',
+    data : {
+      flag_c : true,
+      flag_t : false
+    },
+    methods : {
+      togglec: function(){
+        this.flag_c = !this.flag_c;
+      },
+      togglet: function(){
+        this.flag_t = !this.flag_t;
+      }
+    }
+  });
+</script>
+
+
+  </body>
+</html>
