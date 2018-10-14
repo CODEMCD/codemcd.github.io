@@ -1,0 +1,809 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.13.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[DataStructure]NlogN 정렬 알고리즘 - CODEMCD’s Tech Blog</title>
+<meta name="description" content="합병 정렬, 퀵 정렬">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="CODEMCD's Tech Blog">
+<meta property="og:title" content="[DataStructure]NlogN 정렬 알고리즘">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/datastructure/DataStructure-NlogN-%EC%A0%95%EB%A0%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">
+
+
+  <meta property="og:description" content="합병 정렬, 퀵 정렬">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/datastructure/DataStructure-NlogN-%EC%A0%95%EB%A0%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "CODEMCD",
+      "url": "https://codemcd.github.io/pages/CODEMCD",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/pages/CODEMCD/feed.xml" type="application/atom+xml" rel="alternate" title="CODEMCD's Tech Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/pages/CODEMCD/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/pages/CODEMCD/">CODEMCD's Tech Blog</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://codemcd.github.io/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/about/" >About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/categories/" >Category</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">CODEMCD</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Hello World!
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/CODEMCD"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://codemcd.github.io"><i class="fas fa-fw fa-link" aria-hidden="true"></i> HOME</a></li>
+          
+        
+          
+            <li><a href="https://codemcd.github.io/categories/"><i class="fas fa-fw fa-link" aria-hidden="true"></i> CATEGORY</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:psbum1609@gmail.com">
+            <meta itemprop="email" content="psbum1609@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  <!-- Add category side bar -->
+  
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[DataStructure]NlogN 정렬 알고리즘">
+    <meta itemprop="description" content="합병 정렬, 퀵 정렬">
+    <meta itemprop="datePublished" content="October 14, 2018">
+    
+
+    <div class="page__inner-wrap">
+	<font size="3">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[DataStructure]NlogN 정렬 알고리즘
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#onlogn-정렬-알고리즘">O(NlogN) 정렬 알고리즘</a>
+    <ul>
+      <li><a href="#합병-정렬merge-sort">합병 정렬(Merge Sort)</a></li>
+      <li><a href="#퀵-정렬quick-sort">퀵 정렬(Quick Sort)</a>
+        <ul>
+          <li><a href="#퀵-정렬-특징">퀵 정렬 특징</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+            </nav>
+          </aside>
+        
+        <h1 id="onlogn-정렬-알고리즘">O(NlogN) 정렬 알고리즘</h1>
+
+<h2 id="합병-정렬merge-sort">합병 정렬(Merge Sort)</h2>
+<ul>
+  <li>합병 정렬은 분할 정복(Divide and conquer)방식으로 설계한 알고리즘이다.</li>
+  <li>합병 정렬 알고리즘 순서(오름차순)
+    <ol>
+      <li>분할 과정
+        <ul>
+          <li>주어진 배열 범위를 반으로 분할한다.</li>
+          <li>반으로 분할된 배열의 크기가 0 또는 1일때 까지 반복한다.</li>
+        </ul>
+      </li>
+      <li>합병 과정
+        <ul>
+          <li>두 배열 A, B를 합병한다고 가정하자.</li>
+          <li>두 배열 A, B를 합친 크기의 배열 C를 만든다.</li>
+          <li>배열 A부터 시작하는 인덱스와 배열 B부터 시작하는 인덱스를 설정하여 순서대로 서로 비교하여 작은 값부터 배열 C에 차례대로 삽입한다. (배열A, B는 반복된 위의 과정으로 오름차순으로 정렬되어 있다.)</li>
+          <li>배열 C가 원래 주어진 배열의 크기와 같을때까지 반복한다.</li>
+        </ul>
+      </li>
+    </ol>
+  </li>
+  <li>
+    <p><img src="https://user-images.githubusercontent.com/34755287/46913141-cb869500-cfc2-11e8-8feb-6196020ea3e4.gif" alt="merge sort" /></p>
+  </li>
+  <li>구현 코드(C언어)</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">MergeTwoArea</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">mid</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">fIdx</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">rIdx</span> <span class="o">=</span> <span class="n">mid</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">i</span><span class="p">;</span>
+
+  <span class="c1">//두 배열을 합친 크기의 임의의 배열
+</span>	<span class="kt">int</span> <span class="o">*</span> <span class="n">sortArr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int</span><span class="o">*</span><span class="p">)</span><span class="n">malloc</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">right</span><span class="o">+</span><span class="mi">1</span><span class="p">));</span>
+	<span class="kt">int</span> <span class="n">sIdx</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span>
+
+	<span class="k">while</span><span class="p">(</span><span class="n">fIdx</span> <span class="o">&lt;=</span> <span class="n">mid</span> <span class="o">&amp;&amp;</span> <span class="n">rIdx</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">if</span><span class="p">(</span><span class="n">arr</span><span class="p">[</span><span class="n">fIdx</span><span class="p">]</span> <span class="o">&lt;=</span> <span class="n">arr</span><span class="p">[</span><span class="n">rIdx</span><span class="p">])</span>
+			<span class="n">sortArr</span><span class="p">[</span><span class="n">sIdx</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">fIdx</span><span class="o">++</span><span class="p">];</span>
+		<span class="k">else</span>
+			<span class="n">sortArr</span><span class="p">[</span><span class="n">sIdx</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">rIdx</span><span class="o">++</span><span class="p">];</span>
+
+		<span class="n">sIdx</span><span class="o">++</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="k">if</span><span class="p">(</span><span class="n">fIdx</span> <span class="o">&gt;</span> <span class="n">mid</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">rIdx</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">,</span> <span class="n">sIdx</span><span class="o">++</span><span class="p">)</span>
+			<span class="n">sortArr</span><span class="p">[</span><span class="n">sIdx</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+	<span class="p">}</span>
+	<span class="k">else</span> <span class="p">{</span>
+		<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">fIdx</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">mid</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">,</span> <span class="n">sIdx</span><span class="o">++</span><span class="p">)</span>
+			<span class="n">sortArr</span><span class="p">[</span><span class="n">sIdx</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+	<span class="p">}</span>
+
+  <span class="c1">//기존 배열의 원래 위치에 정렬된 배열을 삽입한다.
+</span>	<span class="k">for</span><span class="p">(</span><span class="n">i</span> <span class="o">=</span> <span class="n">left</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+		<span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">sortArr</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+	<span class="n">free</span><span class="p">(</span><span class="n">sortArr</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="c1">//오름차순
+//arr[]: 입력 배열, left: arr배열의 가장 왼쪽 인덱스, right: arr배열의 가장 오른쪽 인덱스
+</span><span class="kt">void</span> <span class="nf">MergeSort</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">mid</span><span class="p">;</span>
+
+	<span class="k">if</span><span class="p">(</span><span class="n">left</span> <span class="o">&lt;</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">// 중간 지점을 계산한다.
+</span>		<span class="n">mid</span> <span class="o">=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="n">right</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span>
+
+		<span class="c1">// 둘로 나눠서 각각을 정렬한다.
+</span>		<span class="n">MergeSort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="p">);</span>
+		<span class="n">MergeSort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">mid</span> <span class="o">+</span> <span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+
+		<span class="c1">// 정렬된 두 배열을 병합한다.
+</span>		<span class="n">MergeTwoArea</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">mid</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>
+	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h2 id="퀵-정렬quick-sort">퀵 정렬(Quick Sort)</h2>
+<ul>
+  <li>퀵 정렬은 분할 정복(Divide and conquer)방식으로 설계한 알고리즘이다.</li>
+  <li>퀵 정렬 알고리즘 순서(오름차순)
+    <ol>
+      <li>pivot을 설정한다.
+        <ul>
+          <li>pivot을 설정하는 방법은 배열의 특정 위치나 배열 원소의 값 중 중간값, 랜덤값 n번째 값으로 설정한다.</li>
+        </ul>
+      </li>
+      <li>현재 주어진 배열에서 pivot 위치를 찾아서 그 위치로 교환한다.
+        <ul>
+          <li>pivot보다 작은 값들은 모두 pivot 앞에 위치하고 큰 값은 모두 뒤에 위치해야한다.</li>
+        </ul>
+      </li>
+      <li>pivot을 기준으로 둘도 분할한 뒤 과정 1을 반복한다.</li>
+    </ol>
+  </li>
+</ul>
+
+<h3 id="퀵-정렬-특징">퀵 정렬 특징</h3>
+<ul>
+  <li>퀵 정렬의 최악의 시간 복잡도는 <code class="highlighter-rouge">O(N^2)</code>이다.
+    <ul>
+      <li>pivot의 위치가 지속적으로 주어진 배열의 가장 왼쪽 또는 오른쪽에 위치하여 2개로 분할하지 못하는 경우이다.</li>
+    </ul>
+  </li>
+  <li>하지만, 퀵 정렬은 평균적으로 정렬 알고리즘 중에서 가장 빠르다.
+    <ul>
+      <li>최초 pivot을 설정하는 방법 중에서 주어진 배열을 2개로 분할할 수 있는 효율적인 방법들이 존재한다.</li>
+      <li>퀵 정렬의 내부 루프는 대부분의 컴퓨터 아키텍처에서 효율적으로 동작하도록 설계되어 있다.
+        <ul>
+          <li>메모리 참조가 지역화되어 있으므로 CPU의 cache 히트률이 높기 때문이다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><img src="https://user-images.githubusercontent.com/34755287/46913143-cc1f2b80-cfc2-11e8-900e-abb824175dbe.gif" alt="quit sort" /></p>
+  </li>
+  <li>구현 코드(C언어)</li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">Swap</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">idx1</span><span class="p">,</span> <span class="kt">int</span> <span class="n">idx2</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">idx1</span><span class="p">];</span>
+	<span class="n">arr</span><span class="p">[</span><span class="n">idx1</span><span class="p">]</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">idx2</span><span class="p">];</span>
+	<span class="n">arr</span><span class="p">[</span><span class="n">idx2</span><span class="p">]</span> <span class="o">=</span> <span class="n">temp</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">// pivot의 위치를 반환한다.
+</span><span class="kt">int</span> <span class="nf">Partition</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+	<span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">arr</span><span class="p">[</span><span class="n">left</span><span class="p">];</span>    <span class="c1">// 피벗의 위치는 가장 왼쪽!
+</span>	<span class="kt">int</span> <span class="n">low</span> <span class="o">=</span> <span class="n">left</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span>
+	<span class="kt">int</span> <span class="n">high</span> <span class="o">=</span> <span class="n">right</span><span class="p">;</span>
+
+  <span class="c1">// 교차되지 않을 때까지 반복
+</span>	<span class="k">while</span><span class="p">(</span><span class="n">low</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">while</span><span class="p">(</span><span class="n">pivot</span> <span class="o">&gt;=</span> <span class="n">arr</span><span class="p">[</span><span class="n">low</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">low</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">)</span>
+			<span class="n">low</span><span class="o">++</span><span class="p">;</span>
+		<span class="k">while</span><span class="p">(</span><span class="n">pivot</span> <span class="o">&lt;=</span> <span class="n">arr</span><span class="p">[</span><span class="n">high</span><span class="p">]</span> <span class="o">&amp;&amp;</span> <span class="n">high</span> <span class="o">&gt;=</span> <span class="p">(</span><span class="n">left</span> <span class="o">+</span> <span class="mi">1</span><span class="p">))</span>
+			<span class="n">high</span><span class="o">--</span><span class="p">;</span>
+
+    <span class="c1">// 교차되지 않은 상태라면 Swap 실행
+</span>		<span class="k">if</span><span class="p">(</span><span class="n">low</span> <span class="o">&lt;=</span> <span class="n">high</span><span class="p">)</span>
+			<span class="n">Swap</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">low</span><span class="p">,</span> <span class="n">high</span><span class="p">);</span>
+	<span class="p">}</span>
+
+  <span class="c1">//현재 high의 위치가 pivot이 있어야할 위치이다.
+</span>	<span class="n">Swap</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">high</span><span class="p">);</span>    
+	<span class="k">return</span> <span class="n">high</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="c1">//오름차순
+//arr[]: 입력 배열, left: arr배열의 가장 왼쪽 인덱스, right: arr배열의 가장 오른쪽 인덱스
+</span><span class="kt">void</span> <span class="nf">QuickSort</span><span class="p">(</span><span class="kt">int</span> <span class="n">arr</span><span class="p">[],</span> <span class="kt">int</span> <span class="n">left</span><span class="p">,</span> <span class="kt">int</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+	<span class="k">if</span><span class="p">(</span><span class="n">left</span> <span class="o">&lt;=</span> <span class="n">right</span><span class="p">)</span> <span class="p">{</span>
+		<span class="kt">int</span> <span class="n">pivot</span> <span class="o">=</span> <span class="n">Partition</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>    <span class="c1">// pivot 설정 후 위치를 찾는다.
+</span>		<span class="n">QuickSort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">left</span><span class="p">,</span> <span class="n">pivot</span><span class="o">-</span><span class="mi">1</span><span class="p">);</span>              <span class="c1">// 왼쪽 영역을 정렬
+</span>		<span class="n">QuickSort</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">pivot</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="n">right</span><span class="p">);</span>             <span class="c1">// 오른쪽 영역을 정렬
+</span>	<span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/tags/#%EC%A0%95%EB%A0%AC" class="page__taxonomy-item" rel="tag">정렬</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/categories/#datastructure" class="page__taxonomy-item" rel="tag">DataStructure</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%5BDataStructure%5DNlogN+%EC%A0%95%EB%A0%AC+%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fdatastructure%2FDataStructure-NlogN-%25EC%25A0%2595%25EB%25A0%25AC-%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fdatastructure%2FDataStructure-NlogN-%25EC%25A0%2595%25EB%25A0%25AC-%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fdatastructure%2FDataStructure-NlogN-%25EC%25A0%2595%25EB%25A0%25AC-%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fdatastructure%2FDataStructure-NlogN-%25EC%25A0%2595%25EB%25A0%25AC-%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/pages/CODEMCD/datastructure/DataStructure-N-2-%EC%A0%95%EB%A0%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" class="pagination--pager" title="[DataStructure]N^2 정렬 알고리즘
+">이전</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">다음</a>
+    
+  </nav>
+
+	  </font>
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">댓글남기기</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/datastructure/DataStructure-N-2-%EC%A0%95%EB%A0%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="permalink">[DataStructure]N^2 정렬 알고리즘
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">버블 정렬, 선택 정렬, 삽입 정렬
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/algorithm/Algorithm-%EC%88%9C%EC%97%B4%EA%B3%BC-%EC%A1%B0%ED%95%A9/" rel="permalink">[Algorithm]순열과 조합
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">C++로 구현하는 순열과 조합
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-5658.%EB%B3%B4%EB%AC%BC%EC%83%81%EC%9E%90-%EB%B9%84%EB%B0%80%EB%B2%88%ED%98%B8/" rel="permalink">[SW Expert Academy] 5658.보물상자 비밀번호
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">구현
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/SW-Expert-Academy-5653.%EC%A4%84%EA%B8%B0%EC%84%B8%ED%8F%AC%EB%B0%B0%EC%96%91/" rel="permalink">[SW Expert Academy] 5653.줄기세포배양
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">시뮬레이션
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+    <div class="search-hits"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/pages/CODEMCD/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 CODEMCD. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/pages/CODEMCD/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'I6UE8BVP0C',
+  apiKey: 'f6718f69889fabcb9d71088ba50236b5',
+  indexName: 'GITHUB_BLOG',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="/pages/CODEMCD${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: 'Enter your search term...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+// Starting the search
+search.start();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/datastructure/DataStructure-NlogN-%EC%A0%95%EB%A0%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/datastructure/DataStructure-NlogN 정렬 알고리즘"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://CODEMCD's Blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  new Vue({
+    el : '#category_tag_menu',
+    data : {
+      flag_c : true,
+      flag_t : false
+    },
+    methods : {
+      togglec: function(){
+        this.flag_c = !this.flag_c;
+      },
+      togglet: function(){
+        this.flag_t = !this.flag_t;
+      }
+    }
+  });
+</script>
+
+
+  </body>
+</html>
