@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-10-14T15:39:59+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/</id><title type="html">CODEMCD’s Tech Blog</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[DataStructure]NlogN 정렬 알고리즘</title><link href="https://codemcd.github.io/pages/CODEMCD/datastructure/DataStructure-NlogN-%EC%A0%95%EB%A0%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="alternate" type="text/html" title="[DataStructure]NlogN 정렬 알고리즘" /><published>2018-10-14T00:00:00+09:00</published><updated>2018-10-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/datastructure/DataStructure-NlogN%20%EC%A0%95%EB%A0%AC%20%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/datastructure/DataStructure-NlogN-%EC%A0%95%EB%A0%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">&lt;h1 id=&quot;onlogn-정렬-알고리즘&quot;&gt;O(NlogN) 정렬 알고리즘&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-10-14T15:44:52+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/</id><title type="html">CODEMCD’s Tech Blog</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[DataStructure]NlogN 정렬 알고리즘</title><link href="https://codemcd.github.io/pages/CODEMCD/datastructure/DataStructure-NlogN-%EC%A0%95%EB%A0%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="alternate" type="text/html" title="[DataStructure]NlogN 정렬 알고리즘" /><published>2018-10-14T00:00:00+09:00</published><updated>2018-10-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/datastructure/DataStructure-NlogN%20%EC%A0%95%EB%A0%AC%20%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/datastructure/DataStructure-NlogN-%EC%A0%95%EB%A0%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">&lt;h1 id=&quot;onlogn-정렬-알고리즘&quot;&gt;O(NlogN) 정렬 알고리즘&lt;/h1&gt;
 
 &lt;h2 id=&quot;합병-정렬merge-sort&quot;&gt;합병 정렬(Merge Sort)&lt;/h2&gt;
 &lt;ul&gt;
@@ -21,9 +21,11 @@
       &lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/46913141-cb869500-cfc2-11e8-8feb-6196020ea3e4.gif&quot; alt=&quot;merge sort&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/46913141-cb869500-cfc2-11e8-8feb-6196020ea3e4.gif&quot; alt=&quot;merge sort&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
   &lt;li&gt;구현 코드(C언어)&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -117,9 +119,11 @@
       &lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/46913143-cc1f2b80-cfc2-11e8-900e-abb824175dbe.gif&quot; alt=&quot;quit sort&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/46913143-cc1f2b80-cfc2-11e8-900e-abb824175dbe.gif&quot; alt=&quot;quit sort&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
   &lt;li&gt;구현 코드(C언어)&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -177,12 +181,12 @@
       &lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;총 비교 횟수: &lt;code class=&quot;highlighter-rouge&quot;&gt;(n-1) + (n-2) + (n-3) ... + 1&lt;/code&gt;&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/46913139-cb869500-cfc2-11e8-8636-19d7e306c711.gif&quot; alt=&quot;bubble sort&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
+  &lt;li&gt;총 비교 횟수: &lt;code class=&quot;highlighter-rouge&quot;&gt;(n-1) + (n-2) + (n-3) ... + 1&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/46913139-cb869500-cfc2-11e8-8636-19d7e306c711.gif&quot; alt=&quot;bubble sort&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
   &lt;li&gt;구현 코드(C언어)&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -211,9 +215,11 @@
       &lt;li&gt;가장 앞에 위치한 값을 제외하여 배열 범위를 설정하고 과정 1로 돌아간다.&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/46913144-ccb7c200-cfc2-11e8-89f4-3b6db8bd339a.gif&quot; alt=&quot;selection sort&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/46913144-ccb7c200-cfc2-11e8-89f4-3b6db8bd339a.gif&quot; alt=&quot;selection sort&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
   &lt;li&gt;구현 코드(C언어)&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -250,9 +256,11 @@
       &lt;li&gt;작은 값을 찾으면, 그 바로 다음 위치로 옮기고 현재 위치 바로 다음 위치에서 과정 1을 반복한다.&lt;/li&gt;
     &lt;/ol&gt;
   &lt;/li&gt;
-  &lt;li&gt;
-    &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/46913140-cb869500-cfc2-11e8-81cf-e1fdfceec963.gif&quot; alt=&quot;insertion sort&quot; /&gt;&lt;/p&gt;
-  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/46913140-cb869500-cfc2-11e8-81cf-e1fdfceec963.gif&quot; alt=&quot;insertion sort&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
   &lt;li&gt;구현 코드(C언어)&lt;/li&gt;
 &lt;/ul&gt;
 
