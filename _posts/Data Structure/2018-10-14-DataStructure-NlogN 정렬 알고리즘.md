@@ -23,7 +23,7 @@ toc: true
   - 배열 A부터 시작하는 인덱스와 배열 B부터 시작하는 인덱스를 설정하여 순서대로 서로 비교하여 작은 값부터 배열 C에 차례대로 삽입한다. (배열A, B는 반복된 위의 과정으로 오름차순으로 정렬되어 있다.)
   - 배열 C가 원래 주어진 배열의 크기와 같을때까지 반복한다.
 
-- ![merge sort](https://user-images.githubusercontent.com/34755287/46913141-cb869500-cfc2-11e8-8feb-6196020ea3e4.gif)
+![merge sort](https://user-images.githubusercontent.com/34755287/46913141-cb869500-cfc2-11e8-8feb-6196020ea3e4.gif)
 
 - 구현 코드(C언어)
 
@@ -98,7 +98,7 @@ void MergeSort(int arr[], int left, int right) {
   - 퀵 정렬의 내부 루프는 대부분의 컴퓨터 아키텍처에서 효율적으로 동작하도록 설계되어 있다.
     - 메모리 참조가 지역화되어 있으므로 CPU의 cache 히트률이 높기 때문이다.
 
-- ![quit sort](https://user-images.githubusercontent.com/34755287/46913143-cc1f2b80-cfc2-11e8-900e-abb824175dbe.gif)
+![quit sort](https://user-images.githubusercontent.com/34755287/46913143-cc1f2b80-cfc2-11e8-900e-abb824175dbe.gif)
 
 - 구현 코드(C언어)
 
