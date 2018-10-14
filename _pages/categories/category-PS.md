@@ -1,12 +1,11 @@
 ---
-title: "PS"
+title: "PS(Problem Solve)"
 layout: archive
 permalink: /categories/ps
 author_profile: true
 sidebar_main: true
 ---
 
-# PS(Problem Solve)
 - 알고리즘 문제 해결 방법 및 코드 분석
 
 ## 알고리즘 문제 사이트
