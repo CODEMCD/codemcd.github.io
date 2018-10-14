@@ -1,0 +1,802 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.13.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Algorithm]벨만-포드 알고리즘 - CODEMCD’s Tech Blog</title>
+<meta name="description" content="최단 경로 알고리즘">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="CODEMCD's Tech Blog">
+<meta property="og:title" content="[Algorithm]벨만-포드 알고리즘">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%B2%A8%EB%A7%8C-%ED%8F%AC%EB%93%9C-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">
+
+
+  <meta property="og:description" content="최단 경로 알고리즘">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%B2%A8%EB%A7%8C-%ED%8F%AC%EB%93%9C-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "CODEMCD",
+      "url": "https://codemcd.github.io/pages/CODEMCD",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/pages/CODEMCD/feed.xml" type="application/atom+xml" rel="alternate" title="CODEMCD's Tech Blog Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/pages/CODEMCD/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/pages/CODEMCD/">CODEMCD's Tech Blog</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="https://codemcd.github.io/" >Home</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/about/" >About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/categories/" >Category</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <h3 class="author__name" itemprop="name">CODEMCD</h3>
+    
+    
+      <p class="author__bio" itemprop="description">
+        Hello World!
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://github.com/CODEMCD"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+            <li><a href="https://codemcd.github.io"><i class="fas fa-fw fa-link" aria-hidden="true"></i> HOME</a></li>
+          
+        
+          
+            <li><a href="https://codemcd.github.io/categories/"><i class="fas fa-fw fa-link" aria-hidden="true"></i> CATEGORY</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:psbum1609@gmail.com">
+            <meta itemprop="email" content="psbum1609@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  <!-- Add category side bar -->
+  
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Algorithm]벨만-포드 알고리즘">
+    <meta itemprop="description" content="최단 경로 알고리즘">
+    <meta itemprop="datePublished" content="October 14, 2018">
+    
+
+    <div class="page__inner-wrap">
+	<font size="3">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Algorithm]벨만-포드 알고리즘
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#벨만-포드bellman-ford의-최단-경로-알고리즘">벨만-포드(Bellman-Ford)의 최단 경로 알고리즘</a>
+    <ul>
+      <li><a href="#벨만-포드의-동작-과정">벨만-포드의 동작 과정</a></li>
+      <li><a href="#음수-사이클-판정">음수 사이클 판정</a></li>
+      <li><a href="#구현">구현</a></li>
+    </ul>
+  </li>
+</ul>
+            </nav>
+          </aside>
+        
+        <h1 id="벨만-포드bellman-ford의-최단-경로-알고리즘">벨만-포드(Bellman-Ford)의 최단 경로 알고리즘</h1>
+<ul>
+  <li>다익스트라 알고리즘과 똑같은 단일 시작점 최단 경로 알고리즘이지만, 음수 간선이 있는 그래프에서도 최단 경로를 찾을 수 있다.</li>
+  <li>그래프에서 음수 사이클이 있어서 최단 경로를 찾을 수 없는 경우에도 이를 알려줄 수 있다.</li>
+</ul>
+
+<h2 id="벨만-포드의-동작-과정">벨만-포드의 동작 과정</h2>
+<ul>
+  <li>벨만-포드 알고리즘은 시작점에서 각 정점까지 가는 최단 거리의 상한을 적당히 예측한 뒤, 예측 값과 실제 최단 거리 사이의 오차를 반복적으로 줄여가는 방식으로 동작한다.</li>
+  <li><code class="highlighter-rouge">upper[]</code>: 각 정점까지의 최단 거리의 상한을 담은 배열</li>
+  <li>시작점 s의 <code class="highlighter-rouge">upper[s] = 0</code>으로 초기화하고, 나머지 원소들은 모두 아주 큰 수로 초기화 한다.</li>
+  <li>이 배열의 예측 값을 실체 최단 거리에 더 가깝게 갱신하기 위해 다음과 같은 최단 거리의 특성을 이용한다.
+    <ul>
+      <li><code class="highlighter-rouge">dist[v] &lt;= dist[u] + w(u, v)</code></li>
+    </ul>
+  </li>
+  <li>위 속성을 이용하여 <code class="highlighter-rouge">upper[u] + w(u, v) &lt; upper[v]</code>인 상황을 예를 들어 보자.
+    <ul>
+      <li>u까지 가는 최단 거리는 항상 <code class="highlighter-rouge">upper[u]</code>이거나 그보다 짧다.</li>
+      <li>그 뒤에 (u, v)를 붙인 경로의 길이는 최대 <code class="highlighter-rouge">upper[u] + w(u, v)</code>이다.</li>
+      <li>따라서, <code class="highlighter-rouge">upper[v]</code>를 <code class="highlighter-rouge">upper[u] + w(u, v)</code>로 줄일 수 있다.</li>
+      <li>위 과정을 통해 <code class="highlighter-rouge">upper[v]</code>를 감소하는 작업을 (u, v)를 따라 완화(relax)한다고 한다.</li>
+    </ul>
+  </li>
+  <li>벨만-포드 알고리즘은 위와 같은 완화 과정을 모든 간선에 대해 반복적으로 실시한다.
+    <ul>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>음수 사이클이 없는 그래프에서 최단 경로가 한 정점을 두 번 지나는 일이 없으므로, V개의 정점 그래프에서 최단 경로를 나타내는 간선의 개수는</td>
+              <td>V</td>
+              <td>- 1개 이다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>따라서, 모든 간선에 대한 완화 과정은 전체</td>
+              <td>V</td>
+              <td>- 1번 수행하면 된다는 것을 알 수 있다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>음수 사이클만 없다면 음수 간선이 있더라도, 최단 경로를 찾을 수 있다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="음수-사이클-판정">음수 사이클 판정</h2>
+<ul>
+  <li>음수 사이클이 존재하는 그래프에서는 최단 거리를 구할 수 없으므로, 벨만-포드 알고리즘 역시 의미없는 값을 반환한다.</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>위에서 말했듯이, 벨만-포드의 동작은 음수 사이클이 없는 그래프에서</td>
+          <td>V</td>
+          <td>- 1번만 수행하면 되며 그 이후의 완화는 모두 실패한다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>하지만, 음수 사이클이 있는 그래프에서는</td>
+          <td>V</td>
+          <td>- 1번의 수행 이후에도 완화가 계속 성공적으로 이루어 진다.</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>음수 사이클을 지날 때는 계속해서 거리 값이 작아지므로, 이를 쉽게 알 수 있다.</li>
+    </ul>
+  </li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>결과적으로 음수 사이클을 판정하기 위해서는</td>
+          <td>V</td>
+          <td>번 동작에서 완화가 성공하는지, 실패하는지로 알 수 있다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+</ul>
+
+<h2 id="구현">구현</h2>
+<ul>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>해당 구현에서 벨만=포드 알고리즘은</td>
+          <td>V</td>
+          <td>번 반복하며, 마지막</td>
+          <td>V</td>
+          <td>번째의 완화가 성공하면 음수 사이클이 있는 것으로 판단하고 빈 배열을 반환한다.</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>시간 복잡도
+    <ul>
+      <li>
+        <table>
+          <tbody>
+            <tr>
+              <td>V</td>
+              <td>번 반복과 모든 간선 순회하므로 <code class="highlighter-rouge">O(|E|)</code>이다.</td>
+            </tr>
+          </tbody>
+        </table>
+      </li>
+      <li>따라서, 전체 시간 복잡도는 <code class="highlighter-rouge">O(|V||E|)</code>가 된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//정점의 개수
+</span><span class="kt">int</span> <span class="n">V</span><span class="p">;</span>
+<span class="c1">//그래프의 인접 리스트, (연결된 정점 번호, 간선 가중치)쌍을 담는다.
+</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">pair</span><span class="o">&lt;</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">adj</span><span class="p">[</span><span class="n">MAX_V</span><span class="p">];</span>
+<span class="c1">//음수 사이클이 있을 경우 텅 빈 배열을 반환한다.
+</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">bellmanFord</span><span class="p">(</span><span class="kt">int</span> <span class="n">src</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">//시작점을 제외한 모든 정점까지의 거리 상한을 INF로 초기화한다.
+</span>	<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">upper</span><span class="p">(</span><span class="n">V</span><span class="p">,</span> <span class="n">INF</span><span class="p">);</span>
+	<span class="n">upper</span><span class="p">[</span><span class="n">src</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+	<span class="kt">bool</span> <span class="n">updated</span><span class="p">;</span>
+	<span class="c1">//V번 순회한다.
+</span>	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">iter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">iter</span> <span class="o">&lt;</span> <span class="n">V</span><span class="p">;</span> <span class="o">++</span><span class="n">iter</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">updated</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">here</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">here</span> <span class="o">&lt;</span> <span class="n">V</span><span class="p">;</span> <span class="o">++</span><span class="n">here</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">adj</span><span class="p">[</span><span class="n">here</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+				<span class="kt">int</span> <span class="n">there</span> <span class="o">=</span> <span class="n">adj</span><span class="p">[</span><span class="n">here</span><span class="p">][</span><span class="n">i</span><span class="p">].</span><span class="n">first</span><span class="p">;</span>
+				<span class="kt">int</span> <span class="n">cost</span> <span class="o">=</span> <span class="n">adj</span><span class="p">[</span><span class="n">here</span><span class="p">][</span><span class="n">i</span><span class="p">].</span><span class="n">second</span><span class="p">;</span>
+				<span class="c1">//(here, there)간선을 따라 완화를 시도한다.
+</span>				<span class="k">if</span> <span class="p">(</span><span class="n">upper</span><span class="p">[</span><span class="n">there</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">upper</span><span class="p">[</span><span class="n">here</span><span class="p">]</span> <span class="o">+</span> <span class="n">cost</span><span class="p">)</span> <span class="p">{</span>
+					<span class="c1">//성공
+</span>					<span class="n">upper</span><span class="p">[</span><span class="n">there</span><span class="p">]</span> <span class="o">=</span> <span class="n">upper</span><span class="p">[</span><span class="n">here</span><span class="p">]</span> <span class="o">+</span> <span class="n">cost</span><span class="p">;</span>
+					<span class="n">updated</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+				<span class="p">}</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="c1">//모든 간선에 대해 완화가 실패했을 경우 V-1번도 수행할 필요 없이 곧장 종료한다.
+</span>		<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">updated</span><span class="p">)</span> <span class="k">break</span><span class="p">;</span>
+	<span class="p">}</span>
+	<span class="c1">//V번째 순회에서도 완화가 성공했다면 음수 사이클이 있다.
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">updated</span><span class="p">)</span> <span class="n">upper</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
+	<span class="k">return</span> <span class="n">upper</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/tags/#%EA%B7%B8%EB%9E%98%ED%94%84" class="page__taxonomy-item" rel="tag">그래프</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/categories/#algorithm" class="page__taxonomy-item" rel="tag">Algorithm</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%5BAlgorithm%5D%EB%B2%A8%EB%A7%8C-%ED%8F%AC%EB%93%9C+%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-%25EB%25B2%25A8%25EB%25A7%258C-%25ED%258F%25AC%25EB%2593%259C-%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-%25EB%25B2%25A8%25EB%25A7%258C-%25ED%258F%25AC%25EB%2593%259C-%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-%25EB%25B2%25A8%25EB%25A7%258C-%25ED%258F%25AC%25EB%2593%259C-%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-%25EB%25B2%25A8%25EB%25A7%258C-%25ED%258F%25AC%25EB%2593%259C-%25EC%2595%258C%25EA%25B3%25A0%25EB%25A6%25AC%25EC%25A6%2598%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/pages/CODEMCD/algorithm/Algorithm-%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" class="pagination--pager" title="[Algorithm]다익스트라 알고리즘
+">이전</a>
+    
+    
+      <a href="/pages/CODEMCD/algorithm/Algorithm-%EC%A0%88%EB%8B%A8%EC%A0%90-%EC%B0%BE%EA%B8%B0-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" class="pagination--pager" title="[Algorithm]절단점 찾기 알고리즘
+">다음</a>
+    
+  </nav>
+
+	  </font>
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">댓글남기기</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/database/Database-%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4-%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC/" rel="permalink">[Database]개념 정리
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">데이터베이스 개념 정리
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/database/Database-SQL-%EA%B0%9C%EB%85%90%EC%A0%95%EB%A6%AC/" rel="permalink">[Database]SQL 개념 정리
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">데이터베이스 SQL 개념 정리 및 예제
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/datastructure/DataStructure-%EC%A0%95%EB%A0%AC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98-%EB%B9%84%EA%B5%90/" rel="permalink">[DataStructure]정렬 알고리즘 비교
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">정렬 알고리즘 비교
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/datastructure/DataStructure-%EB%B0%B0%EC%97%B4%EA%B3%BC%EB%A6%AC%EC%8A%A4%ED%8A%B8/" rel="permalink">[DataStructure]배열과 리스트
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">동적 배열과 연결 리스트 차이
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+    <div class="search-hits"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/pages/CODEMCD/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 CODEMCD. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/pages/CODEMCD/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'I6UE8BVP0C',
+  apiKey: 'f6718f69889fabcb9d71088ba50236b5',
+  indexName: 'GITHUB_BLOG',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="/pages/CODEMCD${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: 'Enter your search term...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+// Starting the search
+search.start();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%B2%A8%EB%A7%8C-%ED%8F%AC%EB%93%9C-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/algorithm/Algorithm-벨만-포드 알고리즘"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://CODEMCD's Blog.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  new Vue({
+    el : '#category_tag_menu',
+    data : {
+      flag_c : true,
+      flag_t : false
+    },
+    methods : {
+      togglec: function(){
+        this.flag_c = !this.flag_c;
+      },
+      togglet: function(){
+        this.flag_t = !this.flag_t;
+      }
+    }
+  });
+</script>
+
+
+  </body>
+</html>
