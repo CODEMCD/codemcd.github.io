@@ -149,7 +149,7 @@ void repeatedComb(vector<int> set, int setSize, int n, int r, int idx) {
 	if (n == idx) return;
 	//분기 조건
 	set[setSize] = idx;
-	repeatedComb(set, setSize + 1, n, r, idx);  //idx 중복 가능
+	repeatedComb(set, setSize + 1, n, r, idx + 1);
 	repeatedComb(set, setSize, n, r, idx + 1);
 }
 
