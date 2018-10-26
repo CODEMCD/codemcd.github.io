@@ -7,6 +7,7 @@ categories:
 tags:
   - 그래프
 toc: true
+sidebar_main: true
 ---
 
 # 다익스트라(Dijkstra) 최단 경로 알고리즘
