@@ -274,6 +274,59 @@
   
   <!-- Add category side bar -->
   
+    <nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+        <span class="nav__sub-title" v-on:click='togglec()'>Categories</span>
+        <ul v-show="flag_c">
+        
+           <li><a href="/categories/ps" class="">Ps (41)</a></li>
+        
+           <li><a href="/categories/algorithm" class="">Algorithm (13)</a></li>
+        
+           <li><a href="/categories/datastructure" class="">Datastructure (4)</a></li>
+        
+           <li><a href="/categories/database" class="">Database (2)</a></li>
+        
+           <li><a href="/categories/howtoinstall" class="">Howtoinstall (1)</a></li>
+        
+           <li><a href="/categories/java" class="">Java (15)</a></li>
+        
+           <li><a href="/categories/kotlin" class="">Kotlin (6)</a></li>
+        
+        </ul>
+        
+        <span class="nav__sub-title" v-on:click='togglet()'>tags</span>
+		
+        <ul v-show="flag_t">
+        
+           <li><a href="/tags/#algospot" class="">Algospot (24)</a></li>
+        
+           <li><a href="/tags/#sw-expert-academy" class="">Sw expert academy (14)</a></li>
+        
+           <li><a href="/tags/#그래프" class="">그래프 (7)</a></li>
+        
+           <li><a href="/tags/#수학" class="">수학 (2)</a></li>
+        
+           <li><a href="/tags/#유명-알고리즘" class="">유명 알고리즘 (4)</a></li>
+        
+           <li><a href="/tags/#정렬" class="">정렬 (3)</a></li>
+        
+           <li><a href="/tags/#선형자료구조" class="">선형자료구조 (1)</a></li>
+        
+           <li><a href="/tags/#개념-정리" class="">개념 정리 (23)</a></li>
+        
+           <li><a href="/tags/#tensorflow" class="">Tensorflow (1)</a></li>
+        
+           <li><a href="/tags/#boj" class="">Boj (3)</a></li>
+        
+        </ul>       
+      </li> 
+  </ul>
+</nav>
+  
   
   </div>
 
