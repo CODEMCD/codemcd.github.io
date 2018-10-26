@@ -2,6 +2,7 @@
 title: "[ALGOSPOT]PI"
 excerpt: "DP"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

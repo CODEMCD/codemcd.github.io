@@ -2,6 +2,7 @@
 title: "[SW Expert Academy] 5648.원자 소멸 시뮬레이션"
 excerpt: "구현"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

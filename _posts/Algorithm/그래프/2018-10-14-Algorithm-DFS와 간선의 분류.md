@@ -6,6 +6,7 @@ categories:
   - Algorithm
 tags:
   - 그래프
+sidebar_main: true
 ---
 
 # 깊이 우선 탐색(DFS)과 간선의 분류

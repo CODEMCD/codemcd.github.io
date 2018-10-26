@@ -6,6 +6,7 @@ categories:
   - PS
 tags:
   - SW Expert Academy
+sidebar_main: true
 ---
 
 # 특이한 자석

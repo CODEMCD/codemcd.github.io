@@ -7,6 +7,7 @@ categories:
 tags:
   - 선형자료구조
 toc: true
+sidebar_main: true
 ---
 
 # 선형 자료 구조

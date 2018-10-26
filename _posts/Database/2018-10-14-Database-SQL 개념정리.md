@@ -7,6 +7,7 @@ categories:
 tags:
   - 개념 정리
 toc: true
+sidebar_main: true
 ---
 
 # SQL(Structed Query Language)

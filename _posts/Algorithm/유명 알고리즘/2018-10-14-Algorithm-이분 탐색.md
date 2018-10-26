@@ -7,6 +7,7 @@ categories:
 tags:
   - 유명 알고리즘
 toc: true
+sidebar_main: true
 ---
 
 # Binary Search / Lower Bound / Upper Bound

@@ -2,6 +2,7 @@
 title: "[ALGOSPOT]DARPA"
 excerpt: "DP, 이진 탐색"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

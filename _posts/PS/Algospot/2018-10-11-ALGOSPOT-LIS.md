@@ -2,6 +2,7 @@
 title: "[ALGOSPOT]LIS"
 excerpt: "DP"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

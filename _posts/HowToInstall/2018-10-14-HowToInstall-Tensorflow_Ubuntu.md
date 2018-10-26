@@ -7,6 +7,7 @@ categories:
 tags:
   - Tensorflow
 toc: true
+sidebar_main: true
 ---
 
 # Ubuntu16.04에서 Tensorflow 설치

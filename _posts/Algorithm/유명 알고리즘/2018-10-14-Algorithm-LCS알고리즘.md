@@ -7,6 +7,7 @@ categories:
 tags:
   - 유명 알고리즘
 toc: true
+sidebar_main: true
 ---
 
 # Longest Common Subsequence(LCS) 알고리즘

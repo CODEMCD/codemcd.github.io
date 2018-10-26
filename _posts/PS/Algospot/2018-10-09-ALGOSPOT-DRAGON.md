@@ -2,6 +2,7 @@
 title: "[ALGOSPOT]DRAGON"
 excerpt: "DP"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

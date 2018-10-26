@@ -2,6 +2,7 @@
 title: "[SW Expert Academy]5656.벽돌 깨기"
 excerpt: "메모이제이션 + 완전 탐색"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

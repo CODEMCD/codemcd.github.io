@@ -7,6 +7,7 @@ categories:
 tags:
   - 그래프
 toc: true
+sidebar_main: true
 ---
 
 # 플로이드(Floyd)의 모든 쌍 최단 거리 알고리즘

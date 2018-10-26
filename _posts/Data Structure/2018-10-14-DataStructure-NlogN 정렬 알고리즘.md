@@ -7,6 +7,7 @@ categories:
 tags:
   - 정렬
 toc: true
+sidebar_main: true
 ---
 
 # O(NlogN) 정렬 알고리즘

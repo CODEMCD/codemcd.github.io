@@ -6,6 +6,7 @@ categories:
   - Algorithm
 tags:
   - 그래프
+sidebar_main: true
 ---
 
 # 깊이 우선 탐색(DFS)로 사이클 존재 여부 확인하기

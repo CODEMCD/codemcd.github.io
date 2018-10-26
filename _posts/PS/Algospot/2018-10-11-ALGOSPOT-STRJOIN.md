@@ -2,6 +2,7 @@
 title: "[ALGOSPOT]STRJOIN"
 excerpt: "그리디"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

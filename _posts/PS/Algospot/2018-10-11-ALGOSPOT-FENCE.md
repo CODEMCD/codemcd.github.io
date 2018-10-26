@@ -2,6 +2,7 @@
 title: "[ALGOSPOT]FENCE"
 excerpt: "분할 정복"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

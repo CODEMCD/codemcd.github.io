@@ -2,6 +2,7 @@
 title: "[ALGOSPOT]GALLERY"
 excerpt: "그래프, 트리"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

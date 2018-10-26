@@ -7,6 +7,7 @@ categories:
 tags:
   - 그래프
 toc: true
+sidebar_main: true
 ---
 
 # 너비 우선 탐색(BFS)과 최단 거리 알고리즘

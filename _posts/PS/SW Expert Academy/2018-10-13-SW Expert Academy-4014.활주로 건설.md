@@ -2,6 +2,7 @@
 title: "[SW Expert Academy] 4014.활주로 건설"
 excerpt: "구현"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

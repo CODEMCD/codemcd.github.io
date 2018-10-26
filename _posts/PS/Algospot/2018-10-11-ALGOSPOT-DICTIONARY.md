@@ -2,6 +2,7 @@
 title: "[ALGOSPOT]DICTIONARY"
 excerpt: "위상 정렬"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

@@ -7,6 +7,7 @@ categories:
 tags:
   - 수학
 toc: true
+sidebar_main: true
 ---
 
 # 순열과 조합

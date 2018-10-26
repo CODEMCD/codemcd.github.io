@@ -2,6 +2,7 @@
 title: "[ALGOSPOT]BOARDCOVER"
 excerpt: "완전 탐색"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

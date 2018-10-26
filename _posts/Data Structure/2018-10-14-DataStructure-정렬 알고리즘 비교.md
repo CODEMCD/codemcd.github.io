@@ -7,6 +7,7 @@ categories:
 tags:
   - 정렬
 toc: true
+sidebar_main: true
 ---
 
 # 정렬 알고리즘 비교

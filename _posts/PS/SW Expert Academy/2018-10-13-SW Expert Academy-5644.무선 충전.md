@@ -2,6 +2,7 @@
 title: "[SW Expert Academy] 5644.무선 충전"
 excerpt: "시뮬레이션"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

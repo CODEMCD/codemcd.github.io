@@ -7,6 +7,7 @@ categories:
 tags:
   - 그래프
 toc: true
+sidebar_main: true
 ---
 
 # 깊이 우선 탐색(DFS)를 활용한 절단점 관련 알고리즘

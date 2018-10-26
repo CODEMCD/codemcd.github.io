@@ -6,6 +6,7 @@ categories:
   - PS
 tags:
   - SW Expert Academy
+sidebar_main: true
 ---
 
 # 숫자 만들기

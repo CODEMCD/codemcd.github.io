@@ -2,6 +2,7 @@
 title: "[SW Expert Academy] 5658.보물상자 비밀번호"
 excerpt: "구현"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:

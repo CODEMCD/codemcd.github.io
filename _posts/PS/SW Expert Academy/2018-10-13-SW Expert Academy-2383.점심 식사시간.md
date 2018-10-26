@@ -6,6 +6,7 @@ categories:
   - PS
 tags:
   - SW Expert Academy
+sidebar_main: true
 ---
 
 # 점심 식사시간

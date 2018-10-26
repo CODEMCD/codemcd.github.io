@@ -2,6 +2,7 @@
 title: "[SW Expert Academy] 5653.줄기세포배양"
 excerpt: "시뮬레이션"
 search: true
+sidebar_main: true
 categories:
   - PS
 tags:
