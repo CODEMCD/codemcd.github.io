@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-10-28T20:32:47+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/</id><title type="html">CODEMCD’s Tech Blog</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[BOJ] 2661.좋은수열</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4/" rel="alternate" type="text/html" title="[BOJ] 2661.좋은수열" /><published>2018-10-28T00:00:00+09:00</published><updated>2018-10-28T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4/">&lt;h1 id=&quot;좋은수열&quot;&gt;좋은수열&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-10-28T21:08:46+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/</id><title type="html">CODEMCD’s Tech Blog</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[BOJ] 2661.좋은수열</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4/" rel="alternate" type="text/html" title="[BOJ] 2661.좋은수열" /><published>2018-10-28T00:00:00+09:00</published><updated>2018-10-28T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4/">&lt;h1 id=&quot;좋은수열&quot;&gt;좋은수열&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -17,10 +17,10 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;div class=&quot;language-md highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;예제: 123123
-1) &lt;span class=&quot;gs&quot;&gt;**1**&lt;/span&gt; 23123 -&amp;gt; '2' 비교 -&amp;gt; 다름
-2) &lt;span class=&quot;gs&quot;&gt;**12**&lt;/span&gt; 3123 -&amp;gt; '31' 비교 -&amp;gt; 다름
-3) &lt;span class=&quot;gs&quot;&gt;**123**&lt;/span&gt; 123 -&amp;gt; '123' 비교 -&amp;gt; 같음
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;예제: 123123
+1) (1)23123 -&amp;gt; '2' 비교 -&amp;gt; 다름
+2) (12)3123 -&amp;gt; '31' 비교 -&amp;gt; 다름
+3) (123)123 -&amp;gt; '123' 비교 -&amp;gt; 같음
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
 &lt;h4 id=&quot;2-수열-만들기&quot;&gt;2. 수열 만들기&lt;/h4&gt;
@@ -120,7 +120,265 @@
 
 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="BOJ" /><summary type="html">백트래킹</summary></entry><entry><title type="html">[BOJ] 15684.사다리 조작</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-16584.%EC%82%AC%EB%8B%A4%EB%A6%AC-%EC%A1%B0%EC%9E%91/" rel="alternate" type="text/html" title="[BOJ] 15684.사다리 조작" /><published>2018-10-19T00:00:00+09:00</published><updated>2018-10-19T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/BOJ-16584.%EC%82%AC%EB%8B%A4%EB%A6%AC%20%EC%A1%B0%EC%9E%91</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-16584.%EC%82%AC%EB%8B%A4%EB%A6%AC-%EC%A1%B0%EC%9E%91/">&lt;h1 id=&quot;사다리-조작&quot;&gt;사다리 조작&lt;/h1&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="BOJ" /><summary type="html">백트래킹</summary></entry><entry><title type="html">[BOJ] 1339.단어 수학</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-1339.%EB%8B%A8%EC%96%B4-%EC%88%98%ED%95%99/" rel="alternate" type="text/html" title="[BOJ] 1339.단어 수학" /><published>2018-10-28T00:00:00+09:00</published><updated>2018-10-28T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/BOJ-1339.%EB%8B%A8%EC%96%B4%20%EC%88%98%ED%95%99</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-1339.%EB%8B%A8%EC%96%B4-%EC%88%98%ED%95%99/">&lt;h1 id=&quot;단어-수학&quot;&gt;단어 수학&lt;/h1&gt;
+
+&lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://www.acmicpc.net/problem/1339&quot;&gt;https://www.acmicpc.net/problem/1339&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;해결-방법&quot;&gt;해결 방법&lt;/h2&gt;
+&lt;h3 id=&quot;순열을-이용한-완전-탐색&quot;&gt;순열을 이용한 완전 탐색&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;등장하는 알파벳에 부여할 수 있는 점수의 모든 경우의 수를 순열을 통해 찾는다.
+    &lt;ul&gt;
+      &lt;li&gt;가장 높은 숫자부터 알파벳에 부여해야한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;예제-gcf--acdeb&quot;&gt;예제: GCF + ACDEB&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;등장하는 알파벳: ABCDEFG&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;알파벳&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;A&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;B&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;C&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;D&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;E&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;F&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;G&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;숫자&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;알파벳&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;A&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;B&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;C&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;D&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;E&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;F&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;G&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;숫자&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;…&lt;/p&gt;
+
+&lt;h4 id=&quot;시간-복잡도&quot;&gt;시간 복잡도&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;순열 계산: $P(10,10)$ = &lt;code class=&quot;highlighter-rouge&quot;&gt;10!&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;단어 계산: &lt;code class=&quot;highlighter-rouge&quot;&gt;10(단어 개수) * 8(단어 길이)&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;총 시간 복잡도: &lt;code class=&quot;highlighter-rouge&quot;&gt;10! * 10 * 8&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;자릿수-활용하기&quot;&gt;자릿수 활용하기&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;주어진 알파벳 문자열은 십집수의 자릿수와 같은 취급을 하기 때문에 등장하는 알파벳들의 자릿수 합을 구하여 이 합이 큰 알파벳부터 높은 숫자를 부여한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&quot;예제-gcf--acdeb-1&quot;&gt;예제: GCF + ACDEB&lt;/h4&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;문자열1&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;알파벳&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;G&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;C&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;F&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;자릿수&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;100&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;문자열2&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;알파벳&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;A&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;C&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;D&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;E&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;B&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;자릿수&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10000&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1000&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;100&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;문자열1 + 문자열2(자리수 오름차순)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;알파벳&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;A&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;C&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;D&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;E&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;G&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;B&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;F&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;자릿수&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10000&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1010&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;100&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;blockquote&gt;
+  &lt;blockquote&gt;
+    &lt;p&gt;처음에 자리수의 인덱스 누적값(예를 들어, 위의 문자열 2의 A에 5를 부여한다.)을 오름차순으로 하여 순서대로 큰 숫자를 부여했는데, 이렇게 하면 숫자 중복이 실제 수 크기와 관계없이 중복되는 경우가 생겨서 틀린 것 같다. 위처럼 자릿수를 기준으로 하여 정확하게 비교해야 한다는 것을 알았다.&lt;/p&gt;
+  &lt;/blockquote&gt;
+&lt;/blockquote&gt;
+
+&lt;h4 id=&quot;시간-복잡도-1&quot;&gt;시간 복잡도&lt;/h4&gt;
+&lt;ul&gt;
+  &lt;li&gt;자릿수 부여: &lt;code class=&quot;highlighter-rouge&quot;&gt;10 * 8&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;오름차순 정렬(퀵정렬): &lt;code class=&quot;highlighter-rouge&quot;&gt;26log26&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;결과-코드&quot;&gt;결과 코드&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;순열을 이용한 완전 탐색&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#define _CRT_SECURE_NO_WARNINGS
+&lt;/span&gt;
+&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
+#include &amp;lt;cstdio&amp;gt;
+#include &amp;lt;cstring&amp;gt;
+#include &amp;lt;algorithm&amp;gt;
+#include &amp;lt;vector&amp;gt;
+#include &amp;lt;string&amp;gt;
+&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;c1&quot;&gt;//최초 등장하는 알파벳 검사
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;27&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//등장하는 알파벳 종류 저장
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//등장하는 알파벳에 해당하는 숫자 맵핑
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nalph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;27&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//최대 점수를 찾기 위해 숫자 9를 우선적으로 대입하기 위한 배열
+//순열을 통해 만든어진 수열을 인덱스로 맵핑
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;//등장하는 알파벳 개수
+&lt;/span&gt;	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+		&lt;span class=&quot;c1&quot;&gt;//등장하는 알파벳 갯수 세기
+&lt;/span&gt;		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;alph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+
+	&lt;span class=&quot;c1&quot;&gt;//알파벳 개수만큼 순열을 사용하기 위해 초기화 0 ~ n-1
+&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;c1&quot;&gt;//순열 탐색
+&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;c1&quot;&gt;//등장하는 알파벳에 점수 부여
+&lt;/span&gt;		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+			&lt;span class=&quot;n&quot;&gt;nalph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
+		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deci&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;c1&quot;&gt;//주어진 모든 문자열 수 계산
+&lt;/span&gt;		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+			&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;coef&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+			&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+			&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;coef&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nalph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+				&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+					&lt;span class=&quot;n&quot;&gt;coef&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+				&lt;span class=&quot;n&quot;&gt;deci&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;coef&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+		&lt;span class=&quot;c1&quot;&gt;//가장 큰 수 찾기
+&lt;/span&gt;		&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deci&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deci&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_permutation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()));&lt;/span&gt;
+
+	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="BOJ" /><summary type="html">완전 탐색</summary></entry><entry><title type="html">[BOJ] 15684.사다리 조작</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-16584.%EC%82%AC%EB%8B%A4%EB%A6%AC-%EC%A1%B0%EC%9E%91/" rel="alternate" type="text/html" title="[BOJ] 15684.사다리 조작" /><published>2018-10-19T00:00:00+09:00</published><updated>2018-10-19T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/BOJ-16584.%EC%82%AC%EB%8B%A4%EB%A6%AC%20%EC%A1%B0%EC%9E%91</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-16584.%EC%82%AC%EB%8B%A4%EB%A6%AC-%EC%A1%B0%EC%9E%91/">&lt;h1 id=&quot;사다리-조작&quot;&gt;사다리 조작&lt;/h1&gt;
 
 &lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
 &lt;ul&gt;
@@ -1442,398 +1700,4 @@ sealed class MobileApp(val os: String) {
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;var &amp;lt;propertyName&amp;gt;[: &amp;lt;PropertyType&amp;gt;] [=property_initializer&amp;gt;]
   [&amp;lt;getter&amp;gt;]
   [&amp;lt;setter&amp;gt;]
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="개념 정리" /><summary type="html">Kotlin 개념</summary></entry><entry><title type="html">[Kotlin]4. 클래스 및 인터페이스</title><link href="https://codemcd.github.io/pages/CODEMCD/kotlin/Kotlin-4.%ED%81%B4%EB%9E%98%EC%8A%A4%EB%B0%8F%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/" rel="alternate" type="text/html" title="[Kotlin]4. 클래스 및 인터페이스" /><published>2018-10-14T00:00:00+09:00</published><updated>2018-10-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/kotlin/Kotlin-4.%ED%81%B4%EB%9E%98%EC%8A%A4%EB%B0%8F%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/kotlin/Kotlin-4.%ED%81%B4%EB%9E%98%EC%8A%A4%EB%B0%8F%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/">&lt;h1 id=&quot;클래스-및-인터페이스&quot;&gt;클래스 및 인터페이스&lt;/h1&gt;
-
-&lt;h2 id=&quot;클래스와-인터페이스의-선언-및-인스턴스-생성&quot;&gt;클래스와 인터페이스의 선언 및 인스턴스 생성&lt;/h2&gt;
-&lt;h3 id=&quot;1-클래스&quot;&gt;1. 클래스&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;클래스를 선언하는 방법은 자바와 거의 동일하다.&lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;예제 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;패키지&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;에&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;포함된&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;클래스&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Baz&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;선언&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Baz&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;---&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;클래스&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;본체&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;없이&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;클래스를&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;선언할&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;수&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;있다&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;코틀린에서 접근 제한자를 지정하지 않는 경우 public으로 간주한다.&lt;/li&gt;
-  &lt;li&gt;코틀린에서는 키워드 ‘new’없이 인스턴스 생성이 가능하다.&lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;예제 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;val foo: Foo = Foo()
-//인자 하나를 받는 생성자로 인스턴스 생성
-val bar: Bar = Bar(1);
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-인터페이스&quot;&gt;2. 인터페이스&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;인터페이스의 생성은 자바와 비슷하지만, 인터페이스의 인스턴스 생성은 조금 다르다.&lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;예제 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//인터페이스 선언
-interface Bar {
-  fun baz()
-}
-//인터페이스의 인스턴스 생성
-//object: [인터페이스 이름] 형태
-val bar = object: Bar {
-  override fun baz() {
-    //함수 구현
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;추상-클래스abstract-class&quot;&gt;추상 클래스(abstract class)&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;추상 클래스의 선언 방법은 자바와 동일하지만, 인스턴스 생성은 다르며, 코틀린의 인터페이스의 인스턴스 생성과 유사하다.&lt;/li&gt;
-  &lt;li&gt;추상 클래스에서는 인스턴스 생성 시 생성자를 사용하지만, 생성자가 없는 인스턴스는 인스턴스 이름만 사용한다.&lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;예제 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//추상 클래스 선언
-abstract class Foo {
-  abstract fun bar()
-}
-//추상 클래스의 인스턴스 생성
-//object: [생성자] 형태
-val foo = object: Foo() {
-  override fun bar() {
-    //함수 구현
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;h2 id=&quot;프로퍼티property&quot;&gt;프로퍼티(property)&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;프로퍼티는 자료를 저장할 수 있는 필드(field)와 이에 상응하는 Getter/Setter 메서드를 함께 제공하며, 자바의 필드와 유사한 형태로 선안한다.
-    &lt;ul&gt;
-      &lt;li&gt;자바는 클래스내의 멤버함수에 접근하기 위해 Getter/Setter 메서드를 직접 추가해주어야 하기 때문에 코드의 양이 불필요하게 늘어난다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;프로퍼티 역시 ‘val’와 ‘var’ 중 하나로 선언해야 한다.
-    &lt;ul&gt;
-      &lt;li&gt;val: Getter 메서드만 존재한다.&lt;/li&gt;
-      &lt;li&gt;var: Getter/Setter 메서드 모두 존재한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;프로퍼티는 초기값을 명시적으로 지정해야 하며, 그렇지 않은 경우 컴파일 에러가 발생한다.&lt;/li&gt;
-  &lt;li&gt;프로퍼티 선언 시점이나 생성자 호출 시점에 값을 할당하지 않을 경우 ‘lateinit’ 키워드를 사용하여 초기 할당없이 사용할 수 있다.
-    &lt;ul&gt;
-      &lt;li&gt;키워드 ‘lateinit’은 프로퍼티 값을 나중에 할당할 것이라고는 것을 명시하는 것으로서, ‘var’ 프로퍼티에만 사용가능하다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;프로퍼티 역시 타입 추론이 가능하기 때문에 타입 선언을 생략할 수 있다.&lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;예제 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Person {
-  //기본 예제
-  val name: String? = null
-  var address: String? = null
-
-  //lateinit
-  lateinit var adderss: String?
-
-  //타입 추론
-  var name = &quot;No Name&quot;
-  var address: String? = null  //null만으로는 타입을 추론할 수 없기 때문에 타입 선언이 필요하다.
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;접근-제한자&quot;&gt;접근 제한자&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;접근 제한자는 자바와 거의 동일하다.
-    &lt;ul&gt;
-      &lt;li&gt;제한자가 없으면 자동으로 public으로 간주한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;자바와 다르게 ‘internal’ 접근 제한자가 존재한다.
-    &lt;ul&gt;
-      &lt;li&gt;자바에서 public의 접근 범위는 동일한 패키지 안이다. 하지만 외부 모듈이라도 패키지 이름이 같다면 접근이 가능하다.&lt;/li&gt;
-      &lt;li&gt;위를 보완하기 위해 코틀린에서는 internal 접근 제한자를 제공한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;‘internal’ 접근 제한자의 범위는 동일한 모듈 내이다.
-    &lt;ul&gt;
-      &lt;li&gt;IntelliJ IDEA 모듈&lt;/li&gt;
-      &lt;li&gt;Maven/Gradle 프로젝트&lt;/li&gt;
-      &lt;li&gt;하나의 Ant 태스크 내에서 함께 컴파일되는 파일들&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;생성자&quot;&gt;생성자&lt;/h2&gt;
-&lt;h3 id=&quot;1-기본-생성자&quot;&gt;1. 기본 생성자&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;코틀린의 기본 생성자는 자바보다 더욱 직관적으로 정의한다.
-    &lt;ul&gt;
-      &lt;li&gt;init {} 사용&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;_ 예제 코드&lt;/strong&gt;_&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Foo {
-  init {
-    //생성자에서 수행할 작업들...
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;2-주-생성자primary-constructor&quot;&gt;2. 주 생성자(primary constructor)&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;생성자에 인자가 필요한 경우 주 생성자를 활용한다.&lt;/li&gt;
-  &lt;li&gt;주 생성자로 클래스 내부의 프로퍼티를 대신해서 사용할 수 있으므로, 프로퍼티를 생략할 수 있다.&lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;예제 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;//기본 생성자에서 주 생성자의 인자를 사용할 수 있다.
-class Foo(a: Int) {
-  init {
-    Log.d(&quot;Foo&quot;, &quot;Number: $a&quot;)
-  }
-}
-
-//프로퍼티 대신 주 생성자를 사용할 수 있다.
-class Foo(val a: Int, var b: Char)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h3 id=&quot;3-추가-생성자&quot;&gt;3. 추가 생성자&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;주 생성자 외에 다른 형태의 생성자가 필요한 경우 ‘constructor’ 키워드를 사용하여 추가 생성자를 선언할 수 있다.&lt;/li&gt;
-  &lt;li&gt;추가 생성자를 정의하는 경우 주 생성자를 반드시 호출해야 한다.&lt;/li&gt;
-  &lt;li&gt;추가 생성자에서는 인자와 프로퍼티를 함께 선언할 수 없다.
-    &lt;ul&gt;
-      &lt;li&gt;프로퍼티 선언이 필요한 인자인 경우 반드시 주 생성자에서 이를 처리해야 한다.&lt;/li&gt;
-      &lt;li&gt;예제&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;p&gt;&lt;strong&gt;&lt;em&gt;예제 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Foo(val a: Int, var b: Char) {
-  //a값만 인자로 받는 추가 생성자
-  constructor(a: Int) : this(a, 0)
-
-  //두 인자의 값을 모두 0으로 지정하는 생성자
-  constructor() : this(0, 0)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;4-생상자의-접근-제한자&quot;&gt;4. 생상자의 접근 제한자&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;생성자의 가시성을 변경하려면 constructor 키워드 앞에 접근 제한자를 추가하면 된다.&lt;/li&gt;
-  &lt;li&gt;주 생성자는 생략하였던 constructor 키워드를 추가하고 그 앞에 접근 제한자를 추가해야 한다.&lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;예제 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Foo internal constructor(val a: Int, var b: Char) {
-  private constructor(a: Int) this(a, 0)
-
-  // 접근 제한자를 지정하지 않았으므로 public
-  constructor(): this(0, 0)
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;함수function&quot;&gt;함수(function)&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;코틀린은 자바의 클래스 내 메서드를 함수로 표현한다.&lt;/li&gt;
-  &lt;li&gt;함수에서 특별한 값을 반환하지 않는다면 ‘함수 자체’를 의미하는 Unit 타입을 반환하며, 이는 생략 할 수 있다.&lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;예제 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class Foo {
-  //아무 값도 반환하지 않는 함수, 생략 가능
-  fun foo(): Unit { }
-
-  //정수 값을 반환하는 함수
-  private fun bar(): Int {
-    return 0
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;상속-및-인터페이스-구현&quot;&gt;상속 및 인터페이스 구현&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;코틀린에서 상속 및 인터페이스는 키워드로 구분하는 자바와 달리 콜론(:) 뒤에 상속한 클래스나 구현한 인터페이스를 표기한다.&lt;/li&gt;
-  &lt;li&gt;클래스를 상속하는 경우 반드시 부모 클래스의 생성자를 호출해야 한다.
-    &lt;ul&gt;
-      &lt;li&gt;부모 클래스의 생성자가 여러 개일 경우, 클래스의 선언부가 아닌 내부에서 호출할 수도 있다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;코틀린에서 부모 클래스의 메서드 재정의, 인터페이스 구현한 메서드는 앞에 ‘override’ 키워드를 반드시 붙여야 한다.
-    &lt;ul&gt;
-      &lt;li&gt;자바에서 이를 ‘@Override’ 어노테이션으로 구분하는데, 이는 선택 사항이다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;코틀린에서는 ‘open’ 키워드를 붙인 클래스나 함수만이 상속이나 재정의를 할 수 있다.
-    &lt;ul&gt;
-      &lt;li&gt;자바에서는 ‘final’ 키워드로 더 이상 상속이나 재정의를 할 수 없도록 한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;예제 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// AppCompatActivity 상속: AppCompatActivity()로 기본 생성자를 바로 호출한다.
-// View.OnClickListener 구현
-class MyActivity: AppCompatActivity(), View.OnClickListener {
-  // AppCompatActivity의 onCreate() 메서드 상속
-  override fun onCreate(savedInstanceState: Bundle?) {
-    super.oncreate(savedInstanceState)
-  }
-
-  // View.OnClickListener 인터페이스 구현
-  override fun onClick(v: View) { }
-}
-
-// 'open' 키워드 사용 예제
-open class OpenClass {
-  open val openProperty = &quot;foo&quot;
-  val finalProperty = &quot;bar&quot;
-  open fun openFunc() { }
-  fun finalFunc() { }
-}
-
-// 성공: OpenClass 앞에 'open' 키워드가 있으므로 상속 가능한 클래스이다.
-class FinalClass : OpenClass() {
-  // 성공: '부모 클래스의 openProperty 변수 앞에 'open' 키워드가 있으므로 재정의가 가능한 프로퍼티이다.
-  override val openProperty = &quot;FOO&quot;
-  // 실패: 해당 프로퍼티에 'open' 키워드가 없다.
-  override val finalProperty = &quot;BAR&quot;
-  // 성공: '부모 클래스의 openFunc 함수 앞에 'open' 키워드가 있으므로 재정의가 가능한 함수이다.
-  override open fun openFunc() { }
-  // 실패: 해당 함수에 'open' 키워드가 없다.
-  override fun finalFunc() { }
-}
-
-// 실패: 해당 클래스에 'open' 키워드가 없다.
-class Foo : FinalClass()
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;this&quot;&gt;this&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;코틀린의 this 키워드는 자바와 거의 동일하다.&lt;/li&gt;
-  &lt;li&gt;자바에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;{클래스 이름}.this&lt;/code&gt;를 코틀린에서는 &lt;code class=&quot;highlighter-rouge&quot;&gt;this@{클래스 이름}&lt;/code&gt; 형태로 사용된다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;정적-필드-및-메서드&quot;&gt;정적 필드 및 메서드&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;코틀린에서는 자바와 달리 정적 필드와 메서드를 사용하여, 클래스 내에 상수를 정의하거나 static 메서드(인스턴스 생성 없이 사용할 수 있는 메서드)를 정의할 수 없다.&lt;/li&gt;
-  &lt;li&gt;일반적인 경우 클래스 내에 선언했던 정적 필드나 메서드는 패키지 단위(package-level)로 선언할 수 있다.&lt;/li&gt;
-  &lt;li&gt;패키지 단위로 선언한 값이나 함수는 패키지에 종속되므로 &lt;code class=&quot;highlighter-rouge&quot;&gt;import {패키지 이름}.{값 혹은 함수 이름}&lt;/code&gt;으로 사용해야 한다.&lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;자바 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;정적&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;필드&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;상수&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;선언&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;final&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FOO&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;123&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;정적&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;static&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;메서드&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;선언&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;인스턴스&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;메서드&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;인스턴스를&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;생성해야&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;사용할&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;수&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;있는&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;메서드&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import foo.bar.Foo;
-public class Bar {
-  public void bar() {
-    //Foo클래스 내의 정적 필드 FOO의 값을 참조한다.
-    int foo = foo.Foo;
-    //Foo 클래스 내의 정적 메서드 foo를 호출한다.
-    Foo.foo();
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;&lt;strong&gt;&lt;em&gt;코틀린 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;kt&lt;/span&gt;
-&lt;span class=&quot;k&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;값&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FOO&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;를&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;패키지&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;에&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;선언한다&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;const&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;val&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;FOO&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;m&quot;&gt;123&lt;/span&gt;
-
-&lt;span class=&quot;p&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;함수&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;를&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;패키지&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;에&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;선언한다&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;foo&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
-
-&lt;span class=&quot;n&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;p&quot;&gt;//&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;함수&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;는&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Foo&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;의&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;인스턴스를&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;생성해야&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;사용할&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;수&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;있다&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;fun&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;bar&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;import foo.bar.Foo
-import foo.bar.foo
-
-clas Bar {
-  //foo.bar 패키지 내의 FOO 값을 참조한다.
-  val foo = Foo
-
-  //foo.bar 패키지 내의 함수 foo를 호출한다.
-  foo()
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;클래스 내 private로 선언된 멤버에 접근해야 하는 팩토리 메서드(factory method)는 패키지 단위 함수로 구현할 수 없다.
-    &lt;ul&gt;
-      &lt;li&gt;동반 객체(companion object)를 사용하면 클래스 내 모든 멤버에 접근할 수 있고, 인스턴스 생성 없이 호출가능한 함수를 작성할 수 있다.&lt;/li&gt;
-      &lt;li&gt;동반 객체: 클래스별로 하나씩 클래스의 인스턴스 생성 없이 사용할 수 있는 오브젝트(object)를 정의할 수 있는데, 이를 동반 객체라 한다.&lt;/li&gt;
-      &lt;li&gt;예제&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;class User private constructor(val name: String, val registerTime: Long) {
-  companion object {
-    //동반 객체는 클래스 내부에 존재하므로, private로 선언된 생성자에 접근할 수 있다.
-    fun create(name: String) : User {
-      return User(name, System.currentTimeMillis())
-    }
-  }
-}
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;싱글톤singleton&quot;&gt;싱글톤(singleton)&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;싱글톤은 단 하나의 인스턴스만 생성되도록 제약을 둔 디자인 패턴이다.&lt;/li&gt;
-  &lt;li&gt;코틀린에서는 이를 단 한줄로 간편하게 선언할 수 있다.&lt;/li&gt;
-  &lt;li&gt;예제&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;object singleton
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;enum-클래스&quot;&gt;enum 클래스&lt;/h2&gt;
-&lt;h2 id=&quot;어노테이션-클래스annotation-class&quot;&gt;어노테이션 클래스(annotation class)&lt;/h2&gt;
-&lt;h2 id=&quot;중첩-클래스nested-class&quot;&gt;중첩 클래스(nested class)&lt;/h2&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="개념 정리" /><summary type="html">Kotlin 개념</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="개념 정리" /><summary type="html">Kotlin 개념</summary></entry></feed>
