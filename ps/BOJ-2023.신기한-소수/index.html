@@ -9,7 +9,7 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[BOJ] 2661.좋은수열 - CODEMCD’s Tech Blog</title>
+<!-- begin _includes/seo.html --><title>[BOJ] 2023.신기한 소수 - CODEMCD’s Tech Blog</title>
 <meta name="description" content="백트래킹">
 
 
@@ -17,8 +17,8 @@
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech Blog">
-<meta property="og:title" content="[BOJ] 2661.좋은수열">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4/">
+<meta property="og:title" content="[BOJ] 2023.신기한 소수">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2023.%EC%8B%A0%EA%B8%B0%ED%95%9C-%EC%86%8C%EC%88%98/">
 
 
   <meta property="og:description" content="백트래킹">
@@ -29,7 +29,7 @@
 
 
 
-  <meta property="article:published_time" content="2018-10-28T00:00:00+09:00">
+  <meta property="article:published_time" content="2018-11-01T00:00:00+09:00">
 
 
 
@@ -40,7 +40,7 @@
   
 
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4/">
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2023.%EC%8B%A0%EA%B8%B0%ED%95%9C-%EC%86%8C%EC%88%98/">
 
 
 
@@ -358,16 +358,16 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[BOJ] 2661.좋은수열">
+    <meta itemprop="headline" content="[BOJ] 2023.신기한 소수">
     <meta itemprop="description" content="백트래킹">
-    <meta itemprop="datePublished" content="October 28, 2018">
+    <meta itemprop="datePublished" content="November 01, 2018">
     
 
     <div class="page__inner-wrap">
 	<font size="3">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[BOJ] 2661.좋은수열
+          <h1 id="page-title" class="page__title" itemprop="headline">[BOJ] 2023.신기한 소수
 </h1>
           
         </header>
@@ -375,128 +375,121 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="좋은수열">좋은수열</h1>
+        <h1 id="신기한-소수">신기한 소수</h1>
 
 <h2 id="문제-링크">문제 링크</h2>
 <ul>
-  <li><a href="https://www.acmicpc.net/problem/2661">https://www.acmicpc.net/problem/2661</a></li>
+  <li><a href="https://www.acmicpc.net/problem/2023">https://www.acmicpc.net/problem/2023</a></li>
 </ul>
 
 <h2 id="해결-방법">해결 방법</h2>
 <h3 id="백트래킹">백트래킹</h3>
-<h4 id="1-좋은-수열-검사하기">1. 좋은 수열 검사하기</h4>
 <ul>
-  <li>한 수열의 시작점기준으로 부분 수열을 만들어 바로 다음 부분 수열과 같은지 비교한다.
+  <li>시간 제한과 메모리 제한으로 볼 때 에라토스테네스의 체는 사용할 수 없다.</li>
+  <li>문제에서는 한 자리부터 N자리 모두 소수가 되야 하므로 첫 번째 자리 수부터 소수인 숫자로 시작하여 자릿수를 늘려나가는 방식으로 구현하였다.
     <ul>
-      <li>시작점은 수열의 끝까지 옮겨간다.</li>
-      <li>부분 수열의 최대 크기는 전체 수열 크기의 ${\frac{1}{2}}$ 만큼 이다.</li>
+      <li>첫 번째 자리가 소수가 될 수 있는 경우는 <code class="highlighter-rouge">2, 3, 5, 7</code>이다.</li>
+      <li>두 번째 자리부터 소수가 될 수 있는 경우는 홀수(<code class="highlighter-rouge">1, 3, 5, 7, 9</code>)인 경우이다. 짝수인 경우는 무조건 2의 배수이므로 소수가 될 수 없다.</li>
     </ul>
   </li>
+  <li>재귀 함수 입력을 string으로 받아 자릿수를 간단하게 늘려주고 이를 <code class="highlighter-rouge">atoi</code> 함수로 int형으로 변경하여 해당 숫자가 소수인지 판단한다.</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>예제: 123123
-1) (1)23123 -&gt; '2' 비교 -&gt; 다름
-2) (12)3123 -&gt; '31' 비교 -&gt; 다름
-3) (123)123 -&gt; '123' 비교 -&gt; 같음
-</code></pre></div></div>
-
-<h4 id="2-수열-만들기">2. 수열 만들기</h4>
+<h3 id="시간-복잡도-줄이기">시간 복잡도 줄이기</h3>
 <ul>
-  <li>문제에서 요구하는 주어진 수열 크기에서 수로 표현했을 때 가장 작은 수열을 찾아야한다.</li>
-  <li>사용 가능한 숫자의 종류는 1, 2, 3이므로, 가장 작은 수를 찾을려면 수열의 시작 숫자는 <code class="highlighter-rouge">1</code>이서만 찾으면 된다.</li>
-  <li>가능한 모든 수열을 만들어 놓고 좋은 수열인지 검사하면 시간복잡도 O($3^{N-1}$) 이고, N의 최대 크기는 <code class="highlighter-rouge">80</code>이므로 시간안에 풀 수 없다.</li>
-  <li>수열 크기 1부터 하나씩 늘려 주어진 N의 크기를 만들어야 한다.
-    <ol>
-      <li>현재 수열에서 숫자 1을 추가한다.</li>
-      <li>좋은 수열인지 검사한다.</li>
-      <li>좋은 수열이 만족하면 1번 단계로 가며, 만족하지 않으면 숫자 1을 지우고 숫자 2를 추가하여 2번 단계로 간다.
-(숫자 2도 만족하지 않으면 숫자 3을 추가하고 2번 단계)</li>
-    </ol>
+  <li>재귀 함수가 실행되는 수는 최대 8자리에서 <code class="highlighter-rouge">4</code> * $5^7$ 으로 고정이다.</li>
+  <li>재귀 함수내에서 소수를 판단하는 반복문에 따라 시간복잡도 차이가 난다.
+    <ul>
+      <li>현재 수가 N일 때, 가장 간단한 방법은 <code class="highlighter-rouge">2 ~ N - 1</code>까지 나누어 떨어지지 않으면 소수이다.</li>
+    </ul>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">rn</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+  <span class="k">if</span> <span class="p">(</span><span class="n">rn</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1">//소수가 아닌 경우
+</span>    <span class="k">return</span><span class="p">;</span>
+</code></pre></div>    </div>
+
+    <ul>
+      <li>위의 식을 좀 더 생각해보면 N을 나눌 때 나누는 수의 제곱이 N보다 작거나 같을 때만 나누면 된다. 예를 들어 <code class="highlighter-rouge">16</code>의 약수는 <code class="highlighter-rouge">1, 2, 4, 8, 16</code>이다. 여기서 <code class="highlighter-rouge">16</code>을 만드는 곱셈 쌍은 <code class="highlighter-rouge">(1, 16), (2, 8), (4, 4)</code>이다. 이것을 보면 앞의 숫자 <code class="highlighter-rouge">1, 2, 4</code>는 각각 제곱하면 <code class="highlighter-rouge">16</code>보다 작거나 같고 이 3개의 숫자로 나누면 <code class="highlighter-rouge">16</code>의 모든 약수를 구할 수 있다. 즉, 각 숫자의 약수를 나열했을 때 앞에서 부터 중간지점 숫자까지만 나누어 보면 되는데 이 중간 지점 숫자의 최대값이 $sqrt N$ 작거나 같기 때문이다.</li>
+    </ul>
+
+    <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">*</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">rn</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+          <span class="k">if</span> <span class="p">(</span><span class="n">rn</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>  <span class="c1">//소수가 아닌 경우
+</span>              <span class="k">return</span><span class="p">;</span>
+</code></pre></div>    </div>
+
+    <blockquote>
+      <p>이는 효율높은 코드를 보면서 내 방식대로 분석하여 내린 결론이다. 이 생각이 틀릴수도 있음…</p>
+    </blockquote>
   </li>
-  <li>위와 같이 작은 숫자부터 그리디하게 추가하면 시간복잡도를 크게 줄일 수 있다.</li>
+  <li>실제 채점에서 시간은 <code class="highlighter-rouge">764ms</code> 에서 <code class="highlighter-rouge">0ms</code>로 크게 준 것을 확인할 수 있다.</li>
 </ul>
 
 <h2 id="결과-코드">결과 코드</h2>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
-</span>
-<span class="cp">#include &lt;iostream&gt;
+#include &lt;iostream&gt;
 #include &lt;cstdio&gt;
-#include &lt;cstring&gt;
 #include &lt;algorithm&gt;
 #include &lt;vector&gt;
 #include &lt;string&gt;
 </span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
 <span class="kt">int</span> <span class="n">n</span><span class="p">;</span>
+<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">ans</span><span class="p">;</span>
 
-<span class="c1">//나쁜 수열인지 검사하는 플래그
-</span><span class="kt">bool</span> <span class="n">badFlag</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-<span class="kt">void</span> <span class="nf">check</span><span class="p">(</span><span class="n">string</span> <span class="n">s</span><span class="p">,</span> <span class="kt">int</span> <span class="n">sIdx</span><span class="p">)</span> <span class="p">{</span>
-	<span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-	<span class="c1">//기저 사례: 나쁜 수열로 판단되거나 시작 인덱스가 끝에 도달할 경우
-</span>	<span class="k">if</span> <span class="p">(</span><span class="n">badFlag</span> <span class="o">||</span> <span class="n">sIdx</span> <span class="o">==</span> <span class="p">(</span><span class="n">size</span> <span class="o">-</span> <span class="mi">1</span><span class="p">))</span> <span class="k">return</span><span class="p">;</span>
-
-	<span class="n">string</span> <span class="n">cur</span><span class="p">,</span> <span class="n">next</span><span class="p">;</span>
-	<span class="kt">int</span> <span class="n">nextSIdx</span><span class="p">;</span>
-	<span class="c1">//현재 시작 인덱스에서 나타날 수 있는 나쁜 수열인 경우를 탐색한다.
-</span>	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="n">size</span> <span class="o">/</span> <span class="mi">2</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-		<span class="c1">//현재 시작 인덱스 부분 수열
-</span>		<span class="n">cur</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">sIdx</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-		<span class="c1">//현재 시작 인덱스 부분 수열과 오른쪽에 인접한 부분 수열
-</span>		<span class="n">nextSIdx</span> <span class="o">=</span> <span class="n">sIdx</span> <span class="o">+</span> <span class="n">i</span><span class="p">;</span>
-		<span class="k">if</span> <span class="p">(</span><span class="n">nextSIdx</span> <span class="o">&gt;=</span> <span class="n">size</span> <span class="o">||</span> <span class="p">(</span><span class="n">nextSIdx</span> <span class="o">+</span> <span class="n">i</span><span class="p">)</span> <span class="o">&gt;</span> <span class="n">size</span><span class="p">)</span> <span class="k">continue</span><span class="p">;</span>
-		<span class="n">next</span> <span class="o">=</span> <span class="n">s</span><span class="p">.</span><span class="n">substr</span><span class="p">(</span><span class="n">nextSIdx</span><span class="p">,</span> <span class="n">i</span><span class="p">);</span>
-		<span class="k">if</span> <span class="p">(</span><span class="n">cur</span> <span class="o">==</span> <span class="n">next</span><span class="p">)</span> <span class="p">{</span>
-			<span class="n">badFlag</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+<span class="c1">//모든 1 ~ N 자리수가 소수인 숫자를 찾는다.
+</span><span class="kt">void</span> <span class="nf">solve</span><span class="p">(</span><span class="n">string</span> <span class="n">num</span><span class="p">)</span> <span class="p">{</span>
+	<span class="c1">//현재 숫자 자릿수
+</span>	<span class="kt">int</span> <span class="n">size</span> <span class="o">=</span> <span class="n">num</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
+	<span class="c1">//int형으로 변환
+</span>	<span class="kt">int</span> <span class="n">rn</span> <span class="o">=</span> <span class="n">atoi</span><span class="p">(</span><span class="n">num</span><span class="p">.</span><span class="n">c_str</span><span class="p">());</span>
+	<span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">//현재 숫자가 소수인지 찾는다.
+</span>		<span class="c1">//이 부분을 더 빠르게 고칠 수 있다면 시간복잡도가 줄어들 것 같다.(위 설명 참고)
+</span>		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">rn</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">rn</span> <span class="o">%</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
+				<span class="k">return</span><span class="p">;</span>  <span class="c1">//소수가 아니면 빠져나간다.
+</span>		<span class="c1">//현재 자릿수가 입력된 자릿수와 일치한다면 추가한다.
+</span>		<span class="k">if</span> <span class="p">(</span><span class="n">size</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
+			<span class="n">ans</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">rn</span><span class="p">);</span>
 			<span class="k">return</span><span class="p">;</span>
 		<span class="p">}</span>
 	<span class="p">}</span>
-	<span class="c1">//다음 시작 인덱스 검사
-</span>	<span class="n">check</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">sIdx</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-<span class="p">}</span>
-
-<span class="c1">//정답을 찾았는지 검사하는 플래그
-</span><span class="kt">bool</span> <span class="n">ansFlag</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-<span class="n">string</span> <span class="n">ans</span><span class="p">;</span>
-<span class="c1">//수열의 크기를 하나씩 늘려가며 수열을 만든다.
-</span><span class="kt">void</span> <span class="nf">makeSequence</span><span class="p">(</span><span class="n">string</span> <span class="n">str</span><span class="p">,</span> <span class="kt">int</span> <span class="n">len</span><span class="p">)</span> <span class="p">{</span>
-	<span class="c1">//기저 사례1: 정답을 찾았다면 검사할 필요가 없으므로 반환한다.
-</span>	<span class="k">if</span> <span class="p">(</span><span class="n">ansFlag</span><span class="p">)</span> <span class="k">return</span><span class="p">;</span>
-	<span class="c1">//기저 사례2: 좋은 수열을 유지하여 정답을 찾았다면 저장하고 반환한다.
-</span>	<span class="k">if</span> <span class="p">(</span><span class="n">len</span> <span class="o">==</span> <span class="n">n</span><span class="p">)</span> <span class="p">{</span>
-		<span class="n">ans</span> <span class="o">=</span> <span class="n">str</span><span class="p">;</span>
-		<span class="n">ansFlag</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
-		<span class="k">return</span><span class="p">;</span>
-	<span class="p">}</span>
-	<span class="k">else</span> <span class="p">{</span>
-		<span class="c1">//숫자 1, 2, 3을 차례로 추가한다.
-</span>		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-			<span class="n">badFlag</span> <span class="o">=</span> <span class="nb">false</span><span class="p">;</span>
-			<span class="c1">//char 변환
-</span>			<span class="kt">char</span> <span class="n">num</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
-			<span class="n">num</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="sc">'1'</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
-			<span class="n">num</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span>
-			<span class="n">string</span> <span class="n">next</span> <span class="o">=</span> <span class="n">str</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
-			<span class="c1">//좋은 수열인지 검사한다.
-</span>			<span class="n">check</span><span class="p">(</span><span class="n">next</span><span class="p">,</span> <span class="mi">0</span><span class="p">);</span>
-			<span class="c1">//좋은 수열이라면 해당 숫자를 추가하고 다음 단계로 넘어간다.
-</span>			<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">badFlag</span><span class="p">)</span>
-				<span class="n">makeSequence</span><span class="p">(</span><span class="n">next</span><span class="p">,</span> <span class="n">len</span> <span class="o">+</span> <span class="mi">1</span><span class="p">);</span>
-			<span class="c1">//좋은 수가 아니라면 해당 숫자를 제거한다.
-</span>			<span class="n">str</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
-		<span class="p">}</span>
+	<span class="kt">char</span> <span class="n">an</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+	<span class="n">string</span> <span class="n">next</span><span class="p">;</span>
+	<span class="c1">//소수가 될 수 있는 홀수를 추가한다.(짝수는 무조건 2의 배수이다.)
+</span>	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span> <span class="o">+=</span> <span class="mi">2</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">next</span> <span class="o">=</span> <span class="n">num</span><span class="p">;</span>
+		<span class="c1">//숫자 추가
+</span>		<span class="n">an</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="sc">'1'</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+		<span class="n">an</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="sc">'\0'</span><span class="p">;</span>
+		<span class="n">next</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">an</span><span class="p">);</span>
+		<span class="n">solve</span><span class="p">(</span><span class="n">next</span><span class="p">);</span>
 	<span class="p">}</span>
 <span class="p">}</span>
 
 <span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
 <span class="p">{</span>
 	<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
-
-	<span class="n">makeSequence</span><span class="p">(</span><span class="s">"1"</span><span class="p">,</span> <span class="mi">1</span><span class="p">);</span>
-	<span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">ans</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
+	<span class="c1">//첫째 자리로 시작할 수 있는 소수
+</span>	<span class="kt">int</span> <span class="n">start</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span> <span class="p">};</span>
+	<span class="c1">//한 자리수인 경우
+</span>	<span class="k">if</span> <span class="p">(</span><span class="n">n</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+			<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">start</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+	<span class="p">}</span>
+	<span class="c1">//두 자리수 이상인 경우
+</span>	<span class="k">else</span> <span class="p">{</span>
+		<span class="n">solve</span><span class="p">(</span><span class="s">"2"</span><span class="p">);</span>
+		<span class="n">solve</span><span class="p">(</span><span class="s">"3"</span><span class="p">);</span>
+		<span class="n">solve</span><span class="p">(</span><span class="s">"5"</span><span class="p">);</span>
+		<span class="n">solve</span><span class="p">(</span><span class="s">"7"</span><span class="p">);</span>
+	<span class="p">}</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">ans</span><span class="p">.</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
 
 	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
 <span class="p">}</span>
+
 </code></pre></div></div>
 
         
@@ -546,7 +539,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-28T00:00:00+09:00">October 28, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-11-01T00:00:00+09:00">November 01, 2018</time></p>
         
       </footer>
 
@@ -555,24 +548,24 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BBOJ%5D+2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2661.%25EC%25A2%258B%25EC%259D%2580%25EC%2588%2598%25EC%2597%25B4%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BBOJ%5D+2023.%EC%8B%A0%EA%B8%B0%ED%95%9C+%EC%86%8C%EC%88%98%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2023.%25EC%258B%25A0%25EA%25B8%25B0%25ED%2595%259C-%25EC%2586%258C%25EC%2588%2598%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2661.%25EC%25A2%258B%25EC%259D%2580%25EC%2588%2598%25EC%2597%25B4%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2023.%25EC%258B%25A0%25EA%25B8%25B0%25ED%2595%259C-%25EC%2586%258C%25EC%2588%2598%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2661.%25EC%25A2%258B%25EC%259D%2580%25EC%2588%2598%25EC%2597%25B4%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2023.%25EC%258B%25A0%25EA%25B8%25B0%25ED%2595%259C-%25EC%2586%258C%25EC%2588%2598%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2661.%25EC%25A2%258B%25EC%259D%2580%25EC%2588%2598%25EC%2597%25B4%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2023.%25EC%258B%25A0%25EA%25B8%25B0%25ED%2595%259C-%25EC%2586%258C%25EC%2588%2598%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/ps/BOJ-1339.%EB%8B%A8%EC%96%B4-%EC%88%98%ED%95%99/" class="pagination--pager" title="[BOJ] 1339.단어 수학
+      <a href="/pages/CODEMCD/ps/BOJ-2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4/" class="pagination--pager" title="[BOJ] 2661.좋은수열
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/ps/BOJ-2023.%EC%8B%A0%EA%B8%B0%ED%95%9C-%EC%86%8C%EC%88%98/" class="pagination--pager" title="[BOJ] 2023.신기한 소수
+      <a href="/pages/CODEMCD/ps/BOJ-2580.%EC%8A%A4%EB%8F%84%EC%BF%A0/" class="pagination--pager" title="[BOJ] 2580.스도쿠
 ">다음</a>
     
   </nav>
@@ -625,7 +618,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/ps/BOJ-2023.%EC%8B%A0%EA%B8%B0%ED%95%9C-%EC%86%8C%EC%88%98/" rel="permalink">[BOJ] 2023.신기한 소수
+        <a href="/pages/CODEMCD/ps/BOJ-2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4/" rel="permalink">[BOJ] 2661.좋은수열
 </a>
       
     </h2>
@@ -790,8 +783,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2661.%EC%A2%8B%EC%9D%80%EC%88%98%EC%97%B4/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/ps/BOJ-2661.좋은수열"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2023.%EC%8B%A0%EA%B8%B0%ED%95%9C-%EC%86%8C%EC%88%98/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/ps/BOJ-2023.신기한 소수"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
