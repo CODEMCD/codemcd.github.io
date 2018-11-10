@@ -9,38 +9,38 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[Algorithm]깊이 우선 탐색(DFS)의 간선 분류 - CODEMCD’s Tech Blog</title>
-<meta name="description" content="깊이 우선 탐색(DFS)의 간선 분류">
+<!-- begin _includes/seo.html --><title>[BOJ] 2629.양팔저울 - CODEMCD’s Tech Blog</title>
+<meta name="description" content="DP">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech Blog">
-<meta property="og:title" content="[Algorithm]깊이 우선 탐색(DFS)의 간선 분류">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-DFS%EC%99%80-%EA%B0%84%EC%84%A0%EC%9D%98-%EB%B6%84%EB%A5%98/">
+<meta property="og:title" content="[BOJ] 2629.양팔저울">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2629.%EC%96%91%ED%8C%94%EC%A0%80%EC%9A%B8/">
 
 
-  <meta property="og:description" content="깊이 우선 탐색(DFS)의 간선 분류">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+  <meta property="og:description" content="DP">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2018-11-10T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-DFS%EC%99%80-%EA%B0%84%EC%84%A0%EC%9D%98-%EB%B6%84%EB%A5%98/">
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2629.%EC%96%91%ED%8C%94%EC%A0%80%EC%9A%B8/">
 
 
 
@@ -102,6 +102,31 @@
 <!-- insert favicons. use https://realfavicongenerator.net/ -->
 
 <!-- end custom head snippets -->
+
+    
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
     
   </head>
@@ -333,15 +358,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[Algorithm]깊이 우선 탐색(DFS)의 간선 분류">
-    <meta itemprop="description" content="깊이 우선 탐색(DFS)의 간선 분류">
-    <meta itemprop="datePublished" content="October 14, 2018">
+    <meta itemprop="headline" content="[BOJ] 2629.양팔저울">
+    <meta itemprop="description" content="DP">
+    <meta itemprop="datePublished" content="November 10, 2018">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[Algorithm]깊이 우선 탐색(DFS)의 간선 분류
+          <h1 id="page-title" class="page__title" itemprop="headline">[BOJ] 2629.양팔저울
 </h1>
           
         </header>
@@ -349,49 +374,83 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="깊이-우선-탐색dfs과-간선의-분류">깊이 우선 탐색(DFS)과 간선의 분류</h1>
+        <h1 id="양팔저울">양팔저울</h1>
+
+<h2 id="문제-링크">문제 링크</h2>
 <ul>
-  <li>어떤 그래프를 깊이 우선 탐색을 했을 때, 탐색이 따라가는 간선들만을 모아 보면 트리 형태를 띤다.</li>
-  <li>예제 그래프</li>
+  <li><a href="https://www.acmicpc.net/problem/2629">https://www.acmicpc.net/problem/2629</a></li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/34755287/46914850-0b0eaa80-cfde-11e8-8515-ba5fdf74851e.JPG" alt="dfsspanningtree1" /></p>
-
+<h2 id="해결-방법">해결 방법</h2>
+<h3 id="dp">DP</h3>
+<p>주어진 추를 양쪽 저울에 모두 올릴 수 있으므로, 추를 사용하는 모든 경우의 수는 아래와 같이 3가지로 나뉜다.</p>
 <ul>
-  <li>위 그래프를 0번 정점부터 깊이 우선 탐색했을 때 탐색이 따라가는 간선들을 굵은 실선으로 표시하면 아래의 그림과 같다.</li>
+  <li>구슬과 같은 저울에 올린 경우: <strong>-1</strong></li>
+  <li>올리지 않은 경우: <strong>0</strong></li>
+  <li>구슬과 반대 저울에 올린 경우: <strong>1</strong></li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/34755287/46914851-0b0eaa80-cfde-11e8-8c18-8bfcb86e8bef.JPG" alt="dfsspanningtree2" /></p>
-
+<p>예를 들어, 문제의 테스트 케이스와 같이 추의 무게가 1g, 4g 2개가 있을 때,</p>
 <ul>
-  <li>굵은 실선이 0번 정점을 루트로 하는 트리 형태를 띠는 것을 볼 수 있다.</li>
-  <li>이와 같은 트리를 주어진 트리의 깊이 우선 탐색 스패닝 트리 혹은 DFS 스패닝 트리(Spanning Tree)라고 부른다.</li>
-  <li>DFS 스패닝 트리는 4가지의 간선으로 분류된다.
-    <ul>
-      <li>트리 간선(tree edge): 스패닝 트리에 포함된 간선을 의미한다. (위 그래프의 굵은 선으로 표시된 간선)</li>
-      <li>순방향 간선(forward edge): 스패닝 트리의 선조에서 자손으로 연결되지만 트리 간선이 아닌 간선을 의미한다. (위 그래프의 (0, 6)간선이 그 예이다.)</li>
-      <li>역방향 간선(back edge): 스패닝 트리의 자손에서 선조로 연결되는 간선이다. (위 그래프의 (2, 0)간선이 그 예이다.)</li>
-      <li>교차 간선(cross edge): 위 세 간선을 제외한 나머지 간선을 의미하며, 트리에서 선조와 자손 관계가 아닌 정점들 간에 연결된 간선이다. (위 그래프의 (6, 3)간선이 그 예이다.)</li>
-    </ul>
-  </li>
-  <li>같은 그래프에서도 깊이 우선 탐색이 어느 순서대로 정점을 방문하느냐에 따라 서로 다른 트리가 만들어질 수 있다. (아래 그래프 예제)</li>
+  <li>초기 상태: <code class="highlighter-rouge">{0}</code></li>
+  <li>추 1g 추가: <code class="highlighter-rouge">{-1, 0, 1}</code></li>
+  <li>추 4g 추가: <code class="highlighter-rouge">{-5, -4, -3, 3, 4, 5}</code></li>
 </ul>
 
-<p><img src="https://user-images.githubusercontent.com/34755287/46914852-0b0eaa80-cfde-11e8-8959-a77da7db7e9e.JPG" alt="dfsspanningtree3" /></p>
+<p>총 가능한 구슬 무게는 <code class="highlighter-rouge">{0, 1, 3, 4, 5}</code>가 된다. 하지만 중간 과정의 음수 무게도 추를 추가할 때마다 사용해야 하기 때문에 저장을 해두어야 한다. 위의 예제에서 확인할 수 있듯이 추를 추가할 때마다 가능한 무게의 경우의 수는 3의 제곱수로 증가한다.</p>
 
-<ul>
-  <li>무향 그래프에서 간선의 분류
-    <ul>
-      <li>모든 간선은 양방향으로 통행 가능하므로, 교차 간선이 없다.</li>
-      <li>순방향 간선과 역방향 간선의 구분이 없다.</li>
-    </ul>
-  </li>
-</ul>
+<p>위와 같은 과정을 완전 탐색으로 구현한다면 시간 복잡도는 하나의 추마다 3가지 경우가 존재하므로 ${3}^{N}$이다. 추의 개수 N은 최대 30개가 존재하므로 실제 계산량은 ${3}^{30}$ = 205891132094649 로 시간내에 해결 불가능하다.</p>
 
-<h2 id="참고-문헌">참고 문헌</h2>
-<ul>
-  <li>프로그래밍 대회에서 배우는 알고리즘 문제해결전략, 인사이트, 구종만 지음</li>
-</ul>
+<p>위의 문제점을 해결하기 위해 DP를 사용한다. DP를 사용하면 아래의 구현 코드에서 확인할 수 있듯이 시간 복잡도는 <code class="highlighter-rouge">O(N * 2M)</code>이다.(N: 추 개수, M: 가능한 추의 무게)</p>
+
+<h2 id="구현-코드">구현 코드</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+<span class="c1">//계산 중간 과정에서 음수가 나올 수 있으므로
+//양수로 변환하기 위해 기준을 0에서 15000으로 변경한다.
+</span><span class="cp">#define M 15000
+</span><span class="c1">//weight[n] = n 무게의 구슬은 측정 가능하다.
+</span><span class="kt">bool</span> <span class="n">weight</span><span class="p">[</span><span class="mi">30001</span><span class="p">];</span>
+<span class="c1">//추 무게를 추가하는 과정에서 반복문이 순서대로 검사하므로
+//현재 추가된 추 무게를 검사하는 현상이 발생한다. 이를 방지하기 위함.
+//(현재 추가된 추 무게는 다음 추를 추가할 때 검사되어야 한다.)
+</span><span class="kt">bool</span> <span class="n">access</span><span class="p">[</span><span class="mi">30001</span><span class="p">];</span>
+<span class="kt">int</span> <span class="n">w</span><span class="p">[</span><span class="mi">31</span><span class="p">],</span> <span class="n">marble</span><span class="p">;</span>
+
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+
+	<span class="n">weight</span><span class="p">[</span><span class="n">M</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+		<span class="c1">//현재 추를 추가했을 때 가능한 무게들을 검사하여 임의로 저장한다.
+</span>		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">30001</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span> <span class="p">{</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">weight</span><span class="p">[</span><span class="n">j</span><span class="p">])</span> <span class="p">{</span>
+				<span class="n">access</span><span class="p">[</span><span class="n">j</span> <span class="o">+</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+				<span class="n">access</span><span class="p">[</span><span class="n">j</span> <span class="o">-</span> <span class="n">w</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+			<span class="p">}</span>
+		<span class="p">}</span>
+		<span class="c1">//가능한 무게들을 실제로 추가하여 다음 계산에 사용할 수 있도록 한다.
+</span>		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">j</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">j</span> <span class="o">&lt;</span> <span class="mi">30001</span><span class="p">;</span> <span class="o">++</span><span class="n">j</span><span class="p">)</span>
+			<span class="k">if</span> <span class="p">(</span><span class="n">access</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
+				<span class="n">weight</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="nb">true</span><span class="p">;</span>
+	<span class="p">}</span>
+
+	<span class="kt">int</span> <span class="n">m</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">m</span><span class="p">);</span>
+	<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+		<span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">marble</span><span class="p">);</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"%c "</span><span class="p">,</span> <span class="n">weight</span><span class="p">[</span><span class="n">marble</span> <span class="o">+</span> <span class="n">M</span><span class="p">]</span> <span class="o">?</span> <span class="sc">'Y'</span> <span class="o">:</span> <span class="sc">'N'</span><span class="p">);</span>
+	<span class="p">}</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
 
         
       </section>
@@ -412,7 +471,7 @@
     
       
       
-      <a href="/pages/CODEMCD/tags/#%EA%B7%B8%EB%9E%98%ED%94%84" class="page__taxonomy-item" rel="tag">그래프</a>
+      <a href="/pages/CODEMCD/tags/#boj" class="page__taxonomy-item" rel="tag">BOJ</a>
     
     </span>
   </p>
@@ -433,14 +492,14 @@
     
       
       
-      <a href="/pages/CODEMCD/categories/#algorithm" class="page__taxonomy-item" rel="tag">Algorithm</a>
+      <a href="/pages/CODEMCD/categories/#ps" class="page__taxonomy-item" rel="tag">PS</a>
     
     </span>
   </p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-11-10T00:00:00+09:00">November 10, 2018</time></p>
         
       </footer>
 
@@ -449,24 +508,24 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BAlgorithm%5D%EA%B9%8A%EC%9D%B4+%EC%9A%B0%EC%84%A0+%ED%83%90%EC%83%89%28DFS%29%EC%9D%98+%EA%B0%84%EC%84%A0+%EB%B6%84%EB%A5%98%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BBOJ%5D+2629.%EC%96%91%ED%8C%94%EC%A0%80%EC%9A%B8%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2629.%25EC%2596%2591%25ED%258C%2594%25EC%25A0%2580%25EC%259A%25B8%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2629.%25EC%2596%2591%25ED%258C%2594%25EC%25A0%2580%25EC%259A%25B8%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2629.%25EC%2596%2591%25ED%258C%2594%25EC%25A0%2580%25EC%259A%25B8%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fps%2FBOJ-2629.%25EC%2596%2591%25ED%258C%2594%25EC%25A0%2580%25EC%259A%25B8%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/algorithm/Algorithm-BFS%EC%99%80-%EC%B5%9C%EB%8B%A8%EA%B1%B0%EB%A6%AC/" class="pagination--pager" title="[Algorithm]너비 우선 탐색(BFS)
+      <a href="/pages/CODEMCD/ps/BOJ-1941.%EC%86%8C%EB%AC%B8%EB%82%9C-%EC%B9%A0%EA%B3%B5%EC%A3%BC/" class="pagination--pager" title="[BOJ] 1941.소문난 칠공주
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/algorithm/Algorithm-DFS%EC%99%80-%EC%82%AC%EC%9D%B4%ED%81%B4/" class="pagination--pager" title="[Algorithm]깊이 우선 탐색(DFS) 사이클
+      <a href="/pages/CODEMCD/ps/BOJ-3109.%EB%B9%B5%EC%A7%91/" class="pagination--pager" title="[BOJ] 3109.빵집
 ">다음</a>
     
   </nav>
@@ -518,25 +577,6 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/ps/BOJ-2629.%EC%96%91%ED%8C%94%EC%A0%80%EC%9A%B8/" rel="permalink">[BOJ] 2629.양팔저울
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">DP
-</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
         <a href="/pages/CODEMCD/ps/BOJ-1941.%EC%86%8C%EB%AC%B8%EB%82%9C-%EC%B9%A0%EA%B3%B5%EC%A3%BC/" rel="permalink">[BOJ] 1941.소문난 칠공주
 </a>
       
@@ -557,6 +597,25 @@
     <h2 class="archive__item-title" itemprop="headline">
       
         <a href="/pages/CODEMCD/ps/BOJ-1799.%EB%B9%84%EC%88%8D/" rel="permalink">[BOJ] 1799.비숍
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">백트래킹
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/ps/BOJ-2580.%EC%8A%A4%EB%8F%84%EC%BF%A0/" rel="permalink">[BOJ] 2580.스도쿠
 </a>
       
     </h2>
@@ -684,8 +743,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-DFS%EC%99%80-%EA%B0%84%EC%84%A0%EC%9D%98-%EB%B6%84%EB%A5%98/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/algorithm/Algorithm-DFS와 간선의 분류"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/ps/BOJ-2629.%EC%96%91%ED%8C%94%EC%A0%80%EC%9A%B8/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/ps/BOJ-2629.양팔저울"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
