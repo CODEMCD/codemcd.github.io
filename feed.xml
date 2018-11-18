@@ -1,4 +1,199 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-11-17T23:55:11+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s Tech Blog</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[C++ STL] next_permutation</title><link href="https://codemcd.github.io/pages/CODEMCD/cpp/Cpp-next_permutation/" rel="alternate" type="text/html" title="[C++ STL] next_permutation" /><published>2018-11-17T00:00:00+09:00</published><updated>2018-11-17T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/cpp/Cpp-next_permutation</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/cpp/Cpp-next_permutation/">&lt;h1 id=&quot;next_permutation&quot;&gt;next_permutation&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2018-11-18T18:45:59+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s Tech Blog</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[Docker] Docker(도커)란?</title><link href="https://codemcd.github.io/pages/CODEMCD/cloudcomputing/Docker-WhatIsDocker/" rel="alternate" type="text/html" title="[Docker] Docker(도커)란?" /><published>2018-11-18T00:00:00+09:00</published><updated>2018-11-18T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/cloudcomputing/Docker-WhatIsDocker</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/cloudcomputing/Docker-WhatIsDocker/">&lt;h1 id=&quot;docker란&quot;&gt;Docker란?&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/48662248-bc639d00-eac2-11e8-8443-1d735141d25f.JPG&quot; alt=&quot;docker logo&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Docker는 부두 노동자라는 영어 단어로서, Linux 기반의 Container RunTime 오픈소스 가상화 플랫폼이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;등장-배경&quot;&gt;등장 배경&lt;/h2&gt;
+&lt;p&gt;여러 OS와 플랫폼의 등장으로 서버를 관리하는데 비용이 너무나 커졌다. Linux, Windows, Mac과 같이 여러 운영체제가 존재하고 Linux 내에서도 CentOS, Ubuntu 등등 다양하다. 이에 더해 현재에는 클라우드 서비스가 활발하며, 클라우드 역시 AWS, Azure, 구글 클라우드 등 서버를 운영하기 위한 환경이 매우 다양하다.&lt;/p&gt;
+
+&lt;p&gt;하나의 서버에서 여러 프로그램을 설치하는 것에는 많은 충돌이 발생한다. 현재에는 위와 같이 여러 환경이 존재하기 때문에 가상머신을 여러 개 사용해야한다. 하지만 가상머신 기술은 전체 운영체제를 설치하는 방식이므로 매우 느리고 관리하기 힘들다. 이를 해결하기 위해 Docker가 등장한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;가상머신virtual-machine&quot;&gt;가상머신(Virtual Machine)&lt;/h3&gt;
+&lt;p&gt;가상머신은 하드웨어를 소프트웨어적으로 구현해서 그 위에서 운영체제를 작동하도록하는 기술이다. 즉, 리얼머신에서 하나의 운영체제가 동작하고 있는 상황에서 가상머신을 통해 다른 운영체제를 하나 더 사용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;가상화의 방식에는 전가상화(Full-Virtualization)과 반가상화(Para-Virtualization)으로 나뉜다.&lt;/p&gt;
+
+&lt;p&gt;전가상화는 하드웨어 자원을 완전히 가상화하는 방식이다. 그러므로 Guest OS를 아무런 수정없이 쉽게 도입이 가능하다. 하지만, CPU의 VT(Virtual Technology)를 이용하므로 오버헤드가 상당히 크다. 전가상화를 사용하는 플랫폼은 VMware, VirtualBox 등이 있다.&lt;/p&gt;
+
+&lt;p&gt;반가상화는 게스트 OS를 수정하여 게스트 OS가 가상화되고 있음을 인식하도록 하여 하이퍼바이저(Hyperviser, 가상화를 지원하는 소프트웨어)가 필요할 때만 호출되도록 한다. 반가상화는 게스트 OS를 수정해야 하므로 OS 소스코드에 접근가능해야 하므로 도입이 어렵다. 하지만, 가상화를 호출하는 빈도를 최소화하여 성능을 대폭 향상시킬 수 있다. 반가상화는 대표적으로 Xen이 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/48662230-82929680-eac2-11e8-87ed-4883d3912497.JPG&quot; alt=&quot;virtualization&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;가상머신 자체는 완전한 게스트 운영체제를 설치해야 하므로 용량이 크고 반가상화라 할지라도 리얼 머신에 비해 성능이 크게 감소된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;docker&quot;&gt;Docker&lt;/h3&gt;
+&lt;p&gt;Docker는 반가상화보다도 조금 더 경령화된 방식이다. Docker는 게스트 OS 자체를 설치하지 않고 운영에 필요한 프로그램과 라이브러리만 설치하여 이미지 크기를 대폭 줄였다. 그리고 시스템 콜과 같은 OS 자원은 호스트 OS와 공유한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/48662228-82929680-eac2-11e8-9938-cdfdab5daec7.JPG&quot; alt=&quot;docker&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Docker는 하이퍼바이저가 없기 때문에 리얼 머신과 성능이 거의 비슷하다. 아래의 표를 보면 확인할 수 있듯이 CPU, 메모리 접근, 파일 시스템 성능이 거의 똑같이 나오는 것을 볼 수 있고, 네트워크 속도 역시 비슷하게 측정된다고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/48662227-82929680-eac2-11e8-8689-84ba6224f7f0.JPG&quot; alt=&quot;docker performance&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;docker-구성&quot;&gt;Docker 구성&lt;/h2&gt;
+&lt;p&gt;Docker는 크게 컨테이너(Container)와 이미지(Image)로 구성되어 있다. 컨테이너는 리눅스의 컨테이너 기술에서 왔으며, 이미지는 컨테이너 실행에 필요한 파일이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;리눅스-컨테이너&quot;&gt;리눅스 컨테이너&lt;/h3&gt;
+&lt;p&gt;LXC(Linux Container)는 운영 시스템 레벨의 가상화 방법이다. 단일 호스트 환경에서 여러 개의 고립된 리눅스 시스템(컨테이너)들을 사용하기 위해 만들어졌다. 이를 위해 리눅스 커널안에서 고립된 가상의 공간을 만든다고 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;컨테이너는 가상머신과 달리 호스트 OS에서 바로 시작하여 훨씬 성능이 좋다. 컨테이너는 자체적인 그룹화를 시행하여 다른 그룹이나 그룹에 속하지 않는 프로세스들과 단절된 공간을 만든다. 컨테이너간 역시 서로 내부를 볼 수 없다.&lt;/p&gt;
+
+&lt;p&gt;LXC는 리눅스 커널의 cgroups(Control Groups)와 namespaces(Namespace Isolation)를 결합하여 고립된 공간을 만든다. cgroups는 CPU, 메모리, 블록 I/I, 네트워크 등과 같은 자원을 할당한다. namespace isolation은 애플리케이션 입장에서 프로세스 트리, 네트워크, 사용자 ID, 마운트된 파일 등을 호스트와 완전히 격리하여 고립된 운영 환경을 만들기 위함이고, 이는 cgroups에서 제공한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/48662229-82929680-eac2-11e8-85a4-7a84fb42f490.JPG&quot; alt=&quot;linux container&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;LXC는 리눅스가 제공하는 기술 중 하나인 “chroot”와 비슷하다. chroot는 프로세스의 루트 디렉토리를 변경하는 명령으로, 프로세스가 접근 할 수 있는 디렉트로리를 제한하거나 시스템 라이브러리와 관련 라이브러리를 로드할 수 있다. 하지만 이것만으로는 네트워크와 프로세스를 제어할 수 없었다. 이를 해결하기 위해 더 발전시킨 “jail” 기능이 만들어졌다. LXC는 jail과 유사한 개념으로 여러 자원을 제어 및 격리하는 기능이 구현되어 있다.&lt;/p&gt;
+
+&lt;p&gt;Docker는 초기에는 LXC기반으로 컨테이너 생성 및 관리 기능 등 다양한 기능을 추가하였다. 버전 0.9 이후로는 libcontainer를 자체적으로 개발하여 사용하고 있으며, 옵션을 통해 LXC와 libcontainer를 선택적으로 사용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/48662224-81fa0000-eac2-11e8-840f-a28818bd0124.JPG&quot; alt=&quot;docker container&quot; /&gt;&lt;/p&gt;
+
+&lt;h3 id=&quot;이미지image&quot;&gt;이미지(Image)&lt;/h3&gt;
+&lt;p&gt;Docker 이미지는 보통 2가지로 구성되어 있다. 첫 번째는 리눅스 운영체제이다. 어떤 프로그램(예를들어, Nginx, MySQL 등)을 실행하려면 운영체제가 있어야 한다. Docker 이미지에서는 기본적으로 리눅스 배포판을 사용한다. 배포판에는 리눅스 부팅에 필요한 최소한의 실행 파일과 라이브러리가 존재한다. 배포판만으로도 패키징 시스템을 사용할 수 있다. 물론 다른 필요한 기능들을 추가하여 이미지를 만들 수도 있다. 두 번째는 사용할 애플리케이션이다.&lt;/p&gt;
+
+&lt;p&gt;Docker 이미지 크기는 수메가에서 수기가바이트까지 필요에 따라 다양하지만, 운영체제 하나가 수십기가바이트이므로, 훨씬 작은 크기인 것을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;Docker 이미지는 Docker hub를 통해 대부분 공개되어 있어 필요에 따라 적절한 이미지를 찾아 사용할 수 있고, 자신이 만든 이미지 역시 등록할 수 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;컨테이너container&quot;&gt;컨테이너(Container)&lt;/h3&gt;
+&lt;p&gt;컨테이너는 이미지 파일을 실행한 상태라고 볼 수 있다. 하나의 이미지로 여러 컨테이너를 만들 수 있고, 이들은 모두 독립적이다. 운영체제로 보면 이미지는 실행 파일이고, 컨테이너는 프로세스라고 볼 수 있다. 이미 실행된 컨테이너에서 해당 이미지가 변경된 부분을 바로 새로운 이미지로 만들 수도 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;docker-layer&quot;&gt;Docker layer&lt;/h2&gt;
+&lt;p&gt;Docker 이미지를 수정할 때마다 수백메가의 크기를 계속 다시 다운로드받는다면 엄청난 비효율을 가져온다. Docker는 이를 해결하기 위해 레이어(layer)라는 개념을 도입하여 유니온 파일 시스템(Union File System)을 사용한다. 이를 통해 여러 개의 레이어를 하나의 파일 시스템으로 사용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;Docker 이미지는 읽기 전용 상태이다. 여기서 내용이 바뀌면 해당 이미지를 수정하지 않고, 쓰기 이미지를 생성한 뒤 수정된 내용만을 기록한다. 이러한 방식을 Union mount라고 한다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, Ubuntu 이미지가 &lt;code class=&quot;highlighter-rouge&quot;&gt;A, B, C&lt;/code&gt;로 구성되어 있다. 여기서 웹서비스를 제공하기 위해 Nginx를 설치 한다. 그러면 기존의 Ubuntu에 Nginx라는 새로운 내용이 추가되어 새로운 이미지 &lt;code class=&quot;highlighter-rouge&quot;&gt;(A, B, C), Nginx&lt;/code&gt;가 만들어진다. 마지막으로 애플리케시션 소스를 추가하면 최종으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;(A, B, C, Nginx), Source&lt;/code&gt; 이미지가 생성된다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/48662226-81fa0000-eac2-11e8-80a3-cd0a064093db.JPG&quot; alt=&quot;docker layer&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 예제를 그림으로 표시한 것이다. 컨테이너를 생성할 때는 읽기/쓰기 레이어(R/W layer)를 기본적으로 추가하여 해당 이미지에서 변경된 내용을 저장한다.&lt;/p&gt;
+
+&lt;p&gt;이와 같이 이미지들은 수정될 때마다 새로운 이미지를 만들어내며, 기존의 이미지와 새로 만들어진 이미지 사이에 부모-자식 관계가 만들어진다. 위의 예제를 이러한 의존적 관계로 나타내면 아래 그림과 같다.&lt;/p&gt;
+
+&lt;p&gt;Docker 이미지를 생성할 때는 바뀐 부분만 생성한 뒤 부모 이미지와 연결한다. 컨테이너를 실행하면 해당 이미지를 불러온 뒤 부모를 계속 참조하는 방식으로 동작한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/48670714-5e38c780-eb5f-11e8-8153-a1f4b7b760bb.JPG&quot; alt=&quot;docker layer tree&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Docker 이미지 파일을 Docker hub에 올릴 때는 부모 이미지들을 모두 포함하여 올린다.&lt;/p&gt;
+
+&lt;h2 id=&quot;dockerfile&quot;&gt;Dockerfile&lt;/h2&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;9.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;alpine&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;COPY&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;COPY&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;RUN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;\&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;apk&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;\&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;apk&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;upgrade&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;EXPOSE&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;8080&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;CMD&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;js&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;Docker 이미지를 만들기 위해서는 Dockerfile을 빌드해야 한다. 이 파일은 DSL(Domain Specific Language)를 사용한다. 이 파일은 해당 이미지를 생성하기 위해서 필요한 여러 사전 작업을 명시하여 실행시킨다. 여러 의존성 패키지를 설치하거나 포트를 연결해주는 일 등을 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;dsl&quot;&gt;DSL&lt;/h3&gt;
+&lt;ul&gt;
+  &lt;li&gt;FROM: 어떤 이미지를 기반으로 할지 설정&lt;/li&gt;
+  &lt;li&gt;MAINTAINER: 이미지 작성자 정보&lt;/li&gt;
+  &lt;li&gt;RUN: 이미지에서 스크립트나 명령 실행&lt;/li&gt;
+  &lt;li&gt;CMD: 컨테이너가 시작되었을 때 스크립트나 명령 실행&lt;/li&gt;
+  &lt;li&gt;ENTRYPOINT: 컨테이너가 시작되었을 때 스크립트나 명령 실행(docker run에서 처리 방식이 다름)&lt;/li&gt;
+  &lt;li&gt;EXPOSE: 호스트와 연결할 포트 번호 설정&lt;/li&gt;
+  &lt;li&gt;ENV: 환경 변수 설정&lt;/li&gt;
+  &lt;li&gt;ADD, COPY: 이미지에 파일 추가&lt;/li&gt;
+  &lt;li&gt;VOLUME: 데이터를 호스트에 저장하도록 설정&lt;/li&gt;
+  &lt;li&gt;USER: 명령을 실행할 사용자 계정 설정&lt;/li&gt;
+  &lt;li&gt;WORKDIR: 명령을 실행할 디렉토리 설정&lt;/li&gt;
+  &lt;li&gt;ONBUILD: FROM으로 이미지가 사용될 때 실행할 명령 설정&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;이미지-만들기-예제&quot;&gt;이미지 만들기 예제&lt;/h3&gt;
+&lt;p&gt;간단하게 웹(web)에 글을 출력하는 이미지 파일을 만들어보자. 이를 위해 아래의 3개의 파일이 필요하고, 해당 디렉토리안에서 명령어를 사용해야 한다.&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Dockerfile&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;nx&quot;&gt;FROM&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;node&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;mf&quot;&gt;9.4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;alpine&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;COPY&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;js&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;COPY&lt;/span&gt; &lt;span class=&quot;kr&quot;&gt;package&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;json&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;RUN&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;npm&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;install&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;\&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;apk&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;update&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;\&lt;/span&gt;
+    &lt;span class=&quot;nx&quot;&gt;apk&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;upgrade&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;EXPOSE&lt;/span&gt;  &lt;span class=&quot;mi&quot;&gt;8080&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;CMD&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;node&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;js&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;app.js&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;express&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'express'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;os&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;require&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;os&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hostname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;os&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;hostname&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;express&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt;
+
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;kd&quot;&gt;get&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'/'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;req&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;res&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;send&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Hello world from '&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;hostname&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;s1&quot;&gt;'! Your app is up and running in a cluster!&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;\&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;n'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;span class=&quot;nx&quot;&gt;app&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;listen&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;8080&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;function&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;nx&quot;&gt;console&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;log&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s1&quot;&gt;'Sample app is listening on port 8080.'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;})&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;package.json&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div class=&quot;language-json highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;name&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;hello-world-demo&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;private&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;false&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;version&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;0.0.1&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;description&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;Basic hello world application for Node.js&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;dependencies&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+    &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;express&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;:&lt;/span&gt;&lt;span class=&quot;w&quot;&gt; &lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;3.x&quot;&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+  &lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;w&quot;&gt;
+&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;이미지 빌드(Build)
+&lt;code class=&quot;highlighter-rouge&quot;&gt;docker image build -t hello-world:1 .&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;docker build &lt;옵션&gt; &lt;Dockerfile 경로=&quot;&quot;&gt;&lt;/Dockerfile&gt;&lt;/옵션&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-t&lt;/code&gt;: tag의 약자로 해당 이미지에 이름을 붙인다.(이름:버전 양식)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;이미지 확인
+&lt;code class=&quot;highlighter-rouge&quot;&gt;docker image ls&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;이미지 세부 사항
+&lt;code class=&quot;highlighter-rouge&quot;&gt;docker image inspect hello-world:1&lt;/code&gt;&lt;/li&gt;
+  &lt;li&gt;이미지 실행
+&lt;code class=&quot;highlighter-rouge&quot;&gt;docker container run -d -p 8080:8080 -v /root/date:/date --name hello-world-a hello-world:1&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-d&lt;/code&gt;: 컨테이너를 백그라운드로 실행한다.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-p Host Port:Container Port&lt;/code&gt;: 호스트 포트와 컨테이너 포트를 연결하고 외부에 노출시킨다. http://&lt;Host IP=&quot;&quot;&gt;:8080에 접속하면 컨테이너의 8080번 포트로 접속된다.&lt;/Host&gt;&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;-v Host Directory:Container Directory&lt;/code&gt;: volume의 약자로 호스트의 디렉토리를 컨테이너 디렉토리에 연결한다. 그러면 호스트의 디렉토리에 파일을 컨테이너에서 사용할 수 있다.(변경사항들도 모두 적용된다.)&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;--name&lt;/code&gt;: 이미지 이름을 설정한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;컨테이너 확인
+&lt;code class=&quot;highlighter-rouge&quot;&gt;docker container ls&lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;실행 결과 화면&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/48662225-81fa0000-eac2-11e8-8f55-1c048df49658.JPG&quot; alt=&quot;docker image build example&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;참고-자료&quot;&gt;참고 자료&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;a href=&quot;https://m.blog.naver.com/PostView.nhn?blogId=brickbot&amp;amp;logNo=220413822823&amp;amp;proxyReferer=https%3A%2F%2Fwww.google.co.kr%2F&quot;&gt;전가상화와 반가상화&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;http://www.opennaru.com/openshift/docker/what-is-the-difference-between-docker-lxd-and-lxc/&quot;&gt;리눅스 컨테이너&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://subicura.com/2017/01/19/docker-guide-for-beginners-1.html&quot;&gt;Docker&lt;/a&gt;&lt;/li&gt;
+  &lt;li&gt;&lt;a href=&quot;https://github.com/IBM/container-service-getting-started-wt/tree/master/Lab%201&quot;&gt;Docker 예제&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Docker" /><summary type="html">Docker 소개와 기본 개념, 예제</summary></entry><entry><title type="html">[C++ STL] next_permutation</title><link href="https://codemcd.github.io/pages/CODEMCD/cpp/Cpp-next_permutation/" rel="alternate" type="text/html" title="[C++ STL] next_permutation" /><published>2018-11-17T00:00:00+09:00</published><updated>2018-11-17T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/cpp/Cpp-next_permutation</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/cpp/Cpp-next_permutation/">&lt;h1 id=&quot;next_permutation&quot;&gt;next_permutation&lt;/h1&gt;
 &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;next_permutation&lt;/code&gt; 함수는 원래 순서를 다음 사전 순서의 순열로 재배치해주는 함수이다. (사전 순서는 오름차순이라고 볼 수 있다.)&lt;/p&gt;
 
 &lt;h2 id=&quot;구문&quot;&gt;구문&lt;/h2&gt;
@@ -978,262 +1173,4 @@
 
 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="BOJ" /><summary type="html">백트래킹</summary></entry><entry><title type="html">[BOJ] 1339.단어 수학</title><link href="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-1339.%EB%8B%A8%EC%96%B4-%EC%88%98%ED%95%99/" rel="alternate" type="text/html" title="[BOJ] 1339.단어 수학" /><published>2018-10-28T00:00:00+09:00</published><updated>2018-10-28T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/ps/BOJ-1339.%EB%8B%A8%EC%96%B4%20%EC%88%98%ED%95%99</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/ps/BOJ-1339.%EB%8B%A8%EC%96%B4-%EC%88%98%ED%95%99/">&lt;h1 id=&quot;단어-수학&quot;&gt;단어 수학&lt;/h1&gt;
-
-&lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.acmicpc.net/problem/1339&quot;&gt;https://www.acmicpc.net/problem/1339&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;해결-방법&quot;&gt;해결 방법&lt;/h2&gt;
-&lt;h3 id=&quot;순열을-이용한-완전-탐색&quot;&gt;순열을 이용한 완전 탐색&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;등장하는 알파벳에 부여할 수 있는 점수의 모든 경우의 수를 순열을 통해 찾는다.
-    &lt;ul&gt;
-      &lt;li&gt;가장 높은 숫자부터 알파벳에 부여해야한다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;예제-gcf--acdeb&quot;&gt;예제: GCF + ACDEB&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;등장하는 알파벳: ABCDEFG&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;알파벳&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;A&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;B&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;C&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;D&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;E&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;F&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;G&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;숫자&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;알파벳&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;A&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;B&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;C&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;D&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;E&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;F&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;G&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;숫자&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;…&lt;/p&gt;
-
-&lt;h4 id=&quot;시간-복잡도&quot;&gt;시간 복잡도&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;순열 계산: $P(10,10)$ = &lt;code class=&quot;highlighter-rouge&quot;&gt;10!&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;단어 계산: &lt;code class=&quot;highlighter-rouge&quot;&gt;10(단어 개수) * 8(단어 길이)&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;총 시간 복잡도: &lt;code class=&quot;highlighter-rouge&quot;&gt;10! * 10 * 8&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;자릿수-활용하기&quot;&gt;자릿수 활용하기&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;주어진 알파벳 문자열은 십집수의 자릿수와 같은 취급을 하기 때문에 등장하는 알파벳들의 자릿수 합을 구하여 이 합이 큰 알파벳부터 높은 숫자를 부여한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h4 id=&quot;예제-gcf--acdeb-1&quot;&gt;예제: GCF + ACDEB&lt;/h4&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;문자열1&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;알파벳&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;G&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;C&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;F&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;자릿수&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;100&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;문자열2&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;알파벳&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;A&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;C&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;D&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;E&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;B&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;자릿수&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;10000&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1000&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;100&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;문자열1 + 문자열2(자리수 오름차순)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;알파벳&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;A&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;C&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;D&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;E&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;G&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;B&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;F&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;자릿수&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;10000&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1010&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;100&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;blockquote&gt;
-  &lt;blockquote&gt;
-    &lt;p&gt;처음에 자리수의 인덱스 누적값(예를 들어, 위의 문자열 2의 A에 5를 부여한다.)을 오름차순으로 하여 순서대로 큰 숫자를 부여했는데, 이렇게 하면 숫자 중복이 실제 수 크기와 관계없이 중복되는 경우가 생겨서 틀린 것 같다. 위처럼 자릿수를 기준으로 하여 정확하게 비교해야 한다는 것을 알았다.&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;h4 id=&quot;시간-복잡도-1&quot;&gt;시간 복잡도&lt;/h4&gt;
-&lt;ul&gt;
-  &lt;li&gt;자릿수 부여: &lt;code class=&quot;highlighter-rouge&quot;&gt;10 * 8&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;오름차순 정렬(퀵정렬): &lt;code class=&quot;highlighter-rouge&quot;&gt;26log26&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;결과-코드&quot;&gt;결과 코드&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;순열을 이용한 완전 탐색&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#define _CRT_SECURE_NO_WARNINGS
-&lt;/span&gt;
-&lt;span class=&quot;cp&quot;&gt;#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;cstdio&amp;gt;
-#include &amp;lt;cstring&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-#include &amp;lt;vector&amp;gt;
-#include &amp;lt;string&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//최초 등장하는 알파벳 검사
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;bool&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;27&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//등장하는 알파벳 종류 저장
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;alph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//등장하는 알파벳에 해당하는 숫자 맵핑
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nalph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;27&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//최대 점수를 찾기 위해 숫자 9를 우선적으로 대입하기 위한 배열
-//순열을 통해 만든어진 수열을 인덱스로 맵핑
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;9&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;8&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;6&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//등장하는 알파벳 개수
-&lt;/span&gt;	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;cin&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-		&lt;span class=&quot;c1&quot;&gt;//등장하는 알파벳 갯수 세기
-&lt;/span&gt;		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;])&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-				&lt;span class=&quot;n&quot;&gt;check&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-				&lt;span class=&quot;n&quot;&gt;alph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-	&lt;span class=&quot;c1&quot;&gt;//알파벳 개수만큼 순열을 사용하기 위해 초기화 0 ~ n-1
-&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//순열 탐색
-&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;do&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;c1&quot;&gt;//등장하는 알파벳에 점수 부여
-&lt;/span&gt;		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;idx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;nalph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;alph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]];&lt;/span&gt;
-		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deci&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;c1&quot;&gt;//주어진 모든 문자열 수 계산
-&lt;/span&gt;		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;coef&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-			&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;j&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-				&lt;span class=&quot;n&quot;&gt;coef&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nalph&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;j&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'A'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-				&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;k&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;k&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-					&lt;span class=&quot;n&quot;&gt;coef&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-				&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-				&lt;span class=&quot;n&quot;&gt;deci&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;coef&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;c1&quot;&gt;//가장 큰 수 찾기
-&lt;/span&gt;		&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deci&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;?&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;:&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;deci&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next_permutation&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;begin&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(),&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;seq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;end&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;()));&lt;/span&gt;
-
-	&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="BOJ" /><summary type="html">완전 탐색</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="BOJ" /><summary type="html">백트래킹</summary></entry></feed>
