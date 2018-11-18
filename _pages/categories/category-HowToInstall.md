@@ -1,5 +1,5 @@
 ---
-title: "HowToInstall"
+title: "설치 방법"
 layout: archive
 permalink: /categories/howtoinstall
 sidebar_main: true
