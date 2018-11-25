@@ -398,7 +398,7 @@
 
 <p>컨테이너는 가상머신과 달리 호스트 OS에서 바로 시작하여 훨씬 성능이 좋다. 컨테이너는 자체적인 그룹화를 시행하여 다른 그룹이나 그룹에 속하지 않는 프로세스들과 단절된 공간을 만든다. 컨테이너간 역시 서로 내부를 볼 수 없다.</p>
 
-<p>LXC는 리눅스 커널의 cgroups(Control Groups)와 namespaces(Namespace Isolation)를 결합하여 고립된 공간을 만든다. cgroups는 CPU, 메모리, 블록 I/I, 네트워크 등과 같은 자원을 할당한다. namespace isolation은 애플리케이션 입장에서 프로세스 트리, 네트워크, 사용자 ID, 마운트된 파일 등을 호스트와 완전히 격리하여 고립된 운영 환경을 만들기 위함이고, 이는 cgroups에서 제공한다.</p>
+<p>LXC는 리눅스 커널의 cgroups(Control Groups)와 namespaces(Namespace Isolation)를 결합하여 고립된 공간을 만든다. cgroups는 CPU, 메모리, 블록 I/O, 네트워크 등과 같은 자원을 할당한다. namespace isolation은 애플리케이션 입장에서 프로세스 트리, 네트워크, 사용자 ID, 마운트된 파일 등을 호스트와 완전히 격리하여 고립된 운영 환경을 만들고, 이는 cgroups에서 제공한다.</p>
 
 <p><img src="https://user-images.githubusercontent.com/34755287/48662229-82929680-eac2-11e8-85a4-7a84fb42f490.JPG" alt="linux container" /></p>
 
