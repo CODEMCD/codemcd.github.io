@@ -60,7 +60,7 @@
 }
 
 .archive__item-teaser {
-  //position: relative;
+  position: relative;
   border-radius: $border-radius;
   overflow: hidden;
 
@@ -333,7 +333,7 @@
   }
 }
 
-/* Place inside an archive layout
+/* Place inside an archive layout */
 
 .archive {
   .feature__wrapper {
@@ -350,7 +350,6 @@
     font-size: 1em;
   }
 }
-*/
 
 /*   Wide Pages
    ==========================================================================*/
