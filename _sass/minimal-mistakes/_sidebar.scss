@@ -295,13 +295,14 @@
 
 .wide .sidebar__right {
   margin-bottom: 1em;
+  margin-right: 20em;
 
   @include breakpoint($large) {
     position: initial;
     top: initial;
     right: initial;
     width: initial;
-    margin-right: 10em;
+    margin-right: initial;
     padding-left: initial;
     z-index: initial;
 
