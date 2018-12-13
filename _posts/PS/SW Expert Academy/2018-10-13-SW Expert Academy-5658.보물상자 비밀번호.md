@@ -4,9 +4,9 @@ excerpt: "구현"
 search: true
 sidebar_main: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - SW Expert Academy
+  - Algorithm_FCT
 ---
 
 # 보물상자 비밀번호

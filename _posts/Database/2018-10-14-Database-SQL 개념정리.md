@@ -3,9 +3,9 @@ title: "[Database]SQL 개념 정리"
 excerpt: "데이터베이스 SQL 개념 정리 및 예제"
 search: true
 categories:
-  - Database
+  - Study
 tags:
-  - 개념 정리
+  - Study_Database
 toc: true
 sidebar_main: true
 ---

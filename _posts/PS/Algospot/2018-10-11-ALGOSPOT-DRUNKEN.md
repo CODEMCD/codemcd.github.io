@@ -4,9 +4,9 @@ excerpt: "플로이드 알고리즘"
 search: true
 sidebar_main: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - Algospot
+  - Algorithm_Algospot
 ---
 
 # 음주 운전 단속

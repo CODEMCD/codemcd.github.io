@@ -3,9 +3,9 @@ title: "[SW Expert Academy] 2117.홈 방범 서비스"
 excerpt: "완전 탐색"
 search: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - SW Expert Academy
+  - Algorithm_FCT
 sidebar_main: true
 ---
 

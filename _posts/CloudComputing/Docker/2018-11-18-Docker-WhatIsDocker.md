@@ -4,9 +4,9 @@ excerpt: "Docker 소개와 기본 개념, 예제"
 search: true
 sidebar_main: true
 categories:
-  - CloudComputing
+  - Study
 tags:
-  - Docker
+  - Study_Cloud
 ---
 
 # Docker란?

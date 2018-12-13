@@ -3,9 +3,9 @@ title: "[SW Expert Academy] 4013.특이한 자석"
 excerpt: "구현"
 search: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - SW Expert Academy
+  - Algorithm_FCT
 sidebar_main: true
 ---
 

@@ -4,9 +4,9 @@ excerpt: "시뮬레이션"
 search: true
 sidebar_main: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - SW Expert Academy
+  - Algorithm_FCT
 ---
 
 # 무선 충전

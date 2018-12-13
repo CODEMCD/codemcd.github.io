@@ -3,9 +3,9 @@ title: "[SW Expert Academy] 4012.요리사"
 excerpt: "조합, 완전 탐색"
 search: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - SW Expert Academy
+  - Algorithm_FCT
 sidebar_main: true
 ---
 

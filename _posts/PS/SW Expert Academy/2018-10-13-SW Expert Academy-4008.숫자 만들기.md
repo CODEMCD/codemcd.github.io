@@ -3,9 +3,9 @@ title: "[SW Expert Academy] 4008.숫자 만들기"
 excerpt: "순열, 완전 탐색"
 search: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - SW Expert Academy
+  - Algorithm_FCT
 sidebar_main: true
 ---
 

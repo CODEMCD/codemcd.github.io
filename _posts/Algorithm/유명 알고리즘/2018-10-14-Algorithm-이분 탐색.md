@@ -5,7 +5,7 @@ search: true
 categories:
   - Algorithm
 tags:
-  - 유명 알고리즘
+  - Algorithm_DataStructure
 toc: true
 sidebar_main: true
 ---

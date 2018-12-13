@@ -4,9 +4,9 @@ excerpt: "메모이제이션 + 완전 탐색"
 search: true
 sidebar_main: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - SW Expert Academy
+  - Algorithm_FCT
 ---
 
 # 벽돌 깨기

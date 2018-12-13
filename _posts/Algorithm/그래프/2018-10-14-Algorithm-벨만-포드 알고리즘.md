@@ -5,7 +5,7 @@ search: true
 categories:
   - Algorithm
 tags:
-  - 그래프
+  - Algorithm_Algorithm
 toc: true
 sidebar_main: true
 ---

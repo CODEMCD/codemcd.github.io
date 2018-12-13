@@ -4,9 +4,9 @@ excerpt: "그리디"
 search: true
 sidebar_main: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - Algospot
+  - Algorithm_Algospot
 ---
 
 # 문자열 합치기

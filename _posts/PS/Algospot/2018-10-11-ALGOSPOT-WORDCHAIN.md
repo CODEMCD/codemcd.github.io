@@ -4,9 +4,9 @@ excerpt: "해밀토니안 경로"
 search: true
 sidebar_main: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - Algospot
+  - Algorithm_Algospot
 ---
 
 # 단어 제한 끝말잇기

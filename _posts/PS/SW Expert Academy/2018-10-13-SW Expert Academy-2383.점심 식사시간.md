@@ -3,9 +3,9 @@ title: "[SW Expert Academy] 2383.점심 식사시간"
 excerpt: "조합, 시뮬레이션"
 search: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - SW Expert Academy
+  - Algorithm_FCT
 sidebar_main: true
 ---
 

@@ -3,9 +3,9 @@ title: "[DataStructure]정렬 알고리즘 비교"
 excerpt: "정렬 알고리즘 비교"
 search: true
 categories:
-  - DataStructure
+  - Algorithm
 tags:
-  - 정렬
+  - Algorithm_DataStructure
 toc: true
 sidebar_main: true
 ---

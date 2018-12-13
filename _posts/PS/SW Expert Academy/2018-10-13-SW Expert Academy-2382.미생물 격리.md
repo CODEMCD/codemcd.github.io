@@ -3,9 +3,9 @@ title: "[SW Expert Academy] 2382.미생물 격리"
 excerpt: "시뮬레이션"
 search: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - SW Expert Academy
+  - Algorithm_FCT
 sidebar_main: true
 ---
 

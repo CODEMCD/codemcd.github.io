@@ -3,9 +3,9 @@ title: "[DataStructure]배열과 리스트"
 excerpt: "동적 배열과 연결 리스트 차이"
 search: true
 categories:
-  - DataStructure
+  - Algorithm
 tags:
-  - 선형자료구조
+  - Algorithm_DataStructure
 toc: true
 sidebar_main: true
 ---

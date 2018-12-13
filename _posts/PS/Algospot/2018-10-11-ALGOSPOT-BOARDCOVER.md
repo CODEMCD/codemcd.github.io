@@ -4,9 +4,9 @@ excerpt: "완전 탐색"
 search: true
 sidebar_main: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - Algospot
+  - Algorithm_Algospot
 ---
 
 # BOARDCOVER

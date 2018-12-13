@@ -4,9 +4,9 @@ excerpt: "다익스트라 알고리즘"
 search: true
 sidebar_main: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - Algospot
+  - Algorithm_Algospot
 ---
 
 # 소방차

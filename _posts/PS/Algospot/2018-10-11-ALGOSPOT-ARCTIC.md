@@ -4,9 +4,9 @@ excerpt: "그래프, 이진 탐색"
 search: true
 sidebar_main: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - Algospot
+  - Algorithm_Algospot
 ---
 
 # 남극 기지

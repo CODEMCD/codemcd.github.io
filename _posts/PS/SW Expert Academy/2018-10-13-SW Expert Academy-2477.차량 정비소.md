@@ -3,9 +3,9 @@ title: "[SW Expert Academy] 2477.차량 정비소"
 excerpt: "시뮬레이션"
 search: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - SW Expert Academy
+  - Algorithm_FCT
 sidebar_main: true
 ---
 

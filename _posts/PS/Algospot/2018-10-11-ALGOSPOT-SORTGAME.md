@@ -4,9 +4,9 @@ excerpt: "그래프"
 search: true
 sidebar_main: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - Algospot
+  - Algorithm_Algospot
 ---
 
 # Sorting Game

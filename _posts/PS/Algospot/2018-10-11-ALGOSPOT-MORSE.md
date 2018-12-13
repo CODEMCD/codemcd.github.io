@@ -4,9 +4,9 @@ excerpt: "DP"
 search: true
 sidebar_main: true
 categories:
-  - PS
+  - Algorithm
 tags:
-  - Algospot
+  - Algorithm_Algospot
 ---
 
 # 모스 부호 사전

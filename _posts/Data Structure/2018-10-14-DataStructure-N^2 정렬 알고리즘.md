@@ -3,9 +3,9 @@ title: "[DataStructure]N^2 정렬 알고리즘"
 excerpt: "버블 정렬, 선택 정렬, 삽입 정렬"
 search: true
 categories:
-  - DataStructure
+  - Algorithm
 tags:
-  - 정렬
+  - Algorithm_DataStructure
 toc: true
 sidebar_main: true
 ---
