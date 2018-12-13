@@ -1,0 +1,1111 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.13.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Java]예외처리(exception handing) - CODEMCD’s E-BOOK</title>
+<meta name="description" content="Java 개념">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="CODEMCD's E-BOOK">
+<meta property="og:title" content="[Java]예외처리(exception handing)">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/Java-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/">
+
+
+  <meta property="og:description" content="Java 개념">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/study/Java-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "CODEMCD",
+      "url": "https://codemcd.github.io/pages/CODEMCD",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/pages/CODEMCD/feed.xml" type="application/atom+xml" rel="alternate" title="CODEMCD's E-BOOK Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/pages/CODEMCD/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/pages/CODEMCD/">CODEMCD's E-BOOK</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/about/" >About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/toy/" >Toy Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/algorithm/" >Algorithm</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/study/" >Study</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <a href="/pages/CODEMCD/"><h3 class="author__name" itemprop="name">CODEMCD</h3></a>
+    
+    
+      <p class="author__bio" itemprop="description">
+        JUST DO...
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://codemcd.blogspot.com/"><i class="fas fa-fw fa-link" aria-hidden="true"></i> Blog</a></li>
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://codemcd.github.io/categories/"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:psbum1609@gmail.com">
+            <meta itemprop="email" content="psbum1609@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  <!-- Add category side bar -->
+  
+    <nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+
+        <span class="nav__sub-title" v-on:click='togglec()'>Toy</span>
+        <ul v-show="flag_c1">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec()'>Algorithm</span>
+        <ul v-show="flag_c2">
+        
+          
+            
+              <li><a href="/tags/algorithm-algospot" class="">Algospot (24)</a></li>
+          
+        
+          
+            
+              <li><a href="/tags/algorithm-fct" class="">Fct (14)</a></li>
+          
+        
+          
+            
+              <li><a href="/tags/algorithm-datastructure" class="">Datastructure (8)</a></li>
+          
+        
+          
+            
+              <li><a href="/tags/algorithm-algorithm" class="">Algorithm (9)</a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <li><a href="/tags/algorithm-boj" class="">Boj (13)</a></li>
+          
+        
+          
+        
+          
+        
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec()'>Study</span>
+        <ul v-show="flag_c3">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <li><a href="/tags/study-database" class="">Database (2)</a></li>
+          
+        
+          
+        
+          
+            
+              <li><a href="/tags/study-java" class="">Java (15)</a></li>
+          
+        
+          
+            
+              <li><a href="/tags/study-kotlin" class="">Kotlin (6)</a></li>
+          
+        
+          
+        
+          
+        
+          
+            
+              <li><a href="/tags/study-cloud" class="">Cloud (1)</a></li>
+          
+        
+        </ul>
+
+      </li>
+  </ul>
+</nav>
+
+  
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Java]예외처리(exception handing)">
+    <meta itemprop="description" content="Java 개념">
+    <meta itemprop="datePublished" content="October 14, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Java]예외처리(exception handing)
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#예외처리exception-handing">예외처리(exception handing)</a>
+    <ul>
+      <li><a href="#프로그램-오류">프로그램 오류</a></li>
+      <li><a href="#예외-클래스의-계층구조">예외 클래스의 계층구조</a></li>
+      <li><a href="#예외처리하기">예외처리하기</a>
+        <ul>
+          <li><a href="#1-try-catch문">1. try-catch문</a></li>
+          <li><a href="#2-try-catch문-흐름">2. try-catch문 흐름</a></li>
+          <li><a href="#3-catch블럭">3. catch블럭</a></li>
+        </ul>
+      </li>
+      <li><a href="#예외-발생시키기">예외 발생시키기</a></li>
+      <li><a href="#메서드에-예외-선언하기">메서드에 예외 선언하기</a></li>
+      <li><a href="#finally-블럭">finally 블럭</a></li>
+      <li><a href="#자동-자원-반환---try-with-resourced문">자동 자원 반환 - try-with-resourced문</a></li>
+      <li><a href="#사용자-정의-예외">사용자 정의 예외</a></li>
+      <li><a href="#예외-되던지기exception-re-throwin">예외 되던지기(exception re-throwin)</a></li>
+      <li><a href="#연결된-예외chained-exception">연결된 예외(chained exception)</a></li>
+    </ul>
+  </li>
+</ul>
+            </nav>
+          </aside>
+        
+        <h1 id="예외처리exception-handing">예외처리(exception handing)</h1>
+
+<h2 id="프로그램-오류">프로그램 오류</h2>
+<ul>
+  <li>컴파일 에러(compile-time error): 컴파일 시에 발생하는 에러</li>
+  <li>런타임 에러(runtime error): 실행 시에 발생하는 에러</li>
+  <li>논리적 에러(logical error): 실행은 되지만, 의도와는 다르게 동작하는 것</li>
+  <li>자바에서는 실행 시(runtime)에 발생할 수 있는 프로그램 오류를 두 가지로 구분한다.
+    <ul>
+      <li>에러(error): 프로그램 코드에 의해서 수습될 수 없는 심각한 오류를 말한다.
+        <ul>
+          <li>예를들어, 메모리 부족(OutOfMemoryError)나 스택오버플로우(StackOverflowError)가 있다.</li>
+        </ul>
+      </li>
+      <li>예외(exception): 프로그램 코드에 의해서 수습될 수 있는 다소 미약한 오류를 말한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="예외-클래스의-계층구조">예외 클래스의 계층구조</h2>
+<ul>
+  <li>Exception과 Error클래스 역시 Object클래스의 자손들이다.</li>
+  <li>밑의 그림은 예외클래스 계층도를 주요 클래스들만을 나열한 모습이다.</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/44071623-3ff72644-9fc5-11e8-808d-0d1b5c6b9c07.jpg" alt="exceptionclasshierarchy" /></p>
+
+<ul>
+  <li>Exception클래스는 두 개의 그룹으로 구분할 수 있다.
+    <ul>
+      <li>RuntimeException클래스와 그 자손클래스들
+        <ul>
+          <li>자손클래스는 ArithmeticException, ClassCastException, NullPointerException, …, IndexOutOfBoundException 클래스 등이 있다.</li>
+          <li>해당 클래스들은 주로 프로그래머의 실수에 의해 발생될 수 있는 예외들로 자바의 프로그래밍 요소들과 관계가 깊다.</li>
+          <li>IndexOutOfBoundException: 배열의 범위를 벗어난 경우</li>
+          <li>NullPointerException: null인 참조변수의 멤버를 호출한 경우</li>
+          <li>ClassCastException: 클래스의 형변환이 잘못된 경우</li>
+          <li>ArithmeticException: 정수를 0으로 나누려고하는 경우</li>
+        </ul>
+      </li>
+      <li>Exception클래스와 그 자손클래스들(RuntimeException과 자손들 제외)
+        <ul>
+          <li>자손클래스는 IOException, ClassNotFoundException 클래스 등이 있다.</li>
+          <li>프로그램의 사용자의 실수와 같은 외적인 요인에 의해 발생하는 예외이다.</li>
+          <li>FileNotFoundException: 존재하지 않은 파일의 이름을 입력한 경우</li>
+          <li>ClassNotFoundException: 실수로 클래스의 이름을 잘못된 경우</li>
+          <li>DataFormatException: 입력한 데이터 형식이 잘못된 경우</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="예외처리하기">예외처리하기</h2>
+<h3 id="1-try-catch문">1. try-catch문</h3>
+<ul>
+  <li>예외처리: 프로그램 실행 시 발생할 수 있는 예기치 못한 예외의 발생에 대비한 코드를 작성하는 것이다.</li>
+  <li>예외처리의 목적은 예외의 발생으로 인한 프로그램의 비정상적인 종료를 막고, 정상적인 실행상태를 유지하는 것이다.</li>
+  <li>예외를 처리하지 못하면, 프로그램은 비정상적으로 종료되며, JVM의 예외처리기(UncaughtExceptionHandler)에서 처리하지 못한 예외(uncaught exception)를 받아서 그 원인을 출력한다.</li>
+  <li>try-catch문의 구조</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+  <span class="c1">//예외가 발생할 가능성이 있는 문장들을 넣는다.</span>
+<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e1</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">//Exception1이 발생했을 경우, 이를 처리하기 위한 문장을 적는다.</span>
+<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e2</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">//Exception2이 발생했을 경우, 이를 처리하기 위한 문장을 적는다.</span>
+<span class="o">}</span>
+<span class="o">...</span> <span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">eN</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">//ExceptionN이 발생했을 경우, 이를 처리하기 위한 문장을 적는다.</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>여러 개의 catch블럭이 올 수 있지만, 이 중 발생한 예외의 종류와 일치하는 단 하나의 catch블럭만 실행된다.</li>
+  <li>if문과 같은 문법과 달리, 괄호({ })를 절대 생략할 수 없다.</li>
+  <li>try-catch문은 여러개 반복해서 사용할 수 있고, try-catch문 안에 또 다른 try-catch문의 선언도 가능하다.
+    <ul>
+      <li>중첩된 try-catch문을 사용할 때 같은 이름의 참조변수를 사용해서는 안된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="2-try-catch문-흐름">2. try-catch문 흐름</h3>
+<ul>
+  <li>try블럭 내에서 예외가 발생한 경우
+    <ul>
+      <li>발생한 예외와 일치하는 catch블럭이 있는지 확인한다.</li>
+      <li>일치하는 catch블럭을 찾으면, 그 catch블럭 내의 문장들을 수행하고 전체 try-catch문을 빠져나가서 그 다음 문장을 계속해서 수행한다.
+(try블럭 내의 예외 발생 시점 밑의 코드들은 수행하지 않는다.)</li>
+      <li>일치하는 catch블럭을 찾지 못하면, 예외는 처리되지 못한다.</li>
+    </ul>
+  </li>
+  <li>tyr블럭 내에서 예외가 발생하지 않은 경우
+    <ul>
+      <li>catch블럭을 거치지 않고 전체 try-catch문을 빠져나가서 계속해서 수행한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="3-catch블럭">3. catch블럭</h3>
+<ul>
+  <li>예외가 발생했을 때, 생성되는 예외 클래스의 인스턴스에는 발생한 예외에 대한 정보가 담겨져 있으며, getMessage()와 printStackTrace()를 통해서 이 정보에 접근가능하다.</li>
+  <li>printStackTrace(): 예외발생 당시의 호출스택(Call Stack)에 있었던 메서드의 정보와 예외 메시지를 화면에 출력한다.
+    <ul>
+      <li>printStackTrace(PrintStream s)나 printStackTrace(PrintWriter s)를 통해 예외에 대한 정보를 파일에 저장할 수도 있다.</li>
+    </ul>
+  </li>
+  <li>getMessage(): 발생한 예외클래스의 인스턴스에 저장된 메시지를 얻을 수 있다.</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>멀티 catch블럭: JDK1.7부터 여러 catch블럭을 ‘</td>
+          <td>‘기호를 이용해서 하나의 catch블럭으로 합칠 수 있다.</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul>
+      <li>조상과 자손 관계를 연결 시킬수는 없다.</li>
+      <li>예외 클래스들의 공통 분모인 조상 예외 클래스에 선언된 멤버만을 사용할 수 있고, 참조변수는 ‘e’로 고정된다.</li>
+    </ul>
+
+    <p><strong><em>기존 catch 블럭 코드</em></strong></p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+  <span class="o">...</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ExceptionA</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ExceptionB</span> <span class="n">e2</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">e2</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+
+    <p><strong><em>멀티 catch 블럭 코드</em></strong></p>
+
+    <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+  <span class="o">...</span>
+<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ExceptionA</span> <span class="o">|</span> <span class="n">ExceptionB</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">e</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="예외-발생시키기">예외 발생시키기</h2>
+<ul>
+  <li>키워드 ‘throw’를 사용해서 프로그래머가 고의로 예외를 발생시킬 수 있다.</li>
+  <li>사용 방법
+    <ul>
+      <li>연산자 new를 이용해서 발생시키려는 예외 클래스의 객체를 만든다. <code class="highlighter-rouge">Exception e = new Exception("고의로 발생시킴");</code></li>
+      <li>키워드 throw를 이용해서 예외를 발생시킨다. <code class="highlighter-rouge">throw e;</code></li>
+    </ul>
+  </li>
+  <li>예외를 고의로 발생시켰다면, 반드시 그 예외에 대한 처리를 해주어야 한다.(try-catch문)
+    <ul>
+      <li>Exception 클래스(checked 예외)의 경우, 처리를 해주지 않으면 컴파일 단계에서 오류가 발생한다.</li>
+      <li>RuntimeException 클래스(unchecked 예외)의 경우, 컴파일에는 성공하지만 비정상적으로 종료된다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="메서드에-예외-선언하기">메서드에 예외 선언하기</h2>
+<ul>
+  <li>try-catch문 외에, 메서드의 선언부에 키워드 ‘throws’를 사용해서 메서드 내에서 발생할 수 있는 예외를 선언해주면 된다.
+    <ul>
+      <li>예외가 여러개일 경우, 쉼표(,)로 구분하고, 키워드 ‘throw’와 구분해야 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">method</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception1</span><span class="o">,</span> <span class="n">Exception2</span><span class="o">,</span> <span class="o">...</span> <span class="n">ExceptionN</span> <span class="o">{</span>
+  <span class="c1">//메서드 내용</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>메서드의 선언부에 예외를 선언함으로써, 메서드를 사용하려는 사람이 해당 메서드를 사용하기 위해 어떠한 예외들을 처리해야 하는지 알려 줄 수 있다.
+    <ul>
+      <li>예외 발생 가능성을 예측해야 하는 프로그래머들의 수고를 덜어주고, 보다 견고한 프로그램 코드를 작성할 수 있다.</li>
+      <li>특히, JAVA API 작성된 메서드를 사용할때 보다 정확히 사용할 수 있다.</li>
+    </ul>
+  </li>
+  <li>대부분 RuntimeException클래스는 적어 주지 않고, 반드시 처리해주어야 하는 예외들만 선언한다.</li>
+  <li>예외가 발생한 메서드에서 예외처리를 해주지 않으면, 그 메서드를 호출한 메서드에게 예외를 넘겨준다.
+    <ul>
+      <li>예외가 발생하면, 해당 메서드나 호출한 메서드 둘 중 한 곳에서는 예외 처리를 해주어야 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="finally-블럭">finally 블럭</h2>
+<ul>
+  <li>finally블럭은 try-catch문과 함께 예외의 발생여부에 상관없이 실행되어야할 코드를 포함 시킬 목적으로 사용한다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span> <span class="o">{</span>
+  <span class="c1">//예외가 발생할 가능성이 있는 문장들</span>
+<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">Exception1</span> <span class="n">e1</span><span class="o">)</span> <span class="o">{</span>
+  <span class="c1">//예외처리를 위한 문장</span>
+<span class="o">}</span> <span class="k">finally</span> <span class="o">{</span>
+  <span class="c1">//예외의 발생여부에 관계없이 항상 수행되어야하는 문장들</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>finally블럭은 try-catch문의 맨 마지막에 위치해야 한다.</li>
+  <li>실행 순서는 다음과 같다.
+    <ul>
+      <li>예외 발생: try -&gt; catch -&gt; finally</li>
+      <li>그 외: try -&gt; finally</li>
+    </ul>
+  </li>
+  <li>try블럭에 return문이 있은 경우에도, finally블럭을 실행한 후에 return문이 실행된다.</li>
+</ul>
+
+<h2 id="자동-자원-반환---try-with-resourced문">자동 자원 반환 - try-with-resourced문</h2>
+<ul>
+  <li>JDK1.7부터 try-with-resourced문이라는 try-catch문 번형이 새로 추가되었다.</li>
+  <li>주로 입출력(I/O)과 관련된 클래스를 사용할 때 주로 사용된다.
+    <ul>
+      <li>입출력이 끝난 자원을 반환할 때, finally문을 사용한다고 해도 여기서 오류가 발생하면 처리해줄 수 없기 때문에 try-with-resourced문을 사용한다.</li>
+    </ul>
+  </li>
+  <li>예제</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">try</span><span class="o">(</span><span class="n">fis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">FileInputStream</span><span class="o">(</span><span class="s">"score.dat"</span><span class="o">);</span>
+    <span class="n">dis</span> <span class="o">=</span> <span class="k">new</span> <span class="n">DataInputStream</span><span class="o">(</span><span class="n">fis</span><span class="o">))</span> <span class="o">{</span>
+  <span class="k">while</span><span class="o">(</span><span class="kc">true</span><span class="o">)</span> <span class="o">{</span>
+    <span class="n">score</span> <span class="o">=</span> <span class="n">dis</span><span class="o">.</span><span class="na">readInt</span><span class="o">();</span>
+    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">score</span><span class="o">);</span>
+    <span class="n">sum</span> <span class="o">+=</span> <span class="n">score</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">EOFException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"점수의 총합은 "</span><span class="o">,</span> <span class="o">+</span> <span class="n">sum</span> <span class="o">+</span> <span class="s">"입니다."</span><span class="o">);</span>
+<span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">IOException</span> <span class="n">ie</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">ie</span><span class="o">.</span><span class="na">printStackTrace</span><span class="o">();</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>try-with-resourced문dml 괄호()안에 객체를 생성하는 문장을 넣으면, 이 객체는 따로 close()를 호출하지 않아도 try블럭을 벗어나는 순간 자동으로 close()가 호출된다.
+    <ul>
+      <li>그 다음에 catch블럭 또는 finally블럭이 수행된다.</li>
+    </ul>
+  </li>
+  <li>괄호()안에 두 문장 이상을 넣을 경우 세미콜론(;)으로 구분해주고, 변수 선언도 가능하다.
+    <ul>
+      <li>선언된 변수는 try블럭안에서만 사용가능하다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="사용자-정의-예외">사용자 정의 예외</h2>
+<ul>
+  <li>프로그래머가 직접 Exception클래스로부터 상속을 받아 클래스를 만들거나, 필요에 따라 새로운 예외 클래스를 만들 수 있다.
+    <ul>
+      <li>기존 예외 클래스를 상속받아 만드는 것을 추천한다.</li>
+    </ul>
+  </li>
+  <li>예제</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">MyException</span> <span class="kd">extends</span> <span class="n">Exception</span> <span class="o">{</span>
+  <span class="n">privatee</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">ERR_CODE</span><span class="o">;</span>
+
+  <span class="c1">//생성자</span>
+  <span class="n">MyException</span><span class="o">(</span><span class="n">String</span> <span class="n">msg</span><span class="o">,</span> <span class="kt">int</span> <span class="n">errCode</span><span class="o">)</span> <span class="o">{</span>
+    <span class="kd">super</span><span class="o">(</span><span class="n">mag</span><span class="o">);</span>            <span class="c1">//조상인 Excepton클래스의 생성자를 호출한다.</span>
+    <span class="n">ERR_CODE</span> <span class="o">=</span> <span class="n">errCode</span><span class="o">;</span>
+  <span class="o">}</span>
+
+  <span class="c1">//생성자</span>
+  <span class="n">MyException</span><span class="o">(</span><span class="n">String</span> <span class="n">msg</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">this</span><span class="o">(</span><span class="n">msg</span><span class="o">,</span> <span class="mi">100</span><span class="o">);</span>        <span class="c1">//ERR_CODE를 100을 기본값으로 초기화한다.</span>
+  <span class="o">}</span>
+
+  <span class="c1">//에러 코드를 얻을 수 있는 메서드</span>
+  <span class="kd">public</span> <span class="kt">int</span> <span class="nf">getErrCode</span><span class="o">()</span> <span class="o">{</span>
+    <span class="k">return</span> <span class="n">ERR_CODE</span><span class="o">;</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="예외-되던지기exception-re-throwin">예외 되던지기(exception re-throwin)</h2>
+<ul>
+  <li>하나의 예외에 대해서 예외가 발생한 메서드와 호출한 메서드 양쪽에서 처리하고자 할때, 예외 되던지기 방법을 사용한다.</li>
+  <li>예외 되던지기는 예외를 처리한 후에 인위적으로 다시 발생시키는 것을 말한다.</li>
+  <li>예외가 발생한 메서드에서는 try-catch문으로 예외를 처리해줌과 동시에 메서드의 선언부에 발생할 예외를 throws에 지정해줘야 한다.</li>
+  <li>예제</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">ExceptionEX</span> <span class="o">{</span>
+  <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="n">method1</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"main메서드에서 예외가 처리되었습니다."</span><span class="o">);</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+
+  <span class="kd">static</span> <span class="kt">void</span> <span class="nf">method1</span><span class="o">()</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+    <span class="k">try</span> <span class="o">{</span>
+      <span class="k">throw</span> <span class="k">new</span> <span class="nf">Exception</span><span class="o">();</span>
+    <span class="o">}</span> <span class="k">catch</span><span class="o">(</span><span class="n">Exception</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"method1메서드에서 예외가 처리되었습니다."</span><span class="o">);</span>
+      <span class="k">throw</span> <span class="n">e</span><span class="o">;</span>   <span class="c1">//다시 예외를 발생시킨다.</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong><em>결과 화면</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>method1메서드에서 예외가 처리되었습니다.
+main메서드에서 예외가 처리되었습니다.
+</code></pre></div></div>
+
+<h2 id="연결된-예외chained-exception">연결된 예외(chained exception)</h2>
+<ul>
+  <li>한 예외가 다른 예외를 발생시킬 수 있다.
+    <ul>
+      <li>예를 들어, A가 예외 B를 발생시켰다면, A를 B의 ‘원인 예외(cause exception)’라고 한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Throwable</span> <span class="nf">initCause</span><span class="o">(</span><span class="n">Throwable</span> <span class="n">cause</span><span class="o">)</span>   <span class="c1">//지정한 예외를 원인 예외로 등록</span>
+<span class="n">Throwable</span> <span class="nf">getCause</span><span class="o">()</span>                   <span class="c1">//원인 예외를 반환</span>
+</code></pre></div></div>
+<ul>
+  <li>연결된 예외를 사용하는 이유
+    <ul>
+      <li>여러가지 예외를 하나의 큰 분류의 예외로 묶어서 다루기 위함이다.</li>
+      <li>checked예외를 unchecked예외로 바꾸기 위함이다.</li>
+    </ul>
+  </li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/tags/#study-java" class="page__taxonomy-item" rel="tag">Study_Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/categories/#study" class="page__taxonomy-item" rel="tag">Study</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%5BJava%5D%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC%28exception+handing%29%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FJava-%25EC%2598%2588%25EC%2599%25B8%25EC%25B2%2598%25EB%25A6%25AC%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FJava-%25EC%2598%2588%25EC%2599%25B8%25EC%25B2%2598%25EB%25A6%25AC%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FJava-%25EC%2598%2588%25EC%2599%25B8%25EC%25B2%2598%25EB%25A6%25AC%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FJava-%25EC%2598%2588%25EC%2599%25B8%25EC%25B2%2598%25EB%25A6%25AC%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/pages/CODEMCD/study/Java-%EB%B3%80%EC%88%98%EC%99%80%EC%9E%90%EB%A3%8C%ED%98%95/" class="pagination--pager" title="[Java]JAVA 변수와 자료형
+">이전</a>
+    
+    
+      <a href="/pages/CODEMCD/study/Kotlin-1.%EC%BD%94%ED%8B%80%EB%A6%B0%EC%9D%B4%EB%9E%80_/" class="pagination--pager" title="[Kotlin]1. 코틀린이란?
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">댓글남기기</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/Docker-WhatIsDocker/" rel="permalink">[Docker] Docker(도커)란?
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">Docker 소개와 기본 개념, 예제
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/algorithm/BOJ-1019.%EC%B1%85-%ED%8E%98%EC%9D%B4%EC%A7%80/" rel="permalink">[BOJ] 1019.책 페이지
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">수학
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/cpp/Cpp-next_permutation/" rel="permalink">[C++ STL] next_permutation
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">next_permutation 함수 이해
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/algorithm/BOJ-1342.%ED%96%89%EC%9A%B4%EC%9D%98-%EB%AC%B8%EC%9E%90%EC%97%B4/" rel="permalink">[BOJ] 1342.행운의 문자열
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">순열 or 백트래킹
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+    <div class="search-hits"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/pages/CODEMCD/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 CODEMCD. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/pages/CODEMCD/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'I6UE8BVP0C',
+  apiKey: 'f6718f69889fabcb9d71088ba50236b5',
+  indexName: 'GITHUB_BLOG',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="/pages/CODEMCD${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: 'Enter your search term...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+// Starting the search
+search.start();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/study/Java-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/study/Java-예외처리"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://CODEMCD.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  new Vue({
+    el : '#category_tag_menu',
+    data : {
+      flag_c : true,
+      flag_t : false
+    },
+    methods : {
+      togglec: function(){
+        this.flag_c = !this.flag_c;
+      },
+      togglet: function(){
+        this.flag_t = !this.flag_t;
+      }
+    }
+  });
+</script>
+
+
+  </body>
+</html>

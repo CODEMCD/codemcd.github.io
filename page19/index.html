@@ -116,11 +116,13 @@
       <nav id="site-nav" class="greedy-nav">
         <a class="site-title" href="/pages/CODEMCD/">CODEMCD's E-BOOK</a>
         <ul class="visible-links"><li class="masthead__menu-item">
-              <a href="https://codemcd.github.io/" >Home</a>
-            </li><li class="masthead__menu-item">
               <a href="/pages/CODEMCD/about/" >About</a>
             </li><li class="masthead__menu-item">
-              <a href="/pages/CODEMCD/categories/" >Category</a>
+              <a href="/pages/CODEMCD/toy/" >Toy Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/algorithm/" >Algorithm</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/study/" >Study</a>
             </li></ul>
         
         <button class="search__toggle" type="button">
@@ -272,61 +274,119 @@
   <label for="ac-toc">토글 메뉴</label>
   <ul class="nav__items" id="category_tag_menu">
       <li>
-        <span class="nav__sub-title" v-on:click='togglec()'>Categories</span>
-        <ul v-show="flag_c">
+
+        <span class="nav__sub-title" v-on:click='togglec()'>Toy</span>
+        <ul v-show="flag_c1">
         
-           <li><a href="/categories/ps" class="">Ps (51)</a></li>
+          
         
-           <li><a href="/categories/algorithm" class="">Algorithm (13)</a></li>
+          
         
-           <li><a href="/categories/datastructure" class="">Datastructure (4)</a></li>
+          
         
-           <li><a href="/categories/database" class="">Database (2)</a></li>
+          
         
-           <li><a href="/categories/howtoinstall" class="">Howtoinstall (1)</a></li>
+          
         
-           <li><a href="/categories/java" class="">Java (15)</a></li>
+          
         
-           <li><a href="/categories/kotlin" class="">Kotlin (6)</a></li>
+          
         
-           <li><a href="/categories/cpp" class="">Cpp (1)</a></li>
+          
         
-           <li><a href="/categories/cloudcomputing" class="">Cloudcomputing (1)</a></li>
+          
+        
+          
+        
+          
         
         </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec()'>Algorithm</span>
+        <ul v-show="flag_c2">
         
-        <span class="nav__sub-title" v-on:click='togglet()'>tags</span>
-		
-        <ul v-show="flag_t">
+          
+            
+              <li><a href="/tags/algorithm-algospot" class="">Algospot (24)</a></li>
+          
         
-           <li><a href="/tags/#algospot" class="">Algospot (24)</a></li>
+          
+            
+              <li><a href="/tags/algorithm-fct" class="">Fct (14)</a></li>
+          
         
-           <li><a href="/tags/#sw-expert-academy" class="">Sw expert academy (14)</a></li>
+          
+            
+              <li><a href="/tags/algorithm-datastructure" class="">Datastructure (8)</a></li>
+          
         
-           <li><a href="/tags/#그래프" class="">그래프 (7)</a></li>
+          
+            
+              <li><a href="/tags/algorithm-algorithm" class="">Algorithm (9)</a></li>
+          
         
-           <li><a href="/tags/#수학" class="">수학 (2)</a></li>
+          
         
-           <li><a href="/tags/#유명-알고리즘" class="">유명 알고리즘 (4)</a></li>
+          
         
-           <li><a href="/tags/#정렬" class="">정렬 (3)</a></li>
+          
         
-           <li><a href="/tags/#선형자료구조" class="">선형자료구조 (1)</a></li>
+          
         
-           <li><a href="/tags/#개념-정리" class="">개념 정리 (23)</a></li>
+          
+            
+              <li><a href="/tags/algorithm-boj" class="">Boj (13)</a></li>
+          
         
-           <li><a href="/tags/#tensorflow" class="">Tensorflow (1)</a></li>
+          
         
-           <li><a href="/tags/#boj" class="">Boj (13)</a></li>
+          
         
-           <li><a href="/tags/#c-stl-함수" class="">C++ stl 함수 (1)</a></li>
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec()'>Study</span>
+        <ul v-show="flag_c3">
         
-           <li><a href="/tags/#docker" class="">Docker (1)</a></li>
+          
         
-        </ul>       
-      </li> 
+          
+        
+          
+        
+          
+        
+          
+            
+              <li><a href="/tags/study-database" class="">Database (2)</a></li>
+          
+        
+          
+        
+          
+            
+              <li><a href="/tags/study-java" class="">Java (15)</a></li>
+          
+        
+          
+            
+              <li><a href="/tags/study-kotlin" class="">Kotlin (6)</a></li>
+          
+        
+          
+        
+          
+        
+          
+            
+              <li><a href="/tags/study-cloud" class="">Cloud (1)</a></li>
+          
+        
+        </ul>
+
+      </li>
   </ul>
 </nav>
+
   
   
   </div>
@@ -348,7 +408,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/ps/ALGOSPOT-BOARDCOVER/" rel="permalink">[ALGOSPOT]BOARDCOVER
+        <a href="/pages/CODEMCD/algorithm/ALGOSPOT-BOARDCOVER/" rel="permalink">[ALGOSPOT]BOARDCOVER
 </a>
       
     </h2>
@@ -367,7 +427,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/ps/ALGOSPOT-ASYMTILNG/" rel="permalink">[ALGOSPOT]ASYMTILING
+        <a href="/pages/CODEMCD/algorithm/ALGOSPOT-ASYMTILNG/" rel="permalink">[ALGOSPOT]ASYMTILING
 </a>
       
     </h2>
@@ -386,7 +446,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/ps/ALGOSPOT-ARCTIC/" rel="permalink">[ALGOSPOT]ARCTIC
+        <a href="/pages/CODEMCD/algorithm/ALGOSPOT-ARCTIC/" rel="permalink">[ALGOSPOT]ARCTIC
 </a>
       
     </h2>
@@ -405,7 +465,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/ps/ALGOSPOT-DRAGON/" rel="permalink">[ALGOSPOT]DRAGON
+        <a href="/pages/CODEMCD/algorithm/ALGOSPOT-DRAGON/" rel="permalink">[ALGOSPOT]DRAGON
 </a>
       
     </h2>

@@ -1,0 +1,1175 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.13.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Kotlin]4. 클래스 및 인터페이스 - CODEMCD’s E-BOOK</title>
+<meta name="description" content="Kotlin 개념">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="CODEMCD's E-BOOK">
+<meta property="og:title" content="[Kotlin]4. 클래스 및 인터페이스">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/Kotlin-4.%ED%81%B4%EB%9E%98%EC%8A%A4%EB%B0%8F%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/">
+
+
+  <meta property="og:description" content="Kotlin 개념">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/study/Kotlin-4.%ED%81%B4%EB%9E%98%EC%8A%A4%EB%B0%8F%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "CODEMCD",
+      "url": "https://codemcd.github.io/pages/CODEMCD",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/pages/CODEMCD/feed.xml" type="application/atom+xml" rel="alternate" title="CODEMCD's E-BOOK Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/pages/CODEMCD/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/pages/CODEMCD/">CODEMCD's E-BOOK</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/about/" >About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/toy/" >Toy Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/algorithm/" >Algorithm</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/study/" >Study</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <a href="/pages/CODEMCD/"><h3 class="author__name" itemprop="name">CODEMCD</h3></a>
+    
+    
+      <p class="author__bio" itemprop="description">
+        JUST DO...
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://codemcd.blogspot.com/"><i class="fas fa-fw fa-link" aria-hidden="true"></i> Blog</a></li>
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://codemcd.github.io/categories/"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:psbum1609@gmail.com">
+            <meta itemprop="email" content="psbum1609@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  <!-- Add category side bar -->
+  
+    <nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+
+        <span class="nav__sub-title" v-on:click='togglec()'>Toy</span>
+        <ul v-show="flag_c1">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec()'>Algorithm</span>
+        <ul v-show="flag_c2">
+        
+          
+            
+              <li><a href="/tags/algorithm-algospot" class="">Algospot (24)</a></li>
+          
+        
+          
+            
+              <li><a href="/tags/algorithm-fct" class="">Fct (14)</a></li>
+          
+        
+          
+            
+              <li><a href="/tags/algorithm-datastructure" class="">Datastructure (8)</a></li>
+          
+        
+          
+            
+              <li><a href="/tags/algorithm-algorithm" class="">Algorithm (9)</a></li>
+          
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <li><a href="/tags/algorithm-boj" class="">Boj (13)</a></li>
+          
+        
+          
+        
+          
+        
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec()'>Study</span>
+        <ul v-show="flag_c3">
+        
+          
+        
+          
+        
+          
+        
+          
+        
+          
+            
+              <li><a href="/tags/study-database" class="">Database (2)</a></li>
+          
+        
+          
+        
+          
+            
+              <li><a href="/tags/study-java" class="">Java (15)</a></li>
+          
+        
+          
+            
+              <li><a href="/tags/study-kotlin" class="">Kotlin (6)</a></li>
+          
+        
+          
+        
+          
+        
+          
+            
+              <li><a href="/tags/study-cloud" class="">Cloud (1)</a></li>
+          
+        
+        </ul>
+
+      </li>
+  </ul>
+</nav>
+
+  
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Kotlin]4. 클래스 및 인터페이스">
+    <meta itemprop="description" content="Kotlin 개념">
+    <meta itemprop="datePublished" content="October 14, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Kotlin]4. 클래스 및 인터페이스
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#클래스-및-인터페이스">클래스 및 인터페이스</a>
+    <ul>
+      <li><a href="#클래스와-인터페이스의-선언-및-인스턴스-생성">클래스와 인터페이스의 선언 및 인스턴스 생성</a>
+        <ul>
+          <li><a href="#1-클래스">1. 클래스</a></li>
+          <li><a href="#2-인터페이스">2. 인터페이스</a></li>
+          <li><a href="#추상-클래스abstract-class">추상 클래스(abstract class)</a></li>
+        </ul>
+      </li>
+      <li><a href="#프로퍼티property">프로퍼티(property)</a></li>
+      <li><a href="#접근-제한자">접근 제한자</a></li>
+      <li><a href="#생성자">생성자</a>
+        <ul>
+          <li><a href="#1-기본-생성자">1. 기본 생성자</a></li>
+          <li><a href="#2-주-생성자primary-constructor">2. 주 생성자(primary constructor)</a></li>
+          <li><a href="#3-추가-생성자">3. 추가 생성자</a></li>
+          <li><a href="#4-생상자의-접근-제한자">4. 생상자의 접근 제한자</a></li>
+        </ul>
+      </li>
+      <li><a href="#함수function">함수(function)</a></li>
+      <li><a href="#상속-및-인터페이스-구현">상속 및 인터페이스 구현</a></li>
+      <li><a href="#this">this</a></li>
+      <li><a href="#정적-필드-및-메서드">정적 필드 및 메서드</a></li>
+      <li><a href="#싱글톤singleton">싱글톤(singleton)</a></li>
+      <li><a href="#enum-클래스">enum 클래스</a></li>
+      <li><a href="#어노테이션-클래스annotation-class">어노테이션 클래스(annotation class)</a></li>
+      <li><a href="#중첩-클래스nested-class">중첩 클래스(nested class)</a></li>
+    </ul>
+  </li>
+</ul>
+            </nav>
+          </aside>
+        
+        <h1 id="클래스-및-인터페이스">클래스 및 인터페이스</h1>
+
+<h2 id="클래스와-인터페이스의-선언-및-인스턴스-생성">클래스와 인터페이스의 선언 및 인스턴스 생성</h2>
+<h3 id="1-클래스">1. 클래스</h3>
+<ul>
+  <li>클래스를 선언하는 방법은 자바와 거의 동일하다.</li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">//</span><span class="err">패키지</span> <span class="n">foo</span><span class="p">.</span><span class="n">bar</span><span class="err">에</span> <span class="err">포함된</span> <span class="err">클래스</span> <span class="n">Baz</span><span class="err">선언</span>
+<span class="k">package</span> <span class="n">foo</span><span class="p">.</span><span class="n">bar</span>
+<span class="n">class</span> <span class="n">Baz</span> <span class="p">{</span>
+  <span class="p">---</span>
+<span class="p">}</span>
+
+<span class="p">//</span><span class="err">클래스</span> <span class="err">본체</span> <span class="err">없이</span> <span class="err">클래스를</span> <span class="err">선언할</span> <span class="err">수</span> <span class="err">있다</span><span class="p">.</span>
+<span class="n">class</span> <span class="n">Foo</span>
+</code></pre></div></div>
+
+<ul>
+  <li>코틀린에서 접근 제한자를 지정하지 않는 경우 public으로 간주한다.</li>
+  <li>코틀린에서는 키워드 ‘new’없이 인스턴스 생성이 가능하다.</li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val foo: Foo = Foo()
+//인자 하나를 받는 생성자로 인스턴스 생성
+val bar: Bar = Bar(1);
+</code></pre></div></div>
+
+<h3 id="2-인터페이스">2. 인터페이스</h3>
+<ul>
+  <li>인터페이스의 생성은 자바와 비슷하지만, 인터페이스의 인스턴스 생성은 조금 다르다.</li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//인터페이스 선언
+interface Bar {
+  fun baz()
+}
+//인터페이스의 인스턴스 생성
+//object: [인터페이스 이름] 형태
+val bar = object: Bar {
+  override fun baz() {
+    //함수 구현
+  }
+}
+</code></pre></div></div>
+
+<h3 id="추상-클래스abstract-class">추상 클래스(abstract class)</h3>
+<ul>
+  <li>추상 클래스의 선언 방법은 자바와 동일하지만, 인스턴스 생성은 다르며, 코틀린의 인터페이스의 인스턴스 생성과 유사하다.</li>
+  <li>추상 클래스에서는 인스턴스 생성 시 생성자를 사용하지만, 생성자가 없는 인스턴스는 인스턴스 이름만 사용한다.</li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//추상 클래스 선언
+abstract class Foo {
+  abstract fun bar()
+}
+//추상 클래스의 인스턴스 생성
+//object: [생성자] 형태
+val foo = object: Foo() {
+  override fun bar() {
+    //함수 구현
+  }
+}
+</code></pre></div></div>
+<h2 id="프로퍼티property">프로퍼티(property)</h2>
+<ul>
+  <li>프로퍼티는 자료를 저장할 수 있는 필드(field)와 이에 상응하는 Getter/Setter 메서드를 함께 제공하며, 자바의 필드와 유사한 형태로 선안한다.
+    <ul>
+      <li>자바는 클래스내의 멤버함수에 접근하기 위해 Getter/Setter 메서드를 직접 추가해주어야 하기 때문에 코드의 양이 불필요하게 늘어난다.</li>
+    </ul>
+  </li>
+  <li>프로퍼티 역시 ‘val’와 ‘var’ 중 하나로 선언해야 한다.
+    <ul>
+      <li>val: Getter 메서드만 존재한다.</li>
+      <li>var: Getter/Setter 메서드 모두 존재한다.</li>
+    </ul>
+  </li>
+  <li>프로퍼티는 초기값을 명시적으로 지정해야 하며, 그렇지 않은 경우 컴파일 에러가 발생한다.</li>
+  <li>프로퍼티 선언 시점이나 생성자 호출 시점에 값을 할당하지 않을 경우 ‘lateinit’ 키워드를 사용하여 초기 할당없이 사용할 수 있다.
+    <ul>
+      <li>키워드 ‘lateinit’은 프로퍼티 값을 나중에 할당할 것이라고는 것을 명시하는 것으로서, ‘var’ 프로퍼티에만 사용가능하다.</li>
+    </ul>
+  </li>
+  <li>프로퍼티 역시 타입 추론이 가능하기 때문에 타입 선언을 생략할 수 있다.</li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Person {
+  //기본 예제
+  val name: String? = null
+  var address: String? = null
+
+  //lateinit
+  lateinit var adderss: String?
+
+  //타입 추론
+  var name = "No Name"
+  var address: String? = null  //null만으로는 타입을 추론할 수 없기 때문에 타입 선언이 필요하다.
+}
+</code></pre></div></div>
+
+<h2 id="접근-제한자">접근 제한자</h2>
+<ul>
+  <li>접근 제한자는 자바와 거의 동일하다.
+    <ul>
+      <li>제한자가 없으면 자동으로 public으로 간주한다.</li>
+    </ul>
+  </li>
+  <li>자바와 다르게 ‘internal’ 접근 제한자가 존재한다.
+    <ul>
+      <li>자바에서 public의 접근 범위는 동일한 패키지 안이다. 하지만 외부 모듈이라도 패키지 이름이 같다면 접근이 가능하다.</li>
+      <li>위를 보완하기 위해 코틀린에서는 internal 접근 제한자를 제공한다.</li>
+    </ul>
+  </li>
+  <li>‘internal’ 접근 제한자의 범위는 동일한 모듈 내이다.
+    <ul>
+      <li>IntelliJ IDEA 모듈</li>
+      <li>Maven/Gradle 프로젝트</li>
+      <li>하나의 Ant 태스크 내에서 함께 컴파일되는 파일들</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="생성자">생성자</h2>
+<h3 id="1-기본-생성자">1. 기본 생성자</h3>
+<ul>
+  <li>코틀린의 기본 생성자는 자바보다 더욱 직관적으로 정의한다.
+    <ul>
+      <li>init {} 사용</li>
+    </ul>
+  </li>
+  <li>예제</li>
+</ul>
+
+<p><strong>_ 예제 코드</strong>_</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Foo {
+  init {
+    //생성자에서 수행할 작업들...
+  }
+}
+</code></pre></div></div>
+
+<h3 id="2-주-생성자primary-constructor">2. 주 생성자(primary constructor)</h3>
+<ul>
+  <li>생성자에 인자가 필요한 경우 주 생성자를 활용한다.</li>
+  <li>주 생성자로 클래스 내부의 프로퍼티를 대신해서 사용할 수 있으므로, 프로퍼티를 생략할 수 있다.</li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//기본 생성자에서 주 생성자의 인자를 사용할 수 있다.
+class Foo(a: Int) {
+  init {
+    Log.d("Foo", "Number: $a")
+  }
+}
+
+//프로퍼티 대신 주 생성자를 사용할 수 있다.
+class Foo(val a: Int, var b: Char)
+</code></pre></div></div>
+
+<h3 id="3-추가-생성자">3. 추가 생성자</h3>
+<ul>
+  <li>주 생성자 외에 다른 형태의 생성자가 필요한 경우 ‘constructor’ 키워드를 사용하여 추가 생성자를 선언할 수 있다.</li>
+  <li>추가 생성자를 정의하는 경우 주 생성자를 반드시 호출해야 한다.</li>
+  <li>추가 생성자에서는 인자와 프로퍼티를 함께 선언할 수 없다.
+    <ul>
+      <li>프로퍼티 선언이 필요한 인자인 경우 반드시 주 생성자에서 이를 처리해야 한다.</li>
+      <li>예제</li>
+    </ul>
+
+    <p><strong><em>예제 코드</em></strong></p>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Foo(val a: Int, var b: Char) {
+  //a값만 인자로 받는 추가 생성자
+  constructor(a: Int) : this(a, 0)
+
+  //두 인자의 값을 모두 0으로 지정하는 생성자
+  constructor() : this(0, 0)
+}
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h3 id="4-생상자의-접근-제한자">4. 생상자의 접근 제한자</h3>
+<ul>
+  <li>생성자의 가시성을 변경하려면 constructor 키워드 앞에 접근 제한자를 추가하면 된다.</li>
+  <li>주 생성자는 생략하였던 constructor 키워드를 추가하고 그 앞에 접근 제한자를 추가해야 한다.</li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Foo internal constructor(val a: Int, var b: Char) {
+  private constructor(a: Int) this(a, 0)
+
+  // 접근 제한자를 지정하지 않았으므로 public
+  constructor(): this(0, 0)
+}
+</code></pre></div></div>
+
+<h2 id="함수function">함수(function)</h2>
+<ul>
+  <li>코틀린은 자바의 클래스 내 메서드를 함수로 표현한다.</li>
+  <li>함수에서 특별한 값을 반환하지 않는다면 ‘함수 자체’를 의미하는 Unit 타입을 반환하며, 이는 생략 할 수 있다.</li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class Foo {
+  //아무 값도 반환하지 않는 함수, 생략 가능
+  fun foo(): Unit { }
+
+  //정수 값을 반환하는 함수
+  private fun bar(): Int {
+    return 0
+  }
+}
+</code></pre></div></div>
+
+<h2 id="상속-및-인터페이스-구현">상속 및 인터페이스 구현</h2>
+<ul>
+  <li>코틀린에서 상속 및 인터페이스는 키워드로 구분하는 자바와 달리 콜론(:) 뒤에 상속한 클래스나 구현한 인터페이스를 표기한다.</li>
+  <li>클래스를 상속하는 경우 반드시 부모 클래스의 생성자를 호출해야 한다.
+    <ul>
+      <li>부모 클래스의 생성자가 여러 개일 경우, 클래스의 선언부가 아닌 내부에서 호출할 수도 있다.</li>
+    </ul>
+  </li>
+  <li>코틀린에서 부모 클래스의 메서드 재정의, 인터페이스 구현한 메서드는 앞에 ‘override’ 키워드를 반드시 붙여야 한다.
+    <ul>
+      <li>자바에서 이를 ‘@Override’ 어노테이션으로 구분하는데, 이는 선택 사항이다.</li>
+    </ul>
+  </li>
+  <li>코틀린에서는 ‘open’ 키워드를 붙인 클래스나 함수만이 상속이나 재정의를 할 수 있다.
+    <ul>
+      <li>자바에서는 ‘final’ 키워드로 더 이상 상속이나 재정의를 할 수 없도록 한다.</li>
+    </ul>
+  </li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// AppCompatActivity 상속: AppCompatActivity()로 기본 생성자를 바로 호출한다.
+// View.OnClickListener 구현
+class MyActivity: AppCompatActivity(), View.OnClickListener {
+  // AppCompatActivity의 onCreate() 메서드 상속
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.oncreate(savedInstanceState)
+  }
+
+  // View.OnClickListener 인터페이스 구현
+  override fun onClick(v: View) { }
+}
+
+// 'open' 키워드 사용 예제
+open class OpenClass {
+  open val openProperty = "foo"
+  val finalProperty = "bar"
+  open fun openFunc() { }
+  fun finalFunc() { }
+}
+
+// 성공: OpenClass 앞에 'open' 키워드가 있으므로 상속 가능한 클래스이다.
+class FinalClass : OpenClass() {
+  // 성공: '부모 클래스의 openProperty 변수 앞에 'open' 키워드가 있으므로 재정의가 가능한 프로퍼티이다.
+  override val openProperty = "FOO"
+  // 실패: 해당 프로퍼티에 'open' 키워드가 없다.
+  override val finalProperty = "BAR"
+  // 성공: '부모 클래스의 openFunc 함수 앞에 'open' 키워드가 있으므로 재정의가 가능한 함수이다.
+  override open fun openFunc() { }
+  // 실패: 해당 함수에 'open' 키워드가 없다.
+  override fun finalFunc() { }
+}
+
+// 실패: 해당 클래스에 'open' 키워드가 없다.
+class Foo : FinalClass()
+</code></pre></div></div>
+
+<h2 id="this">this</h2>
+<ul>
+  <li>코틀린의 this 키워드는 자바와 거의 동일하다.</li>
+  <li>자바에서 <code class="highlighter-rouge">{클래스 이름}.this</code>를 코틀린에서는 <code class="highlighter-rouge">this@{클래스 이름}</code> 형태로 사용된다.</li>
+</ul>
+
+<h2 id="정적-필드-및-메서드">정적 필드 및 메서드</h2>
+<ul>
+  <li>코틀린에서는 자바와 달리 정적 필드와 메서드를 사용하여, 클래스 내에 상수를 정의하거나 static 메서드(인스턴스 생성 없이 사용할 수 있는 메서드)를 정의할 수 없다.</li>
+  <li>일반적인 경우 클래스 내에 선언했던 정적 필드나 메서드는 패키지 단위(package-level)로 선언할 수 있다.</li>
+  <li>패키지 단위로 선언한 값이나 함수는 패키지에 종속되므로 <code class="highlighter-rouge">import {패키지 이름}.{값 혹은 함수 이름}</code>으로 사용해야 한다.</li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>자바 코드</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">//</span><span class="n">Foo</span><span class="p">.</span><span class="n">java</span>
+<span class="k">package</span> <span class="n">foo</span><span class="p">.</span><span class="n">bar</span><span class="p">;</span>
+<span class="k">public</span> <span class="n">class</span> <span class="n">Foo</span> <span class="p">{</span>
+  <span class="p">//</span><span class="err">정적</span> <span class="err">필드</span> <span class="err">상수</span> <span class="err">선언</span>
+  <span class="k">public</span> <span class="n">static</span> <span class="n">final</span> <span class="n">int</span> <span class="n">FOO</span> <span class="p">=</span> <span class="m">123</span><span class="p">;</span>
+  <span class="p">//</span><span class="err">정적</span><span class="p">(</span><span class="n">static</span><span class="p">)</span> <span class="err">메서드</span> <span class="err">선언</span>
+  <span class="k">public</span> <span class="n">static</span> <span class="n">void</span> <span class="n">foo</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+  <span class="p">//</span><span class="err">인스턴스</span> <span class="err">메서드</span><span class="p">:</span> <span class="err">인스턴스를</span> <span class="err">생성해야</span> <span class="err">사용할</span> <span class="err">수</span> <span class="err">있는</span> <span class="err">메서드</span>
+  <span class="k">public</span> <span class="n">void</span> <span class="n">bar</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import foo.bar.Foo;
+public class Bar {
+  public void bar() {
+    //Foo클래스 내의 정적 필드 FOO의 값을 참조한다.
+    int foo = foo.Foo;
+    //Foo 클래스 내의 정적 메서드 foo를 호출한다.
+    Foo.foo();
+  }
+}
+</code></pre></div></div>
+
+<p><strong><em>코틀린 코드</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">//</span><span class="n">Foo</span><span class="p">.</span><span class="n">kt</span>
+<span class="k">package</span> <span class="n">foo</span><span class="p">.</span><span class="n">bar</span>
+
+<span class="p">//</span><span class="err">값</span> <span class="n">FOO</span><span class="err">를</span> <span class="err">패키지</span> <span class="n">foo</span><span class="p">.</span><span class="n">bar</span><span class="err">에</span> <span class="err">선언한다</span><span class="p">.</span>
+<span class="n">const</span> <span class="n">val</span> <span class="n">FOO</span> <span class="p">=</span> <span class="m">123</span>
+
+<span class="p">//</span><span class="err">함수</span> <span class="n">foo</span><span class="err">를</span> <span class="err">패키지</span> <span class="n">foo</span><span class="p">.</span><span class="n">bar</span><span class="err">에</span> <span class="err">선언한다</span><span class="p">.</span>
+<span class="n">fun</span> <span class="n">foo</span><span class="p">()</span>
+
+<span class="n">class</span> <span class="n">Foo</span> <span class="p">{</span>
+  <span class="p">//</span><span class="err">함수</span> <span class="n">bar</span><span class="err">는</span> <span class="n">Foo</span><span class="err">의</span> <span class="err">인스턴스를</span> <span class="err">생성해야</span> <span class="err">사용할</span> <span class="err">수</span> <span class="err">있다</span><span class="p">.</span>
+  <span class="n">fun</span> <span class="n">bar</span><span class="p">()</span> <span class="p">{</span> <span class="p">}</span>
+<span class="p">}</span>
+</code></pre></div></div>
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>import foo.bar.Foo
+import foo.bar.foo
+
+clas Bar {
+  //foo.bar 패키지 내의 FOO 값을 참조한다.
+  val foo = Foo
+
+  //foo.bar 패키지 내의 함수 foo를 호출한다.
+  foo()
+}
+</code></pre></div></div>
+
+<ul>
+  <li>클래스 내 private로 선언된 멤버에 접근해야 하는 팩토리 메서드(factory method)는 패키지 단위 함수로 구현할 수 없다.
+    <ul>
+      <li>동반 객체(companion object)를 사용하면 클래스 내 모든 멤버에 접근할 수 있고, 인스턴스 생성 없이 호출가능한 함수를 작성할 수 있다.</li>
+      <li>동반 객체: 클래스별로 하나씩 클래스의 인스턴스 생성 없이 사용할 수 있는 오브젝트(object)를 정의할 수 있는데, 이를 동반 객체라 한다.</li>
+      <li>예제</li>
+    </ul>
+
+    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>class User private constructor(val name: String, val registerTime: Long) {
+  companion object {
+    //동반 객체는 클래스 내부에 존재하므로, private로 선언된 생성자에 접근할 수 있다.
+    fun create(name: String) : User {
+      return User(name, System.currentTimeMillis())
+    }
+  }
+}
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<h2 id="싱글톤singleton">싱글톤(singleton)</h2>
+<ul>
+  <li>싱글톤은 단 하나의 인스턴스만 생성되도록 제약을 둔 디자인 패턴이다.</li>
+  <li>코틀린에서는 이를 단 한줄로 간편하게 선언할 수 있다.</li>
+  <li>예제</li>
+</ul>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>object singleton
+</code></pre></div></div>
+
+<h2 id="enum-클래스">enum 클래스</h2>
+<h2 id="어노테이션-클래스annotation-class">어노테이션 클래스(annotation class)</h2>
+<h2 id="중첩-클래스nested-class">중첩 클래스(nested class)</h2>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/tags/#study-kotlin" class="page__taxonomy-item" rel="tag">Study_Kotlin</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/categories/#study" class="page__taxonomy-item" rel="tag">Study</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%5BKotlin%5D4.+%ED%81%B4%EB%9E%98%EC%8A%A4+%EB%B0%8F+%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FKotlin-4.%25ED%2581%25B4%25EB%259E%2598%25EC%258A%25A4%25EB%25B0%258F%25EC%259D%25B8%25ED%2584%25B0%25ED%258E%2598%25EC%259D%25B4%25EC%258A%25A4%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FKotlin-4.%25ED%2581%25B4%25EB%259E%2598%25EC%258A%25A4%25EB%25B0%258F%25EC%259D%25B8%25ED%2584%25B0%25ED%258E%2598%25EC%259D%25B4%25EC%258A%25A4%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FKotlin-4.%25ED%2581%25B4%25EB%259E%2598%25EC%258A%25A4%25EB%25B0%258F%25EC%259D%25B8%25ED%2584%25B0%25ED%258E%2598%25EC%259D%25B4%25EC%258A%25A4%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FKotlin-4.%25ED%2581%25B4%25EB%259E%2598%25EC%258A%25A4%25EB%25B0%258F%25EC%259D%25B8%25ED%2584%25B0%25ED%258E%2598%25EC%259D%25B4%25EC%258A%25A4%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/pages/CODEMCD/study/Kotlin-3.%EC%BB%AC%EB%A0%89%EC%85%98/" class="pagination--pager" title="[Kotlin]3. 컬렉션(collection)
+">이전</a>
+    
+    
+      <a href="/pages/CODEMCD/study/Kotlin-5.%EC%BD%94%ED%8B%80%EB%A6%B0%EB%A7%8C%EC%9D%98%ED%81%B4%EB%9E%98%EC%8A%A4/" class="pagination--pager" title="[Kotlin]5. 코틀린만의 클래스
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">댓글남기기</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/Docker-WhatIsDocker/" rel="permalink">[Docker] Docker(도커)란?
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">Docker 소개와 기본 개념, 예제
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/algorithm/BOJ-1019.%EC%B1%85-%ED%8E%98%EC%9D%B4%EC%A7%80/" rel="permalink">[BOJ] 1019.책 페이지
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">수학
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/cpp/Cpp-next_permutation/" rel="permalink">[C++ STL] next_permutation
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">next_permutation 함수 이해
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/algorithm/BOJ-1342.%ED%96%89%EC%9A%B4%EC%9D%98-%EB%AC%B8%EC%9E%90%EC%97%B4/" rel="permalink">[BOJ] 1342.행운의 문자열
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">순열 or 백트래킹
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+    <div class="search-hits"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/pages/CODEMCD/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2018 CODEMCD. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/pages/CODEMCD/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'I6UE8BVP0C',
+  apiKey: 'f6718f69889fabcb9d71088ba50236b5',
+  indexName: 'GITHUB_BLOG',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="/pages/CODEMCD${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: 'Enter your search term...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+// Starting the search
+search.start();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/study/Kotlin-4.%ED%81%B4%EB%9E%98%EC%8A%A4%EB%B0%8F%EC%9D%B8%ED%84%B0%ED%8E%98%EC%9D%B4%EC%8A%A4/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/study/Kotlin-4.클래스및인터페이스"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://CODEMCD.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  new Vue({
+    el : '#category_tag_menu',
+    data : {
+      flag_c : true,
+      flag_t : false
+    },
+    methods : {
+      togglec: function(){
+        this.flag_c = !this.flag_c;
+      },
+      togglet: function(){
+        this.flag_t = !this.flag_t;
+      }
+    }
+  });
+</script>
+
+
+  </body>
+</html>
