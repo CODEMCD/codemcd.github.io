@@ -277,7 +277,7 @@
   <ul class="nav__items" id="category_tag_menu">
       <li>
 
-        <span class="nav__sub-title" v-on:click='togglec()'>Algorithm</span>
+        <span class="nav__sub-title" v-on:click='togglec1()'>Algorithm</span>
         <ul v-show="flag_c1">
         
           
@@ -315,7 +315,7 @@
         
         </ul>
 
-        <span class="nav__sub-title" v-on:click='togglec()'>Study</span>
+        <span class="nav__sub-title" v-on:click='togglec2()'>Study</span>
         <ul v-show="flag_c2">
         
           
@@ -649,13 +649,13 @@ search.start();
     el : '#category_tag_menu',
     data : {
       flag_c1 : true,
-      flag_c2 : false
+      flag_c2 : true
     },
     methods : {
-      togglec: function(){
+      togglec1: function(){
         this.flag_c1 = !this.flag_c1;
       },
-      togglet: function(){
+      togglec2: function(){
         this.flag_c2 = !this.flag_c2;
       }
     }
