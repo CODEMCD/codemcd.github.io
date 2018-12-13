@@ -5,7 +5,7 @@
       <li>
 
         <span class="nav__sub-title" v-on:click='togglec()'>Algorithm</span>
-        <ul v-show="flag_c">
+        <ul v-show="flag_c1">
         {% for tag in site.tags %}
           {% if tag[0] contains 'Algorithm' %}
             {% assign algorithmTAG = tag[0] | split: "_" %}
@@ -15,7 +15,7 @@
         </ul>
 
         <span class="nav__sub-title" v-on:click='togglec()'>Study</span>
-        <ul v-show="flag_c">
+        <ul v-show="flag_c2">
         {% for tag in site.tags %}
           {% if tag[0] contains 'Study' %}
             {% assign studyTAG = tag[0] | split: "_" %}
