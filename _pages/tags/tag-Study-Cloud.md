@@ -1,18 +1,17 @@
 ---
-title: "C++"
+title: "Cloud Computing"
 layout: archive
-permalink: /categories/cpp
+permalink: /tags/study-cloud
 author_profile: true
 sidebar_main: true
 ---
 
-- C++ 개념
-- C++ STL 함수
+- 도커(Docker)
 
 ---
 # INDEX
 
-{% assign posts = site.categories.Cpp | sort:"date" %}
+{% assign posts = site.tags.Study_Cloud | sort:"date" %}
 
 {% for post in posts %}
   {% include archive-single.html type=page.entries_layout %}

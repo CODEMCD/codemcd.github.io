@@ -1,17 +1,17 @@
 ---
-title: "Kotlin"
+title: "Data Structure"
 layout: archive
-permalink: /categories/kotlin
+permalink: /tags/algorithm-datastructure
 author_profile: true
 sidebar_main: true
 ---
 
-- Kotlin 개념 정리
+- 자료구조 개념 정리
 
 ---
 # INDEX
 
-{% assign posts = site.categories.Kotlin | sort:"date" %}
+{% assign posts = site.tags.Algorithm_DataStructure | sort:"date" %}
 
 {% for post in posts %}
   {% include archive-single.html type=page.entries_layout %}
