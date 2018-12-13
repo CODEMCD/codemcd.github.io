@@ -277,77 +277,100 @@
   <ul class="nav__items" id="category_tag_menu">
       <li>
 
-        <span class="nav__sub-title" v-on:click='togglec1()'>Algorithm</span>
+        <span class="nav__sub-title" v-on:click='togglec1()'>Toy</span>
         <ul v-show="flag_c1">
-        
           
             
-              <li><a href="/tags/algorithm-algospot" class="">Algospot (24)</a></li>
-          
-        
           
             
-              <li><a href="/tags/algorithm-fct" class="">Fct (14)</a></li>
-          
-        
           
             
-              <li><a href="/tags/algorithm-datastructure" class="">Datastructure (8)</a></li>
-          
-        
           
             
-              <li><a href="/tags/algorithm-algorithm" class="">Algorithm (9)</a></li>
-          
-        
-          
-        
-          
-        
-          
-        
           
             
-              <li><a href="/tags/algorithm-boj" class="">Boj (13)</a></li>
           
-        
+            
           
-        
+            
+          
+            
+          
+            
+          
         </ul>
 
-        <span class="nav__sub-title" v-on:click='togglec2()'>Study</span>
+        <span class="nav__sub-title" v-on:click='togglec2()'>Algorithm</span>
         <ul v-show="flag_c2">
-        
-          
-        
-          
-        
-          
-        
-          
-        
           
             
-              <li><a href="/tags/study-database" class="">Database (2)</a></li>
-          
-        
+              
+                <li><a href="/tags/algorithm-algospot" class="">Algospot (24)</a></li>
+            
           
             
-              <li><a href="/tags/study-java" class="">Java (15)</a></li>
-          
-        
+              
+                <li><a href="/tags/algorithm-fct" class="">FCT (14)</a></li>
+            
           
             
-              <li><a href="/tags/study-kotlin" class="">Kotlin (6)</a></li>
-          
-        
-          
-        
+              
+                <li><a href="/tags/algorithm-datastructure" class="">DataStructure (8)</a></li>
+            
           
             
-              <li><a href="/tags/study-cloud" class="">Cloud (1)</a></li>
+              
+                <li><a href="/tags/algorithm-algorithm" class="">Algorithm (9)</a></li>
+            
           
-        
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-boj" class="">BOJ (13)</a></li>
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec3()'>Study</span>
+        <ul v-show="flag_c3">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/study-database" class="">Database (2)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/study-java" class="">Java (15)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/study-kotlin" class="">Kotlin (6)</a></li>
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/study-cloud" class="">Cloud (1)</a></li>
+            
+          
         </ul>
 
       </li>
@@ -768,7 +791,8 @@ search.start();
     el : '#category_tag_menu',
     data : {
       flag_c1 : true,
-      flag_c2 : true
+      flag_c2 : true,
+      flag_c3 : true
     },
     methods : {
       togglec1: function(){
@@ -776,6 +800,9 @@ search.start();
       },
       togglec2: function(){
         this.flag_c2 = !this.flag_c2;
+      },
+      togglec3: function(){
+        this.flag_c3 = !this.flag_c3;
       }
     }
   });
