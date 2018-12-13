@@ -1,8 +1,10 @@
 # main links
 main:
-  - title: "Home"
-    url: https://codemcd.github.io/
   - title: "About"
     url: /about/
-  - title: "Category"
-    url: /categories/
+  - title: "Toy Project"
+    url: /toy/
+  - title: "Algorithm"
+    url: /algorithm/
+  - title: "Study"
+    url: /study/
