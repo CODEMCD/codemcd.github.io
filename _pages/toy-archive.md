@@ -1,6 +1,6 @@
 ---
 title: "Posts by Toy Project"
-layout: categories
+layout: tags-toy
 permalink: /toy/
 author_profile: true
 sidebar_main: true
