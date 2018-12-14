@@ -16,7 +16,7 @@ sidebar_main: true
 
 ## POST 구조
 
-<그림>
+![post structure](https://user-images.githubusercontent.com/34755287/50006268-872e6a00-fff0-11e8-84d3-cc3f52f0815d.JPG)
 
 가장 큰 주제를 카테고리(category)로 나누고 그 밑의 소주제를 테그(tag)로 분류하였다. 기존의 카테고리, 테그 구조를 활용하는 것이 가장 쉽게 구현할 수 있을 것이라 예상했다. 실제로 간단히 liquid 템플릿 코드만 조금 수정해서 위의 구조와 같이 만들 수 있었다.
 
@@ -35,7 +35,7 @@ sidebar_main: true
 ---
 # INDEX
 
-{% assign posts = site.tags.Toy_blog | sort:"date" %}
+{% assign posts = site.tags.Toy_Blog | sort:"date" %}
 
 {% for post in posts %}
   {% include archive-single.html type=page.entries_layout %}
