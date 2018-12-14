@@ -9,38 +9,38 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[Kotlin]1. 코틀린이란? - CODEMCD’s E-BOOK</title>
-<meta name="description" content="Kotlin 개념">
+<!-- begin _includes/seo.html --><title>[Reference]자주쓰는 MathJax 문법 - CODEMCD’s E-BOOK</title>
+<meta name="description" content="블로그에 수학식 사용할 때 쓰는 MathJax 문법 정리">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's E-BOOK">
-<meta property="og:title" content="[Kotlin]1. 코틀린이란?">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/Kotlin-1.%EC%BD%94%ED%8B%80%EB%A6%B0%EC%9D%B4%EB%9E%80_/">
+<meta property="og:title" content="[Reference]자주쓰는 MathJax 문법">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94-MathJax-%EB%AA%85%EB%A0%B9%EC%96%B4/">
 
 
-  <meta property="og:description" content="Kotlin 개념">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+  <meta property="og:description" content="블로그에 수학식 사용할 때 쓰는 MathJax 문법 정리">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2018-12-14T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/study/Kotlin-1.%EC%BD%94%ED%8B%80%EB%A6%B0%EC%9D%B4%EB%9E%80_/">
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94-MathJax-%EB%AA%85%EB%A0%B9%EC%96%B4/">
 
 
 
@@ -102,6 +102,31 @@
 <!-- insert favicons. use https://realfavicongenerator.net/ -->
 
 <!-- end custom head snippets -->
+
+    
+      <script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    TeX: {
+      equationNumbers: {
+        autoNumber: "AMS"
+      }
+    },
+    tex2jax: {
+    inlineMath: [ ['$', '$'] ],
+    displayMath: [ ['$$', '$$'] ],
+    processEscapes: true,
+  }
+});
+MathJax.Hub.Register.MessageHook("Math Processing Error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
+	  alert("Math Processing Error: "+message[1]);
+	});
+</script>
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
 
     
   </head>
@@ -392,15 +417,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[Kotlin]1. 코틀린이란?">
-    <meta itemprop="description" content="Kotlin 개념">
-    <meta itemprop="datePublished" content="October 14, 2018">
+    <meta itemprop="headline" content="[Reference]자주쓰는 MathJax 문법">
+    <meta itemprop="description" content="블로그에 수학식 사용할 때 쓰는 MathJax 문법 정리">
+    <meta itemprop="datePublished" content="December 14, 2018">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[Kotlin]1. 코틀린이란?
+          <h1 id="page-title" class="page__title" itemprop="headline">[Reference]자주쓰는 MathJax 문법
 </h1>
           
         </header>
@@ -412,107 +437,161 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
               <ul class="toc__menu">
-  <li><a href="#코틀린kotlin이란">코틀린(Kotlin)이란?</a>
+  <li><a href="#mathjax란">MathJax란?</a></li>
+  <li><a href="#mathjax-사용법">MathJax 사용법</a></li>
+  <li><a href="#자주쓰는-수식">자주쓰는 수식</a>
     <ul>
-      <li><a href="#코틀린-소개">코틀린 소개</a></li>
-      <li><a href="#코틀린-특징">코틀린 특징</a>
-        <ul>
-          <li><a href="#1-간결한-문법">1. 간결한 문법</a></li>
-          <li><a href="#2-널-안정성">2. 널 안정성</a></li>
-          <li><a href="#3-가변불변-구분">3. 가변/불변 구분</a></li>
-          <li><a href="#4-람다-표현식-지원">4. 람다 표현식 지원</a></li>
-          <li><a href="#5-스트림-api-지원">5. 스트림 API 지원</a></li>
-          <li><a href="#6-완벽한-자바-호환성">6. 완벽한 자바 호환성</a></li>
-        </ul>
-      </li>
+      <li><a href="#사칙-연산">사칙 연산</a></li>
+      <li><a href="#지수-표현">지수 표현</a></li>
+      <li><a href="#부등식">부등식</a></li>
+      <li><a href="#">…</a></li>
+      <li><a href="#root">Root</a></li>
+      <li><a href="#분수">분수</a></li>
+      <li><a href="#괄호">괄호</a></li>
+      <li><a href="#시그마">시그마</a></li>
+      <li><a href="#인테그럴">인테그럴</a></li>
+      <li><a href="#삼각함수">삼각함수</a></li>
+      <li><a href="#로그log">로그(Log)</a></li>
+      <li><a href="#집합-관계">집합 관계</a></li>
+      <li><a href="#행렬">행렬</a></li>
+      <li><a href="#기타">기타</a></li>
     </ul>
   </li>
 </ul>
             </nav>
           </aside>
         
-        <h1 id="코틀린kotlin이란">코틀린(Kotlin)이란?</h1>
+        <p>블로그 post를 작성할 때, 수학식을 사용해야할 경우가 있었다. 그래서 구글링을 해본 결과 jekyll에서 MathJax를 사용하는 방법이 있었다.</p>
 
-<h2 id="코틀린-소개">코틀린 소개</h2>
+<h2 id="mathjax란">MathJax란?</h2>
+<p>Mathjax는 MathML, LaTeX 및 ASCIIMAthML 마크 업을 사용하여 웹 브라우저에 수학 표기법을 표시하는 크로스 브라우저 JavaScript 라이브러리이다. 그리고 Apache 라이센스에 따라 오픈 소스 소프트웨어이다. (출처: 위키백과)</p>
+
+<h2 id="mathjax-사용법">MathJax 사용법</h2>
+<p>먼저, post에서는 front matter에 <code class="highlighter-rouge">use_math: true</code>를 추가하고 MathJax 양식대로 쓰면 자동으로 렌더링하여 표시해준다.</p>
+
+<p>MathJax 사용법은 2가지가 있는데, <code class="highlighter-rouge">$</code>나 <code class="highlighter-rouge">$$</code>를 수식 앞뒤에 선언해주어야 한다. <code class="highlighter-rouge">$</code> 는 수학식을 문장 사이에 넣을 때 사용하고, <code class="highlighter-rouge">$$</code> 는 수학식으로 해당 줄을 모두 채우고 싶은 경우에 사용한다.</p>
+
+<h2 id="자주쓰는-수식">자주쓰는 수식</h2>
+<p>자주 사용하는 수학식을 만드는 MathJax를 모아보았다. <code class="highlighter-rouge">수식 =&gt; 결과</code> 로 표현하였다. 수식을 복사하여 위에 설명한 MathJax 사용법대로 선언하여 사용할 수 있다.</p>
+
+<h3 id="사칙-연산">사칙 연산</h3>
 <ul>
-  <li>코틀린은 인텔리제이(IntelliJ IDEA)라는 제품으로 유명한 JetBrains에서 만든 언어로, 2011년 최초로 공개된 후 오랜 시간 개발을 거쳐 2016년 2월
-1.0 정식 버전이 출시되었다.</li>
-  <li>코틀린의 목표는 간결한 문법, 풍부한 기능, 높은 안정성을 토대로 높은 생산성을 보장하는 것이다.</li>
-  <li>코틀린은 자바와 100% 호환되기 때문에, 한 프로젝트에 혼합해서 사용할 수 있다.</li>
-  <li>구글 I/O 2017에서 안드로이드 공식 지원 언어로 채택되었다.</li>
+  <li><code class="highlighter-rouge">A + B = C</code> =&gt; $A + B = C$</li>
+  <li><code class="highlighter-rouge">A - B = C</code> =&gt; $A - B = C$</li>
+  <li><code class="highlighter-rouge">A * B = C</code> =&gt; $A * B = C$</li>
+  <li><code class="highlighter-rouge">A \times B = C</code> =&gt; $A \times B = C$</li>
+  <li><code class="highlighter-rouge">A / B = C</code> =&gt; $A / B = C$</li>
+  <li><code class="highlighter-rouge">A \div B = C</code> =&gt; $A \div B = C$</li>
 </ul>
 
-<h2 id="코틀린-특징">코틀린 특징</h2>
-<h3 id="1-간결한-문법">1. 간결한 문법</h3>
+<h3 id="지수-표현">지수 표현</h3>
 <ul>
-  <li>코틀린 문법은 자바에 비해 더 간결한 형태를 추구한다.</li>
-  <li>자바와 주요 차이점
-    <ul>
-      <li>문장 끝에 세미콜론(;)을 넣지 않아도 된다.</li>
-      <li>new 키워드를 쓰지 않고 객체를 생성한다.</li>
-      <li>타입 추론을 지원하므로 일반적인 경우 타입을 적지 않아도 된다.</li>
-    </ul>
+  <li><code class="highlighter-rouge">e^x</code> =&gt; $e^x$</li>
+  <li><code class="highlighter-rouge">a_i</code> =&gt; $a_i$</li>
+  <li><code class="highlighter-rouge">a_i-1</code> =&gt; $a_i-1$</li>
+  <li><code class="highlighter-rouge">a_{i-1}</code> =&gt; $a_{i-1}$</li>
+  <li><code class="highlighter-rouge">x^2 + 2x + 1</code> =&gt; $x^2 + 2x + 1$</li>
+  <li><code class="highlighter-rouge">a_i^2</code> =&gt; $a_i^2$</li>
+  <li><code class="highlighter-rouge">a_{i-1}^2x+3</code> =&gt; $a_{i-1}^2x+3$</li>
+  <li><code class="highlighter-rouge">a_{i-1}^{2x+3}</code> =&gt; $a_{i-1}^{2x+3}$</li>
+  <li><code class="highlighter-rouge">{a^b}^c</code> =&gt; ${a^b}^c$</li>
+</ul>
+
+<h3 id="부등식">부등식</h3>
+<ul>
+  <li><code class="highlighter-rouge">A &lt; B</code> =&gt; $A &lt; B$</li>
+  <li><code class="highlighter-rouge">A \le B</code> =&gt; $A \le B$</li>
+  <li><code class="highlighter-rouge">A &gt; B</code> =&gt; $A &gt; B$</li>
+  <li><code class="highlighter-rouge">A \ge B</code> =&gt; $A \ge B$</li>
+  <li><code class="highlighter-rouge">A = B</code> =&gt; $A = B$</li>
+  <li><code class="highlighter-rouge">A \ne B</code> =&gt; $A \ne B$</li>
+</ul>
+
+<h3>…</h3>
+<ul>
+  <li><code class="highlighter-rouge">A_1, A_2, \ldots, A_{N-1}, A_N</code> =&gt; $A_1, A_2, \ldots, A_{N-1}, A_N$</li>
+  <li><code class="highlighter-rouge">A_1 + A_2 + \cdots + A_{N-1} + A_N</code> =&gt; $A_1 + A_2 + \cdots + A_{N-1} + A_N$</li>
+</ul>
+
+<h3 id="root">Root</h3>
+<ul>
+  <li><code class="highlighter-rouge">\sqrt{2}</code> =&gt; $\sqrt{2}$</li>
+  <li><code class="highlighter-rouge">\sqrt{x^2}</code> =&gt; $\sqrt{x^2}$</li>
+  <li><code class="highlighter-rouge">\sqrt[3]{x^2}</code> =&gt; $\sqrt[3]{x^2}$</li>
+</ul>
+
+<h3 id="분수">분수</h3>
+<ul>
+  <li><code class="highlighter-rouge">\dfrac</code> 은 큰 분수(display), <code class="highlighter-rouge">\cfrac</code> 은 연속 분수(continued)</li>
+  <li><code class="highlighter-rouge">\frac{A}{B}</code> =&gt; $\frac{A}{B}$</li>
+  <li><code class="highlighter-rouge">\frac{2}{3} + \frac{3}{4}</code> =&gt; $\frac{2}{3} + \frac{3}{4}$</li>
+  <li><code class="highlighter-rouge">\frac{dy}{dx}</code> =&gt; $\frac{dy}{dx}$</li>
+  <li><code class="highlighter-rouge">\dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}</code> =&gt; $\dfrac{-b \pm \sqrt{b^2 - 4ac}}{2a}$</li>
+  <li><code class="highlighter-rouge">x = a_0 + \cfrac{1}{a_1 + \cfrac{1}{a_2 + \cfrac{1}{a_3}}}</code> =&gt; $x = a_0 + \cfrac{1}{a_1 + \cfrac{1}{a_2 + \cfrac{1}{a_3}}}$</li>
+</ul>
+
+<h3 id="괄호">괄호</h3>
+<ul>
+  <li>괄호 안에 들어가는 수식과 괄호의 길이를 맞춰주려면, 여는 괄호 앞에 <code class="highlighter-rouge">\left</code>, 닫는 괄호 앞에 <code class="highlighter-rouge">\right</code> 를 선언해야한다.</li>
+  <li><code class="highlighter-rouge">\left( \frac{ \frac{A}{B} }{ \frac{C}{D} } \right)</code> =&gt; $\left( \frac{ \frac{A}{B} }{ \frac{C}{D} } \right)$</li>
+  <li><code class="highlighter-rouge">\lfloor \frac{x}{2} \rfloor \left\lfloor \frac{x}{2} \right\rfloor</code> =&gt; $\lfloor \frac{x}{2} \rfloor \left\lfloor \frac{x}{2} \right\rfloor$</li>
+  <li><code class="highlighter-rouge">\lceil \frac{x}{2} \rceil \left\lceil \frac{x}{2} \right\rceil</code> =&gt; $\lceil \frac{x}{2} \rceil \left\lceil \frac{x}{2} \right\rceil$</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td><code class="highlighter-rouge">|x| \|x\|</code> =&gt; $</td>
+          <td>x</td>
+          <td>|x|$</td>
+        </tr>
+      </tbody>
+    </table>
   </li>
-  <li>예제</li>
 </ul>
 
-<p><strong><em>자바 코드</em></strong></p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>String name = "John Smith"
-Person person = new Person(name);
-</code></pre></div></div>
-
-<p><strong><em>코틀린 코드</em></strong></p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val nmae = "John Smith"
-val person = Person(name)
-</code></pre></div></div>
-
-<h3 id="2-널-안정성">2. 널 안정성</h3>
+<h3 id="시그마">시그마</h3>
 <ul>
-  <li>객체 타입의 변수에서 널(null) 값의 허용 여부를 구분하지 않던 자바와 달리, 코틀린은 이를 명확히 구분한다.</li>
-  <li>널 값의 허용 여부를 컴파일 단계에서 검사하므로 런타임에서 발생하는 오류를 대폭 줄일 수 있다.</li>
-  <li>예제</li>
+  <li><code class="highlighter-rouge">\sum {x}</code> =&gt; $\sum {x}$</li>
+  <li><code class="highlighter-rouge">\sum_1^n {x}</code> =&gt; $\sum_1^n {x}$</li>
+  <li><code class="highlighter-rouge">\sum_{i=1}^{\infty} {i^2}</code> =&gt; $\sum_{i=1}^{\infty} {i^2}$</li>
+  <li><code class="highlighter-rouge">\prod \coprod \bigcup \bigcap \bigvee \bigwedge</code> =&gt; $\prod \coprod \bigcup \bigcap \bigvee \bigwedge$</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// 널 값을 허용하는 문자열 타입(String?)
-val foo: String? = null
-
-// 널 값을 허용하지 않는 문자열 타입(String)
-val bar: String  = "bar"
-</code></pre></div></div>
-
-<h3 id="3-가변불변-구분">3. 가변/불변 구분</h3>
+<h3 id="인테그럴">인테그럴</h3>
 <ul>
-  <li>코틀린에서는 변수 및 변수 내 할당된 값의 불변 여부를 구분한다.
-    <ul>
-      <li>불변 여부: 최초 생성 시 할당된 값을 이후에도 변경할 수 있는지 여부</li>
-    </ul>
-  </li>
-  <li>키워드 ‘val’: 값을 한번 할당하고 나면 그후에 변경할 수 없다.
-    <ul>
-      <li>자바의 키워드 ‘final’과 유사하다.</li>
-    </ul>
-  </li>
-  <li>키워드 ‘var’: 할당된 값을 자유자재로 변경할 수 있다.</li>
-  <li>변수와 마찬가지로 컬렉션 자료형에 대해서도 불변 여부를 구분한다.</li>
+  <li><code class="highlighter-rouge">\int_{a}^{b}{f(x)dx}</code> =&gt; $\int_{a}^{b}{f(x)dx}$</li>
 </ul>
 
-<h3 id="4-람다-표현식-지원">4. 람다 표현식 지원</h3>
+<h3 id="삼각함수">삼각함수</h3>
 <ul>
-  <li>코틀린에서는 람다 표현식을 기본으로 지원한다.</li>
+  <li><code class="highlighter-rouge">sin(x)</code> =&gt; $sin(x)$</li>
+  <li><code class="highlighter-rouge">\sin^{2}{x}</code> =&gt; $\sin^{2}{x}$</li>
 </ul>
 
-<h3 id="5-스트림-api-지원">5. 스트림 API 지원</h3>
+<h3 id="로그log">로그(Log)</h3>
 <ul>
-  <li>코틀린에서는 컬렉션 내 자료를 다루는데 유용한 스트림(stream) API를 표준 라이브러리에서 제공한다.</li>
+  <li><code class="highlighter-rouge">\log{N}</code> =&gt; $\log{N}$</li>
+  <li><code class="highlighter-rouge">\log_2{N}</code> =&gt; $\log_2{N}$</li>
 </ul>
 
-<h3 id="6-완벽한-자바-호환성">6. 완벽한 자바 호환성</h3>
+<h3 id="집합-관계">집합 관계</h3>
 <ul>
-  <li>코틀린에서 자바를 사용하는 것과 자바에서 코틀린을 사용하는 것이 모두 가능하다.</li>
-  <li>자바 라이브러리와도 모두 호환된다.</li>
-  <li>혼용 시 유의해야 하거나 사용 방법이 약간 다른 부분이 있으니 주의해야한다.</li>
+  <li><code class="highlighter-rouge">A \cap B</code> =&gt; $A \cap B$</li>
+  <li><code class="highlighter-rouge">A \cup B</code> =&gt; $A \cup B$</li>
+</ul>
+
+<h3 id="행렬">행렬</h3>
+<ul>
+  <li><code class="highlighter-rouge">\begin{matrix} 1 &amp; 2 \\ 3 &amp; 4 \end{matrix}</code> =&gt; $\begin{matrix} 1 &amp; 2 \ 3 &amp; 4 \end{matrix}$</li>
+  <li><code class="highlighter-rouge">\begin{pmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{pmatrix}</code> =&gt; $\begin{pmatrix} 1 &amp; 2 \ 3 &amp; 4 \end{pmatrix}$</li>
+  <li><code class="highlighter-rouge">\begin{bmatrix} 1 &amp; 2 \\ 3 &amp; 4 \end{bmatrix}</code> =&gt; $\begin{bmatrix} 1 &amp; 2 \ 3 &amp; 4 \end{bmatrix}$</li>
+</ul>
+
+<h3 id="기타">기타</h3>
+<ul>
+  <li><code class="highlighter-rouge">\lim_{x \to 0} {x^2}</code> =&gt; $\lim_{x \to 0} {x^2}$</li>
+  <li><code class="highlighter-rouge">A \equiv B \pmod n</code> =&gt; $A \equiv B \pmod n$</li>
+  <li><code class="highlighter-rouge">\mathbf{알파벳}</code> =&gt; $\mathbf{A}$</li>
 </ul>
 
         
@@ -534,7 +613,7 @@ val bar: String  = "bar"
     
       
       
-      <a href="/pages/CODEMCD/tags/#study-kotlin" class="page__taxonomy-item" rel="tag">Study_Kotlin</a>
+      <a href="/pages/CODEMCD/tags/#toy-blog" class="page__taxonomy-item" rel="tag">Toy_Blog</a>
     
     </span>
   </p>
@@ -555,14 +634,14 @@ val bar: String  = "bar"
     
       
       
-      <a href="/pages/CODEMCD/categories/#study" class="page__taxonomy-item" rel="tag">Study</a>
+      <a href="/pages/CODEMCD/categories/#toy" class="page__taxonomy-item" rel="tag">Toy</a>
     
     </span>
   </p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-12-14T00:00:00+09:00">December 14, 2018</time></p>
         
       </footer>
 
@@ -571,25 +650,24 @@ val bar: String  = "bar"
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BKotlin%5D1.+%EC%BD%94%ED%8B%80%EB%A6%B0%EC%9D%B4%EB%9E%80%3F%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FKotlin-1.%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0%25EC%259D%25B4%25EB%259E%2580_%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BReference%5D%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94+MathJax+%EB%AC%B8%EB%B2%95%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FBlog-Reference-%25EC%259E%2590%25EC%25A3%25BC%25EC%2593%25B0%25EB%258A%2594-MathJax-%25EB%25AA%2585%25EB%25A0%25B9%25EC%2596%25B4%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FKotlin-1.%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0%25EC%259D%25B4%25EB%259E%2580_%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FBlog-Reference-%25EC%259E%2590%25EC%25A3%25BC%25EC%2593%25B0%25EB%258A%2594-MathJax-%25EB%25AA%2585%25EB%25A0%25B9%25EC%2596%25B4%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FKotlin-1.%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0%25EC%259D%25B4%25EB%259E%2580_%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FBlog-Reference-%25EC%259E%2590%25EC%25A3%25BC%25EC%2593%25B0%25EB%258A%2594-MathJax-%25EB%25AA%2585%25EB%25A0%25B9%25EC%2596%25B4%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FKotlin-1.%25EC%25BD%2594%25ED%258B%2580%25EB%25A6%25B0%25EC%259D%25B4%25EB%259E%2580_%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FBlog-Reference-%25EC%259E%2590%25EC%25A3%25BC%25EC%2593%25B0%25EB%258A%2594-MathJax-%25EB%25AA%2585%25EB%25A0%25B9%25EC%2596%25B4%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/study/Java-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/" class="pagination--pager" title="[Java]예외처리(exception handing)
+      <a href="/pages/CODEMCD/toy/Blog-Reference-Blog%EC%97%90-post-%EC%98%AC%EB%A6%AC%EA%B8%B0/" class="pagination--pager" title="[Reference]Blog에 post 올리기
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/study/Kotlin-2.%EA%B8%B0%EB%B3%B8%EC%9E%90%EB%A3%8C%ED%98%95/" class="pagination--pager" title="[Kotlin]2. 기본 자료형
-">다음</a>
+      <a href="#" class="pagination--pager disabled">다음</a>
     
   </nav>
 
@@ -611,25 +689,6 @@ val bar: String  = "bar"
     <div class="page__related">
       <h4 class="page__related-title">참고</h4>
       <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/toy/Blog-Reference-%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94-MathJax-%EB%AA%85%EB%A0%B9%EC%96%B4/" rel="permalink">[Reference]자주쓰는 MathJax 문법
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">블로그에 수학식 사용할 때 쓰는 MathJax 문법 정리
-</p>
-  </article>
-</div>
         
           
 
@@ -684,6 +743,25 @@ val bar: String  = "bar"
     </h2>
     
     <p class="archive__item-excerpt" itemprop="description">수학
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/algorithm/BOJ-1342.%ED%96%89%EC%9A%B4%EC%9D%98-%EB%AC%B8%EC%9E%90%EC%97%B4/" rel="permalink">[BOJ] 1342.행운의 문자열
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">순열 or 백트래킹
 </p>
   </article>
 </div>
@@ -806,8 +884,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/study/Kotlin-1.%EC%BD%94%ED%8B%80%EB%A6%B0%EC%9D%B4%EB%9E%80_/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/study/Kotlin-1.코틀린이란_"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94-MathJax-%EB%AA%85%EB%A0%B9%EC%96%B4/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/toy/Blog-[Reference]자주쓰는 MathJax 명령어"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');

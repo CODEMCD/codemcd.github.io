@@ -9,38 +9,38 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[ALGOSPOT]STRJOIN - CODEMCD’s E-BOOK</title>
-<meta name="description" content="그리디">
+<!-- begin _includes/seo.html --><title>[Reference]Blog에 post 올리기 - CODEMCD’s E-BOOK</title>
+<meta name="description" content="내 블로그에 post 올리는 방법 정리">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's E-BOOK">
-<meta property="og:title" content="[ALGOSPOT]STRJOIN">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/algorithm/ALGOSPOT-STRJOIN/">
+<meta property="og:title" content="[Reference]Blog에 post 올리기">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-Blog%EC%97%90-post-%EC%98%AC%EB%A6%AC%EA%B8%B0/">
 
 
-  <meta property="og:description" content="그리디">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2018-10-11T00:00:00+09:00">
+  <meta property="og:description" content="내 블로그에 post 올리는 방법 정리">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2018-12-14T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/algorithm/ALGOSPOT-STRJOIN/">
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-Blog%EC%97%90-post-%EC%98%AC%EB%A6%AC%EA%B8%B0/">
 
 
 
@@ -392,15 +392,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[ALGOSPOT]STRJOIN">
-    <meta itemprop="description" content="그리디">
-    <meta itemprop="datePublished" content="October 11, 2018">
+    <meta itemprop="headline" content="[Reference]Blog에 post 올리기">
+    <meta itemprop="description" content="내 블로그에 post 올리는 방법 정리">
+    <meta itemprop="datePublished" content="December 14, 2018">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[ALGOSPOT]STRJOIN
+          <h1 id="page-title" class="page__title" itemprop="headline">[Reference]Blog에 post 올리기
 </h1>
           
         </header>
@@ -408,91 +408,76 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="문자열-합치기">문자열 합치기</h1>
-
-<h2 id="문제-링크">문제 링크</h2>
-<ul>
-  <li><a href="https://algospot.com/judge/problem/read/STRJOIN">https://algospot.com/judge/problem/read/STRJOIN</a></li>
-</ul>
-
-<h2 id="코드-분석">코드 분석</h2>
-<ul>
-  <li>그리디 알고리즘</li>
-  <li>문자열 길이가 가장 짧은 2개를 계속 더해나간다.
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#post">POST</a></li>
+  <li><a href="#front-matter">Front matter</a>
     <ul>
-      <li>더한 값 역시 문자열 길이가 저장되어 있는 배열에 갱신해야 한다.</li>
+      <li><a href="#front-matter-설정">Front matter 설정</a></li>
     </ul>
   </li>
-  <li>vector로 구현
-    <ul>
-      <li>vector의 멤버함수인 push_back과 pop_back을 사용하기 위해 내림차순으로 정렬하여 구현하였다.</li>
-      <li>시간 복잡도: 내림차순 정렬<code class="highlighter-rouge">O(NlogN)</code> + 문자열 길이 2개 더하고 vector 갱신하기<code class="highlighter-rouge">O(N)</code> = <code class="highlighter-rouge">O(N^2 * logN)</code></li>
-    </ul>
-  </li>
-  <li>우선순위 큐로 구현
-    <ul>
-      <li>시간복잡도: 우선순위 큐<code class="highlighter-rouge">O(logN)</code> + 문자열 길이 2개 더하고 큐 갱신<code class="highlighter-rouge">O(N)</code> = <code class="highlighter-rouge">O(NlogN)</code></li>
-      <li>허프만 압축 알고리즘을 응용한다.</li>
-    </ul>
-  </li>
+  <li><a href="#category와-tag">Category와 Tag</a></li>
 </ul>
+            </nav>
+          </aside>
+        
+        <blockquote>
+  <blockquote>
+    <p>이 자료는 해당 블로그 전용입니다. 다른 블로그와 설정이 다를 수 있씁니다.</p>
+  </blockquote>
+</blockquote>
 
-<h2 id="결과-코드">결과 코드</h2>
+<h2 id="post">POST</h2>
+<p>Jekyll 블로그에서 post란 일반적으로 블로그에서 쓰는 글이다. 하지만 jekyll에서는 post가 마크다운(Markdown) 으로 작성되고, 기본적으로 몇 가지 규칙이 있다.</p>
 <ul>
-  <li>vector로 구현한 코드</li>
+  <li>모든 post는 <code class="highlighter-rouge">_posts</code> 파일안에 있어야 한다.</li>
+  <li>모든 post의 파일 이름은 <code class="highlighter-rouge">YYYY-MM-DD-TITLE.md</code> 양식을 따라야한다. 예를 들어 <code class="highlighter-rouge">2018-07-15-test.md</code>로 쓸 수 있다.</li>
 </ul>
 
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#define _CRT_SECURE_NO_WARNINGS
-</span>
-<span class="cp">#include &lt;iostream&gt;
-#include &lt;cstdio&gt;
-#include &lt;vector&gt;
-#include &lt;algorithm&gt;
-</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
-<span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">len</span><span class="p">;</span>
+<h2 id="front-matter">Front matter</h2>
+<p>Front matter(머리말) 은 jekyll이 마크다운을 해석할 때, 사용하는 메타 정보이다. 이는 반드시 아래와 같이 2가지를 지켜서 사용해야 한다.</p>
+<ul>
+  <li>post 가장 맨 첫 부분에 위치해야한다.</li>
+  <li>시작과 끝을 3개의 대쉬(—)로 감싸주어야 한다.
+Front matter 은 YAML 형식이고, 비워도 상관없다.</li>
+</ul>
 
-<span class="c1">//내림차순
-</span><span class="kt">bool</span> <span class="nf">compare</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span> <span class="n">a</span><span class="p">,</span> <span class="k">const</span> <span class="kt">int</span> <span class="n">b</span><span class="p">)</span>
-<span class="p">{</span> <span class="k">return</span> <span class="n">a</span> <span class="o">&gt;</span> <span class="n">b</span><span class="p">;</span> <span class="p">}</span>
+<h3 id="front-matter-설정">Front matter 설정</h3>
 
-<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span>
-<span class="p">{</span>
-	<span class="kt">int</span> <span class="n">tc</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">tc</span><span class="p">);</span>
-	<span class="k">while</span> <span class="p">(</span><span class="n">tc</span><span class="o">--</span><span class="p">)</span> <span class="p">{</span>
-		<span class="kt">int</span> <span class="n">n</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">n</span><span class="p">);</span>
-		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">n</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-			<span class="kt">int</span> <span class="n">num</span><span class="p">;</span> <span class="n">scanf</span><span class="p">(</span><span class="s">"%d"</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">num</span><span class="p">);</span>
-			<span class="n">len</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">num</span><span class="p">);</span>
-		<span class="p">}</span>
-		<span class="kt">int</span> <span class="n">vlen</span> <span class="o">=</span> <span class="n">len</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-		<span class="c1">//내림차순 정렬
-</span>		<span class="n">sort</span><span class="p">(</span><span class="n">len</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">len</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">compare</span><span class="p">);</span>
-		<span class="cm">/*for (int i = 0; i &lt; vlen; i++)
-			printf("%d ", len[i]);*/</span>
-		<span class="kt">int</span> <span class="n">ans</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span> <span class="n">num1</span><span class="p">,</span> <span class="n">num2</span><span class="p">,</span> <span class="n">sum</span><span class="p">;</span>
-		<span class="c1">//문자열 길이가 2개 이상이면 계속 더해나간다.
-</span>		<span class="k">while</span> <span class="p">(</span><span class="n">vlen</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-			<span class="c1">//문자열 길이가 가장 짧은 2개를 뽑아서 더한다.
-</span>			<span class="n">num1</span> <span class="o">=</span> <span class="n">len</span><span class="p">[</span><span class="n">vlen</span> <span class="o">-</span> <span class="mi">1</span><span class="p">];</span>
-			<span class="n">num2</span> <span class="o">=</span> <span class="n">len</span><span class="p">[</span><span class="n">vlen</span> <span class="o">-</span> <span class="mi">2</span><span class="p">];</span>
-			<span class="n">len</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
-			<span class="n">len</span><span class="p">.</span><span class="n">pop_back</span><span class="p">();</span>
-			<span class="n">sum</span> <span class="o">=</span> <span class="n">num1</span> <span class="o">+</span> <span class="n">num2</span><span class="p">;</span>
-			<span class="n">ans</span> <span class="o">+=</span> <span class="n">sum</span><span class="p">;</span>
-			<span class="c1">//더한 값 역시 vector에 추가한다.
-</span>			<span class="n">len</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">sum</span><span class="p">);</span>
-			<span class="c1">//vector 길이를 갱신한다.
-</span>			<span class="n">vlen</span> <span class="o">=</span> <span class="n">len</span><span class="p">.</span><span class="n">size</span><span class="p">();</span>
-			<span class="c1">//다시 내림차순 정렬을 한다.
-</span>			<span class="n">sort</span><span class="p">(</span><span class="n">len</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">len</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">compare</span><span class="p">);</span>
-		<span class="p">}</span>
-		<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">ans</span><span class="p">);</span>
-		<span class="n">len</span><span class="p">.</span><span class="n">clear</span><span class="p">();</span>
-	<span class="p">}</span>
-
-	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
-<span class="p">}</span>
+<div class="language-yml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="na">title</span><span class="pi">:</span> <span class="s2">"</span><span class="s">POST</span><span class="nv"> </span><span class="s">제목"</span>
+<span class="na">excerpt</span><span class="pi">:</span> <span class="s2">"</span><span class="s">POST</span><span class="nv"> </span><span class="s">설명"</span>
+<span class="na">categories</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">category1</span>
+<span class="na">tags</span><span class="pi">:</span>
+  <span class="pi">-</span> <span class="s">tag1</span>
+<span class="na">search</span><span class="pi">:</span> <span class="no">true</span>
+<span class="na">sidebar_main</span><span class="pi">:</span> <span class="no">true</span>
+<span class="na">use_math</span><span class="pi">:</span> <span class="no">true</span>
+<span class="na">toc</span><span class="pi">:</span> <span class="no">true</span>
 </code></pre></div></div>
+
+<p>Front matter 의 예시는 위와 같다. 현재 사용중인 옵션을 모두 보여준 것이다.</p>
+<ul>
+  <li>title: POST의 제목을 나타낸다.</li>
+  <li>excerpt: POST의 간단한 설명을 적는 부분이다.</li>
+  <li>categories: 카테고리를 설정하는 부분이다. 여러 개를 적을 수도 있다.</li>
+  <li>tags: 테그를 설정한다. 카테고리와 같이 여러 개를 적을 수 있다.</li>
+  <li>search: 현재 POST를 검색이 가능하도록 할지 설정하는 부분이다. true 값을 넣으면 해당 POST를 검색할 수 있다.</li>
+  <li>sidebar_main: 현재 POST에서 사이드바를 표시할지 설정하는 부분이다.</li>
+  <li>use_math: 현재 POST에서 MathJax 기능을 사용할지 설정하는 부분이다.</li>
+  <li>toc: POST 맨 첫 부분에 해당 POST의 각 header(‘#’, ‘##’, …)에 바로 가는 기능을 사용할지 설정하는 부분이다.</li>
+</ul>
+
+<h2 id="category와-tag">Category와 Tag</h2>
+<p>현재 블로그 post를 원하는 방식으로 분류하기 위해 카테고리와 테그 설정을 고정적으로 설정하였다. 먼저, 카테고리는 3개로 정하였다.</p>
+<ul>
+  <li>Toy: 토이 프로젝트</li>
+  <li>Algorithm: 알고리즘, PS</li>
+  <li>Study: 각종 프로그래밍 관련 공부
+위와 같이, 카테고리는 3개만 가능하고 테그 양식은 <code class="highlighter-rouge">Category_Tag</code> 로 사용해야 한다. 예를 들어, 토이 프로젝트의 블로그 개발 관련 post를 작성하였다면 카테고리는 <code class="highlighter-rouge">Toy</code>, 테그는 <code class="highlighter-rouge">Toy_Blog</code> 와 같이 작성하여야 한다. 실제 블로그에서 테그는 앞의 카테고리는 나타나지 않게 설정하였다. 즉, “Blog” 라는 글자만 볼 수 있다.</li>
+</ul>
 
         
       </section>
@@ -513,7 +498,7 @@
     
       
       
-      <a href="/pages/CODEMCD/tags/#algorithm-algospot" class="page__taxonomy-item" rel="tag">Algorithm_Algospot</a>
+      <a href="/pages/CODEMCD/tags/#toy-blog" class="page__taxonomy-item" rel="tag">Toy_Blog</a>
     
     </span>
   </p>
@@ -534,14 +519,14 @@
     
       
       
-      <a href="/pages/CODEMCD/categories/#algorithm" class="page__taxonomy-item" rel="tag">Algorithm</a>
+      <a href="/pages/CODEMCD/categories/#toy" class="page__taxonomy-item" rel="tag">Toy</a>
     
     </span>
   </p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-11T00:00:00+09:00">October 11, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-12-14T00:00:00+09:00">December 14, 2018</time></p>
         
       </footer>
 
@@ -550,24 +535,24 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BALGOSPOT%5DSTRJOIN%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FALGOSPOT-STRJOIN%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BReference%5DBlog%EC%97%90+post+%EC%98%AC%EB%A6%AC%EA%B8%B0%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FBlog-Reference-Blog%25EC%2597%2590-post-%25EC%2598%25AC%25EB%25A6%25AC%25EA%25B8%25B0%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FALGOSPOT-STRJOIN%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FBlog-Reference-Blog%25EC%2597%2590-post-%25EC%2598%25AC%25EB%25A6%25AC%25EA%25B8%25B0%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FALGOSPOT-STRJOIN%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FBlog-Reference-Blog%25EC%2597%2590-post-%25EC%2598%25AC%25EB%25A6%25AC%25EA%25B8%25B0%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FALGOSPOT-STRJOIN%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FBlog-Reference-Blog%25EC%2597%2590-post-%25EC%2598%25AC%25EB%25A6%25AC%25EA%25B8%25B0%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/algorithm/ALGOSPOT-SORTGAME/" class="pagination--pager" title="[ALGOSPOT]SORTGAME
+      <a href="/pages/CODEMCD/study/Docker-WhatIsDocker/" class="pagination--pager" title="[Docker] Docker(도커)란?
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/algorithm/ALGOSPOT-TRIANCLEPATH/" class="pagination--pager" title="[ALGOSPOT]TRIANGLEPATH
+      <a href="/pages/CODEMCD/toy/Blog-Reference-%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94-MathJax-%EB%AA%85%EB%A0%B9%EC%96%B4/" class="pagination--pager" title="[Reference]자주쓰는 MathJax 문법
 ">다음</a>
     
   </nav>
@@ -619,25 +604,6 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/toy/Blog-Reference-Blog%EC%97%90-post-%EC%98%AC%EB%A6%AC%EA%B8%B0/" rel="permalink">[Reference]Blog에 post 올리기
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">내 블로그에 post 올리는 방법 정리
-</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
         <a href="/pages/CODEMCD/study/Docker-WhatIsDocker/" rel="permalink">[Docker] Docker(도커)란?
 </a>
       
@@ -663,6 +629,25 @@
     </h2>
     
     <p class="archive__item-excerpt" itemprop="description">수학
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/algorithm/BOJ-1342.%ED%96%89%EC%9A%B4%EC%9D%98-%EB%AC%B8%EC%9E%90%EC%97%B4/" rel="permalink">[BOJ] 1342.행운의 문자열
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">순열 or 백트래킹
 </p>
   </article>
 </div>
@@ -785,8 +770,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/algorithm/ALGOSPOT-STRJOIN/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/algorithm/ALGOSPOT-STRJOIN"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-Blog%EC%97%90-post-%EC%98%AC%EB%A6%AC%EA%B8%B0/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/toy/Blog-[Reference]Blog에 post 올리기"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
