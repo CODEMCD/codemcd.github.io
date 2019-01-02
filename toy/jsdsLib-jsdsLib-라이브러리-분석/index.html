@@ -9,38 +9,38 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[Java]8. 변수의 초기화 - CODEMCD’s E-BOOK</title>
-<meta name="description" content="Java 객체지향프로그래밍">
+<!-- begin _includes/seo.html --><title>[jsdsLib]라이브러리 분석 - CODEMCD’s E-BOOK</title>
+<meta name="description" content="jsdsLib 내부 구조, 성능, 등 분석">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's E-BOOK">
-<meta property="og:title" content="[Java]8. 변수의 초기화">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/Java-8.-%EB%B3%80%EC%88%98%EC%9D%98-%EC%B4%88%EA%B8%B0%ED%99%94/">
+<meta property="og:title" content="[jsdsLib]라이브러리 분석">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/toy/jsdsLib-jsdsLib-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B6%84%EC%84%9D/">
 
 
-  <meta property="og:description" content="Java 객체지향프로그래밍">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+  <meta property="og:description" content="jsdsLib 내부 구조, 성능, 등 분석">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2019-01-02T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/study/Java-8.-%EB%B3%80%EC%88%98%EC%9D%98-%EC%B4%88%EA%B8%B0%ED%99%94/">
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/toy/jsdsLib-jsdsLib-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B6%84%EC%84%9D/">
 
 
 
@@ -401,15 +401,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[Java]8. 변수의 초기화">
-    <meta itemprop="description" content="Java 객체지향프로그래밍">
-    <meta itemprop="datePublished" content="October 14, 2018">
+    <meta itemprop="headline" content="[jsdsLib]라이브러리 분석">
+    <meta itemprop="description" content="jsdsLib 내부 구조, 성능, 등 분석">
+    <meta itemprop="datePublished" content="January 02, 2019">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[Java]8. 변수의 초기화
+          <h1 id="page-title" class="page__title" itemprop="headline">[jsdsLib]라이브러리 분석
 </h1>
           
         </header>
@@ -421,150 +421,53 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
               <ul class="toc__menu">
-  <li><a href="#8-변수의-초기화">8. 변수의 초기화</a>
-     -  <a href="#멤버변수-초기화-방법">멤버변수 초기화 방법</a></li>
+  <li><a href="#list">List</a></li>
+  <li><a href="#stack">Stack</a></li>
+  <li><a href="#queue">Queue</a></li>
+  <li><a href="#deque">Deque</a></li>
+  <li><a href="#priority-queue">Priority Queue</a></li>
+  <li><a href="#성능-분석">성능 분석</a></li>
+  <li><a href="#자바스크립트">자바스크립트</a></li>
 </ul>
             </nav>
           </aside>
         
-        <h1 id="8-변수의-초기화">8. 변수의 초기화</h1>
-<ul>
-  <li>멤버변수(클래스 변수와 인스턴스 변수)는 초기화하지 않아도 자동적으로 자료형에 맞는 기본값으로 초기화한다.</li>
-  <li>지역변수는 사용하기 전에 반드시 초기화해야 한다.</li>
-  <li>각 타입의 기본값(default value)</li>
-</ul>
+        <h2 id="list">List</h2>
+<p>이 라이브러리의 리스트는 doubly linked list 이다. 구현의 편의성을 위해서 head 와 tail 부분에 dummy 노드를 가르키게 하였다.</p>
 
-<table>
-  <thead>
-    <tr>
-      <th style="text-align: center">자료형</th>
-      <th style="text-align: center">기본값</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td style="text-align: center">boolean</td>
-      <td style="text-align: center">false</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">char</td>
-      <td style="text-align: center">‘\u000’</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">byte, short, int</td>
-      <td style="text-align: center">0</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">long</td>
-      <td style="text-align: center">0L</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">float</td>
-      <td style="text-align: center">0.0f</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">double</td>
-      <td style="text-align: center">0.0d or 0.0</td>
-    </tr>
-    <tr>
-      <td style="text-align: center">참조형 변수</td>
-      <td style="text-align: center">null</td>
-    </tr>
-  </tbody>
-</table>
+<p><img src="https://user-images.githubusercontent.com/34755287/50594895-b9d9cd00-0ee1-11e9-9ad1-812c0b35e01d.JPG" alt="list structure" /></p>
 
-<h3 id="멤버변수-초기화-방법">멤버변수 초기화 방법</h3>
-<ol>
-  <li>명시적 초기화(explicit initialization)</li>
-  <li>생성자(constructor)</li>
-  <li>초기화 블럭(initialization block)</li>
-</ol>
+<h2 id="stack">Stack</h2>
+<p>일반적인 배열 스택이다. 배열의 맨 뒤의 데이터가 삽입, 삭제되므로 시작복잡도는 O(1) 을 보장한다.</p>
 
-<ul>
-  <li>명시적 초기화
-    <ul>
-      <li>변수를 선언과 동시에 초기화하는 것을 말한다.</li>
-      <li>가장 우선시되는 초기화 방법</li>
-    </ul>
-  </li>
-</ul>
+<h2 id="queue">Queue</h2>
+<p>배열로 만들어진 큐이다. 큐는 맨 앞의 데이터가 삭제되므로, 일반적인 자바스크립트에서 <code class="highlighter-rouge">.shift()</code> 매서드를 사용하면 O(N) 으로 성능이 좋지 않다. 맨 앞의 데이터를 삭제하고 나머지 데이터들을 모두 앞으로 한 칸씩 당겨야하기 때문이다. 이를 개선하기 위해서 맨 앞의 데이터를 삭제하지만, 매번 나머지 데이터들을 앞으로 당기지 않도록 한다. 먼저, 코드를 보자.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">classs</span> <span class="n">Car</span> <span class="o">{</span>
-	<span class="kt">int</span> <span class="n">door</span> <span class="o">=</span> <span class="mi">4</span><span class="o">;</span>              <span class="c1">//기본형 변수의 초기화</span>
-	<span class="n">Engine</span> <span class="n">e</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Engine</span><span class="o">();</span>   <span class="c1">//참조형 변수의 초기화</span>
-<span class="o">}</span>
+<div class="language-js highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">var</span> <span class="nx">dequeueData</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_dataArray</span><span class="p">[</span><span class="k">this</span><span class="p">.</span><span class="nx">_frontIdx</span><span class="o">++</span><span class="p">];</span>
+<span class="k">if</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_frontIdx</span> <span class="o">*</span> <span class="mf">1.5</span> <span class="o">&gt;</span> <span class="k">this</span><span class="p">.</span><span class="nx">_dataArray</span><span class="p">.</span><span class="nx">length</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_dataArray</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">_dataArray</span><span class="p">.</span><span class="nx">slice</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">_frontIdx</span><span class="p">);</span>
+  <span class="k">this</span><span class="p">.</span><span class="nx">_frontIdx</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">return</span> <span class="nx">dequeueData</span><span class="p">;</span>
 </code></pre></div></div>
 
+<p>위는 실제 라이브러리 <code class="highlighter-rouge">dequeue()</code> 함수 부분이다. <code class="highlighter-rouge">_frontIdx</code> 변수는 배열의 맨 앞의 데이터를 가르킨다. 맨 앞의 데이터를 삭제하고 이 변수를 한 칸 앞으로 옮겨준다. 이러한 수행에서 시간복잡도는 O(1) 이다. 하지만 삽입, 삭제 연산이 늘어날수록 배열의 크기도 계속 늘어나는 단점이 있다. 이를 보완하기 위해 삭제된 데이터 공간이 일정량 쌓이면, 배열 전체를 인덱스가 0인 기준으로 재배치해준다.</p>
+
+<h2 id="deque">Deque</h2>
+<p>Deque(덱, 데크) 는 스택과 큐를 합친 자료구조이다. 여기에 더해 맨 앞에서도 데이터를 추가할 수 있다. 맨 앞의 데이터를 삭제하는 연산을 <code class="highlighter-rouge">.shift()</code> 매서드를 쓰지 않고 좀 더 성능을 개선한 방법은 위의 큐에서 설명하였다. 하지만 맨 앞에 데이터를 추가하는 것 역시 일반적인 <code class="highlighter-rouge">.unshift()</code> 매서드를 사용한다면 성능이 좋지않다. 이를 개선하기 위해 npm 패키지 중 deque 를 구현한 코드를 참고하였다. 아직까지 완전한 이해를 하지 못하여 추후에 좀 더 분석하여 올릴 예정이다.</p>
 <ul>
-  <li>초기화 블럭
-    <ul>
-      <li>클래스 초기화 블럭: 클래스변수의 복잡한 초기화에 사용된다.
-        <ul>
-          <li>클래스내에 블럭 <code class="highlighter-rouge">static { }</code>만들고 그 안에 코드를 작성한다.</li>
-          <li>클래스가 메모리에 처음 로딩될 때 한 번 수행된다.</li>
-        </ul>
-      </li>
-      <li>인스턴스 초기화 블럭: 인스턴스변수의 복잡한 초기화에 사용된다.
-        <ul>
-          <li>클래스 내에 블럭 <code class="highlighter-rouge">{ }</code> 만들고 그 안에 코드를 작성한다.</li>
-          <li>생성자와 같이 인스턴스를 생성할 때 마다 수행된다. <strong>(생성자보다 인스턴스 초기화 블럭이 먼저 수행된다.)</strong></li>
-          <li>생성자는 주로 인스턴스 변수의 초기화에 사용되고, 초기화 블럭은 모든 생성자에 공통적으로 수행되어야할 코드를 삽입한다.</li>
-        </ul>
-      </li>
-      <li>초기화 블럭 내에서 조건문, 반복문, 예외처리구문 등을 사용할 수 있다.&lt;/</li>
-    </ul>
-  </li>
+  <li>참고 코드: <a href="https://github.com/petkaantonov/deque/blob/master/src/deque.js">https://github.com/petkaantonov/deque/blob/master/src/deque.js</a></li>
 </ul>
 
-<p><strong><em>예제 코드</em></strong></p>
+<h2 id="priority-queue">Priority Queue</h2>
+<p>우선 순위 큐는 일반적인 heap 를 이용하여 구현하였다. 조금의 성능 개선을 위해 데이터를 삽입 또는 삭제한 후의 다시 heap 배열의 우선 순위를 맞추는 연산에서 실제 데이터 사이 교환(swap)을 하지 않고 인덱스만 저장한다. 그리고 최종 인덱스에 데이터를 저장하는 방식으로 구현되어 있다.</p>
 
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">BlockTest</span> <span class="o">{</span>
-	<span class="c1">//클래스 초기화 블럭</span>
-	<span class="kd">static</span> <span class="o">{</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"static { }, 클래스 초기화 블럭"</span><span class="o">);</span>
-	<span class="o">}</span>
-	<span class="c1">//인스턴스 초기화 블럭</span>
-	<span class="o">{</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"{ }, 인스턴스 초기화 블럭"</span><span class="o">);</span>
-	<span class="o">}</span>
-	<span class="c1">//생성자</span>
-	<span class="kd">public</span> <span class="nf">BlockTest</span><span class="o">()</span> <span class="o">{</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"생성자"</span><span class="o">);</span>
-	<span class="o">}</span>
+<h2 id="성능-분석">성능 분석</h2>
 
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"bt1 인스턴스 생성 전"</span><span class="o">);</span>
-		<span class="n">BlockTest</span> <span class="n">bt1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BlockTest</span><span class="o">();</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"bt1 인스턴스 생성 후"</span><span class="o">);</span>
-
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"bt2 인스턴스 생성 전"</span><span class="o">);</span>
-		<span class="n">BlockTest</span> <span class="n">bt2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BlockTest</span><span class="o">();</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"bt2 인스턴스 생성 후"</span><span class="o">);</span>
-	<span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<p><strong><em>실행 결과</em></strong></p>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>static { }, 클래스 초기화 블럭
-bt1 인스턴스 생성 전
-{ } 인스턴스 초기화 블럭
-생성자
-bt1 인스턴스 생성 후
-bt2 인스턴스 생성 전
-{ } 인스턴스 초기화 블럭
-생성자
-bt2 인스턴스 생성 후
-</code></pre></div></div>
+<h2 id="자바스크립트">자바스크립트</h2>
 <ul>
-  <li>멤버변수 초기화 시기와 순서
-    <ul>
-      <li>클래스변수의 초기화 시점: 클래스가 처음 로딩될 때 단 한 번 초기화 된다.</li>
-      <li>클래스변수의 초기화 순서: 기본값 -&gt; 명시적 초기화 -&gt; 클래스 초기화 블럭</li>
-      <li>인스턴스변수의 초기화 시점: 인스턴스가 생성될 때마다 각 인스턴스별로 초기화가 이루어진다.</li>
-      <li>인스턴스변수의 초기화 순서: 기본값 -&gt; 명시적 초기화 -&gt; 인스턴스 초기화 블럭 -&gt; 생성자</li>
-    </ul>
-  </li>
+  <li>특징</li>
+  <li>한계</li>
 </ul>
 
         
@@ -586,7 +489,7 @@ bt2 인스턴스 생성 후
     
       
       
-      <a href="/pages/CODEMCD/tags/#study-java" class="page__taxonomy-item" rel="tag">Study_Java</a>
+      <a href="/pages/CODEMCD/tags/#toy-jsdslib" class="page__taxonomy-item" rel="tag">Toy_jsdsLib</a>
     
     </span>
   </p>
@@ -607,14 +510,14 @@ bt2 인스턴스 생성 후
     
       
       
-      <a href="/pages/CODEMCD/categories/#study" class="page__taxonomy-item" rel="tag">Study</a>
+      <a href="/pages/CODEMCD/categories/#toy" class="page__taxonomy-item" rel="tag">Toy</a>
     
     </span>
   </p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-01-02T00:00:00+09:00">January 02, 2019</time></p>
         
       </footer>
 
@@ -623,25 +526,24 @@ bt2 인스턴스 생성 후
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BJava%5D8.+%EB%B3%80%EC%88%98%EC%9D%98+%EC%B4%88%EA%B8%B0%ED%99%94%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FJava-8.-%25EB%25B3%2580%25EC%2588%2598%25EC%259D%2598-%25EC%25B4%2588%25EA%25B8%25B0%25ED%2599%2594%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BjsdsLib%5D%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC+%EB%B6%84%EC%84%9D%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FjsdsLib-jsdsLib-%25EB%259D%25BC%25EC%259D%25B4%25EB%25B8%258C%25EB%259F%25AC%25EB%25A6%25AC-%25EB%25B6%2584%25EC%2584%259D%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FJava-8.-%25EB%25B3%2580%25EC%2588%2598%25EC%259D%2598-%25EC%25B4%2588%25EA%25B8%25B0%25ED%2599%2594%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FjsdsLib-jsdsLib-%25EB%259D%25BC%25EC%259D%25B4%25EB%25B8%258C%25EB%259F%25AC%25EB%25A6%25AC-%25EB%25B6%2584%25EC%2584%259D%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FJava-8.-%25EB%25B3%2580%25EC%2588%2598%25EC%259D%2598-%25EC%25B4%2588%25EA%25B8%25B0%25ED%2599%2594%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FjsdsLib-jsdsLib-%25EB%259D%25BC%25EC%259D%25B4%25EB%25B8%258C%25EB%259F%25AC%25EB%25A6%25AC-%25EB%25B6%2584%25EC%2584%259D%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FJava-8.-%25EB%25B3%2580%25EC%2588%2598%25EC%259D%2598-%25EC%25B4%2588%25EA%25B8%25B0%25ED%2599%2594%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Ftoy%2FjsdsLib-jsdsLib-%25EB%259D%25BC%25EC%259D%25B4%25EB%25B8%258C%25EB%259F%25AC%25EB%25A6%25AC-%25EB%25B6%2584%25EC%2584%259D%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/study/Java-7.-%EC%83%9D%EC%84%B1%EC%9E%90/" class="pagination--pager" title="[Java]7. 생성자(Constructor)
+      <a href="/pages/CODEMCD/toy/Blog-Reference-%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94-MathJax-%EB%AA%85%EB%A0%B9%EC%96%B4/" class="pagination--pager" title="[Reference]자주쓰는 MathJax 문법
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/study/Java-9.-%EC%83%81%EC%86%8D/" class="pagination--pager" title="[Java]9. 상속(Inhertance)
-">다음</a>
+      <a href="#" class="pagination--pager disabled">다음</a>
     
   </nav>
 
@@ -663,25 +565,6 @@ bt2 인스턴스 생성 후
     <div class="page__related">
       <h4 class="page__related-title">참고</h4>
       <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/toy/jsdsLib-jsdsLib-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B6%84%EC%84%9D/" rel="permalink">[jsdsLib]라이브러리 분석
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">jsdsLib 내부 구조, 성능, 등 분석
-</p>
-  </article>
-</div>
         
           
 
@@ -736,6 +619,25 @@ bt2 인스턴스 생성 후
     </h2>
     
     <p class="archive__item-excerpt" itemprop="description">Docker 소개와 기본 개념, 예제
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/algorithm/BOJ-1019.%EC%B1%85-%ED%8E%98%EC%9D%B4%EC%A7%80/" rel="permalink">[BOJ] 1019.책 페이지
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">수학
 </p>
   </article>
 </div>
@@ -858,8 +760,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/study/Java-8.-%EB%B3%80%EC%88%98%EC%9D%98-%EC%B4%88%EA%B8%B0%ED%99%94/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/study/Java-8. 변수의 초기화"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/toy/jsdsLib-jsdsLib-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B6%84%EC%84%9D/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/toy/jsdsLib-[jsdsLib]라이브러리 분석"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');

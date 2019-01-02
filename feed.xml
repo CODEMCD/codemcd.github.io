@@ -1,4 +1,40 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-01-02T22:59:16+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s E-BOOK</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[Reference]Blog에 post 올리기</title><link href="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-Blog%EC%97%90-post-%EC%98%AC%EB%A6%AC%EA%B8%B0/" rel="alternate" type="text/html" title="[Reference]Blog에 post 올리기" /><published>2018-12-14T00:00:00+09:00</published><updated>2018-12-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/toy/Blog-%5BReference%5DBlog%EC%97%90%20post%20%EC%98%AC%EB%A6%AC%EA%B8%B0</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-Blog%EC%97%90-post-%EC%98%AC%EB%A6%AC%EA%B8%B0/">&lt;blockquote&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-01-02T23:24:30+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s E-BOOK</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[jsdsLib]라이브러리 분석</title><link href="https://codemcd.github.io/pages/CODEMCD/toy/jsdsLib-jsdsLib-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B6%84%EC%84%9D/" rel="alternate" type="text/html" title="[jsdsLib]라이브러리 분석" /><published>2019-01-02T00:00:00+09:00</published><updated>2019-01-02T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/toy/jsdsLib-%5BjsdsLib%5D%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC%20%EB%B6%84%EC%84%9D</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/toy/jsdsLib-jsdsLib-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B6%84%EC%84%9D/">&lt;h2 id=&quot;list&quot;&gt;List&lt;/h2&gt;
+&lt;p&gt;이 라이브러리의 리스트는 doubly linked list 이다. 구현의 편의성을 위해서 head 와 tail 부분에 dummy 노드를 가르키게 하였다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/50594895-b9d9cd00-0ee1-11e9-9ad1-812c0b35e01d.JPG&quot; alt=&quot;list structure&quot; /&gt;&lt;/p&gt;
+
+&lt;h2 id=&quot;stack&quot;&gt;Stack&lt;/h2&gt;
+&lt;p&gt;일반적인 배열 스택이다. 배열의 맨 뒤의 데이터가 삽입, 삭제되므로 시작복잡도는 O(1) 을 보장한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;queue&quot;&gt;Queue&lt;/h2&gt;
+&lt;p&gt;배열로 만들어진 큐이다. 큐는 맨 앞의 데이터가 삭제되므로, 일반적인 자바스크립트에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;.shift()&lt;/code&gt; 매서드를 사용하면 O(N) 으로 성능이 좋지 않다. 맨 앞의 데이터를 삭제하고 나머지 데이터들을 모두 앞으로 한 칸씩 당겨야하기 때문이다. 이를 개선하기 위해서 맨 앞의 데이터를 삭제하지만, 매번 나머지 데이터들을 앞으로 당기지 않도록 한다. 먼저, 코드를 보자.&lt;/p&gt;
+
+&lt;div class=&quot;language-js highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;var&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dequeueData&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_dataArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_frontIdx&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_frontIdx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;mf&quot;&gt;1.5&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_dataArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;length&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_dataArray&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_dataArray&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;slice&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_frontIdx&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;nx&quot;&gt;_frontIdx&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nx&quot;&gt;dequeueData&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위는 실제 라이브러리 &lt;code class=&quot;highlighter-rouge&quot;&gt;dequeue()&lt;/code&gt; 함수 부분이다. &lt;code class=&quot;highlighter-rouge&quot;&gt;_frontIdx&lt;/code&gt; 변수는 배열의 맨 앞의 데이터를 가르킨다. 맨 앞의 데이터를 삭제하고 이 변수를 한 칸 앞으로 옮겨준다. 이러한 수행에서 시간복잡도는 O(1) 이다. 하지만 삽입, 삭제 연산이 늘어날수록 배열의 크기도 계속 늘어나는 단점이 있다. 이를 보완하기 위해 삭제된 데이터 공간이 일정량 쌓이면, 배열 전체를 인덱스가 0인 기준으로 재배치해준다.&lt;/p&gt;
+
+&lt;h2 id=&quot;deque&quot;&gt;Deque&lt;/h2&gt;
+&lt;p&gt;Deque(덱, 데크) 는 스택과 큐를 합친 자료구조이다. 여기에 더해 맨 앞에서도 데이터를 추가할 수 있다. 맨 앞의 데이터를 삭제하는 연산을 &lt;code class=&quot;highlighter-rouge&quot;&gt;.shift()&lt;/code&gt; 매서드를 쓰지 않고 좀 더 성능을 개선한 방법은 위의 큐에서 설명하였다. 하지만 맨 앞에 데이터를 추가하는 것 역시 일반적인 &lt;code class=&quot;highlighter-rouge&quot;&gt;.unshift()&lt;/code&gt; 매서드를 사용한다면 성능이 좋지않다. 이를 개선하기 위해 npm 패키지 중 deque 를 구현한 코드를 참고하였다. 아직까지 완전한 이해를 하지 못하여 추후에 좀 더 분석하여 올릴 예정이다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;참고 코드: &lt;a href=&quot;https://github.com/petkaantonov/deque/blob/master/src/deque.js&quot;&gt;https://github.com/petkaantonov/deque/blob/master/src/deque.js&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;priority-queue&quot;&gt;Priority Queue&lt;/h2&gt;
+&lt;p&gt;우선 순위 큐는 일반적인 heap 를 이용하여 구현하였다. 조금의 성능 개선을 위해 데이터를 삽입 또는 삭제한 후의 다시 heap 배열의 우선 순위를 맞추는 연산에서 실제 데이터 사이 교환(swap)을 하지 않고 인덱스만 저장한다. 그리고 최종 인덱스에 데이터를 저장하는 방식으로 구현되어 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;성능-분석&quot;&gt;성능 분석&lt;/h2&gt;
+
+&lt;h2 id=&quot;자바스크립트&quot;&gt;자바스크립트&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;특징&lt;/li&gt;
+  &lt;li&gt;한계&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Toy_jsdsLib" /><summary type="html">jsdsLib 내부 구조, 성능, 등 분석</summary></entry><entry><title type="html">[Reference]Blog에 post 올리기</title><link href="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-Blog%EC%97%90-post-%EC%98%AC%EB%A6%AC%EA%B8%B0/" rel="alternate" type="text/html" title="[Reference]Blog에 post 올리기" /><published>2018-12-14T00:00:00+09:00</published><updated>2018-12-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/toy/Blog-%5BReference%5DBlog%EC%97%90%20post%20%EC%98%AC%EB%A6%AC%EA%B8%B0</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-Blog%EC%97%90-post-%EC%98%AC%EB%A6%AC%EA%B8%B0/">&lt;blockquote&gt;
   &lt;blockquote&gt;
     &lt;p&gt;이 자료는 해당 블로그 전용입니다. 다른 블로그와 설정이 다를 수 있씁니다.&lt;/p&gt;
   &lt;/blockquote&gt;
@@ -50,9 +86,10 @@ Front matter 은 YAML 형식이고, 비워도 상관없다.&lt;/li&gt;
 &lt;ul&gt;
   &lt;li&gt;Toy: 토이 프로젝트&lt;/li&gt;
   &lt;li&gt;Algorithm: 알고리즘, PS&lt;/li&gt;
-  &lt;li&gt;Study: 각종 프로그래밍 관련 공부
-위와 같이, 카테고리는 3개만 가능하고 테그 양식은 &lt;code class=&quot;highlighter-rouge&quot;&gt;Category_Tag&lt;/code&gt; 로 사용해야 한다. 예를 들어, 토이 프로젝트의 블로그 개발 관련 post를 작성하였다면 카테고리는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Toy&lt;/code&gt;, 테그는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Toy_Blog&lt;/code&gt; 와 같이 작성하여야 한다. 실제 블로그에서 테그는 앞의 카테고리는 나타나지 않게 설정하였다. 즉, “Blog” 라는 글자만 볼 수 있다.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Toy_Blog" /><summary type="html">내 블로그에 post 올리는 방법 정리</summary></entry><entry><title type="html">[Reference]자주쓰는 MathJax 문법</title><link href="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94-MathJax-%EB%AA%85%EB%A0%B9%EC%96%B4/" rel="alternate" type="text/html" title="[Reference]자주쓰는 MathJax 문법" /><published>2018-12-14T00:00:00+09:00</published><updated>2018-12-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/toy/Blog-%5BReference%5D%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94%20MathJax%20%EB%AA%85%EB%A0%B9%EC%96%B4</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94-MathJax-%EB%AA%85%EB%A0%B9%EC%96%B4/">&lt;p&gt;블로그 post를 작성할 때, 수학식을 사용해야할 경우가 있었다. 그래서 구글링을 해본 결과 jekyll에서 MathJax를 사용하는 방법이 있었다.&lt;/p&gt;
+  &lt;li&gt;Study: 각종 프로그래밍 관련 공부&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위와 같이, 카테고리는 3개만 가능하고 테그 양식은 &lt;code class=&quot;highlighter-rouge&quot;&gt;Category_Tag&lt;/code&gt; 로 사용해야 한다. 예를 들어, 토이 프로젝트의 블로그 개발 관련 post를 작성하였다면 카테고리는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Toy&lt;/code&gt;, 테그는 &lt;code class=&quot;highlighter-rouge&quot;&gt;Toy_Blog&lt;/code&gt; 와 같이 작성하여야 한다. 실제 블로그에서 테그는 앞의 카테고리는 나타나지 않게 설정하였다. 즉, “Blog” 라는 글자만 볼 수 있다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Toy_Blog" /><summary type="html">내 블로그에 post 올리는 방법 정리</summary></entry><entry><title type="html">[Reference]자주쓰는 MathJax 문법</title><link href="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94-MathJax-%EB%AA%85%EB%A0%B9%EC%96%B4/" rel="alternate" type="text/html" title="[Reference]자주쓰는 MathJax 문법" /><published>2018-12-14T00:00:00+09:00</published><updated>2018-12-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/toy/Blog-%5BReference%5D%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94%20MathJax%20%EB%AA%85%EB%A0%B9%EC%96%B4</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/toy/Blog-Reference-%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94-MathJax-%EB%AA%85%EB%A0%B9%EC%96%B4/">&lt;p&gt;블로그 post를 작성할 때, 수학식을 사용해야할 경우가 있었다. 그래서 구글링을 해본 결과 jekyll에서 MathJax를 사용하는 방법이 있었다.&lt;/p&gt;
 
 &lt;h2 id=&quot;mathjax란&quot;&gt;MathJax란?&lt;/h2&gt;
 &lt;p&gt;Mathjax는 MathML, LaTeX 및 ASCIIMAthML 마크 업을 사용하여 웹 브라우저에 수학 표기법을 표시하는 크로스 브라우저 JavaScript 라이브러리이다. 그리고 Apache 라이센스에 따라 오픈 소스 소프트웨어이다. (출처: 위키백과)&lt;/p&gt;
@@ -1055,119 +1092,4 @@ Front matter 은 YAML 형식이고, 비워도 상관없다.&lt;/li&gt;
 
 	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algorithm_BOJ" /><summary type="html">그리디 + 백트래킹</summary></entry><entry><title type="html">[BOJ] 2023.신기한 소수</title><link href="https://codemcd.github.io/pages/CODEMCD/algorithm/BOJ-2023.%EC%8B%A0%EA%B8%B0%ED%95%9C-%EC%86%8C%EC%88%98/" rel="alternate" type="text/html" title="[BOJ] 2023.신기한 소수" /><published>2018-11-01T00:00:00+09:00</published><updated>2018-11-01T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/algorithm/BOJ-2023.%EC%8B%A0%EA%B8%B0%ED%95%9C%20%EC%86%8C%EC%88%98</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/algorithm/BOJ-2023.%EC%8B%A0%EA%B8%B0%ED%95%9C-%EC%86%8C%EC%88%98/">&lt;h1 id=&quot;신기한-소수&quot;&gt;신기한 소수&lt;/h1&gt;
-
-&lt;h2 id=&quot;문제-링크&quot;&gt;문제 링크&lt;/h2&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;a href=&quot;https://www.acmicpc.net/problem/2023&quot;&gt;https://www.acmicpc.net/problem/2023&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;해결-방법&quot;&gt;해결 방법&lt;/h2&gt;
-&lt;h3 id=&quot;백트래킹&quot;&gt;백트래킹&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;시간 제한과 메모리 제한으로 볼 때 에라토스테네스의 체는 사용할 수 없다.&lt;/li&gt;
-  &lt;li&gt;문제에서는 한 자리부터 N자리 모두 소수가 되야 하므로 첫 번째 자리 수부터 소수인 숫자로 시작하여 자릿수를 늘려나가는 방식으로 구현하였다.
-    &lt;ul&gt;
-      &lt;li&gt;첫 번째 자리가 소수가 될 수 있는 경우는 &lt;code class=&quot;highlighter-rouge&quot;&gt;2, 3, 5, 7&lt;/code&gt;이다.&lt;/li&gt;
-      &lt;li&gt;두 번째 자리부터 소수가 될 수 있는 경우는 홀수(&lt;code class=&quot;highlighter-rouge&quot;&gt;1, 3, 5, 7, 9&lt;/code&gt;)인 경우이다. 짝수인 경우는 무조건 2의 배수이므로 소수가 될 수 없다.&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-  &lt;li&gt;재귀 함수 입력을 string으로 받아 자릿수를 간단하게 늘려주고 이를 &lt;code class=&quot;highlighter-rouge&quot;&gt;atoi&lt;/code&gt; 함수로 int형으로 변경하여 해당 숫자가 소수인지 판단한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;시간-복잡도-줄이기&quot;&gt;시간 복잡도 줄이기&lt;/h3&gt;
-&lt;ul&gt;
-  &lt;li&gt;재귀 함수가 실행되는 수는 최대 8자리에서 ${4} * {5}^{7}$ 으로 고정이다.&lt;/li&gt;
-  &lt;li&gt;재귀 함수내에서 소수를 판단하는 반복문에 따라 시간복잡도 차이가 난다.
-    &lt;ul&gt;
-      &lt;li&gt;현재 수가 N일 때, 가장 간단한 방법은 &lt;code class=&quot;highlighter-rouge&quot;&gt;2 ~ N - 1&lt;/code&gt;까지 나누어 떨어지지 않으면 소수이다.&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//소수가 아닌 경우
-&lt;/span&gt;    &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;ul&gt;
-      &lt;li&gt;위의 식을 좀 더 생각해보면 N을 나눌 때 나누는 수의 제곱이 N보다 작거나 같을 때만 나누면 된다. 예를 들어 &lt;code class=&quot;highlighter-rouge&quot;&gt;16&lt;/code&gt;의 약수는 &lt;code class=&quot;highlighter-rouge&quot;&gt;1, 2, 4, 8, 16&lt;/code&gt;이다. 여기서 &lt;code class=&quot;highlighter-rouge&quot;&gt;16&lt;/code&gt;을 만드는 곱셈 쌍은 &lt;code class=&quot;highlighter-rouge&quot;&gt;(1, 16), (2, 8), (4, 4)&lt;/code&gt;이다. 이것을 보면 앞의 숫자 &lt;code class=&quot;highlighter-rouge&quot;&gt;1, 2, 4&lt;/code&gt;는 각각 제곱하면 &lt;code class=&quot;highlighter-rouge&quot;&gt;16&lt;/code&gt;보다 작거나 같고 이 3개의 숫자로 나누면 &lt;code class=&quot;highlighter-rouge&quot;&gt;16&lt;/code&gt;의 모든 약수를 구할 수 있다. 즉, 각 숫자의 약수를 나열했을 때 앞에서 부터 중간지점 숫자까지만 나누어 보면 되는데 이 중간 지점 숫자의 최대값이 $\sqrt {N}$ 작거나 같기 때문이다.&lt;/li&gt;
-    &lt;/ul&gt;
-
-    &lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-          &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//소수가 아닌 경우
-&lt;/span&gt;              &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;    &lt;/div&gt;
-
-    &lt;blockquote&gt;
-      &lt;p&gt;이는 효율높은 코드를 보면서 내 방식대로 분석하여 내린 결론이다. 이 생각이 틀릴수도 있음…&lt;/p&gt;
-    &lt;/blockquote&gt;
-  &lt;/li&gt;
-  &lt;li&gt;실제 채점에서 시간은 &lt;code class=&quot;highlighter-rouge&quot;&gt;764ms&lt;/code&gt; 에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;0ms&lt;/code&gt;로 크게 준 것을 확인할 수 있다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;결과-코드&quot;&gt;결과 코드&lt;/h2&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;cp&quot;&gt;#define _CRT_SECURE_NO_WARNINGS
-#include &amp;lt;iostream&amp;gt;
-#include &amp;lt;cstdio&amp;gt;
-#include &amp;lt;algorithm&amp;gt;
-#include &amp;lt;vector&amp;gt;
-#include &amp;lt;string&amp;gt;
-&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;using&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;namespace&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;std&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-
-&lt;span class=&quot;c1&quot;&gt;//모든 1 ~ N 자리수가 소수인 숫자를 찾는다.
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;solve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//현재 숫자 자릿수
-&lt;/span&gt;	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//int형으로 변환
-&lt;/span&gt;	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;atoi&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;c_str&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;());&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;c1&quot;&gt;//현재 숫자가 소수인지 찾는다.
-&lt;/span&gt;		&lt;span class=&quot;c1&quot;&gt;//이 부분을 더 빠르게 고칠 수 있다면 시간복잡도가 줄어들 것 같다.(위 설명 참고)
-&lt;/span&gt;		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;rn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rn&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-				&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;//소수가 아니면 빠져나간다.
-&lt;/span&gt;		&lt;span class=&quot;c1&quot;&gt;//현재 자릿수가 입력된 자릿수와 일치한다면 추가한다.
-&lt;/span&gt;		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push_back&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;rn&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;kt&quot;&gt;char&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;an&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;string&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//소수가 될 수 있는 홀수를 추가한다.(짝수는 무조건 2의 배수이다.)
-&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;num&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;c1&quot;&gt;//숫자 추가
-&lt;/span&gt;		&lt;span class=&quot;n&quot;&gt;an&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'1'&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;an&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;sc&quot;&gt;'\0'&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;append&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;an&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;solve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;next&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;scanf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//첫째 자리로 시작할 수 있는 소수
-&lt;/span&gt;	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;3&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;5&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;7&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;};&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//한 자리수인 경우
-&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;4&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-			&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//두 자리수 이상인 경우
-&lt;/span&gt;	&lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;solve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;2&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;solve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;3&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;solve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;5&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;solve&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;7&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;ans&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]);&lt;/span&gt;
-
-	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algorithm_BOJ" /><summary type="html">백트래킹</summary></entry></feed>
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algorithm_BOJ" /><summary type="html">그리디 + 백트래킹</summary></entry></feed>
