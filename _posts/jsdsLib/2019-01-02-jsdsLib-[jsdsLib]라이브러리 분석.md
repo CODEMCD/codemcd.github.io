@@ -40,7 +40,34 @@ Deque(덱, 데크) 는 스택과 큐를 합친 자료구조이다. 여기에 더
 우선 순위 큐는 일반적인 heap 를 이용하여 구현하였다. 조금의 성능 개선을 위해 데이터를 삽입 또는 삭제한 후의 다시 heap 배열의 우선 순위를 맞추는 연산에서 실제 데이터 사이 교환(swap)을 하지 않고 인덱스만 저장한다. 그리고 최종 인덱스에 데이터를 저장하는 방식으로 구현되어 있다.
 
 ## 성능 분석
+jsdsLib 의 자료구조의 웹 브라우저에서 성능을 확인하기 위해 간단히 툴을 이용하여 실험해보았다.
+- Tool: [jsMatch](http://jindo.dev.naver.com/jsMatch/about.html) (네이버 오픈소스, 자바스크립트 성능 측정 도구)
+
+측정 매서드
+각 자료구조에서 데이터를 삽입, 삭제하는 연산을 측정하였다.
+- List: ```push_front()```, ```pop_front()```
+- Stack: ```push()```, ```pop()```
+- Queue: ```enqueue()```, ```dequeue()```
+- Deque: ```unshift()```, ```shift()```
+- Priority Queue: ```push()```, ```pop()```
+
+측정 결과
+- 기준 웹 브라우저: chrome
+- 데이터 개수는 각각 삽입 연산, 삭제 연산 분리하여 적용하였다.(예를 들어, 데이터 개수가 100만개라면, 삽입 연산 100만 번, 삭제 연산 100만 번을 수행한다.)
+
+|  | 1,000,000 | 5,000,000 | 10,000,000 | 20,000,000 |
+|:---------------:|:---------:|:---------:|:----------:|:----------:|
+| List | 0.186s | 1.35s | 2.711s | 6.055s |
+| Stack | 0.0585s | 0.22s | 0.472s | 0.72s |
+| Queue | 0.079s | 0.322s | 0.458s | 1.012s |
+| Deque | 0.1225s | 0.638s | 1.267s | 2.818s |
+| Prioority Queue | 0.279s | 1.378s | 2.838s | 5.72s |
+
+- 데이터 100만 개 결과: <http://jindo.dev.naver.com/jsMatch/index.html?d=367&openResult=1>
+- 데이터 500만 개 결과: <http://jindo.dev.naver.com/jsMatch/index.html?d=368&openResult=1>
+- 데이터 1000만 개 결과: <http://jindo.dev.naver.com/jsMatch/index.html?d=369&openResult=1>
+- 데이터 2000만 개 결과: <http://jindo.dev.naver.com/jsMatch/index.html?d=370&openResult=1>
 
 ## 자바스크립트
 - 특징
-- 한계
+- 한계: [function 내부 private 변수 관련](http://huns.me/development/516)
