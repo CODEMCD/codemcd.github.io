@@ -305,7 +305,7 @@
           
             
               
-                <li><a href="/tags/toy-jsdslib" class="">jsdsLib (1)</a></li>
+                <li><a href="/tags/toy-jsdslib" class="">jsdsLib (4)</a></li>
             
           
         </ul>
@@ -463,11 +463,87 @@
 <p>우선 순위 큐는 일반적인 heap 를 이용하여 구현하였다. 조금의 성능 개선을 위해 데이터를 삽입 또는 삭제한 후의 다시 heap 배열의 우선 순위를 맞추는 연산에서 실제 데이터 사이 교환(swap)을 하지 않고 인덱스만 저장한다. 그리고 최종 인덱스에 데이터를 저장하는 방식으로 구현되어 있다.</p>
 
 <h2 id="성능-분석">성능 분석</h2>
+<p>jsdsLib 의 자료구조의 웹 브라우저에서 성능을 확인하기 위해 간단히 툴을 이용하여 실험해보았다.</p>
+<ul>
+  <li>Tool: <a href="http://jindo.dev.naver.com/jsMatch/about.html">jsMatch</a> (네이버 오픈소스, 자바스크립트 성능 측정 도구)</li>
+</ul>
+
+<p>측정 매서드
+각 자료구조에서 데이터를 삽입, 삭제하는 연산을 측정하였다.</p>
+<ul>
+  <li>List: <code class="highlighter-rouge">push_front()</code>, <code class="highlighter-rouge">pop_front()</code></li>
+  <li>Stack: <code class="highlighter-rouge">push()</code>, <code class="highlighter-rouge">pop()</code></li>
+  <li>Queue: <code class="highlighter-rouge">enqueue()</code>, <code class="highlighter-rouge">dequeue()</code></li>
+  <li>Deque: <code class="highlighter-rouge">unshift()</code>, <code class="highlighter-rouge">shift()</code></li>
+  <li>Priority Queue: <code class="highlighter-rouge">push()</code>, <code class="highlighter-rouge">pop()</code></li>
+</ul>
+
+<p>측정 결과</p>
+<ul>
+  <li>기준 웹 브라우저: chrome</li>
+  <li>데이터 개수는 각각 삽입 연산, 삭제 연산 분리하여 적용하였다.(예를 들어, 데이터 개수가 100만개라면, 삽입 연산 100만 번, 삭제 연산 100만 번을 수행한다.)</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center"> </th>
+      <th style="text-align: center">1,000,000</th>
+      <th style="text-align: center">5,000,000</th>
+      <th style="text-align: center">10,000,000</th>
+      <th style="text-align: center">20,000,000</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center">List</td>
+      <td style="text-align: center">0.186s</td>
+      <td style="text-align: center">1.35s</td>
+      <td style="text-align: center">2.711s</td>
+      <td style="text-align: center">6.055s</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Stack</td>
+      <td style="text-align: center">0.0585s</td>
+      <td style="text-align: center">0.22s</td>
+      <td style="text-align: center">0.472s</td>
+      <td style="text-align: center">0.72s</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Queue</td>
+      <td style="text-align: center">0.079s</td>
+      <td style="text-align: center">0.322s</td>
+      <td style="text-align: center">0.458s</td>
+      <td style="text-align: center">1.012s</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Deque</td>
+      <td style="text-align: center">0.1225s</td>
+      <td style="text-align: center">0.638s</td>
+      <td style="text-align: center">1.267s</td>
+      <td style="text-align: center">2.818s</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Prioority Queue</td>
+      <td style="text-align: center">0.279s</td>
+      <td style="text-align: center">1.378s</td>
+      <td style="text-align: center">2.838s</td>
+      <td style="text-align: center">5.72s</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>데이터 100만 개 결과: <a href="http://jindo.dev.naver.com/jsMatch/index.html?d=367&amp;openResult=1">http://jindo.dev.naver.com/jsMatch/index.html?d=367&amp;openResult=1</a></li>
+  <li>데이터 500만 개 결과: <a href="http://jindo.dev.naver.com/jsMatch/index.html?d=368&amp;openResult=1">http://jindo.dev.naver.com/jsMatch/index.html?d=368&amp;openResult=1</a></li>
+  <li>데이터 1000만 개 결과: <a href="http://jindo.dev.naver.com/jsMatch/index.html?d=369&amp;openResult=1">http://jindo.dev.naver.com/jsMatch/index.html?d=369&amp;openResult=1</a></li>
+  <li>데이터 2000만 개 결과: <a href="http://jindo.dev.naver.com/jsMatch/index.html?d=370&amp;openResult=1">http://jindo.dev.naver.com/jsMatch/index.html?d=370&amp;openResult=1</a></li>
+</ul>
 
 <h2 id="자바스크립트">자바스크립트</h2>
 <ul>
   <li>특징</li>
-  <li>한계</li>
+  <li>한계: <a href="http://huns.me/development/516">function 내부 private 변수 관련</a></li>
 </ul>
 
         
@@ -543,7 +619,8 @@
 ">이전</a>
     
     
-      <a href="#" class="pagination--pager disabled">다음</a>
+      <a href="/pages/CODEMCD/toy/jsdsLib-jsdsLib-Data-Structure-Visualizations/" class="pagination--pager" title="[jsdsLib]Data Structures Visualizations
+">다음</a>
     
   </nav>
 
@@ -575,69 +652,69 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/pages/CODEMCD/toy/jsdsLib-jsdsLib-npm-%ED%8C%A8%ED%82%A4%EC%A7%80/" rel="permalink">[jsdsLib]npm 패키지
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">npm 패키지 만들기, 사용하기 등
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/toy/jsdsLib-jsdsLib-jsDeliver/" rel="permalink">[jsdsLib]jsDelivr
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">오픈소스 CDN jsDelivr
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/toy/jsdsLib-jsdsLib-Data-Structure-Visualizations/" rel="permalink">[jsdsLib]Data Structures Visualizations
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">자료구조 시각화 오픈소스 튜토리얼
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/pages/CODEMCD/toy/Blog-Reference-%EC%9E%90%EC%A3%BC%EC%93%B0%EB%8A%94-MathJax-%EB%AA%85%EB%A0%B9%EC%96%B4/" rel="permalink">[Reference]자주쓰는 MathJax 문법
 </a>
       
     </h2>
     
     <p class="archive__item-excerpt" itemprop="description">블로그에 수학식 사용할 때 쓰는 MathJax 문법 정리
-</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/toy/Blog-Reference-Blog%EC%97%90-post-%EC%98%AC%EB%A6%AC%EA%B8%B0/" rel="permalink">[Reference]Blog에 post 올리기
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">내 블로그에 post 올리는 방법 정리
-</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/study/Docker-WhatIsDocker/" rel="permalink">[Docker] Docker(도커)란?
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">Docker 소개와 기본 개념, 예제
-</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/algorithm/BOJ-1019.%EC%B1%85-%ED%8E%98%EC%9D%B4%EC%A7%80/" rel="permalink">[BOJ] 1019.책 페이지
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">수학
 </p>
   </article>
 </div>
