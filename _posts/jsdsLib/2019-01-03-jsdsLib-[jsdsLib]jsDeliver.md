@@ -119,7 +119,8 @@ Github release 또는 commit 불러오기
 1. npm
 
 jsdsLib 패키지 1.1 버전 불러오기
-```
+
+```html
 <head>
     <meta charset="utf-8" />
     <script src="https://cdn.jsdelivr.net/npm/jsdslib@1.1/dist/List.min.js"></script>
@@ -132,7 +133,8 @@ Github 에서 cdn 서비스를 이용하기 위해서는 먼저, 코드 깃허�
 - ```git tag [version]``` -> ```git push origin [version]```
 
 jsdsLib 1.1 버전 불러오기
-```
+
+```html
 <head>
     <meta charset="utf-8" />
     <script src="https://cdn.jsdelivr.net/gh/CODEMCD/jsdsLib@1.1/dist/List.min.js"></script>
