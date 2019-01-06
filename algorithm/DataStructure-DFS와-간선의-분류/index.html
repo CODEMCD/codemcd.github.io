@@ -9,19 +9,19 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[Algorithm]깊이 우선 탐색(DFS) 사이클 - CODEMCD’s E-BOOK</title>
-<meta name="description" content="깊이 우선 탐색(DFS) 사이클">
+<!-- begin _includes/seo.html --><title>[Algorithm]깊이 우선 탐색(DFS)의 간선 분류 - CODEMCD’s E-BOOK</title>
+<meta name="description" content="깊이 우선 탐색(DFS)의 간선 분류">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's E-BOOK">
-<meta property="og:title" content="[Algorithm]깊이 우선 탐색(DFS) 사이클">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-DFS%EC%99%80-%EC%82%AC%EC%9D%B4%ED%81%B4/">
+<meta property="og:title" content="[Algorithm]깊이 우선 탐색(DFS)의 간선 분류">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/algorithm/DataStructure-DFS%EC%99%80-%EA%B0%84%EC%84%A0%EC%9D%98-%EB%B6%84%EB%A5%98/">
 
 
-  <meta property="og:description" content="깊이 우선 탐색(DFS) 사이클">
+  <meta property="og:description" content="깊이 우선 탐색(DFS)의 간선 분류">
 
 
 
@@ -40,7 +40,7 @@
   
 
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-DFS%EC%99%80-%EC%82%AC%EC%9D%B4%ED%81%B4/">
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/algorithm/DataStructure-DFS%EC%99%80-%EA%B0%84%EC%84%A0%EC%9D%98-%EB%B6%84%EB%A5%98/">
 
 
 
@@ -325,12 +325,12 @@
           
             
               
-                <li><a href="/tags/algorithm-datastructure" class="">DataStructure (8)</a></li>
+                <li><a href="/tags/algorithm-algorithm" class="">Algorithm (10)</a></li>
             
           
             
               
-                <li><a href="/tags/algorithm-algorithm" class="">Algorithm (9)</a></li>
+                <li><a href="/tags/algorithm-datastructure" class="">DataStructure (8)</a></li>
             
           
             
@@ -401,15 +401,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[Algorithm]깊이 우선 탐색(DFS) 사이클">
-    <meta itemprop="description" content="깊이 우선 탐색(DFS) 사이클">
+    <meta itemprop="headline" content="[Algorithm]깊이 우선 탐색(DFS)의 간선 분류">
+    <meta itemprop="description" content="깊이 우선 탐색(DFS)의 간선 분류">
     <meta itemprop="datePublished" content="October 14, 2018">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[Algorithm]깊이 우선 탐색(DFS) 사이클
+          <h1 id="page-title" class="page__title" itemprop="headline">[Algorithm]깊이 우선 탐색(DFS)의 간선 분류
 </h1>
           
         </header>
@@ -417,86 +417,44 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="깊이-우선-탐색dfs로-사이클-존재-여부-확인하기">깊이 우선 탐색(DFS)로 사이클 존재 여부 확인하기</h1>
-
-<h2 id="개요">개요</h2>
+        <h1 id="깊이-우선-탐색dfs과-간선의-분류">깊이 우선 탐색(DFS)과 간선의 분류</h1>
 <ul>
-  <li>미리 알아야 할 내용: DFS와 간선의 분류 링크 해주기</li>
-  <li>간선의 분류를 이용하면 방향 그래프에서 사이클이 존재하는지 쉽게 알 수 있다.
+  <li>어떤 그래프를 깊이 우선 탐색을 했을 때, 탐색이 따라가는 간선들만을 모아 보면 트리 형태를 띤다.</li>
+  <li>예제 그래프</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/46914850-0b0eaa80-cfde-11e8-8515-ba5fdf74851e.JPG" alt="dfsspanningtree1" /></p>
+
+<ul>
+  <li>위 그래프를 0번 정점부터 깊이 우선 탐색했을 때 탐색이 따라가는 간선들을 굵은 실선으로 표시하면 아래의 그림과 같다.</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/46914851-0b0eaa80-cfde-11e8-8c18-8bfcb86e8bef.JPG" alt="dfsspanningtree2" /></p>
+
+<ul>
+  <li>굵은 실선이 0번 정점을 루트로 하는 트리 형태를 띠는 것을 볼 수 있다.</li>
+  <li>이와 같은 트리를 주어진 트리의 깊이 우선 탐색 스패닝 트리 혹은 DFS 스패닝 트리(Spanning Tree)라고 부른다.</li>
+  <li>DFS 스패닝 트리는 4가지의 간선으로 분류된다.
     <ul>
-      <li>사이클의 존재 여부는 역방향 간선의 존재 여부와 동치이다.</li>
+      <li>트리 간선(tree edge): 스패닝 트리에 포함된 간선을 의미한다. (위 그래프의 굵은 선으로 표시된 간선)</li>
+      <li>순방향 간선(forward edge): 스패닝 트리의 선조에서 자손으로 연결되지만 트리 간선이 아닌 간선을 의미한다. (위 그래프의 (0, 6)간선이 그 예이다.)</li>
+      <li>역방향 간선(back edge): 스패닝 트리의 자손에서 선조로 연결되는 간선이다. (위 그래프의 (2, 0)간선이 그 예이다.)</li>
+      <li>교차 간선(cross edge): 위 세 간선을 제외한 나머지 간선을 의미하며, 트리에서 선조와 자손 관계가 아닌 정점들 간에 연결된 간선이다. (위 그래프의 (6, 3)간선이 그 예이다.)</li>
     </ul>
   </li>
-  <li>탐색 과정
+  <li>같은 그래프에서도 깊이 우선 탐색이 어느 순서대로 정점을 방문하느냐에 따라 서로 다른 트리가 만들어질 수 있다. (아래 그래프 예제)</li>
+</ul>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/46914852-0b0eaa80-cfde-11e8-8959-a77da7db7e9e.JPG" alt="dfsspanningtree3" /></p>
+
+<ul>
+  <li>무향 그래프에서 간선의 분류
     <ul>
-      <li>어떤 그래프에서 깊이 우선 탐색 중 만나는 한 정점을 u라고 하자.</li>
-      <li>dfs(u)는 u에서 갈 수 있는 모든 정점들을 방문한 후에 종료된다.</li>
-      <li>따라서, u이전에 있는 한 정점이 dfs(u)가 종료되기 전에 u정점을 방문을 한다면, 해당 정점은 u로 가는 역방향 간선이 된다.</li>
-      <li>결과적으로, 이 그래프는 사이클이 존재하는 그래프가 된다.</li>
+      <li>모든 간선은 양방향으로 통행 가능하므로, 교차 간선이 없다.</li>
+      <li>순방향 간선과 역방향 간선의 구분이 없다.</li>
     </ul>
   </li>
 </ul>
-
-<h2 id="간선-구분하기">간선 구분하기</h2>
-<ul>
-  <li>깊이 우선 탐색을 하면서 간선의 종류를 구분하기 위해서는 기존의 저장해야하라 정보보다 더 많은 정보가 필요하다.</li>
-</ul>
-
-<p><strong>1. 해당 정점이 몇 번째로 방문 되었는지에 대한 정보(방문 순서 정보)</strong></p>
-<ul>
-  <li>기존의 깊이 우선 탐색에서 필요한 정보였던 해당 정점이 방문되었는지에 대한 정보를 대체한다.</li>
-  <li>이 정보로 (u, v)간선이 있을 때, 두 정점의 관계가 선조인지, 자손인지, 아무관계가 없는지를 알 수 있다.</li>
-  <li>(u, v)간선이 순방향 간선인지 알 수 있다.(역방향 간선과 교차 간선은 구분하지 못함)
-    <ul>
-      <li>(u, v)가 순방향 간선이면 v는 u의 자손이므로, v는 u보다 더 늦게 발견된다.</li>
-      <li>(u, v)가 역방향 간선이면 v는 u의 선조이므로, v는 u보다 더 일찍 발견된다.</li>
-      <li>(u, v)가 교차 간선이면 dfs(v)가 종료된 후에 dfs(u)가 호출되므로, v는 u보다 더 일찍 발견된다.</li>
-    </ul>
-  </li>
-  <li><code class="highlighter-rouge">discovered[]</code>배열</li>
-</ul>
-
-<p><strong>2. 해당 정점의 dfs()함수가 종료되었는지에 대한 정보</strong></p>
-<ul>
-  <li>이 정보로 (u v)간선이 역방향 간선인지 교차 간선인지 구분할 수 있다.</li>
-  <li>(u, v)에서 dfs(v)가 아직 종료되지 않았다면 v는 u의 선조이니 역방향 간선이 되고, 종료되었다면 교차 간선이 된다.</li>
-  <li><code class="highlighter-rouge">finished[]</code>배열</li>
-</ul>
-
-<h2 id="구현">구현</h2>
-
-<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">//그래프으이 인접 리스트 표현
-</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;&gt;</span> <span class="n">adj</span><span class="p">;</span>
-<span class="c1">//discovered[i] = i번 정점의 발견 순서, -1로 초기화
-//finished[i] = dfs(i)가 종료했으면 1, 아니면 0
-</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">discovered</span><span class="p">,</span> <span class="n">finished</span><span class="p">;</span>
-<span class="c1">//지금까지 발견한 정점의 수
-</span><span class="kt">int</span> <span class="n">counter</span><span class="p">;</span>
-
-<span class="kt">void</span> <span class="nf">classifyEdgeDfs</span><span class="p">(</span><span class="kt">int</span> <span class="n">here</span><span class="p">)</span> <span class="p">{</span>
-  <span class="n">discovered</span><span class="p">[</span><span class="n">here</span><span class="p">]</span> <span class="o">=</span> <span class="n">counter</span><span class="o">++</span><span class="p">;</span>
-  <span class="c1">//모든 인접 정점을 순회하면서
-</span>  <span class="k">for</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">adj</span><span class="p">[</span><span class="n">here</span><span class="p">].</span><span class="n">size</span><span class="p">();</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int</span> <span class="n">there</span> <span class="o">=</span> <span class="n">adj</span><span class="p">[</span><span class="n">here</span><span class="p">][</span><span class="n">i</span><span class="p">];</span>
-    <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"("</span> <span class="o">&lt;&lt;</span> <span class="n">here</span> <span class="o">&lt;&lt;</span> <span class="s">","</span> <span class="o">&lt;&lt;</span> <span class="n">there</span> <span class="o">&lt;&lt;</span> <span class="s">") is a "</span><span class="p">;</span>
-    <span class="c1">//아직 방문한 적이 없다면 방문한다. (트리 간선)
-</span>    <span class="k">if</span> <span class="p">(</span><span class="n">discovered</span><span class="p">[</span><span class="n">there</span><span class="p">]</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="p">{</span>
-      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"tree edge"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-      <span class="n">classifyEdgeDfs</span><span class="p">(</span><span class="n">there</span><span class="p">);</span>
-    <span class="p">}</span>
-    <span class="c1">//만약 there가 here보다 늦게 발견됐으면 there은 here의 후손이다. (순방향 간선)
-</span>    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">discovered</span><span class="p">[</span><span class="n">here</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">discovered</span><span class="p">[</span><span class="n">there</span><span class="p">])</span>
-      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"forward edge"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-    <span class="c1">//만약 classifyEdgeDfs(there)가 아직 종료되지 않았으면 there은 here의 선조이다. (역방향 간선 = 사이클 존재)
-</span>    <span class="k">else</span> <span class="k">if</span> <span class="p">(</span><span class="n">finished</span><span class="p">[</span><span class="n">there</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span><span class="p">)</span>
-      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"back edge"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-    <span class="c1">//이 외의 모든 경우는 교차 간선
-</span>    <span class="k">else</span>
-      <span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">"cross edge"</span> <span class="o">&lt;&lt;</span> <span class="n">endl</span><span class="p">;</span>
-  <span class="p">}</span>
-  <span class="n">finished</span><span class="p">[</span><span class="n">here</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
 
 <h2 id="참고-문헌">참고 문헌</h2>
 <ul>
@@ -559,24 +517,24 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BAlgorithm%5D%EA%B9%8A%EC%9D%B4+%EC%9A%B0%EC%84%A0+%ED%83%90%EC%83%89%28DFS%29+%EC%82%AC%EC%9D%B4%ED%81%B4%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-DFS%25EC%2599%2580-%25EC%2582%25AC%25EC%259D%25B4%25ED%2581%25B4%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BAlgorithm%5D%EA%B9%8A%EC%9D%B4+%EC%9A%B0%EC%84%A0+%ED%83%90%EC%83%89%28DFS%29%EC%9D%98+%EA%B0%84%EC%84%A0+%EB%B6%84%EB%A5%98%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FDataStructure-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-DFS%25EC%2599%2580-%25EC%2582%25AC%25EC%259D%25B4%25ED%2581%25B4%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FDataStructure-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-DFS%25EC%2599%2580-%25EC%2582%25AC%25EC%259D%25B4%25ED%2581%25B4%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FDataStructure-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FAlgorithm-DFS%25EC%2599%2580-%25EC%2582%25AC%25EC%259D%25B4%25ED%2581%25B4%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FDataStructure-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/algorithm/Algorithm-DFS%EC%99%80-%EA%B0%84%EC%84%A0%EC%9D%98-%EB%B6%84%EB%A5%98/" class="pagination--pager" title="[Algorithm]깊이 우선 탐색(DFS)의 간선 분류
+      <a href="/pages/CODEMCD/algorithm/DataStructure-BFS%EC%99%80-%EC%B5%9C%EB%8B%A8%EA%B1%B0%EB%A6%AC/" class="pagination--pager" title="[Algorithm]너비 우선 탐색(BFS)
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/algorithm/Algorithm-%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" class="pagination--pager" title="[Algorithm]다익스트라 알고리즘
+      <a href="/pages/CODEMCD/algorithm/DataStructure-DFS%EC%99%80-%EC%82%AC%EC%9D%B4%ED%81%B4/" class="pagination--pager" title="[Algorithm]깊이 우선 탐색(DFS) 사이클
 ">다음</a>
     
   </nav>
@@ -599,6 +557,25 @@
     <div class="page__related">
       <h4 class="page__related-title">참고</h4>
       <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/algorithm/Algorithm-%EB%B9%84%ED%8A%B8%EB%A7%88%EC%8A%A4%ED%81%AC/" rel="permalink">[Algorithm]비트마스크
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">비트 연산
+</p>
+  </article>
+</div>
         
           
 
@@ -653,25 +630,6 @@
     </h2>
     
     <p class="archive__item-excerpt" itemprop="description">자료구조 시각화 오픈소스 튜토리얼
-</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/toy/jsdsLib-jsdsLib-%EB%9D%BC%EC%9D%B4%EB%B8%8C%EB%9F%AC%EB%A6%AC-%EB%B6%84%EC%84%9D/" rel="permalink">[jsdsLib]라이브러리 분석
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">jsdsLib 내부 구조, 성능, 등 분석
 </p>
   </article>
 </div>
@@ -794,8 +752,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-DFS%EC%99%80-%EC%82%AC%EC%9D%B4%ED%81%B4/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/algorithm/Algorithm-DFS와 사이클"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/algorithm/DataStructure-DFS%EC%99%80-%EA%B0%84%EC%84%A0%EC%9D%98-%EB%B6%84%EB%A5%98/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/algorithm/DataStructure-DFS와 간선의 분류"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
