@@ -37,21 +37,21 @@ boolean 을 키로 갖는 연관 배열 객체 ```map<vector<bool>, int>``` 를 
 
 - 예제
 
-<그림 삽입>
+![and_or_xor](https://user-images.githubusercontent.com/34755287/50885283-98706800-1430-11e9-9084-d7926d174b0f.JPG)
 
 ### NOT
 비트별 NOT 연산은 켜져 있는 비트는 끄고, 꺼져 있는 비트는 켠 결과를 반환한다. C++ 기준 정수 a의 비트별 NOT 연산을 수행하려면 ```~a``` 로 표현한다.
 
 - 예제
 
-< 그림 삽입>
+![not](https://user-images.githubusercontent.com/34755287/50885284-9908fe80-1430-11e9-9f17-dfe129362777.JPG)
 
 ### shift
 시프트(shift) 연산자는 정수 a 의 비트들을 왼쪽 또는 오른쪽으로 원하는 만큼 움직인다. C++ 기준 정수 a 를 왼쪽으로 b 비트 시프트 수행은 ```a << b```이고, 오른쪽으로 b 비트 시프트 수행은 ```a >> b``` 로 표현한다.
 
 - 예제
 
-<그림 삽입>
+![shift](https://user-images.githubusercontent.com/34755287/50885285-9908fe80-1430-11e9-9577-f03d826eb059.JPG)
 
 ## 유의할 점
 1. 비트 연산자 우선순위
