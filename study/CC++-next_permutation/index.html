@@ -9,38 +9,38 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[Algorithm]깊이 우선 탐색(DFS)의 간선 분류 - CODEMCD’s E-BOOK</title>
-<meta name="description" content="깊이 우선 탐색(DFS)의 간선 분류">
+<!-- begin _includes/seo.html --><title>[C++ STL] next_permutation - CODEMCD’s E-BOOK</title>
+<meta name="description" content="next_permutation STL 함수 이해">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's E-BOOK">
-<meta property="og:title" content="[Algorithm]깊이 우선 탐색(DFS)의 간선 분류">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/algorithm/DataStructure-DFS%EC%99%80-%EA%B0%84%EC%84%A0%EC%9D%98-%EB%B6%84%EB%A5%98/">
+<meta property="og:title" content="[C++ STL] next_permutation">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/CC++-next_permutation/">
 
 
-  <meta property="og:description" content="깊이 우선 탐색(DFS)의 간선 분류">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+  <meta property="og:description" content="next_permutation STL 함수 이해">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2018-11-17T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/algorithm/DataStructure-DFS%EC%99%80-%EA%B0%84%EC%84%A0%EC%9D%98-%EB%B6%84%EB%A5%98/">
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/study/CC++-next_permutation/">
 
 
 
@@ -410,15 +410,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[Algorithm]깊이 우선 탐색(DFS)의 간선 분류">
-    <meta itemprop="description" content="깊이 우선 탐색(DFS)의 간선 분류">
-    <meta itemprop="datePublished" content="October 14, 2018">
+    <meta itemprop="headline" content="[C++ STL] next_permutation">
+    <meta itemprop="description" content="next_permutation STL 함수 이해">
+    <meta itemprop="datePublished" content="November 17, 2018">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[Algorithm]깊이 우선 탐색(DFS)의 간선 분류
+          <h1 id="page-title" class="page__title" itemprop="headline">[C++ STL] next_permutation
 </h1>
           
         </header>
@@ -426,48 +426,117 @@
 
       <section class="page__content" itemprop="text">
         
-        <h1 id="깊이-우선-탐색dfs과-간선의-분류">깊이 우선 탐색(DFS)과 간선의 분류</h1>
-<ul>
-  <li>어떤 그래프를 깊이 우선 탐색을 했을 때, 탐색이 따라가는 간선들만을 모아 보면 트리 형태를 띤다.</li>
-  <li>예제 그래프</li>
-</ul>
-
-<p><img src="https://user-images.githubusercontent.com/34755287/46914850-0b0eaa80-cfde-11e8-8515-ba5fdf74851e.JPG" alt="dfsspanningtree1" /></p>
-
-<ul>
-  <li>위 그래프를 0번 정점부터 깊이 우선 탐색했을 때 탐색이 따라가는 간선들을 굵은 실선으로 표시하면 아래의 그림과 같다.</li>
-</ul>
-
-<p><img src="https://user-images.githubusercontent.com/34755287/46914851-0b0eaa80-cfde-11e8-8c18-8bfcb86e8bef.JPG" alt="dfsspanningtree2" /></p>
-
-<ul>
-  <li>굵은 실선이 0번 정점을 루트로 하는 트리 형태를 띠는 것을 볼 수 있다.</li>
-  <li>이와 같은 트리를 주어진 트리의 깊이 우선 탐색 스패닝 트리 혹은 DFS 스패닝 트리(Spanning Tree)라고 부른다.</li>
-  <li>DFS 스패닝 트리는 4가지의 간선으로 분류된다.
+          <aside class="sidebar__right ">
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> On This Page</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#next_permutation">next_permutation</a>
     <ul>
-      <li>트리 간선(tree edge): 스패닝 트리에 포함된 간선을 의미한다. (위 그래프의 굵은 선으로 표시된 간선)</li>
-      <li>순방향 간선(forward edge): 스패닝 트리의 선조에서 자손으로 연결되지만 트리 간선이 아닌 간선을 의미한다. (위 그래프의 (0, 6)간선이 그 예이다.)</li>
-      <li>역방향 간선(back edge): 스패닝 트리의 자손에서 선조로 연결되는 간선이다. (위 그래프의 (2, 0)간선이 그 예이다.)</li>
-      <li>교차 간선(cross edge): 위 세 간선을 제외한 나머지 간선을 의미하며, 트리에서 선조와 자손 관계가 아닌 정점들 간에 연결된 간선이다. (위 그래프의 (6, 3)간선이 그 예이다.)</li>
-    </ul>
-  </li>
-  <li>같은 그래프에서도 깊이 우선 탐색이 어느 순서대로 정점을 방문하느냐에 따라 서로 다른 트리가 만들어질 수 있다. (아래 그래프 예제)</li>
-</ul>
-
-<p><img src="https://user-images.githubusercontent.com/34755287/46914852-0b0eaa80-cfde-11e8-8959-a77da7db7e9e.JPG" alt="dfsspanningtree3" /></p>
-
-<ul>
-  <li>무향 그래프에서 간선의 분류
-    <ul>
-      <li>모든 간선은 양방향으로 통행 가능하므로, 교차 간선이 없다.</li>
-      <li>순방향 간선과 역방향 간선의 구분이 없다.</li>
+      <li><a href="#구문">구문</a></li>
+      <li><a href="#코드-분석">코드 분석</a></li>
+      <li><a href="#요구-사항">요구 사항</a></li>
+      <li><a href="#예제-코드">예제 코드</a></li>
+      <li><a href="#참고-자료">참고 자료</a></li>
     </ul>
   </li>
 </ul>
+            </nav>
+          </aside>
+        
+        <h1 id="next_permutation">next_permutation</h1>
+<p><code class="highlighter-rouge">next_permutation</code> 함수는 원래 순서를 다음 사전 순서의 순열로 재배치해주는 함수이다. (사전 순서는 오름차순이라고 볼 수 있다.)</p>
 
-<h2 id="참고-문헌">참고 문헌</h2>
+<h2 id="구문">구문</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">BidirectionalIterator</span><span class="o">&gt;</span>
+  <span class="kt">bool</span> <span class="n">next_permutation</span><span class="p">(</span>
+    <span class="n">BidirectionalIterator</span> <span class="n">_First</span><span class="p">,</span>
+    <span class="n">BidirectionalIterator</span> <span class="n">_Last</span>
+  <span class="p">);</span>
+<span class="c1">//배치 순서를 직접 지정해줄 수 있다.
+</span><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">BidirectionalIterator</span><span class="p">,</span> <span class="k">class</span> <span class="nc">BinaryPredicate</span><span class="o">&gt;</span>
+  <span class="kt">bool</span> <span class="n">next_permutation</span><span class="p">(</span>
+    <span class="n">BidirectionalIterator</span> <span class="n">_First</span><span class="p">,</span>
+    <span class="n">BidirectionalIterator</span> <span class="n">_Last</span><span class="p">,</span>
+    <span class="n">BinaryPredicate</span> <span class="n">_Comp</span>
+  <span class="p">);</span>
+</code></pre></div></div>
+
 <ul>
-  <li>프로그래밍 대회에서 배우는 알고리즘 문제해결전략, 인사이트, 구종만 지음</li>
+  <li><code class="highlighter-rouge">_First</code>: 다음 순열로 배치할 배열의 첫 번째 원소를 가르키는 반복자.</li>
+  <li><code class="highlighter-rouge">_Last</code>: 다음 순열로 배치할 배열의 마지막 원소를 가르키는 반복자.</li>
+  <li><code class="highlighter-rouge">_Comp</code>: 두 개의 인수를 사용하여 순서 조건이 만족하면 true, 만족하지 않으면 false를 반환한다.</li>
+  <li>반환값: 다음 순열이 현재 순열보다 사전 편찬 상 다음 순서이면 true, 사전 편찬 상 가장 작은 순서이면 false를 반환한다.
+    <blockquote>
+      <p>반환값을 통해 주의할 점은 순열을 구할 초기 배열이 오름차순으로 정렬되어 있다면 모든 순열을 순조롭게 구할 수 있지만, 오름차순이 아니라면 중간에 사전 편찬 상 가장 작은 순서(즉, 오름 차순으로 된 순서)가 발견되면 false를 반환하여 순열을 구하는 반복문을 빠져나갈 수 있다.</p>
+    </blockquote>
+  </li>
+</ul>
+
+<h2 id="코드-분석">코드 분석</h2>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/48662100-2c245880-eac0-11e8-9216-ad1b3790e89a.jpg" alt="stl_next permutation" /></p>
+
+<p>위 코드는 algorithm 헤더파일에 있는 <code class="highlighter-rouge">next_permutation</code> 함수와 참고자료를 참고하여 만들었으며, int 배열에서만 동작한다. <code class="highlighter-rouge">next_permutation</code> 함수는 배열의 뒤에서 부터 탐색하여 사전 편찬 방식에서 그 다음 순열을 찾는다.</p>
+
+<p>시간 복잡도는 (last - first) / 2 swap(<code class="highlighter-rouge">reverse</code> 함수의 시간 복잡도) * N(배열의 길이)이다. reference의 설명을 참고하면 O(N)으로 선형적이라고 설명하고 있다.</p>
+
+<h2 id="요구-사항">요구 사항</h2>
+<ul>
+  <li>헤더: <algorithm></algorithm></li>
+  <li>네임스페이스: std</li>
+</ul>
+
+<h2 id="예제-코드">예제 코드</h2>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+</span><span class="k">using</span> <span class="k">namespace</span> <span class="n">std</span><span class="p">;</span>
+
+<span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+	<span class="kt">int</span> <span class="n">arr</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span> <span class="p">};</span>
+
+	<span class="k">do</span> <span class="p">{</span>
+		<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">4</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+			<span class="n">printf</span><span class="p">(</span><span class="s">"%d "</span><span class="p">,</span> <span class="n">arr</span><span class="p">[</span><span class="n">i</span><span class="p">]);</span>
+		<span class="n">printf</span><span class="p">(</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+	<span class="p">}</span> <span class="k">while</span> <span class="p">(</span><span class="n">next_permutation</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">arr</span> <span class="o">+</span> <span class="mi">4</span><span class="p">));</span>
+
+	<span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1 2 3 4
+1 2 4 3
+1 3 2 4
+1 3 4 2
+1 4 2 3
+1 4 3 2
+2 1 3 4
+2 1 4 3
+2 3 1 4
+2 3 4 1
+2 4 1 3
+2 4 3 1
+3 1 2 4
+3 1 4 2
+3 2 1 4
+3 2 4 1
+3 4 1 2
+3 4 2 1
+4 1 2 3
+4 1 3 2
+4 2 1 3
+4 2 3 1
+4 3 1 2
+4 3 2 1
+</code></pre></div></div>
+
+<h2 id="참고-자료">참고 자료</h2>
+<ul>
+  <li><a href="https://msdn.microsoft.com/ko-kr/library/e7d3xas6.aspx">Microsoft MSDN next_permutation</a></li>
+  <li><a href="http://jeonggyun.tistory.com/110">http://jeonggyun.tistory.com/110</a></li>
 </ul>
 
         
@@ -489,7 +558,7 @@
     
       
       
-      <a href="/pages/CODEMCD/tags/#algorithm-datastructure" class="page__taxonomy-item" rel="tag">Algorithm_DataStructure</a>
+      <a href="/pages/CODEMCD/tags/#study-ccpp" class="page__taxonomy-item" rel="tag">Study_CCpp</a>
     
     </span>
   </p>
@@ -510,14 +579,14 @@
     
       
       
-      <a href="/pages/CODEMCD/categories/#algorithm" class="page__taxonomy-item" rel="tag">Algorithm</a>
+      <a href="/pages/CODEMCD/categories/#study" class="page__taxonomy-item" rel="tag">Study</a>
     
     </span>
   </p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-11-17T00:00:00+09:00">November 17, 2018</time></p>
         
       </footer>
 
@@ -526,24 +595,24 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BAlgorithm%5D%EA%B9%8A%EC%9D%B4+%EC%9A%B0%EC%84%A0+%ED%83%90%EC%83%89%28DFS%29%EC%9D%98+%EA%B0%84%EC%84%A0+%EB%B6%84%EB%A5%98%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FDataStructure-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BC%2B%2B+STL%5D+next_permutation%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FCC%2B%2B-next_permutation%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FDataStructure-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FCC%2B%2B-next_permutation%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FDataStructure-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FCC%2B%2B-next_permutation%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Falgorithm%2FDataStructure-DFS%25EC%2599%2580-%25EA%25B0%2584%25EC%2584%25A0%25EC%259D%2598-%25EB%25B6%2584%25EB%25A5%2598%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FCC%2B%2B-next_permutation%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/algorithm/DataStructure-BFS%EC%99%80-%EC%B5%9C%EB%8B%A8%EA%B1%B0%EB%A6%AC/" class="pagination--pager" title="[Algorithm]너비 우선 탐색(BFS)
+      <a href="/pages/CODEMCD/algorithm/BOJ-1342.%ED%96%89%EC%9A%B4%EC%9D%98-%EB%AC%B8%EC%9E%90%EC%97%B4/" class="pagination--pager" title="[BOJ] 1342.행운의 문자열
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/algorithm/DataStructure-DFS%EC%99%80-%EC%82%AC%EC%9D%B4%ED%81%B4/" class="pagination--pager" title="[Algorithm]깊이 우선 탐색(DFS) 사이클
+      <a href="/pages/CODEMCD/algorithm/BOJ-1019.%EC%B1%85-%ED%8E%98%EC%9D%B4%EC%A7%80/" class="pagination--pager" title="[BOJ] 1019.책 페이지
 ">다음</a>
     
   </nav>
@@ -761,8 +830,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/algorithm/DataStructure-DFS%EC%99%80-%EA%B0%84%EC%84%A0%EC%9D%98-%EB%B6%84%EB%A5%98/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/algorithm/DataStructure-DFS와 간선의 분류"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/study/CC++-next_permutation/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/study/CC++-next_permutation"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
