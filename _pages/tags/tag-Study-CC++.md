@@ -11,7 +11,7 @@ sidebar_main: true
 ---
 # INDEX
 
-{% assign posts = site.tags.Study_CC++ | sort:"date" %}
+{% assign posts = site.tags.Study_CCpp | sort:"date" %}
 
 {% for post in posts %}
   {% include archive-single.html type=page.entries_layout %}

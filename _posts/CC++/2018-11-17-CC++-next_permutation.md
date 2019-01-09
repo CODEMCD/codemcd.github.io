@@ -4,7 +4,7 @@ excerpt: "next_permutation STL 함수 이해"
 categories:
   - Study
 tags:
-  - Study_CC++
+  - Study_CCpp
 search: true
 toc: true
 sidebar_main: true
