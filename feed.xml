@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-01-09T17:57:04+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s E-BOOK</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[C/C++]문자열 상수와 문자열 변수</title><link href="https://codemcd.github.io/pages/CODEMCD/study/CC++-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%83%81%EC%88%98%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%B3%80%EC%88%98/" rel="alternate" type="text/html" title="[C/C++]문자열 상수와 문자열 변수" /><published>2019-01-09T00:00:00+09:00</published><updated>2019-01-09T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/CC++-%EB%AC%B8%EC%9E%90%EC%97%B4%20%EC%83%81%EC%88%98%EC%99%80%20%EB%AC%B8%EC%9E%90%EC%97%B4%20%EB%B3%80%EC%88%98</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/CC++-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%83%81%EC%88%98%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%B3%80%EC%88%98/">&lt;p&gt;C/C++ 에서 문자열을 특히 &lt;code class=&quot;highlighter-rouge&quot;&gt;char&lt;/code&gt; 형으로 다룰 때 문자열 상수와 문자열 변수를 구분해서 사용해야 한다. 그렇지 않으면 수 많은 에러때문에 고생할 수 있다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-01-10T19:54:32+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s E-BOOK</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[C/C++]문자열 상수와 문자열 변수</title><link href="https://codemcd.github.io/pages/CODEMCD/study/CC++-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%83%81%EC%88%98%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%B3%80%EC%88%98/" rel="alternate" type="text/html" title="[C/C++]문자열 상수와 문자열 변수" /><published>2019-01-09T00:00:00+09:00</published><updated>2019-01-09T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/CC++-%EB%AC%B8%EC%9E%90%EC%97%B4%20%EC%83%81%EC%88%98%EC%99%80%20%EB%AC%B8%EC%9E%90%EC%97%B4%20%EB%B3%80%EC%88%98</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/CC++-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%83%81%EC%88%98%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%B3%80%EC%88%98/">&lt;p&gt;C/C++ 에서 문자열을 특히 &lt;code class=&quot;highlighter-rouge&quot;&gt;char&lt;/code&gt; 형으로 다룰 때 문자열 상수와 문자열 변수를 구분해서 사용해야 한다. 그렇지 않으면 수 많은 에러때문에 고생할 수 있다.&lt;/p&gt;
 
 &lt;p&gt;먼저, C/C++ 의 메모리 구조를 보자.&lt;/p&gt;
 
@@ -1495,29 +1495,39 @@ Sets the layer of the object. All objects default to layer 0, and the “shown�
 &lt;/ul&gt;
 
 &lt;h2 id=&quot;priority-queue&quot;&gt;Priority Queue&lt;/h2&gt;
+&lt;h3 id=&quot;v110&quot;&gt;V1.1.0&lt;/h3&gt;
 &lt;p&gt;우선 순위 큐는 일반적인 heap 를 이용하여 구현하였다. 조금의 성능 개선을 위해 데이터를 삽입 또는 삭제한 후의 다시 heap 배열의 우선 순위를 맞추는 연산에서 실제 데이터 사이 교환(swap)을 하지 않고 인덱스만 저장한다. 그리고 최종 인덱스에 데이터를 저장하는 방식으로 구현되어 있다.&lt;/p&gt;
+
+&lt;h3 id=&quot;v120&quot;&gt;V1.2.0&lt;/h3&gt;
+&lt;p&gt;Priority Queue 의 성능 향상을 위해 enqueue(), dequeue() 함수를 변경하였다. 배열 힙을 사용한 것과 삽입, 삭제 알고리즘은 변경하지 않았다. 아래의 링크의 코드를 참조하였고, 변경사항은 아래와 같다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;부모, 자식 인덱스 계산을 비트 계산으로 변경하였다.&lt;/li&gt;
+  &lt;li&gt;배열 힙의 첫 인덱스를 1에서 0으로 변경하였다.(이 부분에서 큰 시간 차이가 난 것을 툴을 이용해 확인하였다.)&lt;/li&gt;
+  &lt;li&gt;데이터 삽입, 삭제시 배열 내부 매서드인 push(), pop() 로 실제 힙의 배열 데이터를 조정한다.&lt;/li&gt;
+  &lt;li&gt;참고 코드: &lt;a href=&quot;https://github.com/mourner/tinyqueue&quot;&gt;https://github.com/mourner/tinyqueue&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
 
 &lt;h2 id=&quot;성능-분석&quot;&gt;성능 분석&lt;/h2&gt;
 &lt;p&gt;jsdsLib 의 자료구조의 웹 브라우저에서 성능을 확인하기 위해 간단히 툴을 이용하여 실험해보았다.&lt;/p&gt;
+
+&lt;h3 id=&quot;측정-환경&quot;&gt;측정 환경&lt;/h3&gt;
 &lt;ul&gt;
   &lt;li&gt;Tool: &lt;a href=&quot;http://jindo.dev.naver.com/jsMatch/about.html&quot;&gt;jsMatch&lt;/a&gt; (네이버 오픈소스, 자바스크립트 성능 측정 도구)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;측정 매서드
-각 자료구조에서 데이터를 삽입, 삭제하는 연산을 측정하였다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;List: &lt;code class=&quot;highlighter-rouge&quot;&gt;push_front()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;pop_front()&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Stack: &lt;code class=&quot;highlighter-rouge&quot;&gt;push()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;pop()&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Queue: &lt;code class=&quot;highlighter-rouge&quot;&gt;enqueue()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;dequeue()&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Deque: &lt;code class=&quot;highlighter-rouge&quot;&gt;unshift()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;shift()&lt;/code&gt;&lt;/li&gt;
-  &lt;li&gt;Priority Queue: &lt;code class=&quot;highlighter-rouge&quot;&gt;push()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;pop()&lt;/code&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;측정 결과&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;기준 웹 브라우저: chrome&lt;/li&gt;
+  &lt;li&gt;브라우저: chrome&lt;/li&gt;
+  &lt;li&gt;측정 매서드: 각 자료구조에서 데이터를 삽입, 삭제하는 연산을 측정하였다.
+    &lt;ul&gt;
+      &lt;li&gt;List: &lt;code class=&quot;highlighter-rouge&quot;&gt;push_front()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;pop_front()&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Stack: &lt;code class=&quot;highlighter-rouge&quot;&gt;push()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;pop()&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Queue: &lt;code class=&quot;highlighter-rouge&quot;&gt;enqueue()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;dequeue()&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Deque: &lt;code class=&quot;highlighter-rouge&quot;&gt;unshift()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;shift()&lt;/code&gt;&lt;/li&gt;
+      &lt;li&gt;Priority Queue: &lt;code class=&quot;highlighter-rouge&quot;&gt;push()&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;pop()&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
   &lt;li&gt;데이터 개수는 각각 삽입 연산, 삭제 연산 분리하여 적용하였다.(예를 들어, 데이터 개수가 100만개라면, 삽입 연산 100만 번, 삭제 연산 100만 번을 수행한다.)&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&quot;v110-측정-결과&quot;&gt;V1.1.0 측정 결과&lt;/h3&gt;
+&lt;p&gt;v1.1.0 에서 추가한 5가지 자료구조 List, Stack, Queue, Deque, Priority Queue 의 성능을 측정하였다.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -1559,7 +1569,7 @@ Sets the layer of the object. All objects default to layer 0, and the “shown�
       &lt;td style=&quot;text-align: center&quot;&gt;2.818s&lt;/td&gt;
     &lt;/tr&gt;
     &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;Prioority Queue&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Priority Queue&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;0.279s&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;1.378s&lt;/td&gt;
       &lt;td style=&quot;text-align: center&quot;&gt;2.838s&lt;/td&gt;
@@ -1574,6 +1584,43 @@ Sets the layer of the object. All objects default to layer 0, and the “shown�
   &lt;li&gt;데이터 1000만 개 결과: &lt;a href=&quot;http://jindo.dev.naver.com/jsMatch/index.html?d=369&amp;amp;openResult=1&quot;&gt;http://jindo.dev.naver.com/jsMatch/index.html?d=369&amp;amp;openResult=1&lt;/a&gt;&lt;/li&gt;
   &lt;li&gt;데이터 2000만 개 결과: &lt;a href=&quot;http://jindo.dev.naver.com/jsMatch/index.html?d=370&amp;amp;openResult=1&quot;&gt;http://jindo.dev.naver.com/jsMatch/index.html?d=370&amp;amp;openResult=1&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;h3 id=&quot;v120-측정-결과&quot;&gt;V1.2.0 측정 결과&lt;/h3&gt;
+&lt;p&gt;V1.2.0 에서 변경된 사항은 Priority Queue 의 성능 향상을 위해 enqueue(), dequeue() 함수를 수정하였다. 성능 향상을 확인하기 위해 위에서 사용한 툴을 이용하여 v1.1.0 Priority Queue 와 v1.2.0 Priority Queue 를 비교 수행하였다. 결과는 아래의 표와 같다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt; &lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;1,000,000&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;5,000,000&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;10,000,000&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;20,000,000&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;v1.1.0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0.293s&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1.456s&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2.833s&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;6.454s&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;v1.2.0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0.253s&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1.264s&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2.437s&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4.836s&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;데이터 100만개 결과: &lt;a href=&quot;http://jindo.dev.naver.com/jsMatch/index.html?d=371&amp;amp;openResult=1&quot;&gt;http://jindo.dev.naver.com/jsMatch/index.html?d=371&amp;amp;openResult=1&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;데이터 개수가 적을 때는 효과가 적지만 데이터가 많아질수록 수행 시간 차이가 커지는 것을 확인할 수 있다.&lt;/p&gt;
 
 &lt;h2 id=&quot;자바스크립트&quot;&gt;자바스크립트&lt;/h2&gt;
 &lt;ul&gt;
