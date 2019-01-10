@@ -15,8 +15,10 @@ toc: true
 
 ![list structure](https://user-images.githubusercontent.com/34755287/50594895-b9d9cd00-0ee1-11e9-9ad1-812c0b35e01d.JPG)
 
+
 ## Stack
 일반적인 배열 스택이다. 배열의 맨 뒤의 데이터가 삽입, 삭제되므로 시작복잡도는 O(1) 을 보장한다.
+
 
 ## Queue
 배열로 만들어진 큐이다. 큐는 맨 앞의 데이터가 삭제되므로, 일반적인 자바스크립트에서 ```.shift()``` 매서드를 사용하면 O(N) 으로 성능이 좋지 않다. 맨 앞의 데이터를 삭제하고 나머지 데이터들을 모두 앞으로 한 칸씩 당겨야하기 때문이다. 이를 개선하기 위해서 맨 앞의 데이터를 삭제하지만, 매번 나머지 데이터들을 앞으로 당기지 않도록 한다. 먼저, 코드를 보자.
@@ -36,24 +38,35 @@ return dequeueData;
 Deque(덱, 데크) 는 스택과 큐를 합친 자료구조이다. 여기에 더해 맨 앞에서도 데이터를 추가할 수 있다. 맨 앞의 데이터를 삭제하는 연산을 ```.shift()``` 매서드를 쓰지 않고 좀 더 성능을 개선한 방법은 위의 큐에서 설명하였다. 하지만 맨 앞에 데이터를 추가하는 것 역시 일반적인 ```.unshift()``` 매서드를 사용한다면 성능이 좋지않다. 이를 개선하기 위해 npm 패키지 중 deque 를 구현한 코드를 참고하였다. 아직까지 완전한 이해를 하지 못하여 추후에 좀 더 분석하여 올릴 예정이다.
 - 참고 코드: <https://github.com/petkaantonov/deque/blob/master/src/deque.js>
 
+
 ## Priority Queue
+### V1.1.0
 우선 순위 큐는 일반적인 heap 를 이용하여 구현하였다. 조금의 성능 개선을 위해 데이터를 삽입 또는 삭제한 후의 다시 heap 배열의 우선 순위를 맞추는 연산에서 실제 데이터 사이 교환(swap)을 하지 않고 인덱스만 저장한다. 그리고 최종 인덱스에 데이터를 저장하는 방식으로 구현되어 있다.
+
+### V1.2.0
+Priority Queue 의 성능 향상을 위해 enqueue(), dequeue() 함수를 변경하였다. 배열 힙을 사용한 것과 삽입, 삭제 알고리즘은 변경하지 않았다. 아래의 링크의 코드를 참조하였고, 변경사항은 아래와 같다.
+- 부모, 자식 인덱스 계산을 비트 계산으로 변경하였다.
+- 배열 힙의 첫 인덱스를 1에서 0으로 변경하였다.(이 부분에서 큰 시간 차이가 난 것을 툴을 이용해 확인하였다.)
+- 데이터 삽입, 삭제시 배열 내부 매서드인 push(), pop() 로 실제 힙의 배열 데이터를 조정한다.
+- 참고 코드: <https://github.com/mourner/tinyqueue>
+
 
 ## 성능 분석
 jsdsLib 의 자료구조의 웹 브라우저에서 성능을 확인하기 위해 간단히 툴을 이용하여 실험해보았다.
+
+### 측정 환경
 - Tool: [jsMatch](http://jindo.dev.naver.com/jsMatch/about.html) (네이버 오픈소스, 자바스크립트 성능 측정 도구)
-
-측정 매서드
-각 자료구조에서 데이터를 삽입, 삭제하는 연산을 측정하였다.
-- List: ```push_front()```, ```pop_front()```
-- Stack: ```push()```, ```pop()```
-- Queue: ```enqueue()```, ```dequeue()```
-- Deque: ```unshift()```, ```shift()```
-- Priority Queue: ```push()```, ```pop()```
-
-측정 결과
-- 기준 웹 브라우저: chrome
+- 브라우저: chrome
+- 측정 매서드: 각 자료구조에서 데이터를 삽입, 삭제하는 연산을 측정하였다.
+  - List: ```push_front()```, ```pop_front()```
+  - Stack: ```push()```, ```pop()```
+  - Queue: ```enqueue()```, ```dequeue()```
+  - Deque: ```unshift()```, ```shift()```
+  - Priority Queue: ```push()```, ```pop()```
 - 데이터 개수는 각각 삽입 연산, 삭제 연산 분리하여 적용하였다.(예를 들어, 데이터 개수가 100만개라면, 삽입 연산 100만 번, 삭제 연산 100만 번을 수행한다.)
+
+### V1.1.0 측정 결과
+v1.1.0 에서 추가한 5가지 자료구조 List, Stack, Queue, Deque, Priority Queue 의 성능을 측정하였다.
 
 |  | 1,000,000 | 5,000,000 | 10,000,000 | 20,000,000 |
 |:---------------:|:---------:|:---------:|:----------:|:----------:|
@@ -61,12 +74,25 @@ jsdsLib 의 자료구조의 웹 브라우저에서 성능을 확인하기 위해
 | Stack | 0.0585s | 0.22s | 0.472s | 0.72s |
 | Queue | 0.079s | 0.322s | 0.458s | 1.012s |
 | Deque | 0.1225s | 0.638s | 1.267s | 2.818s |
-| Prioority Queue | 0.279s | 1.378s | 2.838s | 5.72s |
+| Priority Queue | 0.279s | 1.378s | 2.838s | 5.72s |
 
 - 데이터 100만 개 결과: <http://jindo.dev.naver.com/jsMatch/index.html?d=367&openResult=1>
 - 데이터 500만 개 결과: <http://jindo.dev.naver.com/jsMatch/index.html?d=368&openResult=1>
 - 데이터 1000만 개 결과: <http://jindo.dev.naver.com/jsMatch/index.html?d=369&openResult=1>
 - 데이터 2000만 개 결과: <http://jindo.dev.naver.com/jsMatch/index.html?d=370&openResult=1>
+
+### V1.2.0 측정 결과
+V1.2.0 에서 변경된 사항은 Priority Queue 의 성능 향상을 위해 enqueue(), dequeue() 함수를 수정하였다. 성능 향상을 확인하기 위해 위에서 사용한 툴을 이용하여 v1.1.0 Priority Queue 와 v1.2.0 Priority Queue 를 비교 수행하였다. 결과는 아래의 표와 같다.
+
+|  | 1,000,000 | 5,000,000 | 10,000,000 | 20,000,000 |
+|:------:|:---------:|:---------:|:----------:|:----------:|
+| v1.1.0 | 0.293s | 1.456s | 2.833s | 6.454s |
+| v1.2.0 | 0.253s | 1.264s | 2.437s | 4.836s |
+
+- 데이터 100만개 결과: <http://jindo.dev.naver.com/jsMatch/index.html?d=371&openResult=1>
+
+데이터 개수가 적을 때는 효과가 적지만 데이터가 많아질수록 수행 시간 차이가 커지는 것을 확인할 수 있다.
+
 
 ## 자바스크립트
 - 특징
