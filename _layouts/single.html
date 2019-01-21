@@ -16,6 +16,7 @@ layout: default
 
 <div id="main" role="main">
   {% include sidebar.html %}
+  {% include sidebar_right.html %}
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
     {% if page.title %}<meta itemprop="headline" content="{{ page.title | markdownify | strip_html | strip_newlines | escape_once }}">{% endif %}
@@ -32,18 +33,6 @@ layout: default
           {% endif %}
         </header>
       {% endunless %}
-
-      {% if page.toc %}
-      <aside class="sidebar__right {% if page.toc_sticky %}sticky{% endif %}">
-        <nav class="toc">
-          <header>
-            <h4 class="nav__title"><i class="fas fa-{{ page.toc_icon | default: 'file-alt' }}"></i> {{ page.toc_label |
-              default: site.data.ui-text[site.locale].toc_label }}</h4>
-          </header>
-          {% include toc.html sanitize=true html=content h_min=1 h_max=6 class="toc__menu" %}
-        </nav>
-      </aside>
-      {% endif %}
 
       <section class="page__content" itemprop="text">
         <!-- {% if page.toc %}
