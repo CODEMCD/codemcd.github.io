@@ -29,7 +29,11 @@
           {% for tag in site.tags %}
             {% if tag[0] contains 'Language' %}
               {% assign languageTAG = tag[0] | split: "_" %}
-                <li><a href="/tags/{{tag[0] | slugify}}" class="">{{languageTAG[1]}} ({{tag[1].size}})</a></li>
+                {% if languageTAG[1] == 'CCpp' %}
+                  <li><a href="/tags/{{tag[0] | slugify}}" class="">{'C/C++'} ({{tag[1].size}})</a></li>
+                {% else %}
+                  <li><a href="/tags/{{tag[0] | slugify}}" class="">{{languageTAG[1]}} ({{tag[1].size}})</a></li>
+                {% endif %}
             {% endif %}
           {% endfor %}
         </ul>
