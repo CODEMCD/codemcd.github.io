@@ -4,6 +4,7 @@ layout: archive
 permalink: /tags/toy-blog
 author_profile: true
 sidebar_main: true
+toc: true
 ---
 
 ## Blog Spec
@@ -33,7 +34,7 @@ sidebar_main: true
 
 
 ---
-# INDEX
+# POSTS
 
 {% assign posts = site.tags.Toy_Blog | sort:"date" %}
 
