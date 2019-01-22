@@ -2,9 +2,9 @@
 title: "[C++ STL] next_permutation"
 excerpt: "next_permutation STL 함수 이해"
 categories:
-  - Study
+  - Language
 tags:
-  - Study_CCpp
+  - Language_CCpp
 search: true
 toc: true
 sidebar_main: true

@@ -1,14 +1,14 @@
 ---
-title: "Kotlin POSTS"
+title: "Java POSTS"
 layout: archive
-permalink: /tags/study-kotlin
+permalink: /tags/language-java
 author_profile: true
 sidebar_main: true
 ---
 
 ---
 
-{% assign posts = site.tags.Study_Kotlin | sort:"date" %}
+{% assign posts = site.tags.Language_Java | sort:"date" %}
 
 {% for post in posts %}
   {% include archive-single.html type=page.entries_layout %}
