@@ -6,5 +6,7 @@ main:
     url: /toy/
   - title: "Algorithm"
     url: /algorithm/
+  - title: "Language"
+    url: /language/
   - title: "Study"
     url: /study/
