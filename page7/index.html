@@ -356,8 +356,46 @@
           
         </ul>
 
-        <span class="nav__sub-title" v-on:click='togglec3()'>Study</span>
+        <span class="nav__sub-title" v-on:click='togglec3()'>Language</span>
         <ul v-show="flag_c3">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/language-java" class="">Java (15)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/language-kotlin" class="">Kotlin (6)</a></li>
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/language-ccpp" class="">CCpp (2)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec4()'>Study</span>
+        <ul v-show="flag_c4">
           
             
           
@@ -373,20 +411,11 @@
             
           
             
-              
-                <li><a href="/tags/study-java" class="">Java (15)</a></li>
-            
-          
-            
-              
-                <li><a href="/tags/study-kotlin" class="">Kotlin (6)</a></li>
-            
           
             
           
             
-              
-                <li><a href="/tags/study-ccpp" class="">CCpp (2)</a></li>
+          
             
           
             
@@ -425,7 +454,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/Kotlin-2.%EA%B8%B0%EB%B3%B8%EC%9E%90%EB%A3%8C%ED%98%95/" rel="permalink">[Kotlin]2. 기본 자료형
+        <a href="/pages/CODEMCD/language/Kotlin-2.%EA%B8%B0%EB%B3%B8%EC%9E%90%EB%A3%8C%ED%98%95/" rel="permalink">[Kotlin]2. 기본 자료형
 </a>
       
     </h2>
@@ -444,7 +473,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/Kotlin-1.%EC%BD%94%ED%8B%80%EB%A6%B0%EC%9D%B4%EB%9E%80_/" rel="permalink">[Kotlin]1. 코틀린이란?
+        <a href="/pages/CODEMCD/language/Kotlin-1.%EC%BD%94%ED%8B%80%EB%A6%B0%EC%9D%B4%EB%9E%80_/" rel="permalink">[Kotlin]1. 코틀린이란?
 </a>
       
     </h2>
@@ -463,7 +492,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/Java-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/" rel="permalink">[Java]예외처리(exception handing)
+        <a href="/pages/CODEMCD/language/Java-%EC%98%88%EC%99%B8%EC%B2%98%EB%A6%AC/" rel="permalink">[Java]예외처리(exception handing)
 </a>
       
     </h2>
@@ -482,7 +511,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/Java-%EB%B3%80%EC%88%98%EC%99%80%EC%9E%90%EB%A3%8C%ED%98%95/" rel="permalink">[Java]JAVA 변수와 자료형
+        <a href="/pages/CODEMCD/language/Java-%EB%B3%80%EC%88%98%EC%99%80%EC%9E%90%EB%A3%8C%ED%98%95/" rel="permalink">[Java]JAVA 변수와 자료형
 </a>
       
     </h2>
@@ -501,7 +530,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/Java-9.-%EC%83%81%EC%86%8D/" rel="permalink">[Java]9. 상속(Inhertance)
+        <a href="/pages/CODEMCD/language/Java-9.-%EC%83%81%EC%86%8D/" rel="permalink">[Java]9. 상속(Inhertance)
 </a>
       
     </h2>
@@ -707,9 +736,10 @@ search.start();
   new Vue({
     el : '#category_tag_menu',
     data : {
-      flag_c1 : true,
-      flag_c2 : true,
-      flag_c3 : true
+      flag_c1 : false,
+      flag_c2 : false,
+      flag_c3 : false,
+      flag_c4 : false
     },
     methods : {
       togglec1: function(){
@@ -720,6 +750,9 @@ search.start();
       },
       togglec3: function(){
         this.flag_c3 = !this.flag_c3;
+      },
+      togglec4: function(){
+        this.flag_c4 = !this.flag_c4;
       }
     }
   });

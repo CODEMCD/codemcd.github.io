@@ -352,8 +352,46 @@
           
         </ul>
 
-        <span class="nav__sub-title" v-on:click='togglec3()'>Study</span>
+        <span class="nav__sub-title" v-on:click='togglec3()'>Language</span>
         <ul v-show="flag_c3">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/language-java" class="">Java (15)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/language-kotlin" class="">Kotlin (6)</a></li>
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/language-ccpp" class="">CCpp (2)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec4()'>Study</span>
+        <ul v-show="flag_c4">
           
             
           
@@ -369,20 +407,11 @@
             
           
             
-              
-                <li><a href="/tags/study-java" class="">Java (15)</a></li>
-            
-          
-            
-              
-                <li><a href="/tags/study-kotlin" class="">Kotlin (6)</a></li>
-            
           
             
           
             
-              
-                <li><a href="/tags/study-ccpp" class="">CCpp (2)</a></li>
+          
             
           
             
@@ -591,9 +620,10 @@ search.start();
   new Vue({
     el : '#category_tag_menu',
     data : {
-      flag_c1 : true,
-      flag_c2 : true,
-      flag_c3 : true
+      flag_c1 : false,
+      flag_c2 : false,
+      flag_c3 : false,
+      flag_c4 : false
     },
     methods : {
       togglec1: function(){
@@ -604,6 +634,9 @@ search.start();
       },
       togglec3: function(){
         this.flag_c3 = !this.flag_c3;
+      },
+      togglec4: function(){
+        this.flag_c4 = !this.flag_c4;
       }
     }
   });

@@ -356,8 +356,46 @@
           
         </ul>
 
-        <span class="nav__sub-title" v-on:click='togglec3()'>Study</span>
+        <span class="nav__sub-title" v-on:click='togglec3()'>Language</span>
         <ul v-show="flag_c3">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/language-java" class="">Java (15)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/language-kotlin" class="">Kotlin (6)</a></li>
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/language-ccpp" class="">CCpp (2)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec4()'>Study</span>
+        <ul v-show="flag_c4">
           
             
           
@@ -373,20 +411,11 @@
             
           
             
-              
-                <li><a href="/tags/study-java" class="">Java (15)</a></li>
-            
-          
-            
-              
-                <li><a href="/tags/study-kotlin" class="">Kotlin (6)</a></li>
-            
           
             
           
             
-              
-                <li><a href="/tags/study-ccpp" class="">CCpp (2)</a></li>
+          
             
           
             
@@ -1206,7 +1235,7 @@
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/study/Java-1.-%ED%81%B4%EB%9E%98%EC%8A%A4%EC%99%80-%EA%B0%9D%EC%B2%B4/" class="pagination--pager" title="[Java]1. 클래스와 객체
+      <a href="/pages/CODEMCD/language/Java-1.-%ED%81%B4%EB%9E%98%EC%8A%A4%EC%99%80-%EA%B0%9D%EC%B2%B4/" class="pagination--pager" title="[Java]1. 클래스와 객체
 ">다음</a>
     
   </nav>
@@ -1239,7 +1268,7 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/CC++-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%83%81%EC%88%98%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%B3%80%EC%88%98/" rel="permalink">[C/C++]문자열 상수와 문자열 변수
+        <a href="/pages/CODEMCD/language/CC++-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%83%81%EC%88%98%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%B3%80%EC%88%98/" rel="permalink">[C/C++]문자열 상수와 문자열 변수
 </a>
       
     </h2>
@@ -1445,9 +1474,10 @@ search.start();
   new Vue({
     el : '#category_tag_menu',
     data : {
-      flag_c1 : true,
-      flag_c2 : true,
-      flag_c3 : true
+      flag_c1 : false,
+      flag_c2 : false,
+      flag_c3 : false,
+      flag_c4 : false
     },
     methods : {
       togglec1: function(){
@@ -1458,6 +1488,9 @@ search.start();
       },
       togglec3: function(){
         this.flag_c3 = !this.flag_c3;
+      },
+      togglec4: function(){
+        this.flag_c4 = !this.flag_c4;
       }
     }
   });

@@ -1,0 +1,1056 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.13.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[Java]13. 다형성(Polymorphism) - CODEMCD’s E-BOOK</title>
+<meta name="description" content="Java 객체지향프로그래밍">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="CODEMCD's E-BOOK">
+<meta property="og:title" content="[Java]13. 다형성(Polymorphism)">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/language/Java-13.-%EB%8B%A4%ED%98%95%EC%84%B1/">
+
+
+  <meta property="og:description" content="Java 객체지향프로그래밍">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/language/Java-13.-%EB%8B%A4%ED%98%95%EC%84%B1/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "CODEMCD",
+      "url": "https://codemcd.github.io/pages/CODEMCD",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/pages/CODEMCD/feed.xml" type="application/atom+xml" rel="alternate" title="CODEMCD's E-BOOK Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/pages/CODEMCD/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    
+  </head>
+
+  <body class="layout--single wide">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/pages/CODEMCD/">CODEMCD's E-BOOK</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/about/" >About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/toy/" >Toy Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/algorithm/" >Algorithm</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/study/" >Study</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <a href="/pages/CODEMCD/"><h3 class="author__name" itemprop="name">CODEMCD</h3></a>
+    
+    
+      <p class="author__bio" itemprop="description">
+        JUST DO...
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://codemcd.blogspot.com/"><i class="fas fa-fw fa-link" aria-hidden="true"></i> Blog</a></li>
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://codemcd.github.io/categories/"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:psbum1609@gmail.com">
+            <meta itemprop="email" content="psbum1609@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  <!-- Add category side bar -->
+  
+    <nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+
+        <span class="nav__sub-title" v-on:click='togglec1()'>Toy</span>
+        <ul v-show="flag_c1">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/toy-blog" class="">Blog (2)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/toy-jsdslib" class="">jsdsLib (4)</a></li>
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec2()'>Algorithm</span>
+        <ul v-show="flag_c2">
+          
+            
+              
+                <li><a href="/tags/algorithm-algospot" class="">Algospot (24)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-fct" class="">FCT (14)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-algorithm" class="">Algorithm (10)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-datastructure" class="">DataStructure (8)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-boj" class="">BOJ (13)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec3()'>Language</span>
+        <ul v-show="flag_c3">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/language-java" class="">Java (15)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/language-kotlin" class="">Kotlin (6)</a></li>
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/language-ccpp" class="">CCpp (2)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec4()'>Study</span>
+        <ul v-show="flag_c4">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/study-database" class="">Database (2)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/study-cloud" class="">Cloud (1)</a></li>
+            
+          
+            
+          
+            
+          
+        </ul>
+
+      </li>
+  </ul>
+</nav>
+
+  
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[Java]13. 다형성(Polymorphism)">
+    <meta itemprop="description" content="Java 객체지향프로그래밍">
+    <meta itemprop="datePublished" content="October 14, 2018">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[Java]13. 다형성(Polymorphism)
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+              <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#13-다형성polymorphism">13. 다형성(Polymorphism)</a>
+    <ul>
+      <li><a href="#다형성의-정의">다형성의 정의</a></li>
+      <li><a href="#참조변수의-형변환">참조변수의 형변환</a></li>
+      <li><a href="#instanceof-연산자">instanceof 연산자</a>
+        <ul>
+          <li><a href="#참조변수와-인스턴스의-연결">참조변수와 인스턴스의 연결</a></li>
+        </ul>
+      </li>
+      <li><a href="#매개변수의-다형성">매개변수의 다형성</a></li>
+      <li><a href="#여러-종류의-객체를-배열로-다루기">여러 종류의 객체를 배열로 다루기</a></li>
+    </ul>
+  </li>
+</ul>
+            </nav>
+          </aside>
+        
+        <h1 id="13-다형성polymorphism">13. 다형성(Polymorphism)</h1>
+
+<h2 id="다형성의-정의">다형성의 정의</h2>
+<ul>
+  <li>객체지향개념에서 다형성이란 ‘여러 가지 형태를 가질 수 있는 능력’이다.
+    <ul>
+      <li>자바에서는 한 타입의 참조변수로 여러 타입의 객체를 참조할 수 있도록 하여 다형성을 구현하였다.</li>
+    </ul>
+  </li>
+  <li>조상클래스 타입의 참조변수로 자손클래스의 인스턴스를 참조할 수 있다.
+    <ul>
+      <li>참조변수가 사용할 수 있는 멤버의 개수는 인스턴스의 멤버 개수보다 항상 같거나 적어야 한다.</li>
+      <li>위의 이유 때문에, 자손타입의 참조변수로 조상타입의 인스턴스는 참조할 수 없다.</li>
+    </ul>
+  </li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Tv</span> <span class="o">{</span>
+	<span class="kt">boolean</span> <span class="n">power</span><span class="o">;</span>
+	<span class="kt">int</span> <span class="n">channel</span><span class="o">;</span>
+
+	<span class="kt">void</span> <span class="nf">power</span><span class="o">()</span> <span class="o">{</span> <span class="n">power</span> <span class="o">!=</span> <span class="n">power</span><span class="o">;</span> <span class="o">}</span>
+	<span class="kt">void</span> <span class="nf">channelUp</span><span class="o">()</span> <span class="o">{</span> <span class="o">++</span><span class="n">channel</span><span class="o">;</span> <span class="o">}</span>
+	<span class="kt">void</span> <span class="nf">channelDown</span><span class="o">()</span> <span class="o">{</span> <span class="o">--</span><span class="n">channel</span><span class="o">;</span> <span class="o">}</span>
+<span class="o">}</span>
+
+<span class="kd">class</span> <span class="nc">CaptionTv</span> <span class="kd">extends</span> <span class="n">Tv</span> <span class="o">{</span>
+	<span class="n">String</span> <span class="n">text</span><span class="o">;</span>
+	<span class="kt">void</span> <span class="nf">caption</span><span class="o">()</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>위의 코드를 바탕으로, 다형성에 의해 아래와 같은 초기화가 가능하다.</li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">CaptionTv</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CaptionTv</span><span class="o">();</span>
+<span class="n">Tv</span> <span class="n">t</span> <span class="o">=</span> <span class="k">new</span> <span class="n">CaptionTv</span><span class="o">();</span>
+</code></pre></div></div>
+
+<ul>
+  <li>하지만, Tv타입의 참조변수로 CaptionTv인스턴스를 생성한 변수 t는 Tv클래스에 정의되지 않은 멤버인 text와 caption()은 사용할 수 없다.
+    <ul>
+      <li><strong>같은 타입의 인스턴스라도 참조변수의 타입에 따라 사용할 수 있는 멤버의 개수가 달라진다.</strong></li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="참조변수의-형변환">참조변수의 형변환</h2>
+<ul>
+  <li>참조변수는 서로 <strong>상속관계</strong> 에 있는 클래스 사이에서만 서로 형변환이 가능하다.
+    <ul>
+      <li>조상의 조상으로도 형변환이 가능하기 때문에, 상속관계에만 있다면 서로 형변환이 가능하다.</li>
+      <li>클래스 A, B, C가 있을 때, A &lt;- C, A &lt;- B의 상속관계가 있다고 가정하자. 이 때, B, C는 서로 형변환이 불가능하다.(B,C는 서로 아무 관계가 없음)</li>
+    </ul>
+  </li>
+  <li>기본형 변수 형변환과 유사하다.
+    <ul>
+      <li>작은 자료형에서 큰 자료형의 형변환이 생략이 가능하듯이, 자손타입의 참조변수를 조상타입의 참조변수로 형변환활 경우에는 생략이 가능하다.</li>
+      <li>참조변수의 형변환에도 캐스트연산자 ‘()’를 사용한다.</li>
+    </ul>
+  </li>
+  <li>자손타입 -&gt; 조상타입 (Up-casting): 형변환 생략가능</li>
+  <li>자손타입 &lt;- 조상타입 (Down-casting): 형변환 생략불가</li>
+  <li>참조변수의 형변환은 인스턴스에 아무런 영향을 미치지 않는다.</li>
+  <li>참조변수의 형변환을 통해서 참조하고 있는 인스턴스에서 사용할 수 있는 멤버의 범위(개수)를 조절할 수 있다.</li>
+  <li>주의할 예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">CastingTest</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
+		<span class="n">Car</span> <span class="n">car</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Car</span><span class="o">();</span>
+		<span class="n">Car</span> <span class="n">Car2</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+		<span class="n">FireEngine</span> <span class="n">fe</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+
+		<span class="n">car</span><span class="o">.</span><span class="na">drive</span><span class="o">();</span>
+		<span class="n">fe</span> <span class="o">=</span> <span class="o">(</span><span class="n">FireEngine</span><span class="o">)</span><span class="n">car</span><span class="o">;</span>  <span class="c1">// 8번째 줄, 컴파일은 가능하지만 실행 시 에러가 발생한다.</span>
+		<span class="n">fe</span><span class="o">.</span><span class="na">drive</span><span class="o">();</span>
+		<span class="n">car2</span> <span class="o">=</span> <span class="n">fe</span><span class="o">;</span>
+		<span class="n">car2</span><span class="o">.</span><span class="na">drive</span><span class="o">();</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><strong><em>실행 결과</em></strong></p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>drive, ...
+java.lang.ClassCastException: Car at CastingTest.main(CastingTest.java:8)
+</code></pre></div></div>
+
+<ul>
+  <li>컴파일 시에는 참조변수간의 타입만 체크하고 인스턴스의 타입에 대해서는 알지 못하므로, 컴파일 시에는 에러가 발생하지 않는다.</li>
+  <li>참조변수가 참조하고 있는 인스턴스의 자손타입으로 형변환하는 것은 허용되지 않는다.
+    <ul>
+      <li><code class="highlighter-rouge">Car car = new Car();</code> -&gt; <code class="highlighter-rouge">Car car = new FireEngine();</code>으로 변경하면 실행 가능하다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="instanceof-연산자">instanceof 연산자</h2>
+<ul>
+  <li>instanceof 연산자는 참조변수가 참조하고 있는 인스턴스의 실제 타입을 알아보기 위해 사용한다.</li>
+  <li>형태는 <code class="highlighter-rouge">참조변수 incstanceof 타입(클래스명)</code>이며, 반환값은 true, false이다.
+    <ul>
+      <li>true: 참조변수가 검사한 타입으로 형변환이 가능하다는 의미이다.</li>
+      <li>값이 null인 참조변수는 항상 false를 반환한다.</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="참조변수와-인스턴스의-연결">참조변수와 인스턴스의 연결</h3>
+<ul>
+  <li>조상타입의 참조변수로 자손 인스턴스를 참조하는 경우와 자손타입의 참조변수로 자손 인스턴스를 참조하는 경우는 다른 결과를 얻는다.
+    <ul>
+      <li>메서드의 경우는 참조변수의 타입에 관계없이 오버라이딩에 따라 다르게 호출된다. (인스턴스 메서드)
+        <ul>
+          <li>static 메서드는 참조변수의 타입에 영향을 받기 때문에, 반드시 ‘클래스이름.메서드()’로 호출해야한다.</li>
+        </ul>
+      </li>
+      <li>멤버변수의 경우 참조변수의 타입에 따라 달라진다.
+        <ul>
+          <li>멤버변수가 조상과 자손클래스에 중복 정의된 경우, 조상타입의 참조변수를 사용했을 때는 조상 클래스에 선언된 멤버변수가 사용되고, 자손타입의 참조변수를 사용했을 때는 자손 클래스에 선언된 멤버변수가 사용된다.</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="매개변수의-다형성">매개변수의 다형성</h2>
+<ul>
+  <li>메서드의 매개변수에도 다형성은 적용된다.</li>
+  <li>예제</li>
+</ul>
+
+<p><strong><em>예제 코드</em></strong></p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Product</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">price</span><span class="o">;</span>        <span class="c1">// 제품 가격</span>
+	<span class="kt">int</span> <span class="n">bonusPoint</span><span class="o">;</span>   <span class="c1">// 제품구매시 제공하는 보너스 점수</span>
+<span class="o">}</span>
+<span class="kd">class</span> <span class="nc">Tv</span> <span class="kd">extends</span> <span class="n">Product</span> <span class="o">{}</span>
+<span class="kd">class</span> <span class="nc">Computer</span> <span class="kd">extends</span> <span class="n">Product</span> <span class="o">{}</span>
+<span class="kd">class</span> <span class="nc">Audio</span> <span class="kd">extends</span> <span class="n">Product</span> <span class="o">{}</span>
+
+<span class="kd">class</span> <span class="nc">Buyer</span> <span class="o">{</span>                 <span class="c1">// 고객</span>
+	<span class="kt">int</span> <span class="n">money</span> <span class="o">=</span> <span class="mi">1000</span><span class="o">;</span>     <span class="c1">// 소유금액</span>
+	<span class="kt">int</span> <span class="n">bonusPoint</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span>   <span class="c1">// 보너스 점수</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<ul>
+  <li>물건을 구입하는 메서드
+    <ol>
+      <li>다형성 적용하기 전</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">buy</span><span class="o">(</span><span class="n">Tv</span> <span class="n">t</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="kt">void</span> <span class="nf">buy</span><span class="o">(</span><span class="n">Computer</span> <span class="n">c</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+<span class="kt">void</span> <span class="nf">buy</span><span class="o">(</span><span class="n">Audio</span> <span class="n">a</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<ol>
+  <li>다형성 적용</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">buy</span><span class="o">(</span><span class="n">Product</span> <span class="n">p</span><span class="o">)</span> <span class="o">{</span> <span class="o">...</span> <span class="o">}</span>
+</code></pre></div></div>
+
+<h2 id="여러-종류의-객체를-배열로-다루기">여러 종류의 객체를 배열로 다루기</h2>
+<ul>
+  <li>참조변수를 배열로 처리할 수 있다.</li>
+  <li>예제
+    <ol>
+      <li>배열 사용하기 전</li>
+    </ol>
+  </li>
+</ul>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Product</span> <span class="n">p1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tv</span><span class="o">();</span>
+<span class="n">Product</span> <span class="n">p2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Computer</span><span class="o">();</span>
+<span class="n">Product</span> <span class="n">p3</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Audio</span><span class="o">();</span>
+</code></pre></div></div>
+
+<ol>
+  <li>배열</li>
+</ol>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Product</span> <span class="n">p</span><span class="o">[]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Product</span><span class="o">[</span><span class="mi">3</span><span class="o">];</span>
+<span class="n">p</span><span class="o">[</span><span class="mi">0</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Tv</span><span class="o">();</span>
+<span class="n">p</span><span class="o">[</span><span class="mi">1</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Computer</span><span class="o">();</span>
+<span class="n">p</span><span class="o">[</span><span class="mi">2</span><span class="o">]</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Audio</span><span class="o">();</span>
+</code></pre></div></div>
+
+<ul>
+  <li>동적 크기 배열인 Vector 클래스 역시 사용가능하다.</li>
+  <li>Vector 클래스의 주요 메서드</li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>메서드 / 생성자</th>
+      <th style="text-align: center">설 명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Vector()</td>
+      <td style="text-align: center">10개의 객체를 저장할 수 있는 Vector인스턴스를 생성한다. 10개이상의 인스턴스가 저장되면, 자동적으로 크기가 증가한다.</td>
+    </tr>
+    <tr>
+      <td>boolean add(Object o)</td>
+      <td style="text-align: center">Vector에 객체를 추가한다. 추가에 성공하면 true, 실패하면 false를 반환한다.</td>
+    </tr>
+    <tr>
+      <td>boolean remove(Object o)</td>
+      <td style="text-align: center">Vector에 저장되어 있는 객체를 제거한다. 제거에 성공하면 true, 실패하면 false를 반환한다.</td>
+    </tr>
+    <tr>
+      <td>boolean isEmpty()</td>
+      <td style="text-align: center">Vector가 비어있는지 검사한다. 비어있으면 true, 비어있지 않으면 false를 반환한다.</td>
+    </tr>
+    <tr>
+      <td>Object get(int index)</td>
+      <td style="text-align: center">지정된 위치(index)의 객체를 반환한다. 반환타입이 Object타입이므로 적절한 타입으로의 형변환이 필요하다.</td>
+    </tr>
+    <tr>
+      <td>int size()</td>
+      <td style="text-align: center">Vector에 저장된 객체의 개수를 반환한다.</td>
+    </tr>
+  </tbody>
+</table>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/tags/#language-java" class="page__taxonomy-item" rel="tag">Language_Java</a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/categories/#language" class="page__taxonomy-item" rel="tag">Language</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%5BJava%5D13.+%EB%8B%A4%ED%98%95%EC%84%B1%28Polymorphism%29%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FJava-13.-%25EB%258B%25A4%25ED%2598%2595%25EC%2584%25B1%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FJava-13.-%25EB%258B%25A4%25ED%2598%2595%25EC%2584%25B1%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FJava-13.-%25EB%258B%25A4%25ED%2598%2595%25EC%2584%25B1%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FJava-13.-%25EB%258B%25A4%25ED%2598%2595%25EC%2584%25B1%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/pages/CODEMCD/language/Java-12.-%EC%A0%9C%EC%96%B4%EC%9E%90/" class="pagination--pager" title="[Java]12. 제어자(Modifier)
+">이전</a>
+    
+    
+      <a href="/pages/CODEMCD/language/Java-2.-%EC%B6%94%EC%83%81%ED%81%B4%EB%9E%98%EC%8A%A4/" class="pagination--pager" title="[Java]2. 추상클래스(abstract class)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">댓글남기기</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/language/CC++-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%83%81%EC%88%98%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%B3%80%EC%88%98/" rel="permalink">[C/C++]문자열 상수와 문자열 변수
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">C/C++ 에서 문자열을 사용할 때 알아야할 내용
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/algorithm/Algorithm-%EB%B9%84%ED%8A%B8%EB%A7%88%EC%8A%A4%ED%81%AC/" rel="permalink">[Algorithm]비트마스크
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">비트 연산
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/toy/jsdsLib-jsdsLib-npm-%ED%8C%A8%ED%82%A4%EC%A7%80/" rel="permalink">[jsdsLib]npm 패키지
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">npm 패키지 만들기, 사용하기 등
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/toy/jsdsLib-jsdsLib-jsDeliver/" rel="permalink">[jsdsLib]jsDelivr
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">오픈소스 CDN jsDelivr
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+    <div class="search-hits"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/pages/CODEMCD/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 CODEMCD. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/pages/CODEMCD/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'I6UE8BVP0C',
+  apiKey: 'f6718f69889fabcb9d71088ba50236b5',
+  indexName: 'GITHUB_BLOG',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="/pages/CODEMCD${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: 'Enter your search term...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+// Starting the search
+search.start();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/language/Java-13.-%EB%8B%A4%ED%98%95%EC%84%B1/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/language/Java-13. 다형성"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://CODEMCD.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  new Vue({
+    el : '#category_tag_menu',
+    data : {
+      flag_c1 : false,
+      flag_c2 : false,
+      flag_c3 : false,
+      flag_c4 : false
+    },
+    methods : {
+      togglec1: function(){
+        this.flag_c1 = !this.flag_c1;
+      },
+      togglec2: function(){
+        this.flag_c2 = !this.flag_c2;
+      },
+      togglec3: function(){
+        this.flag_c3 = !this.flag_c3;
+      },
+      togglec4: function(){
+        this.flag_c4 = !this.flag_c4;
+      }
+    }
+  });
+</script>
+
+
+  </body>
+</html>
