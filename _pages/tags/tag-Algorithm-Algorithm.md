@@ -6,6 +6,8 @@ author_profile: true
 sidebar_main: true
 ---
 
+---
+
 {% assign posts = site.tags.Algorithm_Algorithm | sort:"date" %}
 
 {% for post in posts %}
