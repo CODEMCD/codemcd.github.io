@@ -4,8 +4,9 @@ layout: archive
 permalink: /tags/toy-jsdslib
 author_profile: true
 sidebar_main: true
-toc: true
 ---
+
+- [POST 바로가기](#posts)
 
 ## jsdsLib
 - 자바스크립트로 구현된 자료구조 라이브러리

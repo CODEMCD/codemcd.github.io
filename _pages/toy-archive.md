@@ -4,8 +4,9 @@ layout: tags-toy
 permalink: /toy/
 author_profile: true
 sidebar_main: true
-toc: true
 ---
+
+- [POST 바로가기](#posts-by-toy-project)
 
 ## 1. Blog
 - 개발 기간: 2018.10 ~

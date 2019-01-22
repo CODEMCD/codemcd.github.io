@@ -4,8 +4,9 @@ layout: archive
 permalink: /tags/toy-blog
 author_profile: true
 sidebar_main: true
-toc: true
 ---
+
+- [POST 바로가기](#posts)
 
 ## Blog Spec
 - Github + Jekyll
