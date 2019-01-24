@@ -1,17 +1,14 @@
 ---
-title: "C/C++"
+title: "Coding Test POSTS"
 layout: archive
-permalink: /tags/study-ccpp
+permalink: /tags/algorithm-codingtest
 author_profile: true
 sidebar_main: true
 ---
 
-- C/C++ 관련
-
 ---
-# INDEX
 
-{% assign posts = site.tags.Study_CCpp | sort:"date" %}
+{% assign posts = site.tags.Algorithm_CodingTest | sort:"date" %}
 
 {% for post in posts %}
   {% include archive-single.html type=page.entries_layout %}

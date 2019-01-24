@@ -24,11 +24,13 @@
     float: right;
     width: calc(100% - #{$right-sidebar-width-narrow});
     padding-right: $right-sidebar-width-narrow;
+    //width: calc(80% - 150px);
   }
 
   @include breakpoint($x-large) {
     width: calc(100% - #{$right-sidebar-width});
     padding-right: $right-sidebar-width;
+    //width: calc(80% - 100px);
   }
 
   .page__inner-wrap {
@@ -357,7 +359,7 @@
   display: block;
   clear: both;
   color: lighten($text-color, 50%);
-  font-size: 0.6em;
+  font-size: 1em;
   text-transform: uppercase;
   text-align: right;
   text-decoration: none;
@@ -495,7 +497,7 @@
 
 
 /*   Wide Pages
-   ==========================================================================*/
+   ==========================================================================
 
 .wide {
   .page {
@@ -518,3 +520,4 @@
     }
   }
 }
+*/

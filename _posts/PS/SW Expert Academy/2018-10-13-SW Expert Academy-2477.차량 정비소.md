@@ -5,7 +5,7 @@ search: true
 categories:
   - Algorithm
 tags:
-  - Algorithm_FCT
+  - Algorithm_CodingTest
 sidebar_main: true
 ---
 

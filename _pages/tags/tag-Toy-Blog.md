@@ -6,6 +6,8 @@ author_profile: true
 sidebar_main: true
 ---
 
+- [POST 바로가기](#posts)
+
 ## Blog Spec
 - Github + Jekyll
 - Theme: Minimal Mistakes
@@ -33,7 +35,7 @@ sidebar_main: true
 
 
 ---
-# INDEX
+# POSTS
 
 {% assign posts = site.tags.Toy_Blog | sort:"date" %}
 

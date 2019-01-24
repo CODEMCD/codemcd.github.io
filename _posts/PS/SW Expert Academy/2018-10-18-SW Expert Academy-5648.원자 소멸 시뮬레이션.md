@@ -6,7 +6,7 @@ sidebar_main: true
 categories:
   - Algorithm
 tags:
-  - Algorithm_FCT
+  - Algorithm_CodingTest
 ---
 
 # 원자 소멸 시뮬레이션

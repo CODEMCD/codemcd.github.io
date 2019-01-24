@@ -6,7 +6,8 @@ author_profile: true
 sidebar_main: true
 ---
 
-## [CONTENS](#contents)
+- [POST 바로가기](#posts)
+
 ## jsdsLib
 - 자바스크립트로 구현된 자료구조 라이브러리
 - 사용 가능 환경
@@ -23,7 +24,7 @@ sidebar_main: true
 
 
 ---
-## CONTENS
+## POSTS
 
 {% assign posts = site.tags.Toy_jsdsLib | sort:"date" %}
 

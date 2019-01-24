@@ -16,7 +16,7 @@ minimal_mistakes_skin    : "default" # "air", "aqua", "contrast", "dark", "dirt"
 
 # Site Settings
 locale                   : "ko-KR"
-title                    : "CODEMCD's E-BOOK"
+title                    : "CODEMCD's Tech BLOG"
 title_separator          : "-"
 name                     : "CODEMCD"
 description              : "My Tech Blog"
@@ -280,7 +280,6 @@ defaults:
       type: posts
     values:
       layout: single
-      classes: wide
       author_profile: true
       read_time: false
       comments: true
@@ -293,7 +292,6 @@ defaults:
       type: pages
     values:
       layout: single
-      classes: wide
       author_profile: true
 
 

@@ -32,7 +32,7 @@
       /* calculate height of nav list
          viewport height - nav height - masthead x-padding
       */
-      height: calc(100vh - #{$nav-height} - 2em);
+      height: calc(120vh - #{$nav-height} - 2em);
     }
   }
 
@@ -167,7 +167,7 @@
 }
 .sidebar .author__name {
   font-family: $sans-serif;
-  font-size: $type-size-5;
+  font-size: $type-size-3;  //change big size
 }
 
 .author__bio {
@@ -291,7 +291,7 @@
 
 
 /*   Wide Pages
-   ==========================================================================*/
+   ==========================================================================
 
 .wide .sidebar__right {
   margin-bottom: 1em;
@@ -315,3 +315,4 @@
     margin-right: initial;
   }
 }
+*/

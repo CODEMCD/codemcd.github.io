@@ -6,7 +6,7 @@ sidebar_main: true
 categories:
   - Algorithm
 tags:
-  - Algorithm_FCT
+  - Algorithm_CodingTest
 ---
 
 # 보물상자 비밀번호
