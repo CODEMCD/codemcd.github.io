@@ -9,38 +9,38 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[Java]11. package와 import - CODEMCD’s Tech BLOG</title>
-<meta name="description" content="Java 객체지향프로그래밍">
+<!-- begin _includes/seo.html --><title>Test - CODEMCD’s Tech BLOG</title>
+<meta name="description" content="운영체제 테그 테스트">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech BLOG">
-<meta property="og:title" content="[Java]11. package와 import">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/language/Java-11.-package%EC%99%80-import/">
+<meta property="og:title" content="Test">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-Test/">
 
 
-  <meta property="og:description" content="Java 객체지향프로그래밍">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+  <meta property="og:description" content="운영체제 테그 테스트">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2019-03-05T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/language/Java-11.-package%EC%99%80-import/">
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-Test/">
 
 
 
@@ -458,15 +458,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[Java]11. package와 import">
-    <meta itemprop="description" content="Java 객체지향프로그래밍">
-    <meta itemprop="datePublished" content="October 14, 2018">
+    <meta itemprop="headline" content="Test">
+    <meta itemprop="description" content="운영체제 테그 테스트">
+    <meta itemprop="datePublished" content="March 05, 2019">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[Java]11. package와 import
+          <h1 id="page-title" class="page__title" itemprop="headline">Test
 </h1>
           
         </header>
@@ -479,207 +479,12 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Contents</h4></header>
               <ul class="toc__menu">
-  <li><a href="#11-package와-import">11. package와 import</a>
-    <ul>
-      <li><a href="#패키지package">패키지(package)</a>
-        <ul>
-          <li><a href="#1-정의">1. 정의</a></li>
-          <li><a href="#2-특징">2. 특징</a></li>
-        </ul>
-      </li>
-      <li><a href="#패키지-선언">패키지 선언</a>
-        <ul>
-          <li><a href="#1-선언-방법">1. 선언 방법</a></li>
-          <li><a href="#2-특징-1">2. 특징</a></li>
-          <li><a href="#3-새로운-패키지-생성-순서">3. 새로운 패키지 생성 순서</a></li>
-        </ul>
-      </li>
-      <li><a href="#import문">import문</a>
-        <ul>
-          <li><a href="#1-정의-1">1. 정의</a></li>
-          <li><a href="#2-특징-2">2. 특징</a></li>
-          <li><a href="#3-선언">3. 선언</a></li>
-          <li><a href="#4-static-import문">4. static import문</a></li>
-        </ul>
-      </li>
-    </ul>
-  </li>
+  <li><a href="#운영체제-테스트중">운영체제 테스트중…</a></li>
 </ul>
             </nav>
           </aside>
         
-        <h1 id="11-package와-import">11. package와 import</h1>
-
-<h2 id="패키지package">패키지(package)</h2>
-
-<h3 id="1-정의">1. 정의</h3>
-<ul>
-  <li>패키지란, 클래스의 묶음으로서, 서로 관련된 클래스 및 인터페이스들끼리 그룹 단위로 묶는것을 의미한다.</li>
-  <li>클래스의 실제 이름(full name)은 패키지명을 포함한 것이다.</li>
-  <li>클래스가 물리적으로 하나의 클래스 파일(.class)인 것과 같이 패키지는 물리적으로 하나의 디렉토리이다.</li>
-</ul>
-
-<h3 id="2-특징">2. 특징</h3>
-<ul>
-  <li>같은 이름의 클래스 일지라도 서로 다른 패키지에 존재하는 것이 가능하다.
-    <ul>
-      <li>자신만의 패키지 체계를 유지할 수 있으며, 다른 개발자가 개발한 클래스 라이브러리의 클래스와 이름이 충돌하는 것을 피할 수 있다.</li>
-    </ul>
-  </li>
-  <li>하나의 소스파일에는 첫 번째 문장으로 단 한 번의 패키지 선언만을 허용한다.</li>
-  <li>모든 클래스는 반드시 하나의 패키지에 속해야 한다.</li>
-  <li>패키지는 점(.)을 구분자로 하여 계층구조로 구성할 수 있다.
-    <ul>
-      <li>예를들어, String클래스의 실제 이름은 java.lang.String이다.</li>
-    </ul>
-  </li>
-  <li>패키지는 물리적으로 클래스 파일(.class)을 포합하는 하나의 디렉토리이다.</li>
-</ul>
-
-<h2 id="패키지-선언">패키지 선언</h2>
-
-<h3 id="1-선언-방법">1. 선언 방법</h3>
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pachage 패키지명;
-</code></pre></div></div>
-
-<h3 id="2-특징-1">2. 특징</h3>
-<ul>
-  <li>패키지 선언문은 클래스나 인터페이스의 소스파일(.java)에서 반드시 주석과 공배을 제외한 첫 번째 문장에 선언해야 한다.</li>
-  <li>하나의 소스파일에 단 한번만 선언될 수 있다.</li>
-  <li>해당 소스파일에 포함된 모든 클래스나 인터페이스는 선언된 패키지에 속하게 된다.</li>
-  <li>패키지명은 대소문자를 모두 허용한다.
-    <ul>
-      <li>클래스명과 구분하기 위해 일반적으로 소문자로 하는 것을 원칙으로 한다.</li>
-    </ul>
-  </li>
-  <li>모든 클래스는 반드시 하나의 패키지에 포함되어야 한다.
-    <ul>
-      <li>패키지를 선언하지 않는다면 ‘이름없는 패키지(unnamed package)’에 속하게 된다.</li>
-    </ul>
-  </li>
-</ul>
-
-<h3 id="3-새로운-패키지-생성-순서">3. 새로운 패키지 생성 순서</h3>
-<ul>
-  <li>패키지 예제</li>
-</ul>
-
-<p><strong><em>예제 코드</em></strong></p>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">package</span> <span class="n">com</span><span class="o">.</span><span class="na">javachobo</span><span class="o">.</span><span class="na">book</span><span class="o">;</span>
-
-<span class="kd">class</span> <span class="nc">PackageTest</span> <span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span> <span class="n">args</span><span class="o">[])</span> <span class="o">{</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"Hello World!"</span><span class="o">);</span>
-	<span class="o">}</span>
-<span class="o">}</span>
-</code></pre></div></div>
-
-<ul>
-  <li>컴파일: <code class="highlighter-rouge">C:\Program Files\Java\jdk1.8.0_171\work&gt;javac -d . PackageTest.java</code>
-    <ul>
-      <li>‘-d’ 옵션
-        <ol>
-          <li>소스파일에 지정된 경로를 통해 패키지의 위치를 찾아서 클래스 파일을 생성한다. (일치하는 디렉토리가 없다면 자동생성)</li>
-          <li>‘-d’옵션 뒤에는 해당 패키지의 루트(root)디렉토리의 경로를 적어준다.</li>
-          <li>‘-d’옵션을 사용하지 않으면, 프로그래머가 직접 계층구조를 만들어야 한다.</li>
-        </ol>
-      </li>
-    </ul>
-  </li>
-  <li>해당 패키지의 루트 디렉토리를 클래스패스(classpath)에 포함시킨다.
-    <ul>
-      <li>클래스패스는 컴파일러(javac.exe)나 JVM 등이 클래스의 위치를 찾는데 사용되는 경로이다.</li>
-      <li>com.javachobo.book 패키지의 루트 디렉토리는 ‘com’의 상위 디렉토리인 ‘C:\Program Files\Java\jdk1.8.0_171\work’이다.</li>
-      <li>‘제어판 - 시스템 - 고급 시스템 설정 - 환경변수 - 새로 만들기’를 하면 ‘새 시스템 변수’ 팝업창이 뜬다.
-        <ul>
-          <li>변수 이름: CLASSPATH</li>
-          <li>변수 값: .;C:\Program Files\Java\jdk1.8.0_171\work;</li>
-        </ul>
-      </li>
-      <li>클래스패스를 지정해주지 않으면 기본적으로 현재 디렉토리(.)로 지정되지만, 클래스패스를 따로 지정해주는 경우에는 직접 추가해주어야 한다.</li>
-      <li>클래스패스 확인 명령어: <code class="highlighter-rouge">C:...&gt;echo %classpath%</code></li>
-    </ul>
-  </li>
-  <li>실행 결과</li>
-</ul>
-
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>C:/...&gt;java com.javachobo.book.PackageTest
-Hello World!
-</code></pre></div></div>
-
-<ul>
-  <li>위의 방법으로 클래스패스를 이용하면, 클래스패스를 따로 설정하지 않아도 된다.
-    <ul>
-      <li>새로 추가하고자 하는 클래스는 ‘JDK설치디렉토리\jre\classes’디렉토리에 추가한다.
-        <ul>
-          <li>classes디렉토리는 사용자가 직접 생성해야한다.</li>
-        </ul>
-      </li>
-      <li>jar파일은 ‘JDK설치디렉토리\jre\lib\ext’디렉토리에 추가한다.</li>
-    </ul>
-  </li>
-  <li>‘-cp’옵션을 이용해서 일시적으로 클래스패스르르 지정할 수도 있다. <code class="highlighter-rouge">C:...&gt;java -cp C:\Program Files\Java\jdk1.8.0_171\work com.javachobo.book.PackageTest</code></li>
-</ul>
-
-<h2 id="import문">import문</h2>
-
-<h3 id="1-정의-1">1. 정의</h3>
-<ul>
-  <li>컴파일러에게 소스파일에 사용된 클래스의 패키지에 대한 정보를 제공한다.</li>
-</ul>
-
-<h3 id="2-특징-2">2. 특징</h3>
-<ul>
-  <li>클래스를 사용하기 전, 클래스의 패키지를 import문으로 미리 명시해주면 소스코드에 사용되는 클래스이름에서 패키지명을 생략할 수 있다.</li>
-  <li>컴파일시, import문을 통해 소스파일에 사용된 클래스들의 패키지를 알아낸 다음, 모든 클래스 이름 앞에 패키지명을 붙여 준다.
-    <ul>
-      <li>import문은 프로그램의 성능에 전혀 영향을 미치지 않으며, 컴파일 시간이 아무 조금 더 걸릴 뿐이다.</li>
-    </ul>
-  </li>
-</ul>
-
-<h3 id="3-선언">3. 선언</h3>
-<ul>
-  <li>import문은 모든 소스파일(.java)에서 package문 다음, 클래스 선언문 이전에 위치해야 한다.
-    <ul>
-      <li>일반적인 소스파일(.java) 구성: package문, import문, 클래스 선언 순</li>
-    </ul>
-  </li>
-  <li>한 소스파일에서 여러 번 선언할 수 있다.</li>
-  <li>선언 방식</li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="err">패키지명</span><span class="nn">.</span><span class="err">클래스명</span><span class="o">;</span>
-<span class="kn">import</span> <span class="err">패키지명</span><span class="nn">.*</span><span class="o">;</span>
-</code></pre></div></div>
-
-<ul>
-  <li><code class="highlighter-rouge">.*</code>를 사용할 때 주의할 점은 하위 패키지의 클래스까지 포함하는 것은 아니라는 것이다.</li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.*</span><span class="o">;</span>
-<span class="kn">import</span> <span class="nn">java.text.*</span><span class="o">;</span>
-<span class="c1">//import java.*;로 대신할 수 없다!</span>
-</code></pre></div></div>
-
-<ul>
-  <li>import문을 선언하지 않아도 묵시적으로 <code class="highlighter-rouge">import java.lang.*;</code>가 선언되어 있기 때문에 String과 같은 클래스를 사용할 수 있다.</li>
-</ul>
-
-<h3 id="4-static-import문">4. static import문</h3>
-<ul>
-  <li>static멤버를 호출할 때 클래스 이름을 생략할 수 있다.</li>
-</ul>
-
-<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">static</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Integer</span><span class="o">.*;</span>     <span class="c1">//Integer클래스의 모든 static 메서드</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Math</span><span class="o">.</span><span class="na">random</span><span class="o">;</span>   <span class="c1">//Math.random()만 . 괄호 안붙임</span>
-<span class="kn">import</span> <span class="nn">static</span> <span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">System</span><span class="o">.</span><span class="na">out</span><span class="o">;</span>    <span class="c1">//System.out을 out만으로 참조가능</span>
-</code></pre></div></div>
-
-<ul>
-  <li>위와 같이 선언하였다면 <code class="highlighter-rouge">System.out.println(Math.random());</code>을 <code class="highlighter-rouge">out.println(random());</code>로 선언가능하다.</li>
-</ul>
+        <h2 id="운영체제-테스트중">운영체제 테스트중…</h2>
 
         
       </section>
@@ -700,9 +505,9 @@ Hello World!
     
       
       
-      <a href="/pages/CODEMCD/tags/#language-java" class="page__taxonomy-item" rel="tag">
+      <a href="/pages/CODEMCD/tags/#study-operatingsystem" class="page__taxonomy-item" rel="tag">
         
-        Java
+        OperatingSystem
       </a>
     
     </span>
@@ -724,14 +529,14 @@ Hello World!
     
       
       
-      <a href="/pages/CODEMCD/categories/#language" class="page__taxonomy-item" rel="tag">Language</a>
+      <a href="/pages/CODEMCD/categories/#study" class="page__taxonomy-item" rel="tag">Study</a>
     
     </span>
   </p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-03-05T00:00:00+09:00">March 05, 2019</time></p>
         
       </footer>
 
@@ -740,25 +545,24 @@ Hello World!
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BJava%5D11.+package%EC%99%80+import%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FJava-11.-package%25EC%2599%2580-import%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=Test%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-Test%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FJava-11.-package%25EC%2599%2580-import%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-Test%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FJava-11.-package%25EC%2599%2580-import%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-Test%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FJava-11.-package%25EC%2599%2580-import%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-Test%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/language/Java-10.-%EC%98%A4%EB%B2%84%EB%9D%BC%EC%9D%B4%EB%94%A9/" class="pagination--pager" title="[Java]10. 오버라이딩(Overriding)
+      <a href="/pages/CODEMCD/language/CC++-%EB%AC%B8%EC%9E%90%EC%97%B4-%EC%83%81%EC%88%98%EC%99%80-%EB%AC%B8%EC%9E%90%EC%97%B4-%EB%B3%80%EC%88%98/" class="pagination--pager" title="[C/C++]문자열 상수와 문자열 변수
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/language/Java-12.-%EC%A0%9C%EC%96%B4%EC%9E%90/" class="pagination--pager" title="[Java]12. 제어자(Modifier)
-">다음</a>
+      <a href="#" class="pagination--pager disabled">다음</a>
     
   </nav>
 
@@ -780,25 +584,6 @@ Hello World!
     <div class="page__related">
       <h4 class="page__related-title">참고</h4>
       <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/study/OperatingSystem-Test/" rel="permalink">Test
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">운영체제 테그 테스트
-</p>
-  </article>
-</div>
         
           
 
@@ -853,6 +638,25 @@ Hello World!
     </h2>
     
     <p class="archive__item-excerpt" itemprop="description">npm 패키지 만들기, 사용하기 등
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/toy/jsdsLib-jsdsLib-jsDeliver/" rel="permalink">[jsdsLib]jsDelivr
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">오픈소스 CDN jsDelivr
 </p>
   </article>
 </div>
@@ -975,8 +779,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/language/Java-11.-package%EC%99%80-import/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/language/Java-11. package와 import"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-Test/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/study/OperatingSystem-Test"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
