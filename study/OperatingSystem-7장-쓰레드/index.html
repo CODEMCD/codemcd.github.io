@@ -1,0 +1,880 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.13.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[OS] 7장 프로세스와 쓰레드 - CODEMCD’s Tech BLOG</title>
+<meta name="description" content="운영체제 개념 정리">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="CODEMCD's Tech BLOG">
+<meta property="og:title" content="[OS] 7장 프로세스와 쓰레드">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C/">
+
+
+  <meta property="og:description" content="운영체제 개념 정리">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2019-03-06T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "CODEMCD",
+      "url": "https://codemcd.github.io/pages/CODEMCD",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/pages/CODEMCD/feed.xml" type="application/atom+xml" rel="alternate" title="CODEMCD's Tech BLOG Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/pages/CODEMCD/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/pages/CODEMCD/">CODEMCD's Tech BLOG</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/about/" >About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/toy/" >Toy Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/algorithm/" >Algorithm</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/language/" >Language</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/study/" >Study</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <a href="/pages/CODEMCD/"><h3 class="author__name" itemprop="name">CODEMCD</h3></a>
+    
+    
+      <p class="author__bio" itemprop="description">
+        JUST DO...
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://codemcd.blogspot.com/"><i class="fas fa-fw fa-link" aria-hidden="true"></i> Blog</a></li>
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://codemcd.github.io/categories/"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:psbum1609@gmail.com">
+            <meta itemprop="email" content="psbum1609@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  <!-- Add category side bar -->
+  
+    <nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+
+        <span class="nav__sub-title" v-on:click='togglec1()'>Toy</span>
+        <ul v-show="flag_c1">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/toy-blog" class="">Blog (2)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/toy-jsdslib" class="">jsdsLib (4)</a></li>
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec2()'>Algorithm</span>
+        <ul v-show="flag_c2">
+          
+            
+              
+                <li><a href="/tags/algorithm-algospot" class="">Algospot (24)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-codingtest" class="">CodingTest (14)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-algorithm" class="">Algorithm (10)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-datastructure" class="">DataStructure (8)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-boj" class="">BOJ (13)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec3()'>Language</span>
+        <ul v-show="flag_c3">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                
+                  <li><a href="/tags/language-java" class="">Java (15)</a></li>
+                
+            
+          
+            
+              
+                
+                  <li><a href="/tags/language-kotlin" class="">Kotlin (6)</a></li>
+                
+            
+          
+            
+          
+            
+              
+                
+                  <li><a href="/tags/language-ccpp" class="">C/C++ (2)</a></li>
+                
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec4()'>Study</span>
+        <ul v-show="flag_c4">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/study-database" class="">Database (2)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/study-cloud" class="">Cloud (1)</a></li>
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/study-operatingsystem" class="">OperatingSystem (8)</a></li>
+            
+          
+        </ul>
+
+      </li>
+  </ul>
+</nav>
+
+  
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[OS] 7장 프로세스와 쓰레드">
+    <meta itemprop="description" content="운영체제 개념 정리">
+    <meta itemprop="datePublished" content="March 06, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[OS] 7장 프로세스와 쓰레드
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+              <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#프로세스와-생성과-종료">프로세스와 생성과 종료</a>
+    <ul>
+      <li><a href="#프로세스-생성">프로세스 생성</a></li>
+      <li><a href="#프로세스-종료">프로세스 종료</a></li>
+    </ul>
+  </li>
+  <li><a href="#쓰레드thread">쓰레드(Thread)</a>
+    <ul>
+      <li><a href="#다중-쓰레드mulitithreads">다중 쓰레드(Mulitithreads)</a></li>
+      <li><a href="#thread-vs-precess">Thread VS Precess</a></li>
+    </ul>
+  </li>
+</ul>
+            </nav>
+          </aside>
+        
+        <h2 id="프로세스와-생성과-종료">프로세스와 생성과 종료</h2>
+<p>프로세스는 프로세스에 의해 만들어진다. 컴퓨터가 부팅이 되면 운영체제가 메모리에 올라오는데 운영체제가 처음으로 수행하는 일 중에 하나는 <strong>최초의 프로세스를 생성</strong> 하는 것이다. 이렇게 처음 만들어진 프로세스가 다른 프로세스를 만들고 그 프로세스가 또 다른 프로세스를 만드는 과정을 반복한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/53879677-5f302f00-4052-11e9-89ea-72135b020d12.png" alt="os07-1" /></p>
+
+<p>위와 같이 최초의 프로세스는 <strong>Init</strong> 이다. 이 이름은 운영체제마다 다르고, init은 UNIX 운영체제 기준 이름이다. 여기서 여러 다른 프로세스들이 생성되면 위와 같은 그림처럼 <strong>트리 모양</strong> 으로 나타낼 수 있다.여기서 프로세스를 생성한 쪽을 <strong>부모 프로세스</strong>, 만들어진 프로세스를 <strong>자식 프로세스</strong> 라고 한다. 같은 부모를 갖는 자식 프로세스 끼리는 서로 Sibling(형제) 프로세스라고 한다.</p>
+
+<p>프로세스는 각각 고유의 번호를 갖는데 이를 <strong>PID(Process Identifirer)</strong> 라고 한다. PID는 일반적으로 정수형(integer)으로 표현한다. PPID는 부모의 PID를 말한다.</p>
+
+<h3 id="프로세스-생성">프로세스 생성</h3>
+<p>새로운 프로세스를 만드는 시스템 콜이 존재하는데, 이는 <code class="highlighter-rouge">fork()</code> 라 한다. 만들어진 프로세스에서 어떠한 파일을 실행하려면 <code class="highlighter-rouge">exec()</code> 시스템 콜을 사용한다.</p>
+
+<h3 id="프로세스-종료">프로세스 종료</h3>
+<p>프로세스를 종료하는 시스템 콜은 <code class="highlighter-rouge">exit()</code> 이다. 한 프로세스가 종료되면 해당 프로세스가 사용한 모든 자원(메모리, 파일, I/O 등)을 회수해야한다. 이러한 회수된 자원과 권한은 모두 운영체제로 되돌아가야한다.</p>
+
+<h2 id="쓰레드thread">쓰레드(Thread)</h2>
+<p>쓰레드는 프로그램 <strong>내부의 흐름(맥)</strong> 이다.</p>
+
+<div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span>
+<span class="p">{</span>
+  <span class="kt">int</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+  <span class="kt">int</span> <span class="n">m</span> <span class="o">=</span> <span class="mi">10</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">n</span> <span class="o">*</span> <span class="n">m</span><span class="p">);</span>
+  <span class="k">while</span><span class="p">(</span><span class="n">n</span> <span class="o">&lt;</span> <span class="n">m</span><span class="p">)</span>
+    <span class="n">n</span><span class="o">++</span><span class="p">;</span>
+  <span class="n">printf</span><span class="p">(</span><span class="s">"END</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>위와 같은 코드는 하나의 흐름을 가지고 있고 이를 쓰레드라고 부른다. 일반적으로 하나의 프로그램은 하나의 쓰레드를 갖는다.</p>
+
+<h3 id="다중-쓰레드mulitithreads">다중 쓰레드(Mulitithreads)</h3>
+<p>하나의 프로그램에 쓰레드가 <strong>2개 이상</strong> 이 존재하는 것을 다중 쓰레드라고 한다. 이렇게 한 프로그램에 여러 개의 쓰레드 즉 흐름이 있을 수 있는 이유는 쓰레드가 빠른 시간 간격으로 스위칭되기 때문이다. 이러한 동작으로 사용자는 여러 쓰레드가 동시에 실행되는 것처럼 보인다.</p>
+
+<p>이처럼 CPU가 하나인 환경에서 여러 쓰레드가 스위칭에 의해 동시에 수행되는 효과를 <strong>concurrent</strong> 라 한다. 반면에 여러 CPU 환경에서 여러 쓰레드가 실제로 동시에 수행되는 것은 <strong>simultaneous</strong> 라고 한다.</p>
+
+<p>다중 쓰레드를 사용하는 대표적인 예는 Web browser 이다. 화면을 출력하는 쓰레드와 데이터를 읽어오는 쓰레드가 기본적으로 따로 수행하고 있다. 그 외에도 Word processor, Media player 등 현재 대부분의 프로그램은 다중 쓰레드로 동작한다.</p>
+
+<p>이전의 CPU 스케줄링에서 하나의 프로세스가 수행하다가 다른 프로세스로 넘어간다고 하였는데, 이는 예전의 방식이다. 현재 운영체제에서는 대부분 다중 쓰레드를 지원하기 때문에 하나의 프로세스 안에서 여러 쓰레드를 수행하다가 다른 프로세스로 넘어가서 그 프로세스의 쓰레드를 수행한다. 그러므로 현대 운영체제의 <strong>context switching 단위는 프로세스가 아닌 쓰레드 단위</strong> 이다.</p>
+
+<h3 id="thread-vs-precess">Thread VS Precess</h3>
+<p>한 프로세스에는 기본적으로 하나의 쓰레드가 존재한다. 프로세스는 <strong>code, data</strong> 메모리 공간이 존재하는데, 이는 여러 쓰레드가 공유한다. 이외에도 프로세스의 자원인 file, I/O 등은 여러 쓰레드가 공유하지만, 각 쓰레드가 고유하게 가지고 있는 것은 PC(Program Counter), SP(Stack Pointer), registers, <strong>stack</strong> 등이 있다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/tags/#study-operatingsystem" class="page__taxonomy-item" rel="tag">
+        
+        OperatingSystem
+      </a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/categories/#study" class="page__taxonomy-item" rel="tag">Study</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-03-06T00:00:00+09:00">March 06, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%5BOS%5D+7%EC%9E%A5+%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EC%99%80+%EC%93%B0%EB%A0%88%EB%93%9C%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-7%25EC%259E%25A5-%25EC%2593%25B0%25EB%25A0%2588%25EB%2593%259C%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-7%25EC%259E%25A5-%25EC%2593%25B0%25EB%25A0%2588%25EB%2593%259C%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-7%25EC%259E%25A5-%25EC%2593%25B0%25EB%25A0%2588%25EB%2593%259C%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-7%25EC%259E%25A5-%25EC%2593%25B0%25EB%25A0%2588%25EB%2593%259C%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/pages/CODEMCD/study/OperatingSystem-6%EC%9E%A5-CPU%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/" class="pagination--pager" title="[OS] 6장 CPU 스케줄링
+">이전</a>
+    
+    
+      <a href="/pages/CODEMCD/study/OperatingSystem-8%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1/" class="pagination--pager" title="[OS] 8장 프로세스 동기화 - 1
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">댓글남기기</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/OperatingSystem-8%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1/" rel="permalink">[OS] 8장 프로세스 동기화 - 1
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/OperatingSystem-6%EC%9E%A5-CPU%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/" rel="permalink">[OS] 6장 CPU 스케줄링
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/OperatingSystem-5%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EA%B4%80%EB%A6%AC/" rel="permalink">[OS] 5장 프로세스 관리
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/OperatingSystem-4%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4/" rel="permalink">[OS] 4장 운영체제 서비스
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+    <div class="search-hits"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/pages/CODEMCD/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 CODEMCD. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/pages/CODEMCD/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'I6UE8BVP0C',
+  apiKey: 'f6718f69889fabcb9d71088ba50236b5',
+  indexName: 'GITHUB_BLOG',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="/pages/CODEMCD${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: 'Enter your search term...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+// Starting the search
+search.start();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/study/OperatingSystem-7장-쓰레드"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://CODEMCD.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  new Vue({
+    el : '#category_tag_menu',
+    data : {
+      flag_c1 : true,
+      flag_c2 : true,
+      flag_c3 : true,
+      flag_c4 : true
+    },
+    methods : {
+      togglec1: function(){
+        this.flag_c1 = !this.flag_c1;
+      },
+      togglec2: function(){
+        this.flag_c2 = !this.flag_c2;
+      },
+      togglec3: function(){
+        this.flag_c3 = !this.flag_c3;
+      },
+      togglec4: function(){
+        this.flag_c4 = !this.flag_c4;
+      }
+    }
+  });
+</script>
+
+
+  </body>
+</html>

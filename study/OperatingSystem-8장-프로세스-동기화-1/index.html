@@ -1,0 +1,1234 @@
+<!doctype html>
+<!--
+  Minimal Mistakes Jekyll Theme 4.13.0 by Michael Rose
+  Copyright 2013-2018 Michael Rose - mademistakes.com | @mmistakes
+  Free for personal and commercial use under the MIT license
+  https://github.com/mmistakes/minimal-mistakes/blob/master/LICENSE.txt
+-->
+<html lang="ko" class="no-js">
+  <head>
+    <meta charset="utf-8">
+
+<!-- begin _includes/seo.html --><title>[OS] 8장 프로세스 동기화 - 1 - CODEMCD’s Tech BLOG</title>
+<meta name="description" content="운영체제 개념 정리">
+
+
+
+<meta property="og:type" content="article">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:site_name" content="CODEMCD's Tech BLOG">
+<meta property="og:title" content="[OS] 8장 프로세스 동기화 - 1">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-8%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1/">
+
+
+  <meta property="og:description" content="운영체제 개념 정리">
+
+
+
+
+
+
+
+  <meta property="article:published_time" content="2019-03-06T00:00:00+09:00">
+
+
+
+
+
+  
+
+  
+
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-8%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1/">
+
+
+
+
+
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Person",
+      "name": "CODEMCD",
+      "url": "https://codemcd.github.io/pages/CODEMCD",
+      "sameAs": null
+    }
+  </script>
+
+
+
+
+
+
+
+<!-- end _includes/seo.html -->
+
+
+<link href="/pages/CODEMCD/feed.xml" type="application/atom+xml" rel="alternate" title="CODEMCD's Tech BLOG Feed">
+
+<!-- http://t.co/dKP3o1e -->
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<script>
+  document.documentElement.className = document.documentElement.className.replace(/\bno-js\b/g, '') + ' js ';
+</script>
+
+<!-- For all browsers -->
+<link rel="stylesheet" href="/pages/CODEMCD/assets/css/main.css">
+
+<!--[if lte IE 9]>
+  <style>
+    /* old IE unsupported flexbox fixes */
+    .greedy-nav .site-title {
+      padding-right: 3em;
+    }
+    .greedy-nav button {
+      position: absolute;
+      top: 0;
+      right: 0;
+      height: 100%;
+    }
+  </style>
+<![endif]-->
+
+
+    <!-- start custom head snippets -->
+
+<!-- insert favicons. use https://realfavicongenerator.net/ -->
+
+<!-- end custom head snippets -->
+
+    
+  </head>
+
+  <body class="layout--single">
+
+    <!--[if lt IE 9]>
+<div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
+<![endif]-->
+
+    <div class="masthead">
+  <div class="masthead__inner-wrap">
+    <div class="masthead__menu">
+      <nav id="site-nav" class="greedy-nav">
+        <a class="site-title" href="/pages/CODEMCD/">CODEMCD's Tech BLOG</a>
+        <ul class="visible-links"><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/about/" >About</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/toy/" >Toy Project</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/algorithm/" >Algorithm</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/language/" >Language</a>
+            </li><li class="masthead__menu-item">
+              <a href="/pages/CODEMCD/study/" >Study</a>
+            </li></ul>
+        
+        <button class="search__toggle" type="button">
+          <svg class="icon" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 15.99 16">
+            <path d="M15.5,13.12L13.19,10.8a1.69,1.69,0,0,0-1.28-.55l-0.06-.06A6.5,6.5,0,0,0,5.77,0,6.5,6.5,0,0,0,2.46,11.59a6.47,6.47,0,0,0,7.74.26l0.05,0.05a1.65,1.65,0,0,0,.5,1.24l2.38,2.38A1.68,1.68,0,0,0,15.5,13.12ZM6.4,2A4.41,4.41,0,1,1,2,6.4,4.43,4.43,0,0,1,6.4,2Z" transform="translate(-.01)"></path>
+          </svg>
+        </button>
+        
+        <button class="greedy-nav__toggle hidden" type="button">
+          <span class="visually-hidden">토글 메뉴</span>
+          <div class="navicon"></div>
+        </button>
+        <ul class="hidden-links hidden"></ul>
+      </nav>
+    </div>
+  </div>
+</div>
+
+
+    <div class="initial-content">
+      
+
+
+
+<div id="main" role="main">
+  
+  <div class="sidebar sticky">
+  
+
+
+<div itemscope itemtype="http://schema.org/Person">
+
+  
+
+  <div class="author__content">
+    
+      <a href="/pages/CODEMCD/"><h3 class="author__name" itemprop="name">CODEMCD</h3></a>
+    
+    
+      <p class="author__bio" itemprop="description">
+        JUST DO...
+      </p>
+    
+  </div>
+
+  <div class="author__urls-wrapper">
+    <button class="btn btn--inverse">팔로우</button>
+    <ul class="author__urls social-icons">
+      
+        <li itemprop="homeLocation" itemscope itemtype="http://schema.org/Place">
+          <i class="fas fa-fw fa-map-marker-alt" aria-hidden="true"></i> <span itemprop="name">South Korea</span>
+        </li>
+      
+
+      
+        
+          
+        
+          
+            <li><a href="https://codemcd.blogspot.com/"><i class="fas fa-fw fa-link" aria-hidden="true"></i> Blog</a></li>
+          
+        
+          
+        
+          
+        
+          
+            <li><a href="https://codemcd.github.io/categories/"><i class="fab fa-fw fa-github" aria-hidden="true"></i> GitHub</a></li>
+          
+        
+          
+        
+      
+
+      
+
+      
+        <li>
+          <a href="mailto:psbum1609@gmail.com">
+            <meta itemprop="email" content="psbum1609@gmail.com" />
+            <i class="fas fa-fw fa-envelope-square" aria-hidden="true"></i> 이메일
+          </a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      
+
+      <!--
+  <li>
+    <a href="http://link-to-whatever-social-network.com/user/" itemprop="sameAs">
+      <i class="fas fa-fw" aria-hidden="true"></i> Custom Social Profile Link
+    </a>
+  </li>
+-->
+    </ul>
+  </div>
+</div>
+
+  
+  
+  <!-- Add category side bar -->
+  
+    <nav class="nav__list">
+  <input id="ac-toc" name="accordion-toc" type="checkbox" />
+  <label for="ac-toc">토글 메뉴</label>
+  <ul class="nav__items" id="category_tag_menu">
+      <li>
+
+        <span class="nav__sub-title" v-on:click='togglec1()'>Toy</span>
+        <ul v-show="flag_c1">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/toy-blog" class="">Blog (2)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/toy-jsdslib" class="">jsdsLib (4)</a></li>
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec2()'>Algorithm</span>
+        <ul v-show="flag_c2">
+          
+            
+              
+                <li><a href="/tags/algorithm-algospot" class="">Algospot (24)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-codingtest" class="">CodingTest (14)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-algorithm" class="">Algorithm (10)</a></li>
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-datastructure" class="">DataStructure (8)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/algorithm-boj" class="">BOJ (13)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec3()'>Language</span>
+        <ul v-show="flag_c3">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                
+                  <li><a href="/tags/language-java" class="">Java (15)</a></li>
+                
+            
+          
+            
+              
+                
+                  <li><a href="/tags/language-kotlin" class="">Kotlin (6)</a></li>
+                
+            
+          
+            
+          
+            
+              
+                
+                  <li><a href="/tags/language-ccpp" class="">C/C++ (2)</a></li>
+                
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+        </ul>
+
+        <span class="nav__sub-title" v-on:click='togglec4()'>Study</span>
+        <ul v-show="flag_c4">
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/study-database" class="">Database (2)</a></li>
+            
+          
+            
+          
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/study-cloud" class="">Cloud (1)</a></li>
+            
+          
+            
+          
+            
+          
+            
+              
+                <li><a href="/tags/study-operatingsystem" class="">OperatingSystem (8)</a></li>
+            
+          
+        </ul>
+
+      </li>
+  </ul>
+</nav>
+
+  
+  
+  </div>
+
+
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[OS] 8장 프로세스 동기화 - 1">
+    <meta itemprop="description" content="운영체제 개념 정리">
+    <meta itemprop="datePublished" content="March 06, 2019">
+    
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[OS] 8장 프로세스 동기화 - 1
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+              <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#bank-account-problem은행-계좌-문제">Bank Account Problem(은행 계좌 문제)</a></li>
+  <li><a href="#임계구역critical-section-문제">임계구역(Critical section) 문제</a>
+    <ul>
+      <li><a href="#프로세스쓰레드-동기화">프로세스/쓰레드 동기화</a></li>
+    </ul>
+  </li>
+  <li><a href="#semaphore세마포">Semaphore(세마포)</a>
+    <ul>
+      <li><a href="#bank-account-problem은행-계좌-문제-1">Bank Account Problem(은행 계좌 문제)</a></li>
+      <li><a href="#ordering">Ordering</a></li>
+      <li><a href="#입금-출금-순서로-은행계좌-문제-해결하기">입금 출금 순서로 은행계좌 문제 해결하기</a></li>
+    </ul>
+  </li>
+</ul>
+            </nav>
+          </aside>
+        
+        <p>현대 컴퓨터의 메모리에는 여러 프로세스가 존재하는데, 이러한 프로세스들이 하나의 공유 메모리나 또 다른 프로세스에 접근할 때는 매우 신중해야 한다. 이처럼 한 프로세스가 다른 프로세스에게 영향을 받거나 주는 프로세스를 <strong>Cooperating process</strong> 라한다. 반대로 아무런 영향을 미치지 않는 독립적인 프로세스는  <strong>Independent process</strong> 이다.</p>
+
+<p>현대 컴퓨터 환경에는 cooperating process 가 훨씬 많이 존재하고, 이들은 서로 영향을 미치기 때문에 데이터나 흐름에 대한 <strong>동기화</strong> 가 매우 중요하다. 프로세스 사이에 동기화를 하는 것을 <strong>프로세스 동기화(Process Synchronization)</strong> 라 한다.(현재에는 대부분 쓰레드 기준으로 스위칭을 하므로, <strong>Thread synchronization</strong> 으로 많이 불린다.)</p>
+
+<p>예를 들어, 기차표 예매가 대표적이다. 어느 시간에 한 좌석의 기차표는 반드시 하나만 존재해야한다. 그런데 이를 예매하려는 사용자(프로세스)는 여러 명이다. 이 사용자들이 동시에 하나의 좌석 기차표를 구매하려고 하면 어떠한 일이 발생할까? 실제 환경에서는 당연하게도 동기화 문제를 해결한 시스템이므로 한 사람만이 기차표를 예매할 수 있을 것이다. 만약 동기화에 문제가 발생한다면 한 기차표를 여러 사람이 예매하는 불상사가 발생할 수 있다.</p>
+
+<p>프로세스 동기화는 여러 프로세스가 <strong>공유하는 자원의 일관성</strong> 을 유지하는 것이다. 가령 여러 프로세스가 동시에 하나의 공유된 자원에 접근하려고 할 때 이 프로세스들의 순서를 정하여 데이터의 일관성을 유지시켜주어야 한다.</p>
+
+<h2 id="bank-account-problem은행-계좌-문제">Bank Account Problem(은행 계좌 문제)</h2>
+<p>동기화 문제 중에서 대표적인 은행 계좌 문제를 살펴보자. 은행에는 하나의 계좌에 입금, 출금을 할 수 있다. 여기서 계좌는 <strong>공유하는 자원</strong> 이고, 입금과 출금은 각각 프로세스라고 볼 수 있다. 이를 자바로 구현한 코드는 아래와 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test.java</span>
+<span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
+		<span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+		<span class="n">BankAccount</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span>
+		<span class="n">BankAccount</span><span class="o">();</span>
+		<span class="n">Parent</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Parent</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+		<span class="n">Child</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Child</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
+		<span class="n">p</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>   <span class="c1">// start(): 쓰레드를 실행하는 메서드</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
+		<span class="n">p</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>    <span class="c1">// join(): 쓰레드가 마치기를 기다리는 메서드</span>
+		<span class="n">c</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\nbalance = "</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="na">getBalance</span><span class="o">());</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 계좌</span>
+<span class="kd">class</span> <span class="nc">BankAccount</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
+	<span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">amount</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">int</span> <span class="nf">getBalance</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">balance</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 입금 프로세스</span>
+<span class="kd">class</span> <span class="nc">Parent</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+	<span class="n">BankAccount</span> <span class="n">b</span><span class="o">;</span>
+	<span class="n">Parent</span><span class="o">(</span><span class="n">BankAccount</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>   <span class="c1">// run(): 쓰레드가 실제로 동작하는 부분(치환)</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+		<span class="n">b</span><span class="o">.</span><span class="na">deposit</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+
+<span class="c1">// 출금 프로세스</span>
+<span class="kd">class</span> <span class="nc">Child</span> <span class="kd">extends</span> <span class="n">Thread</span> <span class="o">{</span>
+	<span class="n">BankAccount</span> <span class="n">b</span><span class="o">;</span>
+	<span class="n">Child</span><span class="o">(</span><span class="n">BankAccount</span> <span class="n">b</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+		<span class="n">b</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위의 코드를 실행시키면 대부분 아래와 같은 결과를 얻을 수 있다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>balance = 0
+</code></pre></div></div>
+
+<p>이 결과는 정상적이다. 100번 1,000원을 입금하고, 100번 1,000원을 출금하면 잔액은 0원이 남는다. 위 코드는 매우 간단한 코드 이므로 2개의 쓰레드가 동작하고 있지만 동기화 문제가 발생할 확률은 매우 낮다. 이를 조금 더 실제 상황과 비슷하게 만들기 위해 <strong>시간 지연</strong> 을 시켜보도록 하자.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// 계좌</span>
+<span class="kd">class</span> <span class="nc">BankAccount</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
+  <span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span><span class="o">;</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"+"</span><span class="o">);</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">amount</span><span class="o">;</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+	<span class="o">}</span>
+	<span class="kt">int</span> <span class="nf">getBalance</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">balance</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위 코드는 입금, 출금 기능을 담당하는 <code class="highlighter-rouge">BankAccount</code> 클래스에서 입금과 출금을 수행하는 동작에 약간의 시간 지연을 추가하였다.(화면에 출력하는 동작, 변수 대입 동작 추가) 그리고 입출금 횟수를 100에서 1000으로 늘려주었다. 이 코드를 실행시키면 결과는 다음과 같다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>++++++++++++++++++++++++++++++++++----------------------------------------------
+--------------------------------------------------------------------------++++++
++++----------------------------------------------+++++++++++++++++++++++++++++++
++----+++++++-+++++----+++-------------------------------------------------------
+-+++++++-++++-+++++++++-------++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++---------------+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++-++++++++++++-------------------++++++++++++++++++++-++++++++++++++++++++++++++
+++++++-+------------------------------------------------------------------------
+-+++++++++++-+++++++----------------------------------------+-------+-----------
+-+------+-----------------------------------------------------------------------
+-+------------------------------------------------------------------------------
+-+------------------------------------------------------------------------------
+-------------------+-------+----------------------------------------------------
+------------------------------+-------------------------------------------------
+------------------------------------------------------+-------------------------
+-+------------------------------------------------------------------------------
+-++---------------------------------------++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+balance = 1000000
+</code></pre></div></div>
+
+<p>+는 입금을 한 경우, -는 출금을 한 경우이고, 주목할 점은 <strong>balance값이 0이 아닌</strong> 1000000이라는 알 수 없는 값이 출력되었다. 약간의 시간 지연을 준 것만으로도 여러 쓰레드가 하나의 공유 자원을 사용하는 프로그램은 망가지게 된다. 이는 동기화 문제를 해결하지 못하였기 때문에 생기는 문제점이다. +, - 출력되는 결과는 운영체제에서 쓰레드를 스위칭하는 패턴이 매번 다르므로 수행할 때마다 다르게 출력될 수 있다.</p>
+
+<p>이러한 문제가 발생하는 원인은 <strong>공통변수(common variable)에 대한 동시 업데이트(concurrent update)</strong> 때문이다.</p>
+
+<p>위 예제에서 공통 변수는 계좌의 잔액이다. 이에 접근하는 프로세스의 코드를 보면 다음과 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span><span class="o">;</span>   <span class="c1">// 입금</span>
+<span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">amount</span><span class="o">;</span>   <span class="c1">// 출금</span>
+</code></pre></div></div>
+
+<p>이는 자바 문법에서는 한 줄이라 문제가 없어 보이지만, 로우 레벨(어셈블리어)로 내려가면 여러 줄로 구현된다. 위 코드를 사용한 예제에서는 문제가 발생할 확률이 매우 낮았지만, 두 번째로 본 예제와 같이 공통변수에 접근하는 공간에서 조금만 시간 지연을 발생시켜도 비정상적인 결과값이 나온 것을 확인하였다.</p>
+
+<p>해결 방법은 공통변수에 접근하는 쓰레드는 하나만 존재하도록 관리해야 한다. 이러한 공통변수 구역을 <strong>임계구역</strong> 이라한다.</p>
+
+<h2 id="임계구역critical-section-문제">임계구역(Critical section) 문제</h2>
+<p>임계구역은 여러 개의 쓰레드가 수행되는 시스템에서 각 쓰레드들이 <strong>공유하는 데이터(변수, 테이블, 파일 등)를 변경하는 코드 영역</strong> 을 말한다. 이는 동기화에서 중요한 문제 중 하나이다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span><span class="o">;</span>
+<span class="o">}</span>
+<span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+  <span class="n">balance</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">amount</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위 코드는 은행계좌 문제에서의 임계구역이다.</p>
+
+<p>임계구역을 해결하기 위해서는 3가지 조건이 만족해야한다.</p>
+<ul>
+  <li><strong>Mutual exclusion(상호배타)</strong>: 오직 한 쓰레드만이 진입 가능하다. 한 쓰레드가 임계구역에서 수행 중인 상태에서는 다른 쓰레드는 절대 이 구역에 접근할 수 없다.</li>
+  <li><strong>Progress(진행)</strong>: 한 임계구역에 접근하는 쓰레드를 결정하는 것은 유한 시간 이내에 이루어져야한다.</li>
+  <li><strong>Bounded waiting(유한대기)</strong>: 임계구역으로 진입하기 위해 대기하는 모든 쓰레드는 유한 시간 이내에 해당 임계구역으로 진입할 수 있어야 한다.</li>
+</ul>
+
+<h3 id="프로세스쓰레드-동기화">프로세스/쓰레드 동기화</h3>
+<p>프로세스(쓰레드) 동기화를 통해 이루고자 하는 목적은 다음과 같다.</p>
+<ul>
+  <li>원하는 결과값을 도출하도록 <strong>임계구역 문제를 해결</strong> 한다.</li>
+  <li>프로세스의 <strong>실행 순서</strong> 를 원하는대로 제어한다.</li>
+  <li>Busy wait 등과 같은 비효율성을 제거한다.</li>
+</ul>
+
+<h2 id="semaphore세마포">Semaphore(세마포)</h2>
+<p>세마포는 동기화를 해결하기위 만들어진 소프트웨어로서, 대표적인 <strong>동기화 도구</strong> 이다. 사전적 의미로는 역이나 군대에서 사용하는 수신호라는 뜻이다.</p>
+
+<p>세마포는 두 가지 동작이 존재하는데, 초기에는 P, V로 불렸다.(네덜란드에서 만들어져 네덜란드어의 약자이다.) 현재에는 P는 test를 의미하며 <strong>acquire()</strong> 로 사용하고, V는 increment를 의미하며 <strong>release()</strong> 로 사용한다.</p>
+
+<p>자바를 통해 세마포 구조를 간단히 살펴보면 아래와 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">Semaphore</span> <span class="o">{</span>
+  <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>      <span class="c1">// number of permits</span>
+  <span class="n">Semaphore</span><span class="o">(</span><span class="kt">int</span> <span class="n">value</span><span class="o">)</span> <span class="o">{</span>
+    <span class="c1">// ...</span>
+  <span class="o">}</span>
+  <span class="kt">void</span> <span class="nf">acquire</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">value</span><span class="o">--;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">add</span> <span class="k">this</span> <span class="n">process</span><span class="o">/</span><span class="n">thread</span> <span class="n">to</span> <span class="n">list</span><span class="o">;</span>
+      <span class="n">block</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="kt">void</span> <span class="nf">release</span><span class="o">()</span> <span class="o">{</span>
+    <span class="n">value</span><span class="o">++;</span>
+    <span class="k">if</span> <span class="o">(</span><span class="n">value</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="o">)</span> <span class="o">{</span>
+      <span class="n">remove</span> <span class="n">a</span> <span class="n">process</span> <span class="n">P</span> <span class="n">from</span> <span class="n">list</span><span class="o">;</span>
+      <span class="n">wakeup</span> <span class="n">P</span><span class="o">;</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위 코드에서 <code class="highlighter-rouge">acquire()</code> 는 value값을 감소시키고 만약 value값이 0보다 작으면 이미 해당 임계구역에 어느 프로세스가 존재한다는 의미이므로 현재 프로세스는 접근하지 못하도록 막아야한다. 이를 list라는 기다리는 줄에 추가한 뒤 block을 걸어준다.(list는 일반적으로 큐로 되어있다.)</p>
+
+<p><code class="highlighter-rouge">release()</code> 는 value값을 증가시키고, 만약 value값이 0보다 같거나 작으면 임계구역에 진입하려고 대기하는 프로세스가 list에 남아있다는 의미이므로 그 중에서 하나를 꺼내어 임계구역을 수행할 수 있도록 해주어야 한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/53879679-5f302f00-4052-11e9-947a-5b048da2ea82.png" alt="os08-1" /></p>
+
+<p>세마포를 그림으로 나타내면 위와 같다. list는 실제로 <strong>큐</strong> 로 볼 수 있다. acquire()에 의해 block되는 프로세스는 세마포 내부에 있는 큐에 삽입된 후, 다른 프로세스가 임계구역을 나오면서 release()를 호출하여 세마포 큐에 있는 프로세스를 깨워주어야 한다.(다시 ready queue로 보낸다.)</p>
+
+<p>위에서 살펴본 것처럼 세마포는 일반적으로 <strong>Mutual exclusion</strong> 을 위해 사용된다.</p>
+
+<h3 id="bank-account-problem은행-계좌-문제-1">Bank Account Problem(은행 계좌 문제)</h3>
+<p>처음에 살펴본 은행계좌 문제에 세마포를 적용해보자. 위에서 임계구역은 <code class="highlighter-rouge">BankAccount</code> 클래스 내부의 입출력하는 부분인 것을 보았다. 여기에 세마포를 적용해보면 아래와 같다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">java.util.concurrent.Semaphore</span><span class="o">;</span>  <span class="c1">// 세마포를 사용하기 위해 파일 가장 위에 추가해야 한다.</span>
+
+<span class="kd">class</span> <span class="nc">BankAccount</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
+
+	<span class="n">Semaphore</span> <span class="n">sem</span><span class="o">;</span>
+	<span class="n">BankAccount</span><span class="o">()</span> <span class="o">{</span>   <span class="c1">// BankAccount 클래스의 생성자가 호출되면 세마포를 만든다.</span>
+		<span class="n">sem</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Semaphore</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>  <span class="c1">// value 값을 1로 초기화한다.</span>
+	<span class="o">}</span>
+
+	<span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+		<span class="n">sem</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>   <span class="c1">// 임계구역에 들어가기를 요청한다.</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="cm">/* 임계 구역 */</span>  
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span><span class="o">;</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"+"</span><span class="o">);</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+
+		<span class="n">sem</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>   <span class="c1">// 임계구역에서 나간다.</span>
+	<span class="o">}</span>
+	<span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+		<span class="n">sem</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+    <span class="cm">/* 임계 구역 */</span>  
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">amount</span><span class="o">;</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+
+		<span class="n">sem</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+	<span class="o">}</span>
+	<span class="kt">int</span> <span class="nf">getBalance</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">balance</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p><code class="highlighter-rouge">value</code> 값은 임계구역에 몇 개의 프로세스를 접근할 것인지 정하는 것과 같다. 지금은 임계 구역에 하나의 프로세스만 접근가능하기 때문에 1로 초기화 한다.(위 코드를 제외한 부분은 동일하다.) 이 코드를 수행하면 아래와 같은 결과가 나온다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>// +,- 출력 생략
+balance = 0
+</code></pre></div></div>
+
+<p>정상적으로 잔액이 0원이 나온 것을 확인할 수 있다. 이 코드는 임계구역의 문제를 해결하였으므로 몇 번을 수행하여도 같은 결과값이 출력된다.</p>
+
+<h3 id="ordering">Ordering</h3>
+<p>세마포는 mutual exclusion뿐 아니라 ordering을 하기 위해서도 사용한다. 즉, <strong>프로세스의 실행 순서를 원하는 순서로 설정</strong> 할 수 있다.</p>
+
+<p>예를 들어, 프로세스가 P1, P2 두 개가 있다고 가정하자. 원하는 순서는 P1, P2 순으로 실행하기를 원한다. 그러면 아래와 같이 설정해줄 수 있다.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">sem value = 0;</code></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th style="text-align: center">P1</th>
+      <th style="text-align: center">P2</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td style="text-align: center"> </td>
+      <td style="text-align: center">sem.acquire()</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">Section1</td>
+      <td style="text-align: center">Section2</td>
+    </tr>
+    <tr>
+      <td style="text-align: center">sem.release()</td>
+      <td style="text-align: center"> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>먼저, 세마포로 감싼 구역에 들어갈 수 있는 프로세스 개수를 정하는 value값을 0으로 설정한다.</p>
+<ol>
+  <li>P1이 먼저 실행된 경우
+    <ul>
+      <li>Section1에 이전에 아무런 동작이 없으므로 바로 수행한다.</li>
+      <li><code class="highlighter-rouge">sem.release()</code> 를 만나면 value값을 1 증가시키고, 세마포 큐에 있는 프로세스를 깨워주는데 현재에는 큐에 프로세스가 없으므로 아무 동작도 하지 않는다.</li>
+      <li>P2가 실행된다.</li>
+      <li>P2의 <code class="highlighter-rouge">sem.acquire()</code> 를 만나면 현재 value값은 1이고 이를 1감소시키면 0이 된다. value = 0이면 block을 하지 않으므로, 무사히 Section2가 수행된다.</li>
+    </ul>
+  </li>
+  <li>P2가 먼저 실행된 경우
+    <ul>
+      <li>Section2 이전에 <code class="highlighter-rouge">sem.acquire()</code> 가 있으므로 이를 수행하는데, 현재 value값은 0이고 이를 1 감소 시키면 -1이된다. value값이 음수면 해당 프로세스를 block시킨다.(세마포 큐에 삽입한다.)</li>
+      <li>P1이 실행되면 Section1이 바로 수행된다.</li>
+      <li><code class="highlighter-rouge">sem.release()</code> 를 만나면 value값을 1증가시키고, 세마포 큐에 있는 P2 프로세스를 깨워준다.(현재 value = 0)</li>
+      <li>P2의 Section2가 수행된다.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>위에서 두 가지 경우를 살펴보았듯이, P1, P2 둘 중 어느 것을 먼저 실행하여도 결과적으로 P1 -&gt; P2 순서로 수행하는 것을 알 수 있다.</p>
+
+<h3 id="입금-출금-순서로-은행계좌-문제-해결하기">입금 출금 순서로 은행계좌 문제 해결하기</h3>
+<p>위에서 계속 살펴봤던 은행계좌 문제에서 ordering을 적용해보자. 프로세스의 실행 순서는 반드시 입금, 출금 순서로 수행해야한다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kd">class</span> <span class="nc">BankAccount</span> <span class="o">{</span>
+	<span class="kt">int</span> <span class="n">balance</span><span class="o">;</span>
+
+	<span class="n">Semaphore</span> <span class="n">sem</span><span class="o">,</span> <span class="n">semOrder</span><span class="o">;</span>
+	<span class="n">BankAccount</span><span class="o">()</span> <span class="o">{</span>
+		<span class="n">sem</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Semaphore</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+		<span class="n">semOrder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Semaphore</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>   <span class="c1">// Ordeing을 위한 세마포</span>
+	<span class="o">}</span>
+
+	<span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+		<span class="n">sem</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span><span class="o">;</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"+"</span><span class="o">);</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+		<span class="n">sem</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+		<span class="n">semOrder</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>   <span class="c1">// block된 출금 프로세스가 있다면 깨워준다.</span>
+	<span class="o">}</span>
+	<span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+		<span class="k">try</span> <span class="o">{</span>
+		<span class="n">semOrder</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>   <span class="c1">// 출금을 먼저하려고 하면 block한다.</span>
+		<span class="n">sem</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>
+		<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+		<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">amount</span><span class="o">;</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+		<span class="n">balance</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+		<span class="n">sem</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+	<span class="o">}</span>
+	<span class="kt">int</span> <span class="nf">getBalance</span><span class="o">()</span> <span class="o">{</span>
+		<span class="k">return</span> <span class="n">balance</span><span class="o">;</span>
+	<span class="o">}</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<p>위처럼 코드를 수정할 수 있다. Ordering을 위한 <code class="highlighter-rouge">semOrder</code> 세마포 변수를 선언하고, 출금하는 동작 앞에 <code class="highlighter-rouge">acquire()</code>, 입금하는 동작 뒤에 <code class="highlighter-rouge">release()</code> 를 추가하였다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+++++++++++++++++++++++++------------+++++-----++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++------------------------------------------
+----------------------------------------
+balance = 0
+</code></pre></div></div>
+
+<p>실행 결과는 위와 같다. +(입금)가 맨 앞에서 실행한 모습을 볼 수 있다.(입금, 출금 횟수는 100번으로 줄였다.)</p>
+
+<p>만약, 입금, 출금, 입금, 출금, … 교대로 출력하도록 하려면 세마포를 두 개 사용하여 아래와 같이 구현할 수 있다.</p>
+
+<div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Semaphore</span> <span class="n">sem</span><span class="o">,</span> <span class="n">semDeposit</span><span class="o">,</span> <span class="n">semWithraw</span><span class="o">;</span>
+<span class="n">BankAccount</span><span class="o">()</span> <span class="o">{</span>
+	<span class="n">sem</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Semaphore</span><span class="o">(</span><span class="mi">1</span><span class="o">);</span>
+	<span class="n">semDeposit</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Semaphore</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+	<span class="n">semWithraw</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Semaphore</span><span class="o">(</span><span class="mi">0</span><span class="o">);</span>
+<span class="o">}</span>
+
+<span class="kt">void</span> <span class="nf">deposit</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">try</span> <span class="o">{</span>
+	<span class="n">sem</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>
+	<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">+</span> <span class="n">amount</span><span class="o">;</span>
+	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"+"</span><span class="o">);</span>
+	<span class="n">balance</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+	<span class="n">sem</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+	<span class="n">semWithraw</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+	<span class="n">semDeposit</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>   <span class="c1">// 입금후에는 반드시 출금을 해야 하므로 자신을 block한다.</span>
+	<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+<span class="o">}</span>
+<span class="kt">void</span> <span class="nf">withdraw</span><span class="o">(</span><span class="kt">int</span> <span class="n">amount</span><span class="o">)</span> <span class="o">{</span>
+	<span class="k">try</span> <span class="o">{</span>
+	<span class="n">semWithraw</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>  <span class="c1">// 입금보다 먼저 수행하는 것을 막는다.</span>
+	<span class="n">sem</span><span class="o">.</span><span class="na">acquire</span><span class="o">();</span>
+	<span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">InterruptedException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{}</span>
+	<span class="kt">int</span> <span class="n">temp</span> <span class="o">=</span> <span class="n">balance</span> <span class="o">-</span> <span class="n">amount</span><span class="o">;</span>
+	<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">print</span><span class="o">(</span><span class="s">"-"</span><span class="o">);</span>
+	<span class="n">balance</span> <span class="o">=</span> <span class="n">temp</span><span class="o">;</span>
+	<span class="n">sem</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>
+	<span class="n">semDeposit</span><span class="o">.</span><span class="na">release</span><span class="o">();</span>  <span class="c1">// 출금 수행이 완료되면 block되었던 입금 프로세스를 깨워준다.</span>
+<span class="o">}</span>
+<span class="kt">int</span> <span class="nf">getBalance</span><span class="o">()</span> <span class="o">{</span>
+	<span class="k">return</span> <span class="n">balance</span><span class="o">;</span>
+<span class="o">}</span>
+</code></pre></div></div>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+balance = 0
+</code></pre></div></div>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/tags/#study-operatingsystem" class="page__taxonomy-item" rel="tag">
+        
+        OperatingSystem
+      </a>
+    
+    </span>
+  </p>
+
+
+
+
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/categories/#study" class="page__taxonomy-item" rel="tag">Study</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-03-06T00:00:00+09:00">March 06, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%5BOS%5D+8%EC%9E%A5+%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4+%EB%8F%99%EA%B8%B0%ED%99%94+-+1%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-8%25EC%259E%25A5-%25ED%2594%2584%25EB%25A1%259C%25EC%2584%25B8%25EC%258A%25A4-%25EB%258F%2599%25EA%25B8%25B0%25ED%2599%2594-1%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-8%25EC%259E%25A5-%25ED%2594%2584%25EB%25A1%259C%25EC%2584%25B8%25EC%258A%25A4-%25EB%258F%2599%25EA%25B8%25B0%25ED%2599%2594-1%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-8%25EC%259E%25A5-%25ED%2594%2584%25EB%25A1%259C%25EC%2584%25B8%25EC%258A%25A4-%25EB%258F%2599%25EA%25B8%25B0%25ED%2599%2594-1%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-8%25EC%259E%25A5-%25ED%2594%2584%25EB%25A1%259C%25EC%2584%25B8%25EC%258A%25A4-%25EB%258F%2599%25EA%25B8%25B0%25ED%2599%2594-1%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C/" class="pagination--pager" title="[OS] 7장 프로세스와 쓰레드
+">이전</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">댓글남기기</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C/" rel="permalink">[OS] 7장 프로세스와 쓰레드
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/OperatingSystem-6%EC%9E%A5-CPU%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/" rel="permalink">[OS] 6장 CPU 스케줄링
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/OperatingSystem-5%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EA%B4%80%EB%A6%AC/" rel="permalink">[OS] 5장 프로세스 관리
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/OperatingSystem-4%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4/" rel="permalink">[OS] 4장 운영체제 서비스
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+</p>
+  </article>
+</div>
+        
+      </div>
+    </div>
+  
+  
+</div>
+
+    </div>
+
+    
+      <div class="search-content">
+        <div class="search-content__inner-wrap"><div class="search-searchbar"></div>
+    <div class="search-hits"></div></div>
+      </div>
+    
+
+    <div class="page__footer">
+      <footer>
+        <!-- start custom footer snippets -->
+
+<!-- end custom footer snippets -->
+        <div class="page__footer-follow">
+  <ul class="social-icons">
+    
+      <li><strong>팔로우:</strong></li>
+    
+
+    
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    
+
+    <li><a href="/pages/CODEMCD/feed.xml"><i class="fas fa-fw fa-rss-square" aria-hidden="true"></i> 피드</a></li>
+  </ul>
+</div>
+
+<div class="page__footer-copyright">&copy; 2019 CODEMCD. Powered by <a href="https://jekyllrb.com" rel="nofollow">Jekyll</a> &amp; <a href="https://mademistakes.com/work/minimal-mistakes-jekyll-theme/" rel="nofollow">Minimal Mistakes</a>.</div>
+
+      </footer>
+    </div>
+
+    
+  <script src="/pages/CODEMCD/assets/js/main.min.js"></script>
+  <script src="https://use.fontawesome.com/releases/v5.2.0/js/all.js"></script>
+
+
+<!-- Including InstantSearch.js library and styling -->
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.js"></script>
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch.min.css">
+<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.3.3/dist/instantsearch-theme-algolia.min.css">
+
+<script>
+// Instanciating InstantSearch.js with Algolia credentials
+const search = instantsearch({
+  appId: 'I6UE8BVP0C',
+  apiKey: 'f6718f69889fabcb9d71088ba50236b5',
+  indexName: 'GITHUB_BLOG',
+  searchParameters: {
+    restrictSearchableAttributes: [
+      'title',
+      'content'
+    ]
+  }
+});
+
+const hitTemplate = function(hit) {
+  const url = hit.url;
+  const title = hit._highlightResult.title.value;
+  const content = hit._highlightResult.html.value;
+
+  return `
+    <div class="list__item">
+      <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+        <h2 class="archive__item-title" itemprop="headline"><a href="/pages/CODEMCD${url}">${title}</a></h2>
+        <div class="archive__item-excerpt" itemprop="description">${content}</div>
+      </article>
+    </div>
+  `;
+}
+
+// Adding searchbar and results widgets
+search.addWidget(
+  instantsearch.widgets.searchBox({
+    container: '.search-searchbar',
+    poweredBy: true,
+    placeholder: 'Enter your search term...'
+  })
+);
+search.addWidget(
+  instantsearch.widgets.hits({
+    container: '.search-hits',
+    templates: {
+      item: hitTemplate
+    }
+  })
+);
+
+// Starting the search
+search.start();
+</script>
+
+
+
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-8%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/study/OperatingSystem-8장-프로세스 동기화-1"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://CODEMCD.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
+
+
+<script src="https://cdn.jsdelivr.net/npm/vue"></script>
+<script>
+  new Vue({
+    el : '#category_tag_menu',
+    data : {
+      flag_c1 : true,
+      flag_c2 : true,
+      flag_c3 : true,
+      flag_c4 : true
+    },
+    methods : {
+      togglec1: function(){
+        this.flag_c1 = !this.flag_c1;
+      },
+      togglec2: function(){
+        this.flag_c2 = !this.flag_c2;
+      },
+      togglec3: function(){
+        this.flag_c3 = !this.flag_c3;
+      },
+      togglec4: function(){
+        this.flag_c4 = !this.flag_c4;
+      }
+    }
+  });
+</script>
+
+
+  </body>
+</html>
