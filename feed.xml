@@ -1,4 +1,225 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-03-22T20:53:59+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s Tech BLOG</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[OS] 10장 프로세스 동기화 - 3</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/" rel="alternate" type="text/html" title="[OS] 10장 프로세스 동기화 - 3" /><published>2019-03-14T00:00:00+09:00</published><updated>2019-03-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%EB%8F%99%EA%B8%B0%ED%99%94-3</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/">&lt;h2 id=&quot;deadlock교착상태&quot;&gt;Deadlock(교착상태)&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.7.4">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-03-22T21:16:30+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s Tech BLOG</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[OS] 12장 주기억장치 관리</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/" rel="alternate" type="text/html" title="[OS] 12장 주기억장치 관리" /><published>2019-03-22T00:00:00+09:00</published><updated>2019-03-22T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%20%EA%B4%80%EB%A6%AC</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/">&lt;p&gt;메모리는 CPU 자원만큼 컴퓨터를 사용하는데 매우 중요한 자원 중 하나이다. 이전에는 운영체제에서 CPU 자원을 관리하는 프로세스 관리에 대해 살펴보았고, 지금부터는 메인 메모리를 관리하는 기능에 대해 살펴볼 것이다. 특히, 과거에는 메모리가 매우 비싼 자원이었고 크기 또한 작았기 때문에, 운영체제에서 메모리에 대한 관리가 지금보다 더 중요하였다.&lt;/p&gt;
+
+&lt;p&gt;현재에는 과거보다 훨씬 큰 메모리를 저렴하게 사용하지만, 지금도 메모리는 부족하다. 메모리가 커져온 만큼 프로그램의 크기와 처리하는 데이터의 크기는 그보다 더욱 빠른 속도로 커져왔다. 그러므로 현재에도 여전히 메모리를 최대한 효율적으로 사용하기 위해 여러 방법들이 연구되고 있고, 운영체제 기능에서도 매우 중요한 위치를 차지하고 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;메모리에-프로그램-할당하기&quot;&gt;메모리에 프로그램 할당하기&lt;/h2&gt;
+&lt;p&gt;메모리는 기본적으로 &lt;strong&gt;주소(Address)&lt;/strong&gt; 와 &lt;strong&gt;데이터(Data)&lt;/strong&gt; 로 구성되어 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821877-d74f5380-4ce6-11e9-8888-e63816796f65.png&quot; alt=&quot;OS12-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;CPU와 메모리는 양방향으로 위 그림과 같이 주고 받는다. CPU는 주소를 가지고 메인 메모리에 요청을하거나 해당 주소에 계산 결과를 저장하고, 메모리는 요구하는 주소에 저장되어 있는 데이터를 CPU에게 전달한다.&lt;/p&gt;
+
+&lt;p&gt;프로그램을 빌드하는 과정은 소스파일, 목적파일, 실행파일 순서로 생성된다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;소스파일(Source file): 고수준언어 또는 어셈블리어&lt;/li&gt;
+  &lt;li&gt;목적파일(Object file): 컴파일 또는 어셈블 결과&lt;/li&gt;
+  &lt;li&gt;실행파일(Executable file): 링크 결과&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821878-d74f5380-4ce6-11e9-98e8-a43b086a4837.png&quot; alt=&quot;OS12-2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 프로그램이 만들어지는 과정을 그림으로 표현한 것이다. 소스파일은 컴파일러(compiler)에 의해 컴파일 수행 결과로 목적 파일을 생성한다.(어셈블리어는 어셈블러가 어셈블을 수행하여 기계어로 변환한다.) 프로그래밍을 하면서 외부의 라이브러리를 사용할 때가 빈번한데, 컴파일 단계에서는 이를 추가하지 않기 때문에 목적파일에는 이에 대한 정보가 없다. 그대신 위 그림에서 보이듯이, 링크 단계에서 하드디스크에서 프로그래머가 추가한 라이브러리를 찾아 정보를 추가하여, 실행 파일을 만든다.(링크 단계는 링커(linker)가 수행한다.) 이 프로그램을 실행하면 로더(loader)에 의해 메인 메모리에 할당된다.&lt;/p&gt;
+
+&lt;p&gt;그리고 생성된 프로그램은 code, data, stack 영역으로 나뉘어져 있다. 단순히 생성된 프로그램에는 code와 data영역만 존재하며, 메모리에 적재되었을 때는 실제로 실행을 해야하므로 stack영역에 추가되어야 한다.&lt;/p&gt;
+
+&lt;p&gt;그러면, 프로그램을 실제로 메모리에 올리기 위해서는 좀 더 복잡한 과정이 필요하다. 먼저, 이 프로그램은 메모리에 몇 번지에 할당될까? 이 질문은 운영체제가 없다면, 프로그래머가 직접 이를 처리해주어야 할 것이다. 하지만 운영체제가 존재하므로 실제 프로그래머는 이를 신경쓸 필요가 없다. 그러므로 프로그래밍을 할 때 주소를 사용하는 경우가 있는데, 프로그램이 메모리에 올라가는 주소를 고려하지 않고 프로그래밍이 가능한 것이다.(고수준언어에서는 직접 주소를 다루지 않는 경우가 많다.)&lt;/p&gt;
+
+&lt;p&gt;또한, 다중 프로그래밍 환경에서는 여러 프로그램이 메모리에 올라가고 내려가고를 반복하기 때문에, 한 프로그램은 고정적인 공간을 사용할 수 없다. 이러한 여러 고려 사항을 해결해주는 것이 전에도 살펴봤던 MMU이다. 그리고 MMU에는 프로그램이 메모리에 할당될 때마다 다른 주소공간을 사용하기 때문에 &lt;strong&gt;재배치 레지스터(Relocation register)&lt;/strong&gt; 가 별도로 존재한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821879-d7e7ea00-4ce6-11e9-9ad0-ffe02008d6a9.png&quot; alt=&quot;OS12-3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 MMU의 모습이다. 프로그램은 메인 메모리에 해당 주소를 사용할 수 있는지 여부를 생각하지 않고 주소를 사용한다. 만약 해당 프로그램이 사용하는 시작주소가 0번지라고 할 때, 실제 메인 메모리에서는 할당되는 주소가 유동적이기 때문에 0번지이라는 주소를 실제 할당된 주소로 변경해주어야 한다. 이때 재배치 레지스터를 이용한다.&lt;/p&gt;
+
+&lt;p&gt;만약, 프로그램이 메인 메모리 500번지에 할당되어 재배치 레지스터값이 500으로 설정되었다면, CPU에서 프로그램의 0번지를 사용할 때 MMU를 통과하면 재배치 레지스터에 의해 500번지로 변경된다. 그 결과 CPU는 0번지를 사용하는 것으로 알고 있지만, 실제 메모리에서는 MMU에 의해 500번지를 사용하고 있는 것이다.&lt;/p&gt;
+
+&lt;p&gt;MMU(Memory Management Unit)의 기능을 살펴보면, 이전에 메모리 보호를 위해 base와 limit 레지스터가 있었다. 이는 CPU에서 주소를 사용하는데 이 주소가 해당 프로그램의 base나 limit 범위를 벗어나면 인터럽트가 발생하여 그 프로그램을 강제로 종료시킨다.&lt;/p&gt;
+
+&lt;p&gt;MMU는 이 기능 이외에도 재배치 레지스터를 사용해서 프로그램이 어느 주소를 사용하더라도 실제 메인 메모리에 할당된 주소를 찾아갈 수 있도록 &lt;strong&gt;address translation&lt;/strong&gt; 동작을 수행한다. 즉, CPU는 프로그램에 설정된 주소를 계속 사용하고 메모리에 명령을 보내지만, MMU에 의해 실제로 프로그램이 할당된 메모리 주소로 변환해서 사용할 수 있는 것이다. 그 결과, &lt;strong&gt;프로그램의 실제 메모리 주소 공간의 위치는 CPU에 전혀 영향을 미치지 않고&lt;/strong&gt; 정상적으로 사용할 수 있는 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821880-d7e7ea00-4ce6-11e9-944e-3be89338213f.png&quot; alt=&quot;OS12-4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;MMU에 의해 위 그림과 같이 주소는 두 가지로 구분된다. CPU에서 사용하는 주소는 &lt;strong&gt;논리 주소(logical address)&lt;/strong&gt; 라고 하고, 메모리가 사용하는 주소는 &lt;strong&gt;물리 주소(physical address)&lt;/strong&gt; 라고 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;메모리-낭비-방지&quot;&gt;메모리 낭비 방지&lt;/h2&gt;
+&lt;p&gt;운영체제는 메모리를 효율적으로 사용하기 위해 메모리 공간을 낭비하지 않는 것이 중요하다.&lt;/p&gt;
+
+&lt;h3 id=&quot;동적-적재dynamic-loading&quot;&gt;동적 적재(Dynamic Loading)&lt;/h3&gt;
+&lt;p&gt;동적 적재는 &lt;strong&gt;프로그램이 실행하는데 반드시 필요한 루틴/데이터만 적재(load)&lt;/strong&gt; 하는 것이다. 프로그램의 전체 코드에서 모든 루틴이 다 사용되는 것은 아니다. 대표적으로 오류 처리 구문이다. 오류 처리 구문은 if문과 같이 오류가 발생할 때만 해당 내부 코드가 실행되는 것을 말한다. 그러므로 동적 적재를 수행하면 프로그램의 실제 메모리에는 이러한 오류 구문을 제외하고 적재한다. 이러한 상태에서 실행하다가 오류가 발생하면 그 때 해당 오류 구문을 찾아 메모리에 올린다.&lt;/p&gt;
+
+&lt;p&gt;데이터도 마찬가지다. 모든 데이터가 반드시 사용되는 것이 아니기 때문에, 특히 배열과 클래스의 경우는 필요한 부분만 메모리에 올려두고, 실행 도중 필요할 때마다 해당 부분을 찾아 메모리에 올려준다.&lt;/p&gt;
+
+&lt;p&gt;반대로, 모든 루틴과 데이터를 적재하는 것을 정적 적재(static loading)이라고 한다. 현대 운영체제는 대부분 동적 적재를 사용한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;동적-연결dynamic-linking&quot;&gt;동적 연결(Dynamic Linking)&lt;/h3&gt;
+&lt;p&gt;동적 연결은 여러 프로그램에 공통으로 사용되는 라이브러리를 중복으로 메모리에 올리는 것이 아니라 &lt;strong&gt;하나&lt;/strong&gt; 만 올리도록 하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 아래와 같은 코드의 P1, P2 프로세스가 있다고 하자.&lt;/p&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// P1
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// P2
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;이 두 소스파일을 컴파일하면 목적파일이 생성되고, 여기서 사용된 라이브러리를 링크하여 실행파일을 만든 다음 메모리에 적재한다. 두 프로세스가 적재되었을 때, &lt;code class=&quot;highlighter-rouge&quot;&gt;printf()&lt;/code&gt; 를 사용하는 라이브러리는 메모리에 중복되어서 적재되어있다.&lt;/p&gt;
+
+&lt;p&gt;이와 같이, 똑같은 라이브러리를 사용하는 프로그램은 흔히 볼 수 있다. 이러한 같은 라이브러리를 하나만 메모리에 올린 후, 이를 사용하는 프로그램이 하나의 메모리에 접근하도록 하면 메모리 낭비를 줄일 수 있다.&lt;/p&gt;
+
+&lt;p&gt;동적 연결은 같은 라이브러리가 중복으로 메모리에 올라가는 것을 방지하기 위해 &lt;strong&gt;프로그램이 메모리에 적재된 후에 링크(link) 작업을 수행한다.&lt;/strong&gt; 기존에는 실행 파일이 만들어지기 전에 링크 과정을 수행하였는데, 이를 정적 연결이라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821881-d7e7ea00-4ce6-11e9-9038-3359ab7d12f2.png&quot; alt=&quot;OS12-5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 예제에서 살펴 본 P1, P2 프로세스가 동적 연결을 통해 공통 라이브러리(printf() 라이브러리)를 연결한 모습을 볼 수 있다. 이러한 라이브러리를 Linux에서는 &lt;strong&gt;공유 라이브러리(Shared Library)&lt;/strong&gt;, Windows에서는 &lt;strong&gt;동적 연결 라이브러리(Dynamic Linking Library, DLL)&lt;/strong&gt; 라고 부른다.&lt;/p&gt;
+
+&lt;h3 id=&quot;swapping&quot;&gt;Swapping&lt;/h3&gt;
+&lt;p&gt;Swapping은 메모리에 적재되어 있는 프로세스 중에서 오랫동안 사용하지 않은 프로세스를 프로세스 이미지 형태로 만든 후 하드디스크(Backing store)에 내려보낸다. 메모리에서 Backing store로 가는 것을 &lt;strong&gt;swap-out&lt;/strong&gt;, 다시 Backing store에서 메모리로 가는 것을 &lt;strong&gt;swap-in&lt;/strong&gt; 이라고 한다.&lt;/p&gt;
+
+&lt;p&gt;여기서, 프로세스 이미지는 해당 프로그램이 메모리에 적재된 후 실행되면서 데이터를 추가하거나 변경하는 등의 과정을 거치는데, 현재 데이터의 상태를 프로세스 이미지라고 부른다. 그러므로 이는 단순히, 하드디스크에 존재하는 프로그램(exe파일)과는 전혀 다른 데이터이므로, 따로 저장해야한다. 이와 같은 swapping 과정으로 인한 프로세스 이미지를 저장하기 위해 하드디스크의 일부분을 분리하여 사용하는데, 이를 &lt;strong&gt;backing store&lt;/strong&gt; 또는 &lt;strong&gt;swap device&lt;/strong&gt; 라고 부른다.&lt;/p&gt;
+
+&lt;p&gt;Backing store의 크기는 대략 메인 메모리 크기 정도로 예상할 수 있다. 메모리의 모든 프로세스가 쫓겨난다고 해도 메인 메모리 크기를 넘지 않기 때문이다. 메인 메모리 크기가 크지 않는 PC나 스마트폰은 하드디스크의 일부를 backing store로 사용하지만, 메모리 크기가 크다면 따로 하드디스크 자체를 backing store로 사용하는 경우도 있다.&lt;/p&gt;
+
+&lt;p&gt;Swap-out된 프로세스는 다시 swap-in을 할 때, 이전의 메모리 주소 공간이 아닌 새로운 주소 공간으로 갈 수도 있다. 이는 해당 프로세스가 backing store에 있는 동안 다른 프로세스가 해당 주소 공간을 사용할 수 있기 때문에다. 하지만 이는 MMU의 재배치 레지스터로 인해 어디에 적재되는지 상관없이 정상적으로 수행할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;현재는 프로세스의 크기가 커지고, 하드디스크는 메인 메모리보다 속도면에서 매우 느리므로 swapping 동작의 오버헤드는 크다고 볼 수 있다. 하지만 이로 인해 얻는 이득이 더 많으므로 대부분 운영체제는 이를 사용하고 있고, 속도가 중요한 서버 컴퓨터나 슈퍼 컴퓨터는 backing store를 하드디스크가 아닌 좀 더 빠른 저장 장치를 사용하기도 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;연속-메모리-할당contiguous-memory-allocation&quot;&gt;연속 메모리 할당(Contiguous Memory Allocation)&lt;/h2&gt;
+&lt;p&gt;과거에는 메모리에 프로세스가 하나만 올라가는 형태였다. 하지만 현재에는 메모리에 여러 프로세스가 할당되는 다중 프로그래밍 환경이 되었다.&lt;/p&gt;
+
+&lt;p&gt;부팅 직후에 메모리 상태를 살펴보면, 운영체제만 할당되어 있고 비어있는 상태일 것이다. 이러한 비어있는 공간을 &lt;strong&gt;hole&lt;/strong&gt; 이라 부른다. 즉, 부팅 직후에는 운영체제와 big single hole이 있는 상태이다. 시간이 지나면서 프로세스가 생성되고 종료하고를 반복하면, 여러 곳에 서로 다른 크기의 홀(hole)이 존재할 것이다. 이러한 상태를 scattered holes라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821882-d8808080-4ce6-11e9-8ff3-193fa79c04a3.png&quot; alt=&quot;OS12-6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 부팅 직후 상태에서 시간이 경과하면서 프로세스들이 생성, 종료를 반복한 후의 상태이다. 이와 같이 hole들이 불연속하게 흩어져 있는 상태를 &lt;strong&gt;메모리 단편화(Memory fragmentation)&lt;/strong&gt; 라고 한다.&lt;/p&gt;
+
+&lt;p&gt;메모리 단편화로 인해서 여러 곳에 hole이 흩어져 있는 상태에서 하나의 프로세스가 메모리에 할당되려하면 문제가 발생할 수 있다. 예를 들어, hole이 3개가 있고 각 크기는 50byte, 50byte, 80byte이다. 그런데 할당하려는 프로세스의 크기는 150byte이다. 각 hole들을 하나로 합치면 230byte로 이 프로세스를 할당할 수 있는데 실재로는 나누어져 있으므로 할당되지 못한다. 이러한 현상을 &lt;strong&gt;외부 단편화(External fragmentation)&lt;/strong&gt; 라고 한다. 외부 단편화를 줄이기 위해서는 어떤 해결 방법이 있을까?&lt;/p&gt;
+
+&lt;h3 id=&quot;연속-메모리-할당-방식&quot;&gt;연속 메모리 할당 방식&lt;/h3&gt;
+&lt;p&gt;외부 단편화의 해결방법을 살펴보기 전에 연속 메모리 할당 방식을 먼저 살펴보자. 연속 메모리 할당 방식에는 3가지가 있다. First-fit, Best-fit, Worst-fit 이 있다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;First-fit(최초 적합)&lt;/strong&gt;: 최초 적합은 할당할 프로세스 크기보다 크거나 같은 hole을 탐색하는 순서 중에서 가장 먼저 찾은 hole에 프로세스를 할당하는 것이다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Best-fit(최적 적합)&lt;/strong&gt;: 최적 적합은 할당할 프로세스 크기와 hole 크기의 차이가 가장 작은 hole에 프로세스를 할당하는 것이다.(hole크기는 프로세스 크기보다 반드시 커야 한다.)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Worst-fit(최악 적합)&lt;/strong&gt;: 최적 적합과 반대로, 할당할 프로세스 크기와 hole 크기의 차이가 가장 큰 hole에 프로세스를 할당하는 것이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;그러면 예제를 살펴보자. Hole은 100KB, 500KB, 600KB, 300KB, 200KB 총 5개가 있고, 프로세스는 P1, P2, P3, P4 총 4개가 있는데 각 크기는 212KB, 417KB, 112KB, 426KB이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;First-fit&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821883-d8808080-4ce6-11e9-8c2d-c84b878d21ea.png&quot; alt=&quot;OS12-7&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Best-fit&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821885-d8808080-4ce6-11e9-9473-db032d7eeb3a.png&quot; alt=&quot;OS12-8&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Worst-fit&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821887-d9191700-4ce6-11e9-9b00-fa92272b8b7d.png&quot; alt=&quot;OS12-9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;각 3가지 방식대로 프로세스를 할당한 모습을 볼 수 있다. 예제의 결과를 보면 Best-fit은 4개의 프로세스를 모두 할당할 수 있었고, 나머지 2개는 마지막 P4를 할당하지 못했다. 모든 hole을 합치면 P4를 할당할 수 있지만, hole들은 각각 나눠져 있기 때문에 할당할 수 없었다.(외부 단편화)&lt;/p&gt;
+
+&lt;p&gt;각 할당 방식의 일반적인 성능을 비교해보면, 속도면에서는 first-fit이 가장 빠르다. 메모리 이용률면에서는 first-fit, best-fit이 비슷한 성능을 낸다고 알려져있다. 하지만 여러 실험을 통해 best-fit을 사용하더라도 외부 단편화로 인해 &lt;strong&gt;전체 메모리의 1/3 정도를 낭비&lt;/strong&gt; 한다고 한다. 이는 거의 사용이 불가능한 수준이다.&lt;/p&gt;
+
+&lt;p&gt;이를 해결하는 방법 중 하나는 &lt;strong&gt;Compaction&lt;/strong&gt; 이다. compaction은 여러 곳에 흩어져있는 hole들을 강제로 하나로 합치는 것이다. 하지만 hole을 옮기는 오버헤드가 너무 크고, 어느 hole을 옮겨야 빠르게 합칠 수 있는지에 대한 최적 알고리즘이 존재하지 않는 큰 단점이 존재한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry><entry><title type="html">[OS] 13장 페이징</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/" rel="alternate" type="text/html" title="[OS] 13장 페이징" /><published>2019-03-22T00:00:00+09:00</published><updated>2019-03-22T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/">&lt;h2 id=&quot;페이징paging&quot;&gt;페이징(Paging)&lt;/h2&gt;
+&lt;p&gt;외부 단편화로 인한 메모리 낭비는 매우 심하다는 것을 살펴보았다. Compaction을 사용하면 외부 단편화는 해결할 수 있지만, 그로 인해 발생하는 오버헤드와 비효율적인 성능으로 사용하기는 어렵다. 그 이후에 연구를 통해 나온 것이 &lt;strong&gt;페이징&lt;/strong&gt; 이다. 페이징은 hole을 가지고 해결하려 한 것이 아니라 &lt;strong&gt;프로세스를 작은 크기로 나눠서&lt;/strong&gt; 외부 단편화를 해결하려고 하였다.&lt;/p&gt;
+
+&lt;p&gt;페이징은 프로세스를 일정한 작은 크기로 나누는데, 프로세스뿐아니라 hole도 같은 크기로 나눈다. 이러한 작은 조각들의 크기를 맞춰서 메모리에 할당한다. 하지만, 하나의 프로세스는 연속적인 동작을 수행하는데 이를 작은 조각으로 나누어서 여기저기 흩어진다면 프로세스가 정상적으로 동작할까?&lt;/p&gt;
+
+&lt;p&gt;메모리상에 여러 곳에 흩어진 프로세스를 수행하기 위해 CPU를 속여야한다. 이전 다중프로그래밍을 살펴봤을 때 MMU를 통해 논리 주소와 물리 주소를 나눠서 사용한다고 했었다. 이역시 CPU를 속이는 행동이다. 실제 메모리는 전혀 연속적이지 않는데, CPU는 연속적으로 사용하고 있다는 것을 보장받으며 정상적으로 수행한다.&lt;/p&gt;
+
+&lt;p&gt;페이징으로 작은 크기로 나눈 것도 위와 같은 방법으로 할 수 있다. 만약 50byte 크기의 프로세스가 있다고 하자. 페이징의 크기는 각 10byte로 나눈다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821888-d9191700-4ce6-11e9-8b11-7af6fdbcbe06.png&quot; alt=&quot;OS13-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림과 같이 프로세스 P1은 5개의 페이지로 나눌 수 있다. 이를 메인 메모리 5곳에 나눠서 할당하였다. CPU는 논리 주소로 프로그램이 설정한대로 연속적인 주소값으로 명령을 내리고 이는 메모리로 가기전에 각 페이지의 실제 메모리 주소가 저장되어 있는 &lt;strong&gt;테이블에서 물리 주소로 변경되어야 한다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;프로세스를 나눈 조각을 &lt;strong&gt;page&lt;/strong&gt; 라 하고, 메모리를 나눈 조각을 &lt;strong&gt;frame&lt;/strong&gt; 이라 한다. 프로세스는 페이지의 집합이고, 메모리는 프레임의 집합이다. 프로세스를 정상적으로 사용하기 위해 MMU의 재배치 레지스터를 여러개 사용해서 위의 그림과 같이 각 페이지의 실제 주소로 변경해준다. 이러한 여러 개의 재배치 레지스터를 &lt;strong&gt;페이지 테이블(Page Table)&lt;/strong&gt; 이라 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;주소-변환address-translation&quot;&gt;주소 변환(Address Translation)&lt;/h3&gt;
+&lt;p&gt;페이징 기법을 사용하기 위해서는 여러 개로 흩어진 페이지에 CPU가 접근하기 위해서 페이지 테이블을 통해 주소를 변환해야 한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;논리 주소(Logical address)&lt;/strong&gt;
+CPU가 내는 주소는 2진수로 표현되고 이를 m비트가 있다고 가정하자. 여기서 하위 n비트는 오프셋(offset) 또는 변위(displacement)라고 한다. 그리고 상위 m-n 비트는 페이지의 번호에 해당한다.(n = d, m-n = p)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;논리주소를 물리주소(physical address)로 변환하기 위해서 페이지 번호(p)는 페이지 테이블의 인덱스 값이고, p에 해당되는 테이블 내용은 메모리의 프레임 번호이다. 변위(d)는 변하지 않는 값이다. 이 규칙에 대한 예제를 살펴보자.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Page size = 16bytes&lt;/li&gt;
+  &lt;li&gt;Page Table: 5, 3, 2, 8, 1, 4&lt;/li&gt;
+  &lt;li&gt;논리 주소 50번지는 물리주소 몇 번지인가?&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821891-d9191700-4ce6-11e9-98a4-425903e14323.png&quot; alt=&quot;OS13-2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 프로세스 P가 메모리에 할당된 모습이다. CPU가 50번지에 접근하려고 한다. 그러면 페이지 테이블의 정보를 읽기 위해 논리 주소를 p와 d값으로 나눠야 한다.&lt;/p&gt;
+
+&lt;p&gt;d는 페이지 크기에 따라 달라지는데, 현재 페이지 크기는 16byte이다. 이는 &lt;strong&gt;2^4이므로 d = 4&lt;/strong&gt; 이다.&lt;/p&gt;
+
+&lt;p&gt;p는 d를 제외한 나머지 크기이다.&lt;/p&gt;
+
+&lt;p&gt;그러면 실제로 p, d를 계산해보자. 현재 논리 주소는 50이며, 이진수로 나타내면 &lt;code class=&quot;highlighter-rouge&quot;&gt;110010&lt;/code&gt;이다. 먼저 d는 4이므로 이 이진수의 뒤에서 4칸이 d이다. d를 제외한 나머지 2칸이 p가 된다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;50 = 110010
+p = 11
+d = 0010
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;p는 이진수로 11이고, 십진수로 3이다. 즉, 페이지 테이블의 페이지 번호 3번을 가리킨다. 페이지 3번에 해당하는 프레임 번호는 8번이므로, 물리주소를 구성하는 f값은 8이 된다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;f = 1000
+d = 0010
+물리주소 = 10000010
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;최종적으로 물리주소는 f와 d로 구성되어 있으므로 물리주소는 &lt;strong&gt;이진수로 10000010 이 되고, 십진수로 130 번지&lt;/strong&gt; 가 된다. 즉, 변위는 2이므로 8번째 프레임의 시작주소는 128번지(16 * 8)가 된다.&lt;/p&gt;
+
+&lt;p&gt;연속 메모리 할당을 하면서 외부 단편화가 발생하여 이를 해결하기 위해 페이징 기법이 나왔다. 하지만 페이징은 외부 단편화가 아닌 &lt;strong&gt;내부 단편화&lt;/strong&gt; 가 발생한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;내부단편화internal-fragment&quot;&gt;내부단편화(Internal Fragment)&lt;/h3&gt;
+&lt;p&gt;내부단편화는 프로세스 크기가 페이지 크기의 배수가 아닐 경우, 마지막 페이지는 한 프레임을 다 채울 수 없다. 이로 인해 발생하는 공간은 결국 메모리 낭비로 이어진다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 15bytes 크기의 프로세스 P가 있다. 페이지 크기(프레임 크기)는 4bytes로 P를 페이지로 나누면 &lt;strong&gt;4, 4, 4, 3&lt;/strong&gt; 의 크기로 총 4개의 페이지가 만들어진다. 여기서 마지막 3bytes 페이지는 프레임 크기보다 1byte작으므로, 이 만큼 메모리 공간이 비게 된다. 이렇게 비어진 공간은 프로세스 P에서도 쓰지 않고, 다른 프로세스에서도 쓰지 못하는 낭비되는 공간이 된다.&lt;/p&gt;
+
+&lt;p&gt;내부단편화는 해결할 방법이 없다. 하지만 내부단편화는 외부단편화에 비해 낭비되는 메모리 공간은 매우 적다. 내부단편화의 &lt;strong&gt;최대 낭비되는 크기는 page size - 1&lt;/strong&gt; 이 된다.(외부 단편화는 최대 전체 메모리의 1/3이 낭비된다고 이전에 살펴봤다.) 이는 무시할 정도로 작은 크기이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;페이지-테이블-만들기&quot;&gt;페이지 테이블 만들기&lt;/h3&gt;
+&lt;p&gt;페이지 테이블을 만드는 방법은 여러 가지가 있다. 먼저, CPU 내부에 페이지 테이블을 만들 수 있다. CPU 내부의 기억장치는 레지스터로, 여러 개의 레지스터로 페이지 테이블을 만드는 것이다. CPU 내부에 페이지 테이블을 만들면, 장점은 주소 변환 속도가 빠르다. 하지만 단점은 CPU 내부에 사용할 수 있는 레지스터는 한정되어 있으므로 페이지 테이블의 크기가 매우 제한된다.&lt;/p&gt;
+
+&lt;p&gt;반대로, 페이지 테이블을 메모리 내부에서 만들 수도 있다. 메모리 내부에 만드는 것의 장단점은 CPU와 정 반대이다. 즉, 장점은 페이지 테이블의 크기에 제한이 없는 것이고, 단점은 주소 변환 속도가 느리다는 것이다. CPU는 프로세스의 주소에 접근하기 위해서 메모리에 위치한 페이지 테이블에 한 번, 실제 주소로 접근하는데 한 번해서 &lt;strong&gt;메모리에 총 2번 접근해야하므로 속도 역시 2배로 느려진다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;페이지 테이블을 CPU에 만들 때나 메모리에 만들 때 둘 다 장단점이 확실하기 때문에, 이를 해결하기 위해 페이지 테이블도 캐시로 만들어 해결하였다. 페이지 테이블을 별도의 칩(SRAM)으로 만들어서 CPU와 메모리 사이에 위치시키는 것이다. 이러한 테이블을 &lt;strong&gt;TLB(Translation Look-aside Buffer)&lt;/strong&gt; 라고 부른다. 이는 CPU보다 변환 속도는 느리고 메모리보다 테이블 크기는 작지만, CPU보다 테이블 크기가 크고 메모리보다 변환 속도가 빠르다.&lt;/p&gt;
+
+&lt;p&gt;TLB는 캐시와 역할이 동일하므로, 실제 전체 페이지 테이블은 메모리에 위치해 있고 테이블의 일부를 TLB에 가져와서 사용한다. 그러므로 TLB에 유효한 페이지가 있을 때와 없을 때의 속도 차이가 발생한다.&lt;/p&gt;
+
+&lt;p&gt;그렇다면, TLB의 효율을 알아보기 위해 Effective Memory Access Time을 계산해보자.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;메모리를 읽는 시간(Tm) = 100ns&lt;/li&gt;
+  &lt;li&gt;TLB를 읽는 시간(Tb) = 20ns&lt;/li&gt;
+  &lt;li&gt;TLB에 유효한 페이지 엔트리가 있을 확률(hit ratio) = 80%&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;먼저, EMAT의 정형화된 식을 보자.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;EMAT = h(Tb + Tm) + (1 - h)(Tb + Tm + Tm), h는 hit ratio
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;실제 유효한 메모리에 접근하는 시간은 위와 같다. TLB에 유효한 페이지가 있다면 TLB를 읽는 시간과 실제 메모리를 읽는 시간만 있으면 된다. 하지만, TLB에 유효한 페이지가 없다면 이를 다시 메모리에서 가져와야 하므로 메모리를 총 2번 읽어야 한다.&lt;/p&gt;
+
+&lt;p&gt;예제를 계산해보면, &lt;code class=&quot;highlighter-rouge&quot;&gt;0.8 * (20 + 100) + 0.2 * (20 + 100 + 100) = 140ns&lt;/code&gt; 이다. hit ratio는 실제로 평균 95%이상이므로 충분히 효율적으로 동작한다고 볼 수 있다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry><entry><title type="html">[OS] 10장 프로세스 동기화 - 3</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/" rel="alternate" type="text/html" title="[OS] 10장 프로세스 동기화 - 3" /><published>2019-03-14T00:00:00+09:00</published><updated>2019-03-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%EB%8F%99%EA%B8%B0%ED%99%94-3</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/">&lt;h2 id=&quot;deadlock교착상태&quot;&gt;Deadlock(교착상태)&lt;/h2&gt;
 &lt;p&gt;프로세스는 실행을 위해 CPU, 메모리, 파일 등 여러 하드웨어 자원이 필요하다. 이를 운영체제에서 프로세스가 요구하는 자원을 적절히 분배해준다. 예를 들어, 한 프로세스가 A 자원을 가지고 있는 상태에서 B 자원을 요구하고 있다. 하지만 B 자원은 다른 프로세스 역시 요구하고 있는 자원인데, 이러한 상황에서 자원을 분배하는 순서가 잘못되면 교착상태에 빠지게 된다.&lt;/p&gt;
 
 &lt;h3 id=&quot;교착상태-필요-조건necessary-conditions&quot;&gt;교착상태 필요 조건(Necessary Conditions)&lt;/h3&gt;
@@ -1230,359 +1451,4 @@ balance = 0
   &lt;li&gt;Scheduler: 여기서 스케줄러는 CPU Scheduler를 말하며, CPU가 어느 프로세스를 선택할지 정한다.&lt;/li&gt;
   &lt;li&gt;Dispatcher: 실제 context switching이 발생하면 CPU의 내부 데이터를 이전 프로세스 데이터에서 새로 시작되는 데이터로 바꿔준다. 다시 말해서 현재 CPU 데이터는 이전 프로세스의 PCB에 갱신하고, 새로 시작되는 프로세스의 PCB 데이터를 CPU로 복원(restore) 해준다.&lt;/li&gt;
   &lt;li&gt;Context switching overhead: Context switching이 발생할 때마다, dispatcher에서 수행하는 작업을 매번 수행해야하며 이 모든 것은 overhead이다. 그리고 문맥 전환은 매우 자주 발생하는 작업이므로 overhead를 줄이기 위해서는 dispatcher를 구현하는 코드에 대한 효율을 최대한 높여주어야한다.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry><entry><title type="html">[OS] 6장 CPU 스케줄링</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-6%EC%9E%A5-CPU%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/" rel="alternate" type="text/html" title="[OS] 6장 CPU 스케줄링" /><published>2019-03-06T00:00:00+09:00</published><updated>2019-03-06T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-6%EC%9E%A5-CPU%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-6%EC%9E%A5-CPU%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/">&lt;p&gt;CPU가 하나의 프로세스 작업이 끝나면 다음 프로세스 작업을 수행해야 한다. 이때 다음 프로세스가 어느 프로세스인지를 선택하는 알고리즘을 &lt;strong&gt;CPU Scheduling&lt;/strong&gt; 알고리즘이라고 한다. 간단히 생각해보면 먼저 온 프로세스가 먼저 실행되는 것이 가장 좋을 것이라 생각할 수 있다. 하지만 여러 상황에서 사용되는 컴퓨터 환경에서 꼭 이러한 방법이 좋다고 할 수 없다.(단순한 환경에서도 이 방법이 반드시 빠른 것도 아니다.) 그러므로 CPU 스케줄링에는 여러가지 방법이 존재한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;preemptive-vs-non-preemptive&quot;&gt;Preemptive VS Non-preemptive&lt;/h2&gt;
-&lt;h3 id=&quot;preemptive&quot;&gt;Preemptive&lt;/h3&gt;
-&lt;p&gt;Preemptive(선점)은 프로세스가 CPU를 점유하고 있는 동안 I/O나 인터럽트가 발생한 것도 아니고 모든 작업을 끝내지도 않았는데, 다른 프로세스가 해당 &lt;strong&gt;CPU를 강제로 점유&lt;/strong&gt; 할 수 있다. 즉, 프로세스가 정상적으로 수행중인 가운데 다른 프로세스가 CPU를 강제로 점유하여 실행할 수 있는 것이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;non-preemptive&quot;&gt;Non-preemptive&lt;/h3&gt;
-&lt;p&gt;Non-preemptive(비선점)은 말 그대로 preemptive와 반대이다. 한 프로세스가 한 번 CPU를 점유했다면, I/O나 인터럽트 발생 또는 프로세스 종료가 될 때까지 다른 프로세스가 CPU를 점유하지 못하는 것이다.&lt;/p&gt;
-
-&lt;h2 id=&quot;scheduling-criteria&quot;&gt;Scheduling criteria&lt;/h2&gt;
-&lt;p&gt;Scheduling criteria(척도)는 스케줄링의 효율을 분석하는 기준들이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;CPU Utilization(이용률, %): CPU가 수행되는 비율&lt;/li&gt;
-  &lt;li&gt;Throughput(처리율, jobs/sec): 단위시간당 처리하는 작업의 수(처리량)&lt;/li&gt;
-  &lt;li&gt;Turnaround time(반환시간): 프로세스의 처음 시작 시간부터 모든 작업을 끝내고 종료하는데 걸린 시간이다.(CPU, waiting, I/O 등 모든 시간을 포함한다.) 반환시간은 짧을 수록 좋다.&lt;/li&gt;
-  &lt;li&gt;Waiting time(대기시간): CPU를 점유하기 위해서 ready queue에서 기다린 시간을 말한다.(다른 큐에서 대기한 시간은 제외한다.)&lt;/li&gt;
-  &lt;li&gt;Response time(응답시간): 일반적으로 대화형 시스템에서 입력에 대한 반응 시간을 말한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&quot;cpu-scheduling-algorithms&quot;&gt;CPU Scheduling Algorithms&lt;/h2&gt;
-&lt;h3 id=&quot;first-come-first-servedfcfs&quot;&gt;First-Come, First-Served(FCFS)&lt;/h3&gt;
-&lt;p&gt;FCFS는 먼저 온 프로세스가 먼저 CPU를 점유하는 방식이다. 이는 매우 단순하고 많이 사용하는 방법이지만, 모든 부분에서 효율적인 것은 아니다.&lt;/p&gt;
-
-&lt;h4 id=&quot;gantt-chart&quot;&gt;Gantt Chart&lt;/h4&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Burst Time(msec)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;a href=&quot;https://user-images.githubusercontent.com/34755287/53879661-5d666b80-4052-11e9-8453-bad918a563ef.png&quot;&gt;os06-1&lt;/a&gt;&lt;/p&gt;
-
-&lt;p&gt;첫 번째 표는 3개의 프로세스와 각 프로세스가 CPU를 사용한 시간(burst time)을 나타낸다. 이를 간트 차트로 표현하면 표 아래의 그림과 같다.(도착시간은 모두 0초라고 가정한다.) 평균 대기시간을 계산하면 아래와 같다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Average Waiting Time = $\frac{0 + 24 + 27}{3} = 17msec$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;만약, 프로세스가 들어온 순서가 &lt;code class=&quot;highlighter-rouge&quot;&gt;P3, P2, P1&lt;/code&gt; 이라면 간트 차트는 아래 그림과 같이 바뀔 것이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879665-5d666b80-4052-11e9-8ad5-8639b73b13ac.png&quot; alt=&quot;os06-2&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Average Waiting Time = $\frac{6 + 3 + 0}{3} = 3msec$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;두 예제에서 모든 프로세스가 끝난 시간은 30msec로 같지만, 평균 대기시간으로 봤을 때는 위의 예제는 17msec이고 아래는 3msec로 차이가 난다. 즉, 들어온 순서로 수행한다고 해도 반드시 효율적인 것은 아닌 것을 알 수 있다.&lt;/p&gt;
-
-&lt;p&gt;위 예제처럼 &lt;code class=&quot;highlighter-rouge&quot;&gt;P1, P2, P3&lt;/code&gt; 순서로 들어온 것을 &lt;strong&gt;Convoy Effect&lt;/strong&gt; 라고 한다. 이는 CPU 시간을 오래 사용하는 프로세스가 먼저 수행하는 동안 나머지 프로세스들은 그 만큼 오래 기다리는 것을 말한다. P1이 수행되는 동안 P2, P3는 오래 기다려야 하는 예제에서 이를 볼 수 있다. 이는 FCFS의 단점 중 하나이다. 그리고 FCFS는 &lt;strong&gt;Non-preemptive&lt;/strong&gt; 이다. 하나의 프로세스가 끝나기 전에는 다른 프로세스가 중간에 끼어들 수 없다.&lt;/p&gt;
-
-&lt;h3 id=&quot;shortest-job-firstsjf&quot;&gt;Shortest-Job-First(SJF)&lt;/h3&gt;
-&lt;p&gt;SJF는 이름에서도 나타나듯이 가장 짧게 수행되는 프로세스가 가장 먼저 수행되는 것을 말한다. FCFS에서 보았듯이 수행 시간이 짧은 프로세스가 먼저 오는 것이 평균 대기시간이 짧은 것을 알 수 있었다. 이를 이용한 것이 SJF이다.&lt;/p&gt;
-
-&lt;h4 id=&quot;gantt-chart-1&quot;&gt;Gantt Chart&lt;/h4&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Burst Time(msec)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879666-5d666b80-4052-11e9-93c2-86b725588403.png&quot; alt=&quot;os06-3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 간트 차트는 SJF를 사용하여 나타낸 것이다. 여기서 평균 대기시간을 계산하면 다음과 같다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Average Waiting Time(AWT) = $\frac{3 + 16 + 9 + 0}{4} = 7msec$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;위 표를 FCFS를 사용해서 간트 차트를 나타내보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879667-5d666b80-4052-11e9-8cd4-066aefcf3047.png&quot; alt=&quot;os06-4&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Average Waiting Time(AWT) = $\frac{0 + 6 + 14 + 21}{4} = 10.25msec$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;SJF와 FCFS의 평균 대기시간을 살펴보면 SJF가 더 짧은 것을 볼 수 있다. SJF가 평균 대기시간 기준으로 어떠한 방법보다 짧은 것은 이미 수학적으로 증명되어 있다. 그러므로 어떠한 예제를 보더라도 &lt;strong&gt;SJF가 AWT는 가장 짧다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;이를 보면 SJF가 가장 효율적인 CPU 스케줄링 방법으로 이를 쓰면 될 것 같지만, 사실은 이 스케줄링 방법은 매우 &lt;strong&gt;비현실적&lt;/strong&gt; 이다. 왜냐하면 현실적인 컴퓨터 환경에서는 프로세스의 CPU 점유 시간(burst time)을 알 수 없다. 왜냐하면 한 프로세스가 실행 중에는 많은 변수가 존재하기 때문에 CPU 점유 시간을 알려면 실제로 수행하여 측정하는 수 밖에 없다. 실제 측정한 시간으로 예측해서 SJF를 사용할 수도 있지만, 이는 오버헤드가 매우 큰 작업으로 잘 사용되지 않는다.&lt;/p&gt;
-
-&lt;p&gt;SJF는 &lt;strong&gt;preemptive와 non-preemptive 둘 다 사용가능&lt;/strong&gt; 하다. 먼저, 아래의 표를 보자.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Arrival Time&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Burst Time(msec)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;기존의 예제와 달리 도착시간(arrival time)이 추가되었다. 첫 번째로 non-preemptive의 간트 차트를 보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879668-5dff0200-4052-11e9-8457-722778ab759d.png&quot; alt=&quot;os06-5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;가장 먼저 도착한 P1이 수행되는 동안 P2, P3, P4 모두 도착하지만, non-preemptive이므로 이미 수행중인 프로세스가 끝날 때까지 기다려야 한다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Average Waiting Time(AWT) = $\frac{0 + 7 + 15 + 9}{4} = 7.75msec$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;두 번째는 preemptive SJF를 살펴보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879669-5dff0200-4052-11e9-958b-44b24d756563.png&quot; alt=&quot;os06-6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;이번에는 preemptive이므로 프로세스가 도착할 때마다, 어느 프로세스가 가장 짧은 것인지 선택해야 한다. 주목할 점은 P2 프로세스가 도착했을 때, &lt;strong&gt;현재 남은 burst time 중 가장 짧은 프로세스&lt;/strong&gt; 가 P2이므로 P1을 수행하던 것을 멈추고 P2가 수행을 시작한다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Average Waiting Time(AWT) = $\frac{9 + 0 + 15 + 2}{4} = 6.5msec$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Preemptive SJF는 예제에서 살펴보았듯이 현재 남아있는 시간 중 가장 짧은 프로세스를 선택하므로 Shortest-Remaining-Time-First(최소잔여시간 우선) 이라 불리기도 한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;priority&quot;&gt;Priority&lt;/h3&gt;
-&lt;p&gt;Priority 스케줄링은 말그대로 &lt;strong&gt;우선순위가 높은&lt;/strong&gt; 프로세스가 먼저 선택되는 스케줄링 알고리즘이다. 운영체제에서 일반적으로 우선순위는 정수값으로 나타내며, 작은 값이 우선순위가 높다.(Unix/Linux 기준)&lt;/p&gt;
-
-&lt;h4 id=&quot;gantt-chart-2&quot;&gt;Gantt Chart&lt;/h4&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Burst Time(msec)&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Priority&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879671-5e979880-4052-11e9-84d3-524270cdc920.png&quot; alt=&quot;os06-7&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;표에서 우선순위 값이 가장 낮은 순서대로 수행한 모습을 간트 차트로 나타내었다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Average Waiting Time(AWT) = $\frac{6 + 0 + 16 + 18 + 1}{5} = 8.2msec$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;우선순위를 정하는 방법은 크게 내부적인 요소와 외부적인 요소 두 가지로 나뉜다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;Internal: time limit, memory requirement, I/O to CPU burst(I/O작업은 길고, CPU 작업은 짧은 프로세스 우선) 등&lt;/li&gt;
-  &lt;li&gt;External: amount of funds being paid, political factors 등&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;Priority 스케줄링 역시 preemprive 와 non-preemptive 두 방식 모두 사용할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;Priority 스케줄링의 문제점은 &lt;strong&gt;Starvation(기아)&lt;/strong&gt; 이 있다. Starvation은 말 그대로 CPU의 점유를 오랫동안 하지 못하는 현상을 말한다. Priority 스케줄링 방식에서 우선순위가 매우 낮은 프로세스가 ready queue에서 대기하고 있다고 가정해보자. 이 프로세스는 아무리 오래 기다려도 CPU를 점유하지 못할 가능성이 매우 크다. 실제 컴퓨터 환경에서는 새로운 프로세스가 자주 ready queue에 들어온다. 이러한 프로세스가 모두 우선순위가 높은 상태라면 이미 기다리고 있던 우선순위가 낮은 프로세스는 하염없이 기다리고만 있는 상태로 남아있을 수 있다.&lt;/p&gt;
-
-&lt;p&gt;이를 해결하는 방법 중 하나는 &lt;strong&gt;aging&lt;/strong&gt; 이 있다. 이 방식은 ready queue에서 기다리는 동안 일정 시간이 지나면 우선순위를 일정량 높여주는 것이다. 그러면 우선순위가 매우 낮은 프로세스라 하더라도, 기다리는 시간이 길어질수록 우선순위도 계속 높아지므로 수행될 가능성이 커진다.&lt;/p&gt;
-
-&lt;h3 id=&quot;round-robinrr&quot;&gt;Round-Robin(RR)&lt;/h3&gt;
-&lt;p&gt;Round-Robin은 원 모양으로 모든 프로세스가 돌아가며 스케줄링하는 것을 말한다. 이는 시분할 시스템에서 주로 사용하는 방식이다. 일정 시간을 정하여 하나의 프로세스가 이 시간동안 수행하고 다시 대기 상태로 돌아간다. 그리고 다음 프로세스가 역시 같은 시간동안 수행한 후 대기한다. 이러한 작업을 모든 프로세스가 돌아가면서 하며, 마지막 프로세스가 끝나면 다시 처음 프로세스로 돌아와서 반복한다.&lt;/p&gt;
-
-&lt;p&gt;위에서 말한 일정 시간을 &lt;strong&gt;Time Quantum(Time Slice)&lt;/strong&gt; 이라 부른다. Time Quantum은 일반적으로 10 ~ 100msec 사이의 범위를 갖는다. Round-Robin은 기본적으로 &lt;strong&gt;preemptive&lt;/strong&gt; 이다. 한 프로세스가 종료되기 전에 time quantum이 끝나면 다른 프로세스로 CPU를 넘겨주기 때문이다.&lt;/p&gt;
-
-&lt;h4 id=&quot;gantt-chart-3&quot;&gt;Gantt Chart&lt;/h4&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Burst Time(msec)&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;24&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Time Quantum = 4msec&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879672-5e979880-4052-11e9-8aa0-8170f10da210.png&quot; alt=&quot;os06-8&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Round-Robin 방식에서는 time quantum이 끝나면 CPU는 현재 프로세스를 대기상태로 보내고 다음 프로세스를 수행한다. 예제에서 P1이 0msec에 수행을 시작하여 종료되기 전에 time quantum 시간이 끝나여 P2가 수행되는 모습을 볼 수 있다. 그리고 P2, P3는 time quantum이 끝나기전에 수행이 끝났고, 마지막 남은 P1은 다른 프로세스가 없으므로 time quantum이 끝나더라도 종료될 때까지 계속해서 수행하는 모습이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Average Waiting Time(AWT) = $\frac{6 + 4 + 7}{3} = 5.66msec$&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;RR방식은 time quantum 크기에 따라 AWT와 같은 스케줄링 척도가 바뀐다. 그러므로 RR 방식은 &lt;strong&gt;time quantum에 매우 의존적&lt;/strong&gt; 인 것을 알 수 있다.&lt;/p&gt;
-
-&lt;p&gt;만약 time quantum 크기가 무한에 가깝게 설정한다면 FCFS와 동일하게 동작한다. 반대로 time quantum 크기를 0에 가깝게 설정하면 switching overhead가 매우 증가하여 비효율적이다. 결과적으로 time quantum 은 적당한 크기로 설정해주어야 하는데, 일반적으로 위에서 말했듯이 10 ~ 100msec 으로 정한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;multilevel-queue&quot;&gt;Multilevel Queue&lt;/h3&gt;
-&lt;p&gt;Multilevel Queue를 살펴보기 전에 프로세스 그룹에 대해 살펴보자. 프로세스는 기준에 따라 여러 그룹으로 나눌 수 있다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;System processes: 운영체제 커널 수준의 프로세스&lt;/li&gt;
-  &lt;li&gt;Interactive processes: 유저 수준의 대화형 프로세스&lt;/li&gt;
-  &lt;li&gt;Interactive editing processes&lt;/li&gt;
-  &lt;li&gt;Batch processes: 대화형 프로세스의 반대인 것으로 일정량을 한 번에 처리하는 프로세스(Ex, 컴파일러)&lt;/li&gt;
-  &lt;li&gt;Student processes&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;위와 같이 여러 성격에 따라 프로세스 그룹을 나눌 수 있는데 이를 하나의 큐에 사용하는 것은 비효율적이라고 판단하였다. 그래서 각 그룹에 따라 큐를 두어 여러 개의 큐를 사용하는 것이 Muitilevel Queue 방식이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879673-5e979880-4052-11e9-9f9b-e8bfec7c9be6.png&quot; alt=&quot;os06-9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 각 그룹에 따라 큐를 나눈 것이다. 그리고 각 큐마다 다른 규칙을 지정할 수도 있다.&lt;/p&gt;
-
-&lt;p&gt;먼저, &lt;strong&gt;큐마다 우선순위를 지정해줄 수 있다.&lt;/strong&gt; 프로세스 그룹을 보면 System process는 커널 수준에서 중요한 작업이므로 우선순위가 높은 그룹이라 볼 수 있다. 위 그림에서 System process, Interactive process, Batch process 순으로 우선순위가 높은 순서이다. Batch 프로세스는 운영체제의 개입이 매우 적으므로 우선순위가 가장 낮다고 볼 수 있다.&lt;/p&gt;
-
-&lt;p&gt;위의 방식 이외에도 큐에 따라 여러 기준을 둘 수 있다. 큐마다 CPU 시간을 다르게 줄 수도 있고, 큐마다 다른 스케줄링 방식을 사용할 수도 있다.&lt;/p&gt;
-
-&lt;h3 id=&quot;multilevel-feedback-queue&quot;&gt;Multilevel Feedback Queue&lt;/h3&gt;
-&lt;p&gt;Multilevel Feedback Queue도 Multilevel Queue와 같이 여러 개의 큐를 사용한다는 점에서 유사하다. 먼저, 그림을 통해 살펴보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879675-5f302f00-4052-11e9-86a2-c02ee03bac64.png&quot; alt=&quot;os06-10&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림을 보면 먼저 모든 프로세스는 가장 위의 큐에서 CPU의 점유를 대기한다. 이 상태로 진행하다가 이 큐에서 기다리는 시간이 너무 오래 걸린다면 &lt;strong&gt;아래의 큐로 프로세스를 옮긴다.&lt;/strong&gt; 이와 같은 방식으로 대기 시간을 조정할 수 있다. 그리고 Multilevel Feedback Queue에서도 각 큐마다 다른 스케줄링, 다른 우선순위 등을 사용할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;만약 우선순위순으로 큐를 사용하는 상황에서 우선순위가 낮은 아래의 큐에 있는 프로세스에서 starvation 상태가 발생하면 이를 우선순위가 높은 위의 큐로 옮길 수도 있다.&lt;/p&gt;
-
-&lt;p&gt;대부분의 상용 운영체제는 여러 개의 큐를 사용하고 각 큐마다 다른 스케줄링 방식을 사용한다. 프로세스의 성격에 맞는 스케줄링 방식을 사용하여 최대한 효율을 높일 수 있는 방법을 선택한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry><entry><title type="html">[OS] 7장 프로세스와 쓰레드</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C/" rel="alternate" type="text/html" title="[OS] 7장 프로세스와 쓰레드" /><published>2019-03-06T00:00:00+09:00</published><updated>2019-03-06T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C/">&lt;h2 id=&quot;프로세스와-생성과-종료&quot;&gt;프로세스와 생성과 종료&lt;/h2&gt;
-&lt;p&gt;프로세스는 프로세스에 의해 만들어진다. 컴퓨터가 부팅이 되면 운영체제가 메모리에 올라오는데 운영체제가 처음으로 수행하는 일 중에 하나는 &lt;strong&gt;최초의 프로세스를 생성&lt;/strong&gt; 하는 것이다. 이렇게 처음 만들어진 프로세스가 다른 프로세스를 만들고 그 프로세스가 또 다른 프로세스를 만드는 과정을 반복한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879677-5f302f00-4052-11e9-89ea-72135b020d12.png&quot; alt=&quot;os07-1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위와 같이 최초의 프로세스는 &lt;strong&gt;Init&lt;/strong&gt; 이다. 이 이름은 운영체제마다 다르고, init은 UNIX 운영체제 기준 이름이다. 여기서 여러 다른 프로세스들이 생성되면 위와 같은 그림처럼 &lt;strong&gt;트리 모양&lt;/strong&gt; 으로 나타낼 수 있다.여기서 프로세스를 생성한 쪽을 &lt;strong&gt;부모 프로세스&lt;/strong&gt;, 만들어진 프로세스를 &lt;strong&gt;자식 프로세스&lt;/strong&gt; 라고 한다. 같은 부모를 갖는 자식 프로세스 끼리는 서로 Sibling(형제) 프로세스라고 한다.&lt;/p&gt;
-
-&lt;p&gt;프로세스는 각각 고유의 번호를 갖는데 이를 &lt;strong&gt;PID(Process Identifirer)&lt;/strong&gt; 라고 한다. PID는 일반적으로 정수형(integer)으로 표현한다. PPID는 부모의 PID를 말한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;프로세스-생성&quot;&gt;프로세스 생성&lt;/h3&gt;
-&lt;p&gt;새로운 프로세스를 만드는 시스템 콜이 존재하는데, 이는 &lt;code class=&quot;highlighter-rouge&quot;&gt;fork()&lt;/code&gt; 라 한다. 만들어진 프로세스에서 어떠한 파일을 실행하려면 &lt;code class=&quot;highlighter-rouge&quot;&gt;exec()&lt;/code&gt; 시스템 콜을 사용한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;프로세스-종료&quot;&gt;프로세스 종료&lt;/h3&gt;
-&lt;p&gt;프로세스를 종료하는 시스템 콜은 &lt;code class=&quot;highlighter-rouge&quot;&gt;exit()&lt;/code&gt; 이다. 한 프로세스가 종료되면 해당 프로세스가 사용한 모든 자원(메모리, 파일, I/O 등)을 회수해야한다. 이러한 회수된 자원과 권한은 모두 운영체제로 되돌아가야한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;쓰레드thread&quot;&gt;쓰레드(Thread)&lt;/h2&gt;
-&lt;p&gt;쓰레드는 프로그램 &lt;strong&gt;내부의 흐름(맥)&lt;/strong&gt; 이다.&lt;/p&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
-    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-  &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;END&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;위와 같은 코드는 하나의 흐름을 가지고 있고 이를 쓰레드라고 부른다. 일반적으로 하나의 프로그램은 하나의 쓰레드를 갖는다.&lt;/p&gt;
-
-&lt;h3 id=&quot;다중-쓰레드mulitithreads&quot;&gt;다중 쓰레드(Mulitithreads)&lt;/h3&gt;
-&lt;p&gt;하나의 프로그램에 쓰레드가 &lt;strong&gt;2개 이상&lt;/strong&gt; 이 존재하는 것을 다중 쓰레드라고 한다. 이렇게 한 프로그램에 여러 개의 쓰레드 즉 흐름이 있을 수 있는 이유는 쓰레드가 빠른 시간 간격으로 스위칭되기 때문이다. 이러한 동작으로 사용자는 여러 쓰레드가 동시에 실행되는 것처럼 보인다.&lt;/p&gt;
-
-&lt;p&gt;이처럼 CPU가 하나인 환경에서 여러 쓰레드가 스위칭에 의해 동시에 수행되는 효과를 &lt;strong&gt;concurrent&lt;/strong&gt; 라 한다. 반면에 여러 CPU 환경에서 여러 쓰레드가 실제로 동시에 수행되는 것은 &lt;strong&gt;simultaneous&lt;/strong&gt; 라고 한다.&lt;/p&gt;
-
-&lt;p&gt;다중 쓰레드를 사용하는 대표적인 예는 Web browser 이다. 화면을 출력하는 쓰레드와 데이터를 읽어오는 쓰레드가 기본적으로 따로 수행하고 있다. 그 외에도 Word processor, Media player 등 현재 대부분의 프로그램은 다중 쓰레드로 동작한다.&lt;/p&gt;
-
-&lt;p&gt;이전의 CPU 스케줄링에서 하나의 프로세스가 수행하다가 다른 프로세스로 넘어간다고 하였는데, 이는 예전의 방식이다. 현재 운영체제에서는 대부분 다중 쓰레드를 지원하기 때문에 하나의 프로세스 안에서 여러 쓰레드를 수행하다가 다른 프로세스로 넘어가서 그 프로세스의 쓰레드를 수행한다. 그러므로 현대 운영체제의 &lt;strong&gt;context switching 단위는 프로세스가 아닌 쓰레드 단위&lt;/strong&gt; 이다.&lt;/p&gt;
-
-&lt;h3 id=&quot;thread-vs-precess&quot;&gt;Thread VS Precess&lt;/h3&gt;
-&lt;p&gt;한 프로세스에는 기본적으로 하나의 쓰레드가 존재한다. 프로세스는 &lt;strong&gt;code, data&lt;/strong&gt; 메모리 공간이 존재하는데, 이는 여러 쓰레드가 공유한다. 이외에도 프로세스의 자원인 file, I/O 등은 여러 쓰레드가 공유하지만, 각 쓰레드가 고유하게 가지고 있는 것은 PC(Program Counter), SP(Stack Pointer), registers, &lt;strong&gt;stack&lt;/strong&gt; 등이 있다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry></feed>

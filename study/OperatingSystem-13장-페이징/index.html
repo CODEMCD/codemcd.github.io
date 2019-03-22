@@ -9,38 +9,38 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[Kotlin]6. 흐름 제어(control flow) - CODEMCD’s Tech BLOG</title>
-<meta name="description" content="Kotlin 개념">
+<!-- begin _includes/seo.html --><title>[OS] 13장 페이징 - CODEMCD’s Tech BLOG</title>
+<meta name="description" content="운영체제 개념 정리">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech BLOG">
-<meta property="og:title" content="[Kotlin]6. 흐름 제어(control flow)">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/language/Kotlin-6.%ED%9D%90%EB%A6%84%EC%A0%9C%EC%96%B4/">
+<meta property="og:title" content="[OS] 13장 페이징">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/">
 
 
-  <meta property="og:description" content="Kotlin 개념">
-
-
-
-
-
-
-
-  <meta property="article:published_time" content="2018-10-14T00:00:00+09:00">
+  <meta property="og:description" content="운영체제 개념 정리">
 
 
 
 
 
-  
+
+
+  <meta property="article:published_time" content="2019-03-22T00:00:00+09:00">
+
+
+
+
 
   
 
+  
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/language/Kotlin-6.%ED%9D%90%EB%A6%84%EC%A0%9C%EC%96%B4/">
+
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/">
 
 
 
@@ -458,15 +458,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[Kotlin]6. 흐름 제어(control flow)">
-    <meta itemprop="description" content="Kotlin 개념">
-    <meta itemprop="datePublished" content="October 14, 2018">
+    <meta itemprop="headline" content="[OS] 13장 페이징">
+    <meta itemprop="description" content="운영체제 개념 정리">
+    <meta itemprop="datePublished" content="March 22, 2019">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[Kotlin]6. 흐름 제어(control flow)
+          <h1 id="page-title" class="page__title" itemprop="headline">[OS] 13장 페이징
 </h1>
           
         </header>
@@ -479,147 +479,105 @@
             <nav class="toc">
               <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Contents</h4></header>
               <ul class="toc__menu">
-  <li><a href="#흐름-제어control-flow">흐름 제어(control flow)</a>
+  <li><a href="#페이징paging">페이징(Paging)</a>
     <ul>
-      <li><a href="#자바와-동일한-구문">자바와 동일한 구문</a></li>
-      <li><a href="#코틀린-구문">코틀린 구문</a>
-        <ul>
-          <li><a href="#1-when문">1. when문</a></li>
-          <li><a href="#2-범위-연산자">2. 범위 연산자</a></li>
-        </ul>
-      </li>
+      <li><a href="#주소-변환address-translation">주소 변환(Address Translation)</a></li>
+      <li><a href="#내부단편화internal-fragment">내부단편화(Internal Fragment)</a></li>
+      <li><a href="#페이지-테이블-만들기">페이지 테이블 만들기</a></li>
     </ul>
   </li>
 </ul>
             </nav>
           </aside>
         
-        <h1 id="흐름-제어control-flow">흐름 제어(control flow)</h1>
+        <h2 id="페이징paging">페이징(Paging)</h2>
+<p>외부 단편화로 인한 메모리 낭비는 매우 심하다는 것을 살펴보았다. Compaction을 사용하면 외부 단편화는 해결할 수 있지만, 그로 인해 발생하는 오버헤드와 비효율적인 성능으로 사용하기는 어렵다. 그 이후에 연구를 통해 나온 것이 <strong>페이징</strong> 이다. 페이징은 hole을 가지고 해결하려 한 것이 아니라 <strong>프로세스를 작은 크기로 나눠서</strong> 외부 단편화를 해결하려고 하였다.</p>
 
-<h2 id="자바와-동일한-구문">자바와 동일한 구문</h2>
+<p>페이징은 프로세스를 일정한 작은 크기로 나누는데, 프로세스뿐아니라 hole도 같은 크기로 나눈다. 이러한 작은 조각들의 크기를 맞춰서 메모리에 할당한다. 하지만, 하나의 프로세스는 연속적인 동작을 수행하는데 이를 작은 조각으로 나누어서 여기저기 흩어진다면 프로세스가 정상적으로 동작할까?</p>
+
+<p>메모리상에 여러 곳에 흩어진 프로세스를 수행하기 위해 CPU를 속여야한다. 이전 다중프로그래밍을 살펴봤을 때 MMU를 통해 논리 주소와 물리 주소를 나눠서 사용한다고 했었다. 이역시 CPU를 속이는 행동이다. 실제 메모리는 전혀 연속적이지 않는데, CPU는 연속적으로 사용하고 있다는 것을 보장받으며 정상적으로 수행한다.</p>
+
+<p>페이징으로 작은 크기로 나눈 것도 위와 같은 방법으로 할 수 있다. 만약 50byte 크기의 프로세스가 있다고 하자. 페이징의 크기는 각 10byte로 나눈다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/54821888-d9191700-4ce6-11e9-8b11-7af6fdbcbe06.png" alt="OS13-1" /></p>
+
+<p>위 그림과 같이 프로세스 P1은 5개의 페이지로 나눌 수 있다. 이를 메인 메모리 5곳에 나눠서 할당하였다. CPU는 논리 주소로 프로그램이 설정한대로 연속적인 주소값으로 명령을 내리고 이는 메모리로 가기전에 각 페이지의 실제 메모리 주소가 저장되어 있는 <strong>테이블에서 물리 주소로 변경되어야 한다.</strong></p>
+
+<p>프로세스를 나눈 조각을 <strong>page</strong> 라 하고, 메모리를 나눈 조각을 <strong>frame</strong> 이라 한다. 프로세스는 페이지의 집합이고, 메모리는 프레임의 집합이다. 프로세스를 정상적으로 사용하기 위해 MMU의 재배치 레지스터를 여러개 사용해서 위의 그림과 같이 각 페이지의 실제 주소로 변경해준다. 이러한 여러 개의 재배치 레지스터를 <strong>페이지 테이블(Page Table)</strong> 이라 한다.</p>
+
+<h3 id="주소-변환address-translation">주소 변환(Address Translation)</h3>
+<p>페이징 기법을 사용하기 위해서는 여러 개로 흩어진 페이지에 CPU가 접근하기 위해서 페이지 테이블을 통해 주소를 변환해야 한다.</p>
+
 <ul>
-  <li>if-else문</li>
-  <li>while문, for문</li>
+  <li><strong>논리 주소(Logical address)</strong>
+CPU가 내는 주소는 2진수로 표현되고 이를 m비트가 있다고 가정하자. 여기서 하위 n비트는 오프셋(offset) 또는 변위(displacement)라고 한다. 그리고 상위 m-n 비트는 페이지의 번호에 해당한다.(n = d, m-n = p)</li>
 </ul>
 
-<h2 id="코틀린-구문">코틀린 구문</h2>
-<h3 id="1-when문">1. when문</h3>
+<p>논리주소를 물리주소(physical address)로 변환하기 위해서 페이지 번호(p)는 페이지 테이블의 인덱스 값이고, p에 해당되는 테이블 내용은 메모리의 프레임 번호이다. 변위(d)는 변하지 않는 값이다. 이 규칙에 대한 예제를 살펴보자.</p>
+
 <ul>
-  <li>when문은 자바의 switch문을 대체하며, 훨씬 더 많은 기능이 추가되었다.</li>
-  <li>when문은 각각의 branch의 조건문이 만족할 때까지 위에서 부터 순차적으로 인자를 비교한다.</li>
-  <li>when문 안의 else문은 다른 모든 branch가 조건에 성립하지 않을 때 수행된다.
-    <ul>
-      <li>else문은 필수로 있어야 하며, 없으면 컴파일 에러가 난다.</li>
-      <li>when문이 식으로 사용된 경우 else문이 없어도 된다는 것을 컴파일러가 입증할 수 있는 경우 생략 가능하다.</li>
-    </ul>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>var res = when (x) {
-  true -&gt; "맞다"
-  false -&gt; "틀리다"
-}
-</code></pre></div>    </div>
-  </li>
-  <li>사용 예제
-    <ul>
-      <li>기본 예제</li>
-    </ul>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>when (x) {
-  1 -&gt; print("x == 1")
-  2 -&gt; print("x == 2")
-  else -&gt; { // Note the block
-    print("x is neither 1 nor 2")
-  }
-}
-</code></pre></div>    </div>
-
-    <ul>
-      <li>여러 개의 조건이 사용된 경우</li>
-    </ul>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>when (x) {
-  0, 1 -&gt; print("x == 0 or x == 1")
-  else -&gt; print("otherwise")
-}
-</code></pre></div>    </div>
-
-    <ul>
-      <li>조건에 함수나 식이 사용된 경우</li>
-    </ul>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>when (x) {
-  parseInt(x) -&gt; print("s encodes x")
-  1 + 3 -&gt; print("4")
-  else -&gt; print("s does not encode x")
-}
-</code></pre></div>    </div>
-
-    <ul>
-      <li>범위 연산자 ‘..’, collection에 ‘in’연산자로 범위를 검사하는 경우</li>
-    </ul>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val validNumbers = listOf(3, 6, 9)
-when (x) {
-  in validNumbers -&gt; print("x is valid")
-  in 1..10 -&gt; print("x is in the range")
-  !in 10..20 -&gt; print("x is outside the range")
-  else -&gt; print("none of the above")
-}
-</code></pre></div>    </div>
-
-    <ul>
-      <li>is 연산자를 이용하여 타입 검사를 하는 경우</li>
-    </ul>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//스마트 캐스트가 적용된다.
-fun hasPrefix(x: Any) = when(x) {
-  is String -&gt; x.startsWith("prefix")
-  else -&gt; false
-}
-</code></pre></div>    </div>
-
-    <ul>
-      <li>when문에 인자를 입력하지 않으면 논리 연산을 검사한다. (if-else문 대체 가능)</li>
-    </ul>
-
-    <div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>when {
-  x.isOdd() -&gt; print("x is odd")
-  x.isEven() -&gt; print("x is even")
-  else -&gt; print("x is funny")
-}
-</code></pre></div>    </div>
-  </li>
+  <li>Page size = 16bytes</li>
+  <li>Page Table: 5, 3, 2, 8, 1, 4</li>
+  <li>논리 주소 50번지는 물리주소 몇 번지인가?</li>
 </ul>
 
-<h3 id="2-범위-연산자">2. 범위 연산자</h3>
-<ul>
-  <li>..연산자</li>
-</ul>
+<p><img src="https://user-images.githubusercontent.com/34755287/54821891-d9191700-4ce6-11e9-98a4-425903e14323.png" alt="OS13-2" /></p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//0부터 10까지, 시작과 끝을 포함하는 범위를 정의한다.
-val myRange: IntRange = 0..10
+<p>위 그림은 프로세스 P가 메모리에 할당된 모습이다. CPU가 50번지에 접근하려고 한다. 그러면 페이지 테이블의 정보를 읽기 위해 논리 주소를 p와 d값으로 나눠야 한다.</p>
+
+<p>d는 페이지 크기에 따라 달라지는데, 현재 페이지 크기는 16byte이다. 이는 <strong>2^4이므로 d = 4</strong> 이다.</p>
+
+<p>p는 d를 제외한 나머지 크기이다.</p>
+
+<p>그러면 실제로 p, d를 계산해보자. 현재 논리 주소는 50이며, 이진수로 나타내면 <code class="highlighter-rouge">110010</code>이다. 먼저 d는 4이므로 이 이진수의 뒤에서 4칸이 d이다. d를 제외한 나머지 2칸이 p가 된다.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>50 = 110010
+p = 11
+d = 0010
 </code></pre></div></div>
 
-<ul>
-  <li>until 함수</li>
-</ul>
+<p>p는 이진수로 11이고, 십진수로 3이다. 즉, 페이지 테이블의 페이지 번호 3번을 가리킨다. 페이지 3번에 해당하는 프레임 번호는 8번이므로, 물리주소를 구성하는 f값은 8이 된다.</p>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>val items: List&lt;String&gt; = ... //항목이 담긴 리스트라고 가정
-
-val myRange: IntRage = 0..3
-//마지막 값을 포함하지 않는 범위, 즉 0, 1, 2, 3 의 인덱스를 나타낸다.
-val myRange: IntRage = 0 until 4
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>f = 1000
+d = 0010
+물리주소 = 10000010
 </code></pre></div></div>
 
+<p>최종적으로 물리주소는 f와 d로 구성되어 있으므로 물리주소는 <strong>이진수로 10000010 이 되고, 십진수로 130 번지</strong> 가 된다. 즉, 변위는 2이므로 8번째 프레임의 시작주소는 128번지(16 * 8)가 된다.</p>
+
+<p>연속 메모리 할당을 하면서 외부 단편화가 발생하여 이를 해결하기 위해 페이징 기법이 나왔다. 하지만 페이징은 외부 단편화가 아닌 <strong>내부 단편화</strong> 가 발생한다.</p>
+
+<h3 id="내부단편화internal-fragment">내부단편화(Internal Fragment)</h3>
+<p>내부단편화는 프로세스 크기가 페이지 크기의 배수가 아닐 경우, 마지막 페이지는 한 프레임을 다 채울 수 없다. 이로 인해 발생하는 공간은 결국 메모리 낭비로 이어진다.</p>
+
+<p>예를 들어, 15bytes 크기의 프로세스 P가 있다. 페이지 크기(프레임 크기)는 4bytes로 P를 페이지로 나누면 <strong>4, 4, 4, 3</strong> 의 크기로 총 4개의 페이지가 만들어진다. 여기서 마지막 3bytes 페이지는 프레임 크기보다 1byte작으므로, 이 만큼 메모리 공간이 비게 된다. 이렇게 비어진 공간은 프로세스 P에서도 쓰지 않고, 다른 프로세스에서도 쓰지 못하는 낭비되는 공간이 된다.</p>
+
+<p>내부단편화는 해결할 방법이 없다. 하지만 내부단편화는 외부단편화에 비해 낭비되는 메모리 공간은 매우 적다. 내부단편화의 <strong>최대 낭비되는 크기는 page size - 1</strong> 이 된다.(외부 단편화는 최대 전체 메모리의 1/3이 낭비된다고 이전에 살펴봤다.) 이는 무시할 정도로 작은 크기이다.</p>
+
+<h3 id="페이지-테이블-만들기">페이지 테이블 만들기</h3>
+<p>페이지 테이블을 만드는 방법은 여러 가지가 있다. 먼저, CPU 내부에 페이지 테이블을 만들 수 있다. CPU 내부의 기억장치는 레지스터로, 여러 개의 레지스터로 페이지 테이블을 만드는 것이다. CPU 내부에 페이지 테이블을 만들면, 장점은 주소 변환 속도가 빠르다. 하지만 단점은 CPU 내부에 사용할 수 있는 레지스터는 한정되어 있으므로 페이지 테이블의 크기가 매우 제한된다.</p>
+
+<p>반대로, 페이지 테이블을 메모리 내부에서 만들 수도 있다. 메모리 내부에 만드는 것의 장단점은 CPU와 정 반대이다. 즉, 장점은 페이지 테이블의 크기에 제한이 없는 것이고, 단점은 주소 변환 속도가 느리다는 것이다. CPU는 프로세스의 주소에 접근하기 위해서 메모리에 위치한 페이지 테이블에 한 번, 실제 주소로 접근하는데 한 번해서 <strong>메모리에 총 2번 접근해야하므로 속도 역시 2배로 느려진다.</strong></p>
+
+<p>페이지 테이블을 CPU에 만들 때나 메모리에 만들 때 둘 다 장단점이 확실하기 때문에, 이를 해결하기 위해 페이지 테이블도 캐시로 만들어 해결하였다. 페이지 테이블을 별도의 칩(SRAM)으로 만들어서 CPU와 메모리 사이에 위치시키는 것이다. 이러한 테이블을 <strong>TLB(Translation Look-aside Buffer)</strong> 라고 부른다. 이는 CPU보다 변환 속도는 느리고 메모리보다 테이블 크기는 작지만, CPU보다 테이블 크기가 크고 메모리보다 변환 속도가 빠르다.</p>
+
+<p>TLB는 캐시와 역할이 동일하므로, 실제 전체 페이지 테이블은 메모리에 위치해 있고 테이블의 일부를 TLB에 가져와서 사용한다. 그러므로 TLB에 유효한 페이지가 있을 때와 없을 때의 속도 차이가 발생한다.</p>
+
+<p>그렇다면, TLB의 효율을 알아보기 위해 Effective Memory Access Time을 계산해보자.</p>
 <ul>
-  <li>dounTo() 함수, step() 함수</li>
+  <li>메모리를 읽는 시간(Tm) = 100ns</li>
+  <li>TLB를 읽는 시간(Tb) = 20ns</li>
+  <li>TLB에 유효한 페이지 엔트리가 있을 확률(hit ratio) = 80%</li>
 </ul>
 
-<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>//2씩 감소하는 for문
-for (i in 5 downTo 1 step 2) {
-  System.out.print(i)
-}
+<p>먼저, EMAT의 정형화된 식을 보자.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>EMAT = h(Tb + Tm) + (1 - h)(Tb + Tm + Tm), h는 hit ratio
 </code></pre></div></div>
+
+<p>실제 유효한 메모리에 접근하는 시간은 위와 같다. TLB에 유효한 페이지가 있다면 TLB를 읽는 시간과 실제 메모리를 읽는 시간만 있으면 된다. 하지만, TLB에 유효한 페이지가 없다면 이를 다시 메모리에서 가져와야 하므로 메모리를 총 2번 읽어야 한다.</p>
+
+<p>예제를 계산해보면, <code class="highlighter-rouge">0.8 * (20 + 100) + 0.2 * (20 + 100 + 100) = 140ns</code> 이다. hit ratio는 실제로 평균 95%이상이므로 충분히 효율적으로 동작한다고 볼 수 있다.</p>
 
         
       </section>
@@ -640,9 +598,9 @@ for (i in 5 downTo 1 step 2) {
     
       
       
-      <a href="/pages/CODEMCD/tags/#language-kotlin" class="page__taxonomy-item" rel="tag">
+      <a href="/pages/CODEMCD/tags/#study-operatingsystem" class="page__taxonomy-item" rel="tag">
         
-        Kotlin
+        OperatingSystem
       </a>
     
     </span>
@@ -664,14 +622,14 @@ for (i in 5 downTo 1 step 2) {
     
       
       
-      <a href="/pages/CODEMCD/categories/#language" class="page__taxonomy-item" rel="tag">Language</a>
+      <a href="/pages/CODEMCD/categories/#study" class="page__taxonomy-item" rel="tag">Study</a>
     
     </span>
   </p>
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2018-10-14T00:00:00+09:00">October 14, 2018</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-03-22T00:00:00+09:00">March 22, 2019</time></p>
         
       </footer>
 
@@ -680,25 +638,24 @@ for (i in 5 downTo 1 step 2) {
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BKotlin%5D6.+%ED%9D%90%EB%A6%84+%EC%A0%9C%EC%96%B4%28control+flow%29%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FKotlin-6.%25ED%259D%2590%25EB%25A6%2584%25EC%25A0%259C%25EC%2596%25B4%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5BOS%5D+13%EC%9E%A5+%ED%8E%98%EC%9D%B4%EC%A7%95%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-13%25EC%259E%25A5-%25ED%258E%2598%25EC%259D%25B4%25EC%25A7%2595%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
-  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FKotlin-6.%25ED%259D%2590%25EB%25A6%2584%25EC%25A0%259C%25EC%2596%25B4%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-13%25EC%259E%25A5-%25ED%258E%2598%25EC%259D%25B4%25EC%25A7%2595%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
-  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FKotlin-6.%25ED%259D%2590%25EB%25A6%2584%25EC%25A0%259C%25EC%2596%25B4%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-13%25EC%259E%25A5-%25ED%258E%2598%25EC%259D%25B4%25EC%25A7%2595%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
 
-  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Flanguage%2FKotlin-6.%25ED%259D%2590%25EB%25A6%2584%25EC%25A0%259C%25EC%2596%25B4%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-13%25EC%259E%25A5-%25ED%258E%2598%25EC%259D%25B4%25EC%25A7%2595%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
 </section>
 
 
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/language/Kotlin-5.%EC%BD%94%ED%8B%80%EB%A6%B0%EB%A7%8C%EC%9D%98%ED%81%B4%EB%9E%98%EC%8A%A4/" class="pagination--pager" title="[Kotlin]5. 코틀린만의 클래스
+      <a href="/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/" class="pagination--pager" title="[OS] 12장 주기억장치 관리
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/algorithm/SW-Expert-Academy-5650.%ED%95%80%EB%B3%BC-%EA%B2%8C%EC%9E%84/" class="pagination--pager" title="[SW Expert Academy]5650.핀볼 게임
-">다음</a>
+      <a href="#" class="pagination--pager disabled">다음</a>
     
   </nav>
 
@@ -720,25 +677,6 @@ for (i in 5 downTo 1 step 2) {
     <div class="page__related">
       <h4 class="page__related-title">참고</h4>
       <div class="grid__wrapper">
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/" rel="permalink">[OS] 13장 페이징
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
-</p>
-  </article>
-</div>
         
           
 
@@ -788,6 +726,25 @@ for (i in 5 downTo 1 step 2) {
     <h2 class="archive__item-title" itemprop="headline">
       
         <a href="/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0/" rel="permalink">[OS] 11장 모니터
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/" rel="permalink">[OS] 10장 프로세스 동기화 - 3
 </a>
       
     </h2>
@@ -915,8 +872,8 @@ search.start();
     
   <script>
     var disqus_config = function () {
-      this.page.url = "https://codemcd.github.io/pages/CODEMCD/language/Kotlin-6.%ED%9D%90%EB%A6%84%EC%A0%9C%EC%96%B4/";  // Replace PAGE_URL with your page's canonical URL variable
-      this.page.identifier = "/language/Kotlin-6.흐름제어"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/study/OperatingSystem-13장-페이징"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
     };
     (function() { // DON'T EDIT BELOW THIS LINE
       var d = document, s = d.createElement('script');
