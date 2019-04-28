@@ -374,7 +374,7 @@ body:hover .visually-hidden button {
   @include breakpoint($large) {
     @include clearfix();
     position: -webkit-sticky;
-    position: sticky;
+    // position: sticky;    // 사이드바 고정
     top: 2em;
 
     > * {
