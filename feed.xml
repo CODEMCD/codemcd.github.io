@@ -1,138 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-04-28T17:27:15+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s Tech BLOG</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[OS] 12장 주기억장치 관리</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/" rel="alternate" type="text/html" title="[OS] 12장 주기억장치 관리" /><published>2019-03-22T00:00:00+09:00</published><updated>2019-03-22T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%20%EA%B4%80%EB%A6%AC</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/">&lt;p&gt;메모리는 CPU 자원만큼 컴퓨터를 사용하는데 매우 중요한 자원 중 하나이다. 이전에는 운영체제에서 CPU 자원을 관리하는 프로세스 관리에 대해 살펴보았고, 지금부터는 메인 메모리를 관리하는 기능에 대해 살펴볼 것이다. 특히, 과거에는 메모리가 매우 비싼 자원이었고 크기 또한 작았기 때문에, 운영체제에서 메모리에 대한 관리가 지금보다 더 중요하였다.&lt;/p&gt;
-
-&lt;p&gt;현재에는 과거보다 훨씬 큰 메모리를 저렴하게 사용하지만, 지금도 메모리는 부족하다. 메모리가 커져온 만큼 프로그램의 크기와 처리하는 데이터의 크기는 그보다 더욱 빠른 속도로 커져왔다. 그러므로 현재에도 여전히 메모리를 최대한 효율적으로 사용하기 위해 여러 방법들이 연구되고 있고, 운영체제 기능에서도 매우 중요한 위치를 차지하고 있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;메모리에-프로그램-할당하기&quot;&gt;메모리에 프로그램 할당하기&lt;/h2&gt;
-&lt;p&gt;메모리는 기본적으로 &lt;strong&gt;주소(Address)&lt;/strong&gt; 와 &lt;strong&gt;데이터(Data)&lt;/strong&gt; 로 구성되어 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821877-d74f5380-4ce6-11e9-8888-e63816796f65.png&quot; alt=&quot;OS12-1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;CPU와 메모리는 양방향으로 위 그림과 같이 주고 받는다. CPU는 주소를 가지고 메인 메모리에 요청을하거나 해당 주소에 계산 결과를 저장하고, 메모리는 요구하는 주소에 저장되어 있는 데이터를 CPU에게 전달한다.&lt;/p&gt;
-
-&lt;p&gt;프로그램을 빌드하는 과정은 소스파일, 목적파일, 실행파일 순서로 생성된다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;소스파일(Source file): 고수준언어 또는 어셈블리어&lt;/li&gt;
-  &lt;li&gt;목적파일(Object file): 컴파일 또는 어셈블 결과&lt;/li&gt;
-  &lt;li&gt;실행파일(Executable file): 링크 결과&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821878-d74f5380-4ce6-11e9-98e8-a43b086a4837.png&quot; alt=&quot;OS12-2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 프로그램이 만들어지는 과정을 그림으로 표현한 것이다. 소스파일은 컴파일러(compiler)에 의해 컴파일 수행 결과로 목적 파일을 생성한다.(어셈블리어는 어셈블러가 어셈블을 수행하여 기계어로 변환한다.) 프로그래밍을 하면서 외부의 라이브러리를 사용할 때가 빈번한데, 컴파일 단계에서는 이를 추가하지 않기 때문에 목적파일에는 이에 대한 정보가 없다. 그대신 위 그림에서 보이듯이, 링크 단계에서 하드디스크에서 프로그래머가 추가한 라이브러리를 찾아 정보를 추가하여, 실행 파일을 만든다.(링크 단계는 링커(linker)가 수행한다.) 이 프로그램을 실행하면 로더(loader)에 의해 메인 메모리에 할당된다.&lt;/p&gt;
-
-&lt;p&gt;그리고 생성된 프로그램은 code, data, stack 영역으로 나뉘어져 있다. 단순히 생성된 프로그램에는 code와 data영역만 존재하며, 메모리에 적재되었을 때는 실제로 실행을 해야하므로 stack영역에 추가되어야 한다.&lt;/p&gt;
-
-&lt;p&gt;그러면, 프로그램을 실제로 메모리에 올리기 위해서는 좀 더 복잡한 과정이 필요하다. 먼저, 이 프로그램은 메모리에 몇 번지에 할당될까? 이 질문은 운영체제가 없다면, 프로그래머가 직접 이를 처리해주어야 할 것이다. 하지만 운영체제가 존재하므로 실제 프로그래머는 이를 신경쓸 필요가 없다. 그러므로 프로그래밍을 할 때 주소를 사용하는 경우가 있는데, 프로그램이 메모리에 올라가는 주소를 고려하지 않고 프로그래밍이 가능한 것이다.(고수준언어에서는 직접 주소를 다루지 않는 경우가 많다.)&lt;/p&gt;
-
-&lt;p&gt;또한, 다중 프로그래밍 환경에서는 여러 프로그램이 메모리에 올라가고 내려가고를 반복하기 때문에, 한 프로그램은 고정적인 공간을 사용할 수 없다. 이러한 여러 고려 사항을 해결해주는 것이 전에도 살펴봤던 MMU이다. 그리고 MMU에는 프로그램이 메모리에 할당될 때마다 다른 주소공간을 사용하기 때문에 &lt;strong&gt;재배치 레지스터(Relocation register)&lt;/strong&gt; 가 별도로 존재한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821879-d7e7ea00-4ce6-11e9-9ad0-ffe02008d6a9.png&quot; alt=&quot;OS12-3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 MMU의 모습이다. 프로그램은 메인 메모리에 해당 주소를 사용할 수 있는지 여부를 생각하지 않고 주소를 사용한다. 만약 해당 프로그램이 사용하는 시작주소가 0번지라고 할 때, 실제 메인 메모리에서는 할당되는 주소가 유동적이기 때문에 0번지이라는 주소를 실제 할당된 주소로 변경해주어야 한다. 이때 재배치 레지스터를 이용한다.&lt;/p&gt;
-
-&lt;p&gt;만약, 프로그램이 메인 메모리 500번지에 할당되어 재배치 레지스터값이 500으로 설정되었다면, CPU에서 프로그램의 0번지를 사용할 때 MMU를 통과하면 재배치 레지스터에 의해 500번지로 변경된다. 그 결과 CPU는 0번지를 사용하는 것으로 알고 있지만, 실제 메모리에서는 MMU에 의해 500번지를 사용하고 있는 것이다.&lt;/p&gt;
-
-&lt;p&gt;MMU(Memory Management Unit)의 기능을 살펴보면, 이전에 메모리 보호를 위해 base와 limit 레지스터가 있었다. 이는 CPU에서 주소를 사용하는데 이 주소가 해당 프로그램의 base나 limit 범위를 벗어나면 인터럽트가 발생하여 그 프로그램을 강제로 종료시킨다.&lt;/p&gt;
-
-&lt;p&gt;MMU는 이 기능 이외에도 재배치 레지스터를 사용해서 프로그램이 어느 주소를 사용하더라도 실제 메인 메모리에 할당된 주소를 찾아갈 수 있도록 &lt;strong&gt;address translation&lt;/strong&gt; 동작을 수행한다. 즉, CPU는 프로그램에 설정된 주소를 계속 사용하고 메모리에 명령을 보내지만, MMU에 의해 실제로 프로그램이 할당된 메모리 주소로 변환해서 사용할 수 있는 것이다. 그 결과, &lt;strong&gt;프로그램의 실제 메모리 주소 공간의 위치는 CPU에 전혀 영향을 미치지 않고&lt;/strong&gt; 정상적으로 사용할 수 있는 것이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821880-d7e7ea00-4ce6-11e9-944e-3be89338213f.png&quot; alt=&quot;OS12-4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;MMU에 의해 위 그림과 같이 주소는 두 가지로 구분된다. CPU에서 사용하는 주소는 &lt;strong&gt;논리 주소(logical address)&lt;/strong&gt; 라고 하고, 메모리가 사용하는 주소는 &lt;strong&gt;물리 주소(physical address)&lt;/strong&gt; 라고 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;메모리-낭비-방지&quot;&gt;메모리 낭비 방지&lt;/h2&gt;
-&lt;p&gt;운영체제는 메모리를 효율적으로 사용하기 위해 메모리 공간을 낭비하지 않는 것이 중요하다.&lt;/p&gt;
-
-&lt;h3 id=&quot;동적-적재dynamic-loading&quot;&gt;동적 적재(Dynamic Loading)&lt;/h3&gt;
-&lt;p&gt;동적 적재는 &lt;strong&gt;프로그램이 실행하는데 반드시 필요한 루틴/데이터만 적재(load)&lt;/strong&gt; 하는 것이다. 프로그램의 전체 코드에서 모든 루틴이 다 사용되는 것은 아니다. 대표적으로 오류 처리 구문이다. 오류 처리 구문은 if문과 같이 오류가 발생할 때만 해당 내부 코드가 실행되는 것을 말한다. 그러므로 동적 적재를 수행하면 프로그램의 실제 메모리에는 이러한 오류 구문을 제외하고 적재한다. 이러한 상태에서 실행하다가 오류가 발생하면 그 때 해당 오류 구문을 찾아 메모리에 올린다.&lt;/p&gt;
-
-&lt;p&gt;데이터도 마찬가지다. 모든 데이터가 반드시 사용되는 것이 아니기 때문에, 특히 배열과 클래스의 경우는 필요한 부분만 메모리에 올려두고, 실행 도중 필요할 때마다 해당 부분을 찾아 메모리에 올려준다.&lt;/p&gt;
-
-&lt;p&gt;반대로, 모든 루틴과 데이터를 적재하는 것을 정적 적재(static loading)이라고 한다. 현대 운영체제는 대부분 동적 적재를 사용한다.&lt;/p&gt;
-
-&lt;h3 id=&quot;동적-연결dynamic-linking&quot;&gt;동적 연결(Dynamic Linking)&lt;/h3&gt;
-&lt;p&gt;동적 연결은 여러 프로그램에 공통으로 사용되는 라이브러리를 중복으로 메모리에 올리는 것이 아니라 &lt;strong&gt;하나&lt;/strong&gt; 만 올리도록 하는 것이다.&lt;/p&gt;
-
-&lt;p&gt;예를 들어, 아래와 같은 코드의 P1, P2 프로세스가 있다고 하자.&lt;/p&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// P1
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// P2
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이 두 소스파일을 컴파일하면 목적파일이 생성되고, 여기서 사용된 라이브러리를 링크하여 실행파일을 만든 다음 메모리에 적재한다. 두 프로세스가 적재되었을 때, &lt;code class=&quot;highlighter-rouge&quot;&gt;printf()&lt;/code&gt; 를 사용하는 라이브러리는 메모리에 중복되어서 적재되어있다.&lt;/p&gt;
-
-&lt;p&gt;이와 같이, 똑같은 라이브러리를 사용하는 프로그램은 흔히 볼 수 있다. 이러한 같은 라이브러리를 하나만 메모리에 올린 후, 이를 사용하는 프로그램이 하나의 메모리에 접근하도록 하면 메모리 낭비를 줄일 수 있다.&lt;/p&gt;
-
-&lt;p&gt;동적 연결은 같은 라이브러리가 중복으로 메모리에 올라가는 것을 방지하기 위해 &lt;strong&gt;프로그램이 메모리에 적재된 후에 링크(link) 작업을 수행한다.&lt;/strong&gt; 기존에는 실행 파일이 만들어지기 전에 링크 과정을 수행하였는데, 이를 정적 연결이라고 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821881-d7e7ea00-4ce6-11e9-9038-3359ab7d12f2.png&quot; alt=&quot;OS12-5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 예제에서 살펴 본 P1, P2 프로세스가 동적 연결을 통해 공통 라이브러리(printf() 라이브러리)를 연결한 모습을 볼 수 있다. 이러한 라이브러리를 Linux에서는 &lt;strong&gt;공유 라이브러리(Shared Library)&lt;/strong&gt;, Windows에서는 &lt;strong&gt;동적 연결 라이브러리(Dynamic Linking Library, DLL)&lt;/strong&gt; 라고 부른다.&lt;/p&gt;
-
-&lt;h3 id=&quot;swapping&quot;&gt;Swapping&lt;/h3&gt;
-&lt;p&gt;Swapping은 메모리에 적재되어 있는 프로세스 중에서 오랫동안 사용하지 않은 프로세스를 프로세스 이미지 형태로 만든 후 하드디스크(Backing store)에 내려보낸다. 메모리에서 Backing store로 가는 것을 &lt;strong&gt;swap-out&lt;/strong&gt;, 다시 Backing store에서 메모리로 가는 것을 &lt;strong&gt;swap-in&lt;/strong&gt; 이라고 한다.&lt;/p&gt;
-
-&lt;p&gt;여기서, 프로세스 이미지는 해당 프로그램이 메모리에 적재된 후 실행되면서 데이터를 추가하거나 변경하는 등의 과정을 거치는데, 현재 데이터의 상태를 프로세스 이미지라고 부른다. 그러므로 이는 단순히, 하드디스크에 존재하는 프로그램(exe파일)과는 전혀 다른 데이터이므로, 따로 저장해야한다. 이와 같은 swapping 과정으로 인한 프로세스 이미지를 저장하기 위해 하드디스크의 일부분을 분리하여 사용하는데, 이를 &lt;strong&gt;backing store&lt;/strong&gt; 또는 &lt;strong&gt;swap device&lt;/strong&gt; 라고 부른다.&lt;/p&gt;
-
-&lt;p&gt;Backing store의 크기는 대략 메인 메모리 크기 정도로 예상할 수 있다. 메모리의 모든 프로세스가 쫓겨난다고 해도 메인 메모리 크기를 넘지 않기 때문이다. 메인 메모리 크기가 크지 않는 PC나 스마트폰은 하드디스크의 일부를 backing store로 사용하지만, 메모리 크기가 크다면 따로 하드디스크 자체를 backing store로 사용하는 경우도 있다.&lt;/p&gt;
-
-&lt;p&gt;Swap-out된 프로세스는 다시 swap-in을 할 때, 이전의 메모리 주소 공간이 아닌 새로운 주소 공간으로 갈 수도 있다. 이는 해당 프로세스가 backing store에 있는 동안 다른 프로세스가 해당 주소 공간을 사용할 수 있기 때문에다. 하지만 이는 MMU의 재배치 레지스터로 인해 어디에 적재되는지 상관없이 정상적으로 수행할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;현재는 프로세스의 크기가 커지고, 하드디스크는 메인 메모리보다 속도면에서 매우 느리므로 swapping 동작의 오버헤드는 크다고 볼 수 있다. 하지만 이로 인해 얻는 이득이 더 많으므로 대부분 운영체제는 이를 사용하고 있고, 속도가 중요한 서버 컴퓨터나 슈퍼 컴퓨터는 backing store를 하드디스크가 아닌 좀 더 빠른 저장 장치를 사용하기도 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;연속-메모리-할당contiguous-memory-allocation&quot;&gt;연속 메모리 할당(Contiguous Memory Allocation)&lt;/h2&gt;
-&lt;p&gt;과거에는 메모리에 프로세스가 하나만 올라가는 형태였다. 하지만 현재에는 메모리에 여러 프로세스가 할당되는 다중 프로그래밍 환경이 되었다.&lt;/p&gt;
-
-&lt;p&gt;부팅 직후에 메모리 상태를 살펴보면, 운영체제만 할당되어 있고 비어있는 상태일 것이다. 이러한 비어있는 공간을 &lt;strong&gt;hole&lt;/strong&gt; 이라 부른다. 즉, 부팅 직후에는 운영체제와 big single hole이 있는 상태이다. 시간이 지나면서 프로세스가 생성되고 종료하고를 반복하면, 여러 곳에 서로 다른 크기의 홀(hole)이 존재할 것이다. 이러한 상태를 scattered holes라고 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821882-d8808080-4ce6-11e9-8ff3-193fa79c04a3.png&quot; alt=&quot;OS12-6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 부팅 직후 상태에서 시간이 경과하면서 프로세스들이 생성, 종료를 반복한 후의 상태이다. 이와 같이 hole들이 불연속하게 흩어져 있는 상태를 &lt;strong&gt;메모리 단편화(Memory fragmentation)&lt;/strong&gt; 라고 한다.&lt;/p&gt;
-
-&lt;p&gt;메모리 단편화로 인해서 여러 곳에 hole이 흩어져 있는 상태에서 하나의 프로세스가 메모리에 할당되려하면 문제가 발생할 수 있다. 예를 들어, hole이 3개가 있고 각 크기는 50byte, 50byte, 80byte이다. 그런데 할당하려는 프로세스의 크기는 150byte이다. 각 hole들을 하나로 합치면 230byte로 이 프로세스를 할당할 수 있는데 실재로는 나누어져 있으므로 할당되지 못한다. 이러한 현상을 &lt;strong&gt;외부 단편화(External fragmentation)&lt;/strong&gt; 라고 한다. 외부 단편화를 줄이기 위해서는 어떤 해결 방법이 있을까?&lt;/p&gt;
-
-&lt;h3 id=&quot;연속-메모리-할당-방식&quot;&gt;연속 메모리 할당 방식&lt;/h3&gt;
-&lt;p&gt;외부 단편화의 해결방법을 살펴보기 전에 연속 메모리 할당 방식을 먼저 살펴보자. 연속 메모리 할당 방식에는 3가지가 있다. First-fit, Best-fit, Worst-fit 이 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;First-fit(최초 적합)&lt;/strong&gt;: 최초 적합은 할당할 프로세스 크기보다 크거나 같은 hole을 탐색하는 순서 중에서 가장 먼저 찾은 hole에 프로세스를 할당하는 것이다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Best-fit(최적 적합)&lt;/strong&gt;: 최적 적합은 할당할 프로세스 크기와 hole 크기의 차이가 가장 작은 hole에 프로세스를 할당하는 것이다.(hole크기는 프로세스 크기보다 반드시 커야 한다.)&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Worst-fit(최악 적합)&lt;/strong&gt;: 최적 적합과 반대로, 할당할 프로세스 크기와 hole 크기의 차이가 가장 큰 hole에 프로세스를 할당하는 것이다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;그러면 예제를 살펴보자. Hole은 100KB, 500KB, 600KB, 300KB, 200KB 총 5개가 있고, 프로세스는 P1, P2, P3, P4 총 4개가 있는데 각 크기는 212KB, 417KB, 112KB, 426KB이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;First-fit&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821883-d8808080-4ce6-11e9-8c2d-c84b878d21ea.png&quot; alt=&quot;OS12-7&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Best-fit&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821885-d8808080-4ce6-11e9-9473-db032d7eeb3a.png&quot; alt=&quot;OS12-8&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Worst-fit&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821887-d9191700-4ce6-11e9-9b00-fa92272b8b7d.png&quot; alt=&quot;OS12-9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;각 3가지 방식대로 프로세스를 할당한 모습을 볼 수 있다. 예제의 결과를 보면 Best-fit은 4개의 프로세스를 모두 할당할 수 있었고, 나머지 2개는 마지막 P4를 할당하지 못했다. 모든 hole을 합치면 P4를 할당할 수 있지만, hole들은 각각 나눠져 있기 때문에 할당할 수 없었다.(외부 단편화)&lt;/p&gt;
-
-&lt;p&gt;각 할당 방식의 일반적인 성능을 비교해보면, 속도면에서는 first-fit이 가장 빠르다. 메모리 이용률면에서는 first-fit, best-fit이 비슷한 성능을 낸다고 알려져있다. 하지만 여러 실험을 통해 best-fit을 사용하더라도 외부 단편화로 인해 &lt;strong&gt;전체 메모리의 1/3 정도를 낭비&lt;/strong&gt; 한다고 한다. 이는 거의 사용이 불가능한 수준이다.&lt;/p&gt;
-
-&lt;p&gt;이를 해결하는 방법 중 하나는 &lt;strong&gt;Compaction&lt;/strong&gt; 이다. compaction은 여러 곳에 흩어져있는 hole들을 강제로 하나로 합치는 것이다. 하지만 hole을 옮기는 오버헤드가 너무 크고, 어느 hole을 옮겨야 빠르게 합칠 수 있는지에 대한 최적 알고리즘이 존재하지 않는 큰 단점이 존재한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry><entry><title type="html">[OS] 13장 페이징</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/" rel="alternate" type="text/html" title="[OS] 13장 페이징" /><published>2019-03-22T00:00:00+09:00</published><updated>2019-03-22T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/">&lt;h2 id=&quot;페이징paging&quot;&gt;페이징(Paging)&lt;/h2&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-04-28T17:42:44+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s Tech BLOG</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[운영체제] # 13 페이징</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/" rel="alternate" type="text/html" title="[운영체제] # 13 페이징" /><published>2019-03-22T22:09:00+09:00</published><updated>2019-03-22T22:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/">&lt;h1 id=&quot;페이징paging&quot;&gt;페이징(Paging)&lt;/h1&gt;
 &lt;p&gt;외부 단편화로 인한 메모리 낭비는 매우 심하다는 것을 살펴보았다. Compaction을 사용하면 외부 단편화는 해결할 수 있지만, 그로 인해 발생하는 오버헤드와 비효율적인 성능으로 사용하기는 어렵다. 그 이후에 연구를 통해 나온 것이 &lt;strong&gt;페이징&lt;/strong&gt; 이다. 페이징은 hole을 가지고 해결하려 한 것이 아니라 &lt;strong&gt;프로세스를 작은 크기로 나눠서&lt;/strong&gt; 외부 단편화를 해결하려고 하였다.&lt;/p&gt;
 
 &lt;p&gt;페이징은 프로세스를 일정한 작은 크기로 나누는데, 프로세스뿐아니라 hole도 같은 크기로 나눈다. 이러한 작은 조각들의 크기를 맞춰서 메모리에 할당한다. 하지만, 하나의 프로세스는 연속적인 동작을 수행하는데 이를 작은 조각으로 나누어서 여기저기 흩어진다면 프로세스가 정상적으로 동작할까?&lt;/p&gt;
@@ -147,7 +13,7 @@
 
 &lt;p&gt;프로세스를 나눈 조각을 &lt;strong&gt;page&lt;/strong&gt; 라 하고, 메모리를 나눈 조각을 &lt;strong&gt;frame&lt;/strong&gt; 이라 한다. 프로세스는 페이지의 집합이고, 메모리는 프레임의 집합이다. 프로세스를 정상적으로 사용하기 위해 MMU의 재배치 레지스터를 여러개 사용해서 위의 그림과 같이 각 페이지의 실제 주소로 변경해준다. 이러한 여러 개의 재배치 레지스터를 &lt;strong&gt;페이지 테이블(Page Table)&lt;/strong&gt; 이라 한다.&lt;/p&gt;
 
-&lt;h3 id=&quot;주소-변환address-translation&quot;&gt;주소 변환(Address Translation)&lt;/h3&gt;
+&lt;h2 id=&quot;주소-변환address-translation&quot;&gt;주소 변환(Address Translation)&lt;/h2&gt;
 &lt;p&gt;페이징 기법을 사용하기 위해서는 여러 개로 흩어진 페이지에 CPU가 접근하기 위해서 페이지 테이블을 통해 주소를 변환해야 한다.&lt;/p&gt;
 
 &lt;ul&gt;
@@ -189,14 +55,14 @@ d = 0010
 
 &lt;p&gt;연속 메모리 할당을 하면서 외부 단편화가 발생하여 이를 해결하기 위해 페이징 기법이 나왔다. 하지만 페이징은 외부 단편화가 아닌 &lt;strong&gt;내부 단편화&lt;/strong&gt; 가 발생한다.&lt;/p&gt;
 
-&lt;h3 id=&quot;내부단편화internal-fragment&quot;&gt;내부단편화(Internal Fragment)&lt;/h3&gt;
+&lt;h2 id=&quot;내부단편화internal-fragment&quot;&gt;내부단편화(Internal Fragment)&lt;/h2&gt;
 &lt;p&gt;내부단편화는 프로세스 크기가 페이지 크기의 배수가 아닐 경우, 마지막 페이지는 한 프레임을 다 채울 수 없다. 이로 인해 발생하는 공간은 결국 메모리 낭비로 이어진다.&lt;/p&gt;
 
 &lt;p&gt;예를 들어, 15bytes 크기의 프로세스 P가 있다. 페이지 크기(프레임 크기)는 4bytes로 P를 페이지로 나누면 &lt;strong&gt;4, 4, 4, 3&lt;/strong&gt; 의 크기로 총 4개의 페이지가 만들어진다. 여기서 마지막 3bytes 페이지는 프레임 크기보다 1byte작으므로, 이 만큼 메모리 공간이 비게 된다. 이렇게 비어진 공간은 프로세스 P에서도 쓰지 않고, 다른 프로세스에서도 쓰지 못하는 낭비되는 공간이 된다.&lt;/p&gt;
 
 &lt;p&gt;내부단편화는 해결할 방법이 없다. 하지만 내부단편화는 외부단편화에 비해 낭비되는 메모리 공간은 매우 적다. 내부단편화의 &lt;strong&gt;최대 낭비되는 크기는 page size - 1&lt;/strong&gt; 이 된다.(외부 단편화는 최대 전체 메모리의 1/3이 낭비된다고 이전에 살펴봤다.) 이는 무시할 정도로 작은 크기이다.&lt;/p&gt;
 
-&lt;h3 id=&quot;페이지-테이블-만들기&quot;&gt;페이지 테이블 만들기&lt;/h3&gt;
+&lt;h2 id=&quot;페이지-테이블-만들기&quot;&gt;페이지 테이블 만들기&lt;/h2&gt;
 &lt;p&gt;페이지 테이블을 만드는 방법은 여러 가지가 있다. 먼저, CPU 내부에 페이지 테이블을 만들 수 있다. CPU 내부의 기억장치는 레지스터로, 여러 개의 레지스터로 페이지 테이블을 만드는 것이다. CPU 내부에 페이지 테이블을 만들면, 장점은 주소 변환 속도가 빠르다. 하지만 단점은 CPU 내부에 사용할 수 있는 레지스터는 한정되어 있으므로 페이지 테이블의 크기가 매우 제한된다.&lt;/p&gt;
 
 &lt;p&gt;반대로, 페이지 테이블을 메모리 내부에서 만들 수도 있다. 메모리 내부에 만드는 것의 장단점은 CPU와 정 반대이다. 즉, 장점은 페이지 테이블의 크기에 제한이 없는 것이고, 단점은 주소 변환 속도가 느리다는 것이다. CPU는 프로세스의 주소에 접근하기 위해서 메모리에 위치한 페이지 테이블에 한 번, 실제 주소로 접근하는데 한 번해서 &lt;strong&gt;메모리에 총 2번 접근해야하므로 속도 역시 2배로 느려진다.&lt;/strong&gt;&lt;/p&gt;
@@ -219,201 +85,143 @@ d = 0010
 
 &lt;p&gt;실제 유효한 메모리에 접근하는 시간은 위와 같다. TLB에 유효한 페이지가 있다면 TLB를 읽는 시간과 실제 메모리를 읽는 시간만 있으면 된다. 하지만, TLB에 유효한 페이지가 없다면 이를 다시 메모리에서 가져와야 하므로 메모리를 총 2번 읽어야 한다.&lt;/p&gt;
 
-&lt;p&gt;예제를 계산해보면, &lt;code class=&quot;highlighter-rouge&quot;&gt;0.8 * (20 + 100) + 0.2 * (20 + 100 + 100) = 140ns&lt;/code&gt; 이다. hit ratio는 실제로 평균 95%이상이므로 충분히 효율적으로 동작한다고 볼 수 있다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">페이징(Paging) 외부 단편화로 인한 메모리 낭비는 매우 심하다는 것을 살펴보았다. Compaction을 사용하면 외부 단편화는 해결할 수 있지만, 그로 인해 발생하는 오버헤드와 비효율적인 성능으로 사용하기는 어렵다. 그 이후에 연구를 통해 나온 것이 페이징 이다. 페이징은 hole을 가지고 해결하려 한 것이 아니라 프로세스를 작은 크기로 나눠서 외부 단편화를 해결하려고 하였다.</summary></entry><entry><title type="html">[OS] 10장 프로세스 동기화 - 3</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/" rel="alternate" type="text/html" title="[OS] 10장 프로세스 동기화 - 3" /><published>2019-03-14T00:00:00+09:00</published><updated>2019-03-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%EB%8F%99%EA%B8%B0%ED%99%94-3</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/">&lt;h2 id=&quot;deadlock교착상태&quot;&gt;Deadlock(교착상태)&lt;/h2&gt;
-&lt;p&gt;프로세스는 실행을 위해 CPU, 메모리, 파일 등 여러 하드웨어 자원이 필요하다. 이를 운영체제에서 프로세스가 요구하는 자원을 적절히 분배해준다. 예를 들어, 한 프로세스가 A 자원을 가지고 있는 상태에서 B 자원을 요구하고 있다. 하지만 B 자원은 다른 프로세스 역시 요구하고 있는 자원인데, 이러한 상황에서 자원을 분배하는 순서가 잘못되면 교착상태에 빠지게 된다.&lt;/p&gt;
+&lt;p&gt;예제를 계산해보면, &lt;code class=&quot;highlighter-rouge&quot;&gt;0.8 * (20 + 100) + 0.2 * (20 + 100 + 100) = 140ns&lt;/code&gt; 이다. hit ratio는 실제로 평균 95%이상이므로 충분히 효율적으로 동작한다고 볼 수 있다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-22</summary></entry><entry><title type="html">[운영체제] # 12 주기억장치 관리</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/" rel="alternate" type="text/html" title="[운영체제] # 12 주기억장치 관리" /><published>2019-03-22T21:09:00+09:00</published><updated>2019-03-22T21:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%20%EA%B4%80%EB%A6%AC</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/">&lt;p&gt;메모리는 CPU 자원만큼 컴퓨터를 사용하는데 매우 중요한 자원 중 하나이다. 이전에는 운영체제에서 CPU 자원을 관리하는 프로세스 관리에 대해 살펴보았고, 지금부터는 메인 메모리를 관리하는 기능에 대해 살펴볼 것이다. 특히, 과거에는 메모리가 매우 비싼 자원이었고 크기 또한 작았기 때문에, 운영체제에서 메모리에 대한 관리가 지금보다 더 중요하였다.&lt;/p&gt;
 
-&lt;h3 id=&quot;교착상태-필요-조건necessary-conditions&quot;&gt;교착상태 필요 조건(Necessary Conditions)&lt;/h3&gt;
-&lt;p&gt;교착상태가 일어나기 위한 필요 조건이 네 가지가 존재한다. 이는 &lt;strong&gt;필요 조건&lt;/strong&gt; 이므로, 네 가지가 모두 해당된다고 해서 반드시 교착상태가 일어나는 것은 아니고, 일어날 확률이 생기는 것이다.&lt;/p&gt;
+&lt;p&gt;현재에는 과거보다 훨씬 큰 메모리를 저렴하게 사용하지만, 지금도 메모리는 부족하다. 메모리가 커져온 만큼 프로그램의 크기와 처리하는 데이터의 크기는 그보다 더욱 빠른 속도로 커져왔다. 그러므로 현재에도 여전히 메모리를 최대한 효율적으로 사용하기 위해 여러 방법들이 연구되고 있고, 운영체제 기능에서도 매우 중요한 위치를 차지하고 있다.&lt;/p&gt;
 
+&lt;h1 id=&quot;메모리에-프로그램-할당하기&quot;&gt;메모리에 프로그램 할당하기&lt;/h1&gt;
+&lt;p&gt;메모리는 기본적으로 &lt;strong&gt;주소(Address)&lt;/strong&gt; 와 &lt;strong&gt;데이터(Data)&lt;/strong&gt; 로 구성되어 있다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821877-d74f5380-4ce6-11e9-8888-e63816796f65.png&quot; alt=&quot;OS12-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;CPU와 메모리는 양방향으로 위 그림과 같이 주고 받는다. CPU는 주소를 가지고 메인 메모리에 요청을하거나 해당 주소에 계산 결과를 저장하고, 메모리는 요구하는 주소에 저장되어 있는 데이터를 CPU에게 전달한다.&lt;/p&gt;
+
+&lt;p&gt;프로그램을 빌드하는 과정은 소스파일, 목적파일, 실행파일 순서로 생성된다.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;Mutual exclusion (상호배타)&lt;/strong&gt;: 한 프로세스가 자원을 사용하고 있다면, 다른 프로세스는 이 자원을 사용할 수 없다. (젓가락은 한 철학자가 사용하고 있으면 이 젓가락은 사용할 수 없으므로 상호배타적이다.)&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Hold and wait (보유 및 대기)&lt;/strong&gt;: 한 프로세스가 자원을 가지고 있는 상태에서 대기한다. (철학자는 왼쪽 젓가락을 가지고 있는 상태에서 오른쪽 젓가락을 집기 위해 대기한다.)&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;No Preemption (비선점)&lt;/strong&gt;: 한 프로세스가 자원을 수행하는 중에는 다른 프로세스가 중간에 끼어들 수 없다. (한 철학자가 젓가락을 집은 상태에서 다른 철학자가 이 젓가락을 뺏을 수 없다.)&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Circular wait (환형대기)&lt;/strong&gt;: 프로세스가 요구하는 자원의 방향이 원형을 이룬다. (모든 철학자는 왼쪽 젓가락부터 집을 수 있다.)&lt;/li&gt;
+  &lt;li&gt;소스파일(Source file): 고수준언어 또는 어셈블리어&lt;/li&gt;
+  &lt;li&gt;목적파일(Object file): 컴파일 또는 어셈블 결과&lt;/li&gt;
+  &lt;li&gt;실행파일(Executable file): 링크 결과&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;교착상태는 위 네 가지 조건을 모두 만족하더라도 매우 드물게 일어나는 현상이지만, 한 번 교착상태에 빠지면 프로세스가 무한 루프에 빠져 수행하지 못하고 해당 프로세스가 가지고 있는 자원은 아무도 사용하지 못하므로 전체 컴퓨터 환경에 매우 &lt;strong&gt;치명적&lt;/strong&gt; 이다. 그리고 교착상태에 의한 오류를 해결하기는 매우 힘들다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821878-d74f5380-4ce6-11e9-98e8-a43b086a4837.png&quot; alt=&quot;OS12-2&quot; /&gt;&lt;/p&gt;
 
-&lt;h3 id=&quot;자원resources&quot;&gt;자원(Resources)&lt;/h3&gt;
-&lt;p&gt;하드웨어 자원은 여러 개가 존재하고 동일한 형식(type)의 자원이 존재할 수 있다. 예를 들어, 같은 CPU가 2개있는 환경이 있다. 이러한 자원 하나하나를 instance라고 한다.&lt;/p&gt;
+&lt;p&gt;위 그림은 프로그램이 만들어지는 과정을 그림으로 표현한 것이다. 소스파일은 컴파일러(compiler)에 의해 컴파일 수행 결과로 목적 파일을 생성한다.(어셈블리어는 어셈블러가 어셈블을 수행하여 기계어로 변환한다.) 프로그래밍을 하면서 외부의 라이브러리를 사용할 때가 빈번한데, 컴파일 단계에서는 이를 추가하지 않기 때문에 목적파일에는 이에 대한 정보가 없다. 그대신 위 그림에서 보이듯이, 링크 단계에서 하드디스크에서 프로그래머가 추가한 라이브러리를 찾아 정보를 추가하여, 실행 파일을 만든다.(링크 단계는 링커(linker)가 수행한다.) 이 프로그램을 실행하면 로더(loader)에 의해 메인 메모리에 할당된다.&lt;/p&gt;
 
-&lt;p&gt;자원은 프로세스가 직접적으로 사용할 수 없고, 운영체제에 &lt;strong&gt;요청(request)&lt;/strong&gt; 하면 운영체제가 제공해준다. 그 후 프로세스는 이 자원을 &lt;strong&gt;사용(use)&lt;/strong&gt; 하고 모든 사용이 끝나면 이를 &lt;strong&gt;반납(release)&lt;/strong&gt; 한다.&lt;/p&gt;
+&lt;p&gt;그리고 생성된 프로그램은 code, data, stack 영역으로 나뉘어져 있다. 단순히 생성된 프로그램에는 code와 data영역만 존재하며, 메모리에 적재되었을 때는 실제로 실행을 해야하므로 stack영역에 추가되어야 한다.&lt;/p&gt;
 
-&lt;h4 id=&quot;자원-할당도resource-allocation-graph&quot;&gt;자원 할당도(Resource Allocation Graph)&lt;/h4&gt;
-&lt;p&gt;자원 할당도는 어떤 자원이 어떤 프로세스에 할당되었는지 또는 어느 프로세스가 어느 자원을 할당 받으려고 기다리는지를 &lt;strong&gt;그림&lt;/strong&gt; 으로 나타낸 것이다.&lt;/p&gt;
+&lt;p&gt;그러면, 프로그램을 실제로 메모리에 올리기 위해서는 좀 더 복잡한 과정이 필요하다. 먼저, 이 프로그램은 메모리에 몇 번지에 할당될까? 이 질문은 운영체제가 없다면, 프로그래머가 직접 이를 처리해주어야 할 것이다. 하지만 운영체제가 존재하므로 실제 프로그래머는 이를 신경쓸 필요가 없다. 그러므로 프로그래밍을 할 때 주소를 사용하는 경우가 있는데, 프로그램이 메모리에 올라가는 주소를 고려하지 않고 프로그래밍이 가능한 것이다.(고수준언어에서는 직접 주소를 다루지 않는 경우가 많다.)&lt;/p&gt;
 
-&lt;ul&gt;
-  &lt;li&gt;자원: 사각형&lt;/li&gt;
-  &lt;li&gt;instance: 점&lt;/li&gt;
-  &lt;li&gt;프로세스: 원&lt;/li&gt;
-  &lt;li&gt;할당: 화살표&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;또한, 다중 프로그래밍 환경에서는 여러 프로그램이 메모리에 올라가고 내려가고를 반복하기 때문에, 한 프로그램은 고정적인 공간을 사용할 수 없다. 이러한 여러 고려 사항을 해결해주는 것이 전에도 살펴봤던 MMU이다. 그리고 MMU에는 프로그램이 메모리에 할당될 때마다 다른 주소공간을 사용하기 때문에 &lt;strong&gt;재배치 레지스터(Relocation register)&lt;/strong&gt; 가 별도로 존재한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54337395-1f7ccf00-4672-11e9-8553-eeeb75b665a2.png&quot; alt=&quot;OS10-1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821879-d7e7ea00-4ce6-11e9-9ad0-ffe02008d6a9.png&quot; alt=&quot;OS12-3&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;위 그림은 R1은 P1에 할당되어 있는 상태이고, P2는 R1을 요청하고 있는 상태이다&lt;/p&gt;
+&lt;p&gt;위 그림은 MMU의 모습이다. 프로그램은 메인 메모리에 해당 주소를 사용할 수 있는지 여부를 생각하지 않고 주소를 사용한다. 만약 해당 프로그램이 사용하는 시작주소가 0번지라고 할 때, 실제 메인 메모리에서는 할당되는 주소가 유동적이기 때문에 0번지이라는 주소를 실제 할당된 주소로 변경해주어야 한다. 이때 재배치 레지스터를 이용한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54337396-1f7ccf00-4672-11e9-87cf-aad98e2795fe.png&quot; alt=&quot;OS10-2&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;만약, 프로그램이 메인 메모리 500번지에 할당되어 재배치 레지스터값이 500으로 설정되었다면, CPU에서 프로그램의 0번지를 사용할 때 MMU를 통과하면 재배치 레지스터에 의해 500번지로 변경된다. 그 결과 CPU는 0번지를 사용하는 것으로 알고 있지만, 실제 메모리에서는 MMU에 의해 500번지를 사용하고 있는 것이다.&lt;/p&gt;
 
-&lt;p&gt;자원 할당도를 사용하는 이유는 교착상태의 필요조건을 한 눈에 볼 수 있기 때문이다. 자원 할당도를 분석할 때 &lt;strong&gt;mutual exclusion과 no-preemption은 기본으로 적용&lt;/strong&gt; 된다. Hold and wait는 화살표를 통해 한 프로세스가 인스턴스를 할당받았고 다른 자원을 가리키고 있다면, 이 상황은 Hold and wait인 상태이다. Circular wait 역시 화살표 방향이 원형을 이루고 있다면 이는 환형대기인 상태이다.&lt;/p&gt;
+&lt;p&gt;MMU(Memory Management Unit)의 기능을 살펴보면, 이전에 메모리 보호를 위해 base와 limit 레지스터가 있었다. 이는 CPU에서 주소를 사용하는데 이 주소가 해당 프로그램의 base나 limit 범위를 벗어나면 인터럽트가 발생하여 그 프로그램을 강제로 종료시킨다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54337397-1f7ccf00-4672-11e9-8386-698a4db14e43.png&quot; alt=&quot;OS10-3&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;MMU는 이 기능 이외에도 재배치 레지스터를 사용해서 프로그램이 어느 주소를 사용하더라도 실제 메인 메모리에 할당된 주소를 찾아갈 수 있도록 &lt;strong&gt;address translation&lt;/strong&gt; 동작을 수행한다. 즉, CPU는 프로그램에 설정된 주소를 계속 사용하고 메모리에 명령을 보내지만, MMU에 의해 실제로 프로그램이 할당된 메모리 주소로 변환해서 사용할 수 있는 것이다. 그 결과, &lt;strong&gt;프로그램의 실제 메모리 주소 공간의 위치는 CPU에 전혀 영향을 미치지 않고&lt;/strong&gt; 정상적으로 사용할 수 있는 것이다.&lt;/p&gt;
 
-&lt;p&gt;위 그림은 식사하는 철학자 문제를 자원 할당도로 표현한 것이다. 그림을 보면 한 눈에 Circular wait 조건을 만족한 것을 알 수 있다. 그리고 모든 철학자(프로세스)는 한 젓가락(자원)을 할당(파란색 화살표)받고, 다른 젓가락을 요청(검은색 화살표)하고 있으므로 Hold and wait 조건 역시 만족한다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821880-d7e7ea00-4ce6-11e9-944e-3be89338213f.png&quot; alt=&quot;OS12-4&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;그러면 위에서 살펴본 식사하는 철학자 문제를 해결하기 위해 Circular wait 조건을 없애보자. 물론, 여러 가지 방법이 존재하지만, 간단하게 circular wait 조건을 없애기 위해 짝수 번호 철학자는 왼쪽 젓가락, 오른쪽 젓가락 순서로 홀수 번호 철학자는 반대인 오른쪽 젓가락, 왼쪽 젓가락 순서로 집는다고 하자.&lt;/p&gt;
+&lt;p&gt;MMU에 의해 위 그림과 같이 주소는 두 가지로 구분된다. CPU에서 사용하는 주소는 &lt;strong&gt;논리 주소(logical address)&lt;/strong&gt; 라고 하고, 메모리가 사용하는 주소는 &lt;strong&gt;물리 주소(physical address)&lt;/strong&gt; 라고 한다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54337399-20156580-4672-11e9-9b44-a784e582ba54.png&quot; alt=&quot;OS10-4&quot; /&gt;&lt;/p&gt;
+&lt;h1 id=&quot;메모리-낭비-방지&quot;&gt;메모리 낭비 방지&lt;/h1&gt;
+&lt;p&gt;운영체제는 메모리를 효율적으로 사용하기 위해 메모리 공간을 낭비하지 않는 것이 중요하다.&lt;/p&gt;
 
-&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Philosopher Thread run function&lt;/span&gt;
-&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;lstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;rstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;rstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-        &lt;span class=&quot;n&quot;&gt;lstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;eating&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;lstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;rstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-      &lt;span class=&quot;n&quot;&gt;thinking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
-    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
-&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;h2 id=&quot;동적-적재dynamic-loading&quot;&gt;동적 적재(Dynamic Loading)&lt;/h2&gt;
+&lt;p&gt;동적 적재는 &lt;strong&gt;프로그램이 실행하는데 반드시 필요한 루틴/데이터만 적재(load)&lt;/strong&gt; 하는 것이다. 프로그램의 전체 코드에서 모든 루틴이 다 사용되는 것은 아니다. 대표적으로 오류 처리 구문이다. 오류 처리 구문은 if문과 같이 오류가 발생할 때만 해당 내부 코드가 실행되는 것을 말한다. 그러므로 동적 적재를 수행하면 프로그램의 실제 메모리에는 이러한 오류 구문을 제외하고 적재한다. 이러한 상태에서 실행하다가 오류가 발생하면 그 때 해당 오류 구문을 찾아 메모리에 올린다.&lt;/p&gt;
+
+&lt;p&gt;데이터도 마찬가지다. 모든 데이터가 반드시 사용되는 것이 아니기 때문에, 특히 배열과 클래스의 경우는 필요한 부분만 메모리에 올려두고, 실행 도중 필요할 때마다 해당 부분을 찾아 메모리에 올려준다.&lt;/p&gt;
+
+&lt;p&gt;반대로, 모든 루틴과 데이터를 적재하는 것을 정적 적재(static loading)이라고 한다. 현대 운영체제는 대부분 동적 적재를 사용한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;동적-연결dynamic-linking&quot;&gt;동적 연결(Dynamic Linking)&lt;/h2&gt;
+&lt;p&gt;동적 연결은 여러 프로그램에 공통으로 사용되는 라이브러리를 중복으로 메모리에 올리는 것이 아니라 &lt;strong&gt;하나&lt;/strong&gt; 만 올리도록 하는 것이다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 아래와 같은 코드의 P1, P2 프로세스가 있다고 하자.&lt;/p&gt;
+
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// P1
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;첫 번째 그림은 circular wait 조건을 없앤 식사하는 철학자 문제의 자원 할당도이다. 화살표가 원형을 만들지 않는 것을 볼 수 있다. 두 번째 코드는 철학자 쓰레드의 run 함수에서 젓가락을 집는 코드를 바꾼 모습이다. 위와 같이 코드를 변경하고 실제로 수행하면 무한 반복문이 끝나지않고 정상적으로 계속되는 것을 확인할 수 있다.&lt;/p&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// P2
+&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h3 id=&quot;교착상태-처리&quot;&gt;교착상태 처리&lt;/h3&gt;
+&lt;p&gt;이 두 소스파일을 컴파일하면 목적파일이 생성되고, 여기서 사용된 라이브러리를 링크하여 실행파일을 만든 다음 메모리에 적재한다. 두 프로세스가 적재되었을 때, &lt;code class=&quot;highlighter-rouge&quot;&gt;printf()&lt;/code&gt; 를 사용하는 라이브러리는 메모리에 중복되어서 적재되어있다.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;교착상태 방지 (Deadlock Prevention)&lt;/strong&gt;
-교착상태 방지는 위에서 살펴본 교착상태 필요조건 네 가지 중 최소 한 가지를 만족시키지 않도록 만드는 것이다.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;이와 같이, 똑같은 라이브러리를 사용하는 프로그램은 흔히 볼 수 있다. 이러한 같은 라이브러리를 하나만 메모리에 올린 후, 이를 사용하는 프로그램이 하나의 메모리에 접근하도록 하면 메모리 낭비를 줄일 수 있다.&lt;/p&gt;
+
+&lt;p&gt;동적 연결은 같은 라이브러리가 중복으로 메모리에 올라가는 것을 방지하기 위해 &lt;strong&gt;프로그램이 메모리에 적재된 후에 링크(link) 작업을 수행한다.&lt;/strong&gt; 기존에는 실행 파일이 만들어지기 전에 링크 과정을 수행하였는데, 이를 정적 연결이라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821881-d7e7ea00-4ce6-11e9-9038-3359ab7d12f2.png&quot; alt=&quot;OS12-5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 예제에서 살펴 본 P1, P2 프로세스가 동적 연결을 통해 공통 라이브러리(printf() 라이브러리)를 연결한 모습을 볼 수 있다. 이러한 라이브러리를 Linux에서는 &lt;strong&gt;공유 라이브러리(Shared Library)&lt;/strong&gt;, Windows에서는 &lt;strong&gt;동적 연결 라이브러리(Dynamic Linking Library, DLL)&lt;/strong&gt; 라고 부른다.&lt;/p&gt;
+
+&lt;h2 id=&quot;swapping&quot;&gt;Swapping&lt;/h2&gt;
+&lt;p&gt;Swapping은 메모리에 적재되어 있는 프로세스 중에서 오랫동안 사용하지 않은 프로세스를 프로세스 이미지 형태로 만든 후 하드디스크(Backing store)에 내려보낸다. 메모리에서 Backing store로 가는 것을 &lt;strong&gt;swap-out&lt;/strong&gt;, 다시 Backing store에서 메모리로 가는 것을 &lt;strong&gt;swap-in&lt;/strong&gt; 이라고 한다.&lt;/p&gt;
+
+&lt;p&gt;여기서, 프로세스 이미지는 해당 프로그램이 메모리에 적재된 후 실행되면서 데이터를 추가하거나 변경하는 등의 과정을 거치는데, 현재 데이터의 상태를 프로세스 이미지라고 부른다. 그러므로 이는 단순히, 하드디스크에 존재하는 프로그램(exe파일)과는 전혀 다른 데이터이므로, 따로 저장해야한다. 이와 같은 swapping 과정으로 인한 프로세스 이미지를 저장하기 위해 하드디스크의 일부분을 분리하여 사용하는데, 이를 &lt;strong&gt;backing store&lt;/strong&gt; 또는 &lt;strong&gt;swap device&lt;/strong&gt; 라고 부른다.&lt;/p&gt;
+
+&lt;p&gt;Backing store의 크기는 대략 메인 메모리 크기 정도로 예상할 수 있다. 메모리의 모든 프로세스가 쫓겨난다고 해도 메인 메모리 크기를 넘지 않기 때문이다. 메인 메모리 크기가 크지 않는 PC나 스마트폰은 하드디스크의 일부를 backing store로 사용하지만, 메모리 크기가 크다면 따로 하드디스크 자체를 backing store로 사용하는 경우도 있다.&lt;/p&gt;
+
+&lt;p&gt;Swap-out된 프로세스는 다시 swap-in을 할 때, 이전의 메모리 주소 공간이 아닌 새로운 주소 공간으로 갈 수도 있다. 이는 해당 프로세스가 backing store에 있는 동안 다른 프로세스가 해당 주소 공간을 사용할 수 있기 때문에다. 하지만 이는 MMU의 재배치 레지스터로 인해 어디에 적재되는지 상관없이 정상적으로 수행할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;현재는 프로세스의 크기가 커지고, 하드디스크는 메인 메모리보다 속도면에서 매우 느리므로 swapping 동작의 오버헤드는 크다고 볼 수 있다. 하지만 이로 인해 얻는 이득이 더 많으므로 대부분 운영체제는 이를 사용하고 있고, 속도가 중요한 서버 컴퓨터나 슈퍼 컴퓨터는 backing store를 하드디스크가 아닌 좀 더 빠른 저장 장치를 사용하기도 한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;연속-메모리-할당contiguous-memory-allocation&quot;&gt;연속 메모리 할당(Contiguous Memory Allocation)&lt;/h1&gt;
+&lt;p&gt;과거에는 메모리에 프로세스가 하나만 올라가는 형태였다. 하지만 현재에는 메모리에 여러 프로세스가 할당되는 다중 프로그래밍 환경이 되었다.&lt;/p&gt;
+
+&lt;p&gt;부팅 직후에 메모리 상태를 살펴보면, 운영체제만 할당되어 있고 비어있는 상태일 것이다. 이러한 비어있는 공간을 &lt;strong&gt;hole&lt;/strong&gt; 이라 부른다. 즉, 부팅 직후에는 운영체제와 big single hole이 있는 상태이다. 시간이 지나면서 프로세스가 생성되고 종료하고를 반복하면, 여러 곳에 서로 다른 크기의 홀(hole)이 존재할 것이다. 이러한 상태를 scattered holes라고 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821882-d8808080-4ce6-11e9-8ff3-193fa79c04a3.png&quot; alt=&quot;OS12-6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 부팅 직후 상태에서 시간이 경과하면서 프로세스들이 생성, 종료를 반복한 후의 상태이다. 이와 같이 hole들이 불연속하게 흩어져 있는 상태를 &lt;strong&gt;메모리 단편화(Memory fragmentation)&lt;/strong&gt; 라고 한다.&lt;/p&gt;
+
+&lt;p&gt;메모리 단편화로 인해서 여러 곳에 hole이 흩어져 있는 상태에서 하나의 프로세스가 메모리에 할당되려하면 문제가 발생할 수 있다. 예를 들어, hole이 3개가 있고 각 크기는 50byte, 50byte, 80byte이다. 그런데 할당하려는 프로세스의 크기는 150byte이다. 각 hole들을 하나로 합치면 230byte로 이 프로세스를 할당할 수 있는데 실재로는 나누어져 있으므로 할당되지 못한다. 이러한 현상을 &lt;strong&gt;외부 단편화(External fragmentation)&lt;/strong&gt; 라고 한다. 외부 단편화를 줄이기 위해서는 어떤 해결 방법이 있을까?&lt;/p&gt;
+
+&lt;h2 id=&quot;연속-메모리-할당-방식&quot;&gt;연속 메모리 할당 방식&lt;/h2&gt;
+&lt;p&gt;외부 단편화의 해결방법을 살펴보기 전에 연속 메모리 할당 방식을 먼저 살펴보자. 연속 메모리 할당 방식에는 3가지가 있다. First-fit, Best-fit, Worst-fit 이 있다.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;상호배타(Mutual exclusion)&lt;/strong&gt;: 상호배타를 없애기 위해서는 자원을 공유 가능하게 만들어야 한다. 하지만 현실적으로 이러한 방법이 &lt;strong&gt;불가능&lt;/strong&gt; 한 경우가 많다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;보유 및 대기(Hold &amp;amp; Wait)&lt;/strong&gt;: 이 조건을 없애려면 자원을 가지고 있는 상태에서 다른 자원을 기다리지 않도록 만든다. 만약 여러 개의 자원이 필요하다면 필요한 모든 자원을 얻을 수 있는 경우에만 해당 자원을 요청한다. 또는 필요한 자원 중 일부만 가지는 경우 할당받은 자원을 모두 운영체제에 반납한다. 하지만 이와 같은 방법은 자원의 &lt;strong&gt;활용률을 저하시키고, starvation 현상이 발생하는 단점&lt;/strong&gt; 이 있다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;비선점(No preemption)&lt;/strong&gt;: 비선점을 없애러면 반대로 선점이 가능하도록 만들어야 한다. 이 역시 대부분의 자원에게는 &lt;strong&gt;불가능&lt;/strong&gt; 한 방법이다. CPU는 강제로 스위칭하는 것이 가능한 경우가 있지만, 프린터를 수행하는 중간에 다른 프로세스가 이를 선점하는 것은 불가능하다고 볼 수 있다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;환형대기(Circular wait)&lt;/strong&gt;: 이 조건을 없애는 것은 위 세 가지 조건보다는 할 수 있는 확률이 높다. 대표적인 예는 모든 자원에 번호를 부여하여 이 번호에 대한 &lt;strong&gt;오름차순&lt;/strong&gt; 으로 자원을 요청하는 것이다. 이 역시 &lt;strong&gt;자원의 활용률을 저하&lt;/strong&gt; 시키는 단점이 있다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;First-fit(최초 적합)&lt;/strong&gt;: 최초 적합은 할당할 프로세스 크기보다 크거나 같은 hole을 탐색하는 순서 중에서 가장 먼저 찾은 hole에 프로세스를 할당하는 것이다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Best-fit(최적 적합)&lt;/strong&gt;: 최적 적합은 할당할 프로세스 크기와 hole 크기의 차이가 가장 작은 hole에 프로세스를 할당하는 것이다.(hole크기는 프로세스 크기보다 반드시 커야 한다.)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Worst-fit(최악 적합)&lt;/strong&gt;: 최적 적합과 반대로, 할당할 프로세스 크기와 hole 크기의 차이가 가장 큰 hole에 프로세스를 할당하는 것이다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;네 가지 방법을 살펴본 결과 가장 현실적인 방법은 hold &amp;amp; wait나 circular wait 조건을 없애는 것이다. 하지만 둘 다 자원을 비효율적으로 사용하게 되는 단점을 가지고 있다. 그래서 이와 같이 교착상태를 사전에 방지하는 것은 군사, 우주, 의료와 같은 크리티컬한 곳에서 사용하는 것이 좋다.&lt;/p&gt;
+&lt;p&gt;그러면 예제를 살펴보자. Hole은 100KB, 500KB, 600KB, 300KB, 200KB 총 5개가 있고, 프로세스는 P1, P2, P3, P4 총 4개가 있는데 각 크기는 212KB, 417KB, 112KB, 426KB이다.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;교착상태 회피 (Deadlock Avoidance)&lt;/strong&gt;
-교착상태 회피와 방지의 차이점은 교착상태를 다르게 접근하는 것이다. 교착상태 회피에서는 교착상태를 &lt;strong&gt;자원 요청에 대한 잘못된 승인&lt;/strong&gt; 으로 판단한다. 따라서, 교착상태 회피에서는 &lt;strong&gt;안전한 할당(Safe allocation)&lt;/strong&gt; 과 &lt;strong&gt;불안정한 할당(Unsafe allocation)&lt;/strong&gt; 두 가지로 나뉜다. 먼저 안전한 할당에 대한 예제를 보자.&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;현재 운영체제에는 magnetic tape 자원이 총 12개가 있고, 이를 요청하는 3개의 프로세스가 있다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Max needs&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Current needs&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;3개의 프로세스가 요청하는 magnetic tape의 양은 위 표와 같다. Current needs는 한 프로세스가 한 번 요청을 할 때 요구하는 개수이고, Max needs는 프로세스를 정상적으로 끝내기 위해 필요한 총 개수이다. 운영체제 입장에서 3개의 프로세스가 모두 수행될 때까지 자원을 분배해보자.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;P0에게 5개를 할당한다.(5/10) =&amp;gt; 현재 magnetic tape 개수: 7&lt;/li&gt;
-  &lt;li&gt;P1에게 2개를 할당한다.(2/4) =&amp;gt; 현재 magnetic tape 개수: 5&lt;/li&gt;
-  &lt;li&gt;P2에게 2개를 할당한다.(2/9) =&amp;gt; 현재 magnetic tape 개수: 3&lt;/li&gt;
-  &lt;li&gt;다시 P0가 5개를 요구하지만 현재 magnetic tape 개수는 3개이므로 할당해줄 수 없다.&lt;/li&gt;
-  &lt;li&gt;P1에게 2개를 할당한다.(4/4) =&amp;gt; 현재 magnetic tape 개수: 1&lt;/li&gt;
-  &lt;li&gt;P1은 필요한 4개의 magnetic tape을 받았으므로, 정상적으로 프로세스를 종료하고 사용한 자원을 반납한다. =&amp;gt; 현재 magnetic tape 개수: 5&lt;/li&gt;
-  &lt;li&gt;대기하고 있던 P0에게 5개를 할당한다.(10/10) =&amp;gt; 현재 magnetic tape 개수: 0&lt;/li&gt;
-  &lt;li&gt;P0 역시 필요한 자원을 모두 할당받았으므로, 종료 후 자원을 반납한다. =&amp;gt; 현재 magnetic tape 개수: 10&lt;/li&gt;
-  &lt;li&gt;P2는 현재 필요한 magnetic tape 개수가 7개이고, 현재 남아있는 magnetic tape 개수 10개이므로 정상적으로 수행가능하다.&lt;/li&gt;
+  &lt;li&gt;First-fit&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;이 예제에서는 3개의 프로세스가 모두 정상적으로 자원을 할당받고 종료할 수 있었다. 이를 안전한 할당이라 한다. 다음 예제를 보자.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821883-d8808080-4ce6-11e9-8c2d-c84b878d21ea.png&quot; alt=&quot;OS12-7&quot; /&gt;&lt;/p&gt;
 
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Max needs&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;Current needs&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;이 예제 역시 운영체제가 보유하고 있는 총 magnetic tape 개수는 12개이고, 3개의 프로세스가 존재한다. 자원을 분배해보자.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;P0에게 5개를 할당한다.(5/10) =&amp;gt; 현재 magnetic tape 개수: 7&lt;/li&gt;
-  &lt;li&gt;P1에게 2개를 할당한다.(2/4) =&amp;gt; 현재 magnetic tape 개수: 5&lt;/li&gt;
-  &lt;li&gt;P2에게 3개를 할당한다.(3/9) =&amp;gt; 현재 magnetic tape 개수: 2&lt;/li&gt;
-  &lt;li&gt;다시 P0가 5개를 요구하지만 현재 magnetic tape 개수는 2개이므로 할당해줄 수 없다.&lt;/li&gt;
-  &lt;li&gt;P1에게 2개를 할당한다.(4/4) =&amp;gt; 현재 magnetic tape 개수: 0&lt;/li&gt;
-  &lt;li&gt;P1은 필요한 자원을 모두 할당받았으므로, 정상적으로 프로세스를 종료하고 사용한 자원을 반납한다. =&amp;gt; 현재 magnetic tape 개수: 4&lt;/li&gt;
-  &lt;li&gt;대기하고 있던 P0는 아직 할당받으르 수 없다.&lt;/li&gt;
-  &lt;li&gt;P2에게 3개를 할당한다.(6/9) =&amp;gt; 현재 magnetic tape 개수: 1&lt;/li&gt;
-  &lt;li&gt;현재 남아있는 magnetic tape 개수는 1개이고, P0가 요구하는 개수는 5개, P2는 3개이므로 두 프로세스 모두 할당받을 수 없다.&lt;/li&gt;
+  &lt;li&gt;Best-fit&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;이 예제에서 남은 magnetic tape 개수가 요구하는 개수보다 적으므로 자원을 할당해줄 수 없다. 그러므로 P0, P2 프로세스는 자원을 하염없이 기다리게 된다. 이를 &lt;strong&gt;불안전한 할당이라 하고, 그 결과 교착상태에 빠지게 된다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821885-d8808080-4ce6-11e9-9473-db032d7eeb3a.png&quot; alt=&quot;OS12-8&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;교착상태 회피는 마치 대출전문 은행과 유사하게 동작하므로, 해결 방법을 &lt;strong&gt;Banker’s Algorithm&lt;/strong&gt; 이라 한다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Worst-fit&lt;/li&gt;
+&lt;/ul&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;교착상태 검출 및 복구 (Deadlock Detection &amp;amp; Recovery)&lt;/strong&gt;
-1번과 2번 방법은 사전에 교착상태를 일어나지 않도록 하는 방법이지만, 교착상태 검출 및 복구 방법은 교착상태가 일어나는 것을 허용한다. 그 대신, 교착상태가 일어났을 때 이를 인지하고 복구를 해야 한다.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821887-d9191700-4ce6-11e9-9b00-fa92272b8b7d.png&quot; alt=&quot;OS12-9&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;교착상태가 일어나는 것을 감지하기 위해 운영체제 내부에서 &lt;strong&gt;주기적으로 교착상태가 발생하였는지 검사&lt;/strong&gt; 해야한다. 그 주기의 길이가 짧으면 그 만큼 오버헤드가 크고, 주기가 길면 오버헤드는 줄일 수 있지만 복구 가능성이 낮아진다.&lt;/p&gt;
+&lt;p&gt;각 3가지 방식대로 프로세스를 할당한 모습을 볼 수 있다. 예제의 결과를 보면 Best-fit은 4개의 프로세스를 모두 할당할 수 있었고, 나머지 2개는 마지막 P4를 할당하지 못했다. 모든 hole을 합치면 P4를 할당할 수 있지만, hole들은 각각 나눠져 있기 때문에 할당할 수 없었다.(외부 단편화)&lt;/p&gt;
 
-&lt;p&gt;복구하는 방법은 교착상태가 발생하는지 주기적으로 검사하듯이 메모리의 상태를 주기적으로 메모리에 저장해놓고 만약 교착상태가 발생하면 그 이전 상태로 되돌리는 방법이 있다. 그 외에도 일부 프로세스를 강제로 종료하거나 자원을 강제로 선점하여 프로세스에게 할당해주는 방법 등이 있다.&lt;/p&gt;
+&lt;p&gt;각 할당 방식의 일반적인 성능을 비교해보면, 속도면에서는 first-fit이 가장 빠르다. 메모리 이용률면에서는 first-fit, best-fit이 비슷한 성능을 낸다고 알려져있다. 하지만 여러 실험을 통해 best-fit을 사용하더라도 외부 단편화로 인해 &lt;strong&gt;전체 메모리의 1/3 정도를 낭비&lt;/strong&gt; 한다고 한다. 이는 거의 사용이 불가능한 수준이다.&lt;/p&gt;
 
-&lt;p&gt;교착상태 검출 및 복구는 교착상태 자체가 매우 드문 현상이므로 자유롭게 자원을 분배하다가 교착상태가 발생하면 이를 정상적인 상태로 복구하는 것이다. 하지만 복구를 제대로 하지 못할 수도 있고, 검출을 위해 추가적인 오버헤드가 발생한다는 단점이 있다.&lt;/p&gt;
+&lt;p&gt;이를 해결하는 방법 중 하나는 &lt;strong&gt;Compaction&lt;/strong&gt; 이다. compaction은 여러 곳에 흩어져있는 hole들을 강제로 하나로 합치는 것이다. 하지만 hole을 옮기는 오버헤드가 너무 크고, 어느 hole을 옮겨야 빠르게 합칠 수 있는지에 대한 최적 알고리즘이 존재하지 않는 큰 단점이 존재한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-22</summary></entry><entry><title type="html">[운영체제] # 11 모니터</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0/" rel="alternate" type="text/html" title="[운영체제] # 11 모니터" /><published>2019-03-14T23:09:00+09:00</published><updated>2019-03-14T23:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0/">&lt;p&gt;세마포는 실제로 매우 오래된 동기화 도구이다. 현재에는 모니터(monitor)라는 동기화 도구를 주로 사용하며, 이는 좀 더 고수준의 동기화 기능을 제공한다.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;&lt;strong&gt;교착상태 무시&lt;/strong&gt;
-교착상태의 필요조건 네 가지를 모두 만족하더라도 교착상태가 반드시 일어나는 것이 아니라고 했듯이, 교착상태는 매우 드문 상황이다. 그러므로 이를 위해 오버헤드를 감수하는 것이 비효율적인 환경도 존재한다. 그러한 환경은 교착상태에 대한 아무런 조치를 하지 않는 방법도 있다.&lt;/li&gt;
-&lt;/ol&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry><entry><title type="html">[OS] 11장 모니터</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0/" rel="alternate" type="text/html" title="[OS] 11장 모니터" /><published>2019-03-14T00:00:00+09:00</published><updated>2019-03-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0/">&lt;p&gt;세마포는 실제로 매우 오래된 동기화 도구이다. 현재에는 모니터(monitor)라는 동기화 도구를 주로 사용하며, 이는 좀 더 고수준의 동기화 기능을 제공한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;모니터-구조&quot;&gt;모니터 구조&lt;/h2&gt;
+&lt;h1 id=&quot;모니터-구조&quot;&gt;모니터 구조&lt;/h1&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54345852-3bd73680-4687-11e9-8c99-236870a019d9.png&quot; alt=&quot;OS11-1&quot; /&gt;&lt;/p&gt;
 
@@ -421,7 +229,7 @@ d = 0010
 
 &lt;p&gt;상호배타 큐는 말그대로 공유 자원에 하나의 프로세스만 진입하도록 하기 위한 큐이다. 조건동기 큐는 이미 공유자원을 사용하고 있는 프로세스가 특정한 호출(&lt;code class=&quot;highlighter-rouge&quot;&gt;wait()&lt;/code&gt;)을 통해 조건동기 큐로 들어갈 수 있다. 조건동기 큐에 들어가 있는 프로세스는 공유자원을 사용하고 있는 다른 프로세스에 의해 깨워줄 수 있다. 이 역시 깨워주는 프로세스에서 특정한 호출(&lt;code class=&quot;highlighter-rouge&quot;&gt;notify()&lt;/code&gt;)을 해주며, 깨워주더라도 이미 공유자원을 사용하고 있는 프로세스가 해당 구역을 나가야 비로소 큐에 있던 프로세스가 실행된다.&lt;/p&gt;
 
-&lt;h3 id=&quot;자바-모니터&quot;&gt;자바 모니터&lt;/h3&gt;
+&lt;h1 id=&quot;자바-모니터&quot;&gt;자바 모니터&lt;/h1&gt;
 &lt;p&gt;자바는 모니터를 제공하는 대표적인 언어이며, 자바의 모든 개체는 모니터가 될 수 있다. 그렇다면 자바를 통해 모니터에 대한 예제를 살펴보자.&lt;/p&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;C&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
@@ -451,12 +259,10 @@ d = 0010
 
 &lt;p&gt;모니터 역시, 세마포에서 할 수 있는 기능인 Mutual exclusion, Ordering을 모두 할 수 있다. 예제를 통해 이를 살펴보자.&lt;/p&gt;
 
-&lt;h4 id=&quot;bankaccount-problem&quot;&gt;BankAccount Problem&lt;/h4&gt;
+&lt;h2 id=&quot;bankaccount-problem&quot;&gt;BankAccount Problem&lt;/h2&gt;
 &lt;p&gt;이전에 세마포에서 살펴본 은행계좌 문제를 통해 세마포 대신 모니터를 사용해서 Mutual exclusion, Ordering을 구현해보자.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;Mutual Exclusion&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h3 id=&quot;1-mutual-exclusion&quot;&gt;1. Mutual Exclusion&lt;/h3&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
 	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
@@ -523,10 +329,8 @@ balance = 0
 
 &lt;p&gt;실행 결과는 위와 같고, balance값이 정상적으로 0을 출력하는 것을 볼 수 있다.&lt;/p&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;Ordeing
-은행계좌 문제를 살펴보기전에, ordering을 하기 위해 모니터를 어떻게 사용하는지 보자.&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h3 id=&quot;2-ordeing&quot;&gt;2. Ordeing&lt;/h3&gt;
+&lt;p&gt;은행계좌 문제를 살펴보기전에, ordering을 하기 위해 모니터를 어떻게 사용하는지 보자.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -659,10 +463,8 @@ balance = 0
 balance = 0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h4 id=&quot;전통적-동기화-문제&quot;&gt;전통적 동기화 문제&lt;/h4&gt;
-&lt;ol&gt;
-  &lt;li&gt;Producer-Consumer Problem&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h2 id=&quot;전통적-동기화-문제&quot;&gt;전통적 동기화 문제&lt;/h2&gt;
+&lt;h3 id=&quot;1-producer-consumer-problem&quot;&gt;1. Producer-Consumer Problem&lt;/h3&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Buffer&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;buf&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
@@ -741,9 +543,7 @@ balance = 0
 &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;Number of items in the buf is 0
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;ol&gt;
-  &lt;li&gt;The Dining Philosopher Problem&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h3 id=&quot;2-the-dining-philosopher-problem&quot;&gt;2. The Dining Philosopher Problem&lt;/h3&gt;
 
 &lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Philosopher&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
     &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;id&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;c1&quot;&gt;// philosopher id&lt;/span&gt;
@@ -807,7 +607,191 @@ balance = 0
 &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;이 코드는 교착상태를 해결하지 않은 상태이다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry><entry><title type="html">[OS] 9장 프로세스 동기화 - 2</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-9%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2/" rel="alternate" type="text/html" title="[OS] 9장 프로세스 동기화 - 2" /><published>2019-03-14T00:00:00+09:00</published><updated>2019-03-14T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-9%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%EB%8F%99%EA%B8%B0%ED%99%94-2</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-9%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2/">&lt;h1 id=&quot;전통적-동기화-예제classical-synchronization-problems&quot;&gt;전통적 동기화 예제(Classical Synchronization Problems)&lt;/h1&gt;
+&lt;p&gt;이 코드는 교착상태를 해결하지 않은 상태이다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-14</summary></entry><entry><title type="html">[운영체제] # 10 프로세스 동기화 - 3</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/" rel="alternate" type="text/html" title="[운영체제] # 10 프로세스 동기화 - 3" /><published>2019-03-14T22:09:00+09:00</published><updated>2019-03-14T22:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%EB%8F%99%EA%B8%B0%ED%99%94-3</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/">&lt;h1 id=&quot;deadlock교착상태&quot;&gt;Deadlock(교착상태)&lt;/h1&gt;
+&lt;p&gt;프로세스는 실행을 위해 CPU, 메모리, 파일 등 여러 하드웨어 자원이 필요하다. 이를 운영체제에서 프로세스가 요구하는 자원을 적절히 분배해준다. 예를 들어, 한 프로세스가 A 자원을 가지고 있는 상태에서 B 자원을 요구하고 있다. 하지만 B 자원은 다른 프로세스 역시 요구하고 있는 자원인데, 이러한 상황에서 자원을 분배하는 순서가 잘못되면 교착상태에 빠지게 된다.&lt;/p&gt;
+
+&lt;h2 id=&quot;교착상태-필요-조건necessary-conditions&quot;&gt;교착상태 필요 조건(Necessary Conditions)&lt;/h2&gt;
+&lt;p&gt;교착상태가 일어나기 위한 필요 조건이 네 가지가 존재한다. 이는 &lt;strong&gt;필요 조건&lt;/strong&gt; 이므로, 네 가지가 모두 해당된다고 해서 반드시 교착상태가 일어나는 것은 아니고, 일어날 확률이 생기는 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;Mutual exclusion (상호배타)&lt;/strong&gt;: 한 프로세스가 자원을 사용하고 있다면, 다른 프로세스는 이 자원을 사용할 수 없다. (젓가락은 한 철학자가 사용하고 있으면 이 젓가락은 사용할 수 없으므로 상호배타적이다.)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Hold and wait (보유 및 대기)&lt;/strong&gt;: 한 프로세스가 자원을 가지고 있는 상태에서 대기한다. (철학자는 왼쪽 젓가락을 가지고 있는 상태에서 오른쪽 젓가락을 집기 위해 대기한다.)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;No Preemption (비선점)&lt;/strong&gt;: 한 프로세스가 자원을 수행하는 중에는 다른 프로세스가 중간에 끼어들 수 없다. (한 철학자가 젓가락을 집은 상태에서 다른 철학자가 이 젓가락을 뺏을 수 없다.)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Circular wait (환형대기)&lt;/strong&gt;: 프로세스가 요구하는 자원의 방향이 원형을 이룬다. (모든 철학자는 왼쪽 젓가락부터 집을 수 있다.)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;교착상태는 위 네 가지 조건을 모두 만족하더라도 매우 드물게 일어나는 현상이지만, 한 번 교착상태에 빠지면 프로세스가 무한 루프에 빠져 수행하지 못하고 해당 프로세스가 가지고 있는 자원은 아무도 사용하지 못하므로 전체 컴퓨터 환경에 매우 &lt;strong&gt;치명적&lt;/strong&gt; 이다. 그리고 교착상태에 의한 오류를 해결하기는 매우 힘들다.&lt;/p&gt;
+
+&lt;h2 id=&quot;자원resources&quot;&gt;자원(Resources)&lt;/h2&gt;
+&lt;p&gt;하드웨어 자원은 여러 개가 존재하고 동일한 형식(type)의 자원이 존재할 수 있다. 예를 들어, 같은 CPU가 2개있는 환경이 있다. 이러한 자원 하나하나를 instance라고 한다.&lt;/p&gt;
+
+&lt;p&gt;자원은 프로세스가 직접적으로 사용할 수 없고, 운영체제에 &lt;strong&gt;요청(request)&lt;/strong&gt; 하면 운영체제가 제공해준다. 그 후 프로세스는 이 자원을 &lt;strong&gt;사용(use)&lt;/strong&gt; 하고 모든 사용이 끝나면 이를 &lt;strong&gt;반납(release)&lt;/strong&gt; 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;자원-할당도resource-allocation-graph&quot;&gt;자원 할당도(Resource Allocation Graph)&lt;/h3&gt;
+&lt;p&gt;자원 할당도는 어떤 자원이 어떤 프로세스에 할당되었는지 또는 어느 프로세스가 어느 자원을 할당 받으려고 기다리는지를 &lt;strong&gt;그림&lt;/strong&gt; 으로 나타낸 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;자원: 사각형&lt;/li&gt;
+  &lt;li&gt;instance: 점&lt;/li&gt;
+  &lt;li&gt;프로세스: 원&lt;/li&gt;
+  &lt;li&gt;할당: 화살표&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54337395-1f7ccf00-4672-11e9-8553-eeeb75b665a2.png&quot; alt=&quot;OS10-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 R1은 P1에 할당되어 있는 상태이고, P2는 R1을 요청하고 있는 상태이다&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54337396-1f7ccf00-4672-11e9-87cf-aad98e2795fe.png&quot; alt=&quot;OS10-2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;자원 할당도를 사용하는 이유는 교착상태의 필요조건을 한 눈에 볼 수 있기 때문이다. 자원 할당도를 분석할 때 &lt;strong&gt;mutual exclusion과 no-preemption은 기본으로 적용&lt;/strong&gt; 된다. Hold and wait는 화살표를 통해 한 프로세스가 인스턴스를 할당받았고 다른 자원을 가리키고 있다면, 이 상황은 Hold and wait인 상태이다. Circular wait 역시 화살표 방향이 원형을 이루고 있다면 이는 환형대기인 상태이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54337397-1f7ccf00-4672-11e9-8386-698a4db14e43.png&quot; alt=&quot;OS10-3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 식사하는 철학자 문제를 자원 할당도로 표현한 것이다. 그림을 보면 한 눈에 Circular wait 조건을 만족한 것을 알 수 있다. 그리고 모든 철학자(프로세스)는 한 젓가락(자원)을 할당(파란색 화살표)받고, 다른 젓가락을 요청(검은색 화살표)하고 있으므로 Hold and wait 조건 역시 만족한다.&lt;/p&gt;
+
+&lt;p&gt;그러면 위에서 살펴본 식사하는 철학자 문제를 해결하기 위해 Circular wait 조건을 없애보자. 물론, 여러 가지 방법이 존재하지만, 간단하게 circular wait 조건을 없애기 위해 짝수 번호 철학자는 왼쪽 젓가락, 오른쪽 젓가락 순서로 홀수 번호 철학자는 반대인 오른쪽 젓가락, 왼쪽 젓가락 순서로 집는다고 하자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54337399-20156580-4672-11e9-9b44-a784e582ba54.png&quot; alt=&quot;OS10-4&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Philosopher Thread run function&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kc&quot;&gt;true&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;id&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;%&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;==&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;lstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;rstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;else&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;rstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+        &lt;span class=&quot;n&quot;&gt;lstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;eating&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;lstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;rstick&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;thinking&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;첫 번째 그림은 circular wait 조건을 없앤 식사하는 철학자 문제의 자원 할당도이다. 화살표가 원형을 만들지 않는 것을 볼 수 있다. 두 번째 코드는 철학자 쓰레드의 run 함수에서 젓가락을 집는 코드를 바꾼 모습이다. 위와 같이 코드를 변경하고 실제로 수행하면 무한 반복문이 끝나지않고 정상적으로 계속되는 것을 확인할 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;교착상태-처리&quot;&gt;교착상태 처리&lt;/h2&gt;
+
+&lt;h3 id=&quot;1-교착상태-방지-deadlock-prevention&quot;&gt;1. 교착상태 방지 (Deadlock Prevention)&lt;/h3&gt;
+&lt;p&gt;교착상태 방지는 위에서 살펴본 교착상태 필요조건 네 가지 중 최소 한 가지를 만족시키지 않도록 만드는 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;상호배타(Mutual exclusion)&lt;/strong&gt;: 상호배타를 없애기 위해서는 자원을 공유 가능하게 만들어야 한다. 하지만 현실적으로 이러한 방법이 &lt;strong&gt;불가능&lt;/strong&gt; 한 경우가 많다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;보유 및 대기(Hold &amp;amp; Wait)&lt;/strong&gt;: 이 조건을 없애려면 자원을 가지고 있는 상태에서 다른 자원을 기다리지 않도록 만든다. 만약 여러 개의 자원이 필요하다면 필요한 모든 자원을 얻을 수 있는 경우에만 해당 자원을 요청한다. 또는 필요한 자원 중 일부만 가지는 경우 할당받은 자원을 모두 운영체제에 반납한다. 하지만 이와 같은 방법은 자원의 &lt;strong&gt;활용률을 저하시키고, starvation 현상이 발생하는 단점&lt;/strong&gt; 이 있다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;비선점(No preemption)&lt;/strong&gt;: 비선점을 없애러면 반대로 선점이 가능하도록 만들어야 한다. 이 역시 대부분의 자원에게는 &lt;strong&gt;불가능&lt;/strong&gt; 한 방법이다. CPU는 강제로 스위칭하는 것이 가능한 경우가 있지만, 프린터를 수행하는 중간에 다른 프로세스가 이를 선점하는 것은 불가능하다고 볼 수 있다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;환형대기(Circular wait)&lt;/strong&gt;: 이 조건을 없애는 것은 위 세 가지 조건보다는 할 수 있는 확률이 높다. 대표적인 예는 모든 자원에 번호를 부여하여 이 번호에 대한 &lt;strong&gt;오름차순&lt;/strong&gt; 으로 자원을 요청하는 것이다. 이 역시 &lt;strong&gt;자원의 활용률을 저하&lt;/strong&gt; 시키는 단점이 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;네 가지 방법을 살펴본 결과 가장 현실적인 방법은 hold &amp;amp; wait나 circular wait 조건을 없애는 것이다. 하지만 둘 다 자원을 비효율적으로 사용하게 되는 단점을 가지고 있다. 그래서 이와 같이 교착상태를 사전에 방지하는 것은 군사, 우주, 의료와 같은 크리티컬한 곳에서 사용하는 것이 좋다.&lt;/p&gt;
+
+&lt;h3 id=&quot;2-교착상태-회피-deadlock-avoidance&quot;&gt;2. 교착상태 회피 (Deadlock Avoidance)&lt;/h3&gt;
+&lt;p&gt;교착상태 회피와 방지의 차이점은 교착상태를 다르게 접근하는 것이다. 교착상태 회피에서는 교착상태를 &lt;strong&gt;자원 요청에 대한 잘못된 승인&lt;/strong&gt; 으로 판단한다. 따라서, 교착상태 회피에서는 &lt;strong&gt;안전한 할당(Safe allocation)&lt;/strong&gt; 과 &lt;strong&gt;불안정한 할당(Unsafe allocation)&lt;/strong&gt; 두 가지로 나뉜다. 먼저 안전한 할당에 대한 예제를 보자.&lt;/p&gt;
+
+&lt;p&gt;현재 운영체제에는 magnetic tape 자원이 총 12개가 있고, 이를 요청하는 3개의 프로세스가 있다.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Max needs&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Current needs&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;3개의 프로세스가 요청하는 magnetic tape의 양은 위 표와 같다. Current needs는 한 프로세스가 한 번 요청을 할 때 요구하는 개수이고, Max needs는 프로세스를 정상적으로 끝내기 위해 필요한 총 개수이다. 운영체제 입장에서 3개의 프로세스가 모두 수행될 때까지 자원을 분배해보자.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;P0에게 5개를 할당한다.(5/10) =&amp;gt; 현재 magnetic tape 개수: 7&lt;/li&gt;
+  &lt;li&gt;P1에게 2개를 할당한다.(2/4) =&amp;gt; 현재 magnetic tape 개수: 5&lt;/li&gt;
+  &lt;li&gt;P2에게 2개를 할당한다.(2/9) =&amp;gt; 현재 magnetic tape 개수: 3&lt;/li&gt;
+  &lt;li&gt;다시 P0가 5개를 요구하지만 현재 magnetic tape 개수는 3개이므로 할당해줄 수 없다.&lt;/li&gt;
+  &lt;li&gt;P1에게 2개를 할당한다.(4/4) =&amp;gt; 현재 magnetic tape 개수: 1&lt;/li&gt;
+  &lt;li&gt;P1은 필요한 4개의 magnetic tape을 받았으므로, 정상적으로 프로세스를 종료하고 사용한 자원을 반납한다. =&amp;gt; 현재 magnetic tape 개수: 5&lt;/li&gt;
+  &lt;li&gt;대기하고 있던 P0에게 5개를 할당한다.(10/10) =&amp;gt; 현재 magnetic tape 개수: 0&lt;/li&gt;
+  &lt;li&gt;P0 역시 필요한 자원을 모두 할당받았으므로, 종료 후 자원을 반납한다. =&amp;gt; 현재 magnetic tape 개수: 10&lt;/li&gt;
+  &lt;li&gt;P2는 현재 필요한 magnetic tape 개수가 7개이고, 현재 남아있는 magnetic tape 개수 10개이므로 정상적으로 수행가능하다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이 예제에서는 3개의 프로세스가 모두 정상적으로 자원을 할당받고 종료할 수 있었다. 이를 안전한 할당이라 한다. 다음 예제를 보자.&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Max needs&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Current needs&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;이 예제 역시 운영체제가 보유하고 있는 총 magnetic tape 개수는 12개이고, 3개의 프로세스가 존재한다. 자원을 분배해보자.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;P0에게 5개를 할당한다.(5/10) =&amp;gt; 현재 magnetic tape 개수: 7&lt;/li&gt;
+  &lt;li&gt;P1에게 2개를 할당한다.(2/4) =&amp;gt; 현재 magnetic tape 개수: 5&lt;/li&gt;
+  &lt;li&gt;P2에게 3개를 할당한다.(3/9) =&amp;gt; 현재 magnetic tape 개수: 2&lt;/li&gt;
+  &lt;li&gt;다시 P0가 5개를 요구하지만 현재 magnetic tape 개수는 2개이므로 할당해줄 수 없다.&lt;/li&gt;
+  &lt;li&gt;P1에게 2개를 할당한다.(4/4) =&amp;gt; 현재 magnetic tape 개수: 0&lt;/li&gt;
+  &lt;li&gt;P1은 필요한 자원을 모두 할당받았으므로, 정상적으로 프로세스를 종료하고 사용한 자원을 반납한다. =&amp;gt; 현재 magnetic tape 개수: 4&lt;/li&gt;
+  &lt;li&gt;대기하고 있던 P0는 아직 할당받으르 수 없다.&lt;/li&gt;
+  &lt;li&gt;P2에게 3개를 할당한다.(6/9) =&amp;gt; 현재 magnetic tape 개수: 1&lt;/li&gt;
+  &lt;li&gt;현재 남아있는 magnetic tape 개수는 1개이고, P0가 요구하는 개수는 5개, P2는 3개이므로 두 프로세스 모두 할당받을 수 없다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;이 예제에서 남은 magnetic tape 개수가 요구하는 개수보다 적으므로 자원을 할당해줄 수 없다. 그러므로 P0, P2 프로세스는 자원을 하염없이 기다리게 된다. 이를 &lt;strong&gt;불안전한 할당이라 하고, 그 결과 교착상태에 빠지게 된다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;교착상태 회피는 마치 대출전문 은행과 유사하게 동작하므로, 해결 방법을 &lt;strong&gt;Banker’s Algorithm&lt;/strong&gt; 이라 한다.&lt;/p&gt;
+
+&lt;h3 id=&quot;3-교착상태-검출-및-복구-deadlock-detection--recovery&quot;&gt;3. 교착상태 검출 및 복구 (Deadlock Detection &amp;amp; Recovery)&lt;/h3&gt;
+&lt;p&gt;1번과 2번 방법은 사전에 교착상태를 일어나지 않도록 하는 방법이지만, 교착상태 검출 및 복구 방법은 교착상태가 일어나는 것을 허용한다. 그 대신, 교착상태가 일어났을 때 이를 인지하고 복구를 해야 한다.&lt;/p&gt;
+
+&lt;p&gt;교착상태가 일어나는 것을 감지하기 위해 운영체제 내부에서 &lt;strong&gt;주기적으로 교착상태가 발생하였는지 검사&lt;/strong&gt; 해야한다. 그 주기의 길이가 짧으면 그 만큼 오버헤드가 크고, 주기가 길면 오버헤드는 줄일 수 있지만 복구 가능성이 낮아진다.&lt;/p&gt;
+
+&lt;p&gt;복구하는 방법은 교착상태가 발생하는지 주기적으로 검사하듯이 메모리의 상태를 주기적으로 메모리에 저장해놓고 만약 교착상태가 발생하면 그 이전 상태로 되돌리는 방법이 있다. 그 외에도 일부 프로세스를 강제로 종료하거나 자원을 강제로 선점하여 프로세스에게 할당해주는 방법 등이 있다.&lt;/p&gt;
+
+&lt;p&gt;교착상태 검출 및 복구는 교착상태 자체가 매우 드문 현상이므로 자유롭게 자원을 분배하다가 교착상태가 발생하면 이를 정상적인 상태로 복구하는 것이다. 하지만 복구를 제대로 하지 못할 수도 있고, 검출을 위해 추가적인 오버헤드가 발생한다는 단점이 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;4-교착상태-무시&quot;&gt;4. 교착상태 무시&lt;/h2&gt;
+&lt;p&gt;교착상태의 필요조건 네 가지를 모두 만족하더라도 교착상태가 반드시 일어나는 것이 아니라고 했듯이, 교착상태는 매우 드문 상황이다. 그러므로 이를 위해 오버헤드를 감수하는 것이 비효율적인 환경도 존재한다. 그러한 환경은 교착상태에 대한 아무런 조치를 하지 않는 방법도 있다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-14</summary></entry><entry><title type="html">[운영체제] # 9 프로세스 동기화 - 2</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-9%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2/" rel="alternate" type="text/html" title="[운영체제] # 9 프로세스 동기화 - 2" /><published>2019-03-14T21:09:00+09:00</published><updated>2019-03-14T21:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-9%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%EB%8F%99%EA%B8%B0%ED%99%94-2</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-9%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2/">&lt;h1 id=&quot;전통적-동기화-예제classical-synchronization-problems&quot;&gt;전통적 동기화 예제(Classical Synchronization Problems)&lt;/h1&gt;
 &lt;h2 id=&quot;producer-consumer-problem&quot;&gt;Producer-Consumer Problem&lt;/h2&gt;
 &lt;p&gt;생산자-소비자 문제는 생산자가 데이터를 생산하면 소비자는 그 데이터를 소비하는 형태의 문제이다. 컴퓨터 환경에서 예를 보면, 컴파일러 -&amp;gt; 어셈블러, 웹 서버 -&amp;gt; 웹 클라이언트 등이 있다. 컴파일러에서 생성한 어셈블리어는 어셈블러에서 이를 소비하여 기계어를 만든다.&lt;/p&gt;
 
@@ -1106,282 +1090,760 @@ balance = 0
 
 &lt;p&gt;이는 매우 드문 상황으로 모든 철학자가 동시에 식사를 하려고 왼쪽 젓가락을 집었다고 하자. 그러면 5명의 철학자가 5개의 젓가락을 모두 집어든 상황이다. 그 결과, 남아있는 젓가락은 더 이상없고 모든 철학자가 반대편 젓가락을 들기 위해 기다리고 있다. 하지만 식사할 수 있는 철학자는 없으므로 아무도 젓가락은 내려놓지 않고 하염없이 기다리고 있다.&lt;/p&gt;
 
-&lt;p&gt;이러한 상황을 &lt;strong&gt;교착상태(deadlock)&lt;/strong&gt; 라고 한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry><entry><title type="html">[운영체제] # 3 이중모드와 보호</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-3%EC%9E%A5-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8/" rel="alternate" type="text/html" title="[운영체제] # 3 이중모드와 보호" /><published>2019-03-06T23:09:00+09:00</published><updated>2019-03-06T23:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-3%EC%9E%A5-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80%20%EB%B3%B4%ED%98%B8</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-3%EC%9E%A5-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8/">&lt;p&gt;현재 컴퓨터 환경은 여러 사람이 동시에 한 컴퓨터를 사용하는 경우가 많다.(서버 컴퓨터) 그리고 그 외에도 한 컴퓨터내에서 여러 프로그램을 수행하는 것이 일반적이다. 이 때 한 컴퓨터나 한 프로그램에서 잘못된 동작으로 인해 다른 컴퓨터(프로그램)가 영향을 받는다면 이는 매우 위험하다.&lt;/p&gt;
+&lt;p&gt;이러한 상황을 &lt;strong&gt;교착상태(deadlock)&lt;/strong&gt; 라고 한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-14</summary></entry><entry><title type="html">[운영체제] # 7 프로세스와 쓰레드</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C/" rel="alternate" type="text/html" title="[운영체제] # 7 프로세스와 쓰레드" /><published>2019-03-07T03:09:00+09:00</published><updated>2019-03-07T03:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C/">&lt;h1 id=&quot;프로세스와-생성과-종료&quot;&gt;프로세스와 생성과 종료&lt;/h1&gt;
+&lt;p&gt;프로세스는 프로세스에 의해 만들어진다. 컴퓨터가 부팅이 되면 운영체제가 메모리에 올라오는데 운영체제가 처음으로 수행하는 일 중에 하나는 &lt;strong&gt;최초의 프로세스를 생성&lt;/strong&gt; 하는 것이다. 이렇게 처음 만들어진 프로세스가 다른 프로세스를 만들고 그 프로세스가 또 다른 프로세스를 만드는 과정을 반복한다.&lt;/p&gt;
 
-&lt;p&gt;예를 들어, 한 프로그램에서 고의 또는 실수로 &lt;code class=&quot;highlighter-rouge&quot;&gt;STOP&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;HALT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;RESET&lt;/code&gt; 과 같은 명령어로 전체 컴퓨터의 동작이 멈추거나 꺼지는 경우가 있다.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879677-5f302f00-4052-11e9-89ea-72135b020d12.png&quot; alt=&quot;os07-1&quot; /&gt;&lt;/p&gt;
 
-&lt;p&gt;이런 문제점을 해결하기 위해 일반 사용자가 위와 같은 치명적인 명령어들을 요청하는 것을 막을 필요가 생겼다. 여기서 &lt;strong&gt;이중 모드&lt;/strong&gt; 라는 것이 나왔다.&lt;/p&gt;
+&lt;p&gt;위와 같이 최초의 프로세스는 &lt;strong&gt;Init&lt;/strong&gt; 이다. 이 이름은 운영체제마다 다르고, init은 UNIX 운영체제 기준 이름이다. 여기서 여러 다른 프로세스들이 생성되면 위와 같은 그림처럼 &lt;strong&gt;트리 모양&lt;/strong&gt; 으로 나타낼 수 있다.여기서 프로세스를 생성한 쪽을 &lt;strong&gt;부모 프로세스&lt;/strong&gt;, 만들어진 프로세스를 &lt;strong&gt;자식 프로세스&lt;/strong&gt; 라고 한다. 같은 부모를 갖는 자식 프로세스 끼리는 서로 Sibling(형제) 프로세스라고 한다.&lt;/p&gt;
 
-&lt;h1 id=&quot;이중-모드dual-mode&quot;&gt;이중 모드(Dual mode)&lt;/h1&gt;
-&lt;p&gt;이중 모드는 말 그대로 모드를 아래와 같이 둘로 나누는 것이다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;사용자(User) 모드&lt;/strong&gt;&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;관리자(Supervisor) 모드&lt;/strong&gt; = 시스템(system) 모드 = 모니터(monitor) 모드 = 특권(privileged) 모드&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;프로세스는 각각 고유의 번호를 갖는데 이를 &lt;strong&gt;PID(Process Identifirer)&lt;/strong&gt; 라고 한다. PID는 일반적으로 정수형(integer)으로 표현한다. PPID는 부모의 PID를 말한다.&lt;/p&gt;
 
-&lt;p&gt;특권 모드에서만 내릴 수 있는 명령을 &lt;strong&gt;특권 명령(privileged instruction)&lt;/strong&gt; 이라고 하며, &lt;code class=&quot;highlighter-rouge&quot;&gt;STOP&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;HALT&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;RESET&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;SET_TIMER&lt;/code&gt; 등이 있다. 만약 사용자 모드에서 특권 명령을 사용하려고 하면 CPU에서 내부 인터럽트를 발생시켜 해당 명령어를 요청한 프로그램을 강제로 종료시킨다.&lt;/p&gt;
+&lt;h2 id=&quot;프로세스-생성&quot;&gt;프로세스 생성&lt;/h2&gt;
+&lt;p&gt;새로운 프로세스를 만드는 시스템 콜이 존재하는데, 이는 &lt;code class=&quot;highlighter-rouge&quot;&gt;fork()&lt;/code&gt; 라 한다. 만들어진 프로세스에서 어떠한 파일을 실행하려면 &lt;code class=&quot;highlighter-rouge&quot;&gt;exec()&lt;/code&gt; 시스템 콜을 사용한다.&lt;/p&gt;
 
-&lt;p&gt;이중 모드는 CPU 내부의 레지스터(register)의 비트(bit)를 활용하여 플래그(flag)로 나타낸다. 예를 들어 특권 모드일 때는 비트 값이 &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; 이고, 사용자 모드일 때는 비트  값을 &lt;code class=&quot;highlighter-rouge&quot;&gt;1&lt;/code&gt; 로 설정하여 구분한다.&lt;/p&gt;
+&lt;h2 id=&quot;프로세스-종료&quot;&gt;프로세스 종료&lt;/h2&gt;
+&lt;p&gt;프로세스를 종료하는 시스템 콜은 &lt;code class=&quot;highlighter-rouge&quot;&gt;exit()&lt;/code&gt; 이다. 한 프로세스가 종료되면 해당 프로세스가 사용한 모든 자원(메모리, 파일, I/O 등)을 회수해야한다. 이러한 회수된 자원과 권한은 모두 운영체제로 되돌아가야한다.&lt;/p&gt;
 
-&lt;p&gt;컴퓨터가 켜진 뒤에 한 사용자 애플리케이션을 실행시키는 동안 모드가 어떻게 변하는지 살펴보자.&lt;/p&gt;
-&lt;ol&gt;
-  &lt;li&gt;컴퓨터 부팅 과정            - 관리자 모드&lt;/li&gt;
-  &lt;li&gt;애플리케이션 실행 과정      - 관리자 모드&lt;/li&gt;
-  &lt;li&gt;애플리케이션 실행중         - 사용자 모드&lt;/li&gt;
-  &lt;li&gt;인터럽트 발생 후 처리 과정  - 관리자 모드&lt;/li&gt;
-  &lt;li&gt;인터럽트 처리 후            - 사용자 모드&lt;/li&gt;
-&lt;/ol&gt;
+&lt;h1 id=&quot;쓰레드thread&quot;&gt;쓰레드(Thread)&lt;/h1&gt;
+&lt;p&gt;쓰레드는 프로그램 &lt;strong&gt;내부의 흐름(맥)&lt;/strong&gt; 이다.&lt;/p&gt;
 
-&lt;p&gt;사용자가 하드웨어의 자원에 접근하는 것은 매우 위험한 동작이다. 그러므로 이러한 경우에는 &lt;strong&gt;모두 관리자 모드로 운영체제에서 처리하도록 한다.&lt;/strong&gt; (프로그램에서 소프트웨어 인터럽트를 발생시켜 운영체제에 위임한다.)&lt;/p&gt;
-
-&lt;p&gt;위의 4번 과정을 하드웨어 인터럽트로 가정하고 자세히 살펴보면 아래와 같다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;하드웨어 인터럽트 발생 후 CPU로 인터럽트 신호 요청 (사용자 모드)&lt;/li&gt;
-  &lt;li&gt;CPU에서 모드 플래그를 &lt;strong&gt;관리자 모드&lt;/strong&gt; 값으로 설정&lt;/li&gt;
-  &lt;li&gt;해당 하드웨어 인터럽트 서비스 루틴(ISR)으로 이동 (관리자 모드)&lt;/li&gt;
-  &lt;li&gt;인터럽트 처리 (관리자 모드)&lt;/li&gt;
-  &lt;li&gt;인터럽트 처리 완료 후 CPU의 모드 플래그를 다시 &lt;strong&gt;사용자 모드&lt;/strong&gt; 값으로 설정&lt;/li&gt;
-  &lt;li&gt;원래의 애플리케이션 위치로 복귀 (사용자 모드)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879654-5c353e80-4052-11e9-9f5a-275642a1ed1d.png&quot; alt=&quot;os03-1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;애플리케이션이 실행하는 동안에는 위와 같은 모드 변경이 반복적으로 일어나는 것을 볼 수 있다. 대부분의 CPU는 이중 모드를 지원한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;하드웨어-보호&quot;&gt;하드웨어 보호&lt;/h1&gt;
-&lt;p&gt;이중 모드는 운영체제 기능 중에서 보호에 해당된다. 운영체제에서 보호할 대상은 입출력 장치, 메모리, CPU 총 세 가지가 존재한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;입출력-장치-보호&quot;&gt;입출력 장치 보호&lt;/h2&gt;
-&lt;p&gt;여러 정보들은 입출력 장치를 통해 컴퓨터로 입력되고, 외부 장치로 출력이 된다. 여기서 크게 두 가지의 문제점이 발생한다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;여러 입출력 장치의 사용으로 인한 혼선&lt;/li&gt;
-  &lt;li&gt;사용자가 자신의 데이터가 아닌 다른 사용자의 데이터에 입출력을 하는 일
-위와 같이 입출력 장치에 여러 사용자의 데이터가 뒤엉켜서 들어오거나 다른 사용자의 데이터에 접근하려는 경우를 막아야 한다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;이를 해결하기 위해 &lt;code class=&quot;highlighter-rouge&quot;&gt;in&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;out&lt;/code&gt; 과 같은 &lt;strong&gt;입출력 명령을 특권 명령으로&lt;/strong&gt; 설정하는 것이다. 즉, 사용자 애플리케이션에서 입출력을 사용하려면 운영체제를 통해서 수행해야한다.(소프트웨어 인터럽트) 여러 프로그램이 동시에 입출력을 사용하려고 하면 운영체제 내부에서 순서를 정하여 혼선을 막아줄 수 있다.&lt;/p&gt;
-
-&lt;p&gt;만약 A, B 사용자가 있는 상황에서 A가 B의 데이터를 읽기 위해 운영체제에게 소프트웨어 인터럽트를 발생하였다고 하자. 그러면 운영체제 내부의 해당 ISR로 이동하게 되는데, 여기서 현재 사용자가 해당 데이터가 접근할 수 있는 여부를 판단하는 과정이 있으므로 이는 거부된다.&lt;/p&gt;
-
-&lt;h2 id=&quot;메모리-보호&quot;&gt;메모리 보호&lt;/h2&gt;
-&lt;p&gt;메모리에는 운영체제뿐만 아니라 여러 개의 사용자 애플리케이션이 존재한다. 한 애플리케이션이 자신의 메모리 영역이 아닌 운영체제나 다른 애플리케이션의 메모리 영역에 침범하려하면 매우 위험하다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879655-5c353e80-4052-11e9-8ec6-8b247850f347.png&quot; alt=&quot;os03-2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;메모리는 일반적으로 위와 같이 구성되어 있을 것이다. 여기서 user1이 OS나 user2, user3에 접근하는 것을 막아야 한다. CPU는 address bus를 통해 메모리 주소에 접근하게 되는데, user1 프로그램이 실행되는 동안에는 user1이 할당되어 있는 메모리 주소 범위 안인 경우에만 접근하면 될 것이다. 이를 address bus에서 검사하는 것이 가장 효율적일 것이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879656-5c353e80-4052-11e9-901c-8fcf9c2b5e56.png&quot; alt=&quot;os03-3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위의 생각으로 나온 것이 &lt;strong&gt;MMU(Memory Management Unit)&lt;/strong&gt; 이다. MMU는 위의 그림처럼 address bus 중간에 설치된 하드웨어 칩으로서 두 개의 레지스터를 통해 해당 프로그램의 주소 범위를 저장한다.&lt;/p&gt;
-
-&lt;p&gt;예를 들어, User1의 시작 주소는 1024, 끝 주소는 4048이라고 하자. User1이 수행되는 동안 운영체제는 해당 프로그램의 주소 범위를 MMU에 설정(&lt;strong&gt;특권 명령&lt;/strong&gt;)하는데, base는 1024, limit는 4048이 될 것이다. 결과적으로 user1이 수행되는 동안에는 이 범위 안의 주소값인 경우에만 address bus를 통과시킨다.&lt;/p&gt;
-
-&lt;p&gt;만약 해당 프로그램의 주소 범위 밖의 주소값이 MMU에 들어온다면, MMU에서 &lt;strong&gt;내부 인터럽트&lt;/strong&gt; 를 발생시켜 CPU에 신호를 준다. 그러면 CPU는 그에 맞는 ISR로 이동하여 해당 프로그램을 강제로 종료시킨다. 이과 같은 잘못된 메모리 접근을 Segment violation 이라 한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;cpu-보호&quot;&gt;CPU 보호&lt;/h2&gt;
-&lt;p&gt;CPU 보호는 사용자의 실수 또는 고의로 인한 CPU 독점을 방지해야 한다. 하나의 프로그램이 CPU를 독점하게 되면 다른 프로그램은 수행되지 못한다.&lt;/p&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
 &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-  &lt;span class=&quot;c1&quot;&gt;// ...
-&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;10&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;while&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;n&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;m&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;n&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;END&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
 &lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;CPU를 독점하는 가장 대표적인 예는 &lt;strong&gt;무한 반복&lt;/strong&gt; 이다. 위의 코드를 보면 while문의 조건문이 잘못된 것을 볼 수 있다. 비교 연산자가 아닌 대입 연산자를 사용하여 n값이 1이 되므로 while문의 조건은 TRUE가 된다. 이는 n값이 변하지 않는 이상 무한으로 반복된다.&lt;/p&gt;
+&lt;p&gt;위와 같은 코드는 하나의 흐름을 가지고 있고 이를 쓰레드라고 부른다. 일반적으로 하나의 프로그램은 하나의 쓰레드를 갖는다.&lt;/p&gt;
 
-&lt;p&gt;이를 해결하는 방법은 &lt;strong&gt;Timer를 두어 일정 시간이 지나면 타이머 인터럽트&lt;/strong&gt; 를 발생시킨다. 인터럽트가 발생하면 반드시 운영체제 내의 ISR로 이동하므로, 해당 ISR에서 각 프로그램의 CPU 점유 시간을 측정하여 적절히 분배되도록 조정한다.&lt;/p&gt;
+&lt;h2 id=&quot;다중-쓰레드mulitithreads&quot;&gt;다중 쓰레드(Mulitithreads)&lt;/h2&gt;
+&lt;p&gt;하나의 프로그램에 쓰레드가 &lt;strong&gt;2개 이상&lt;/strong&gt; 이 존재하는 것을 다중 쓰레드라고 한다. 이렇게 한 프로그램에 여러 개의 쓰레드 즉 흐름이 있을 수 있는 이유는 쓰레드가 빠른 시간 간격으로 스위칭되기 때문이다. 이러한 동작으로 사용자는 여러 쓰레드가 동시에 실행되는 것처럼 보인다.&lt;/p&gt;
 
-&lt;p&gt;예를 들어, 한 프로그램의 CPU 점유 시간이 비정상적으로 오래 걸리는 경우, 강제로 다른 프로그램으로 CPU를 전환시켜 줄 수 있다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-06</summary></entry><entry><title type="html">[운영체제] # 2 운영체제 역사</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-2%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%97%AD%EC%82%AC/" rel="alternate" type="text/html" title="[운영체제] # 2 운영체제 역사" /><published>2019-03-06T22:09:00+09:00</published><updated>2019-03-06T22:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-2%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%20%EC%97%AD%EC%82%AC</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-2%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%97%AD%EC%82%AC/">&lt;h1 id=&quot;초기-컴퓨터&quot;&gt;초기 컴퓨터&lt;/h1&gt;
-&lt;p&gt;운영체제는 컴퓨터가 발전하면서 같이 발전하게 되었다. 초기 컴퓨터는 크게 3가지로 구성되었다. 카드 리더, 프로세서, 프린터이다. 카드 리더는 입력기이다. 입력은 종이에 입력할 코드에 맞는 구멍을 뚫어서 넣어주는 방식이었다. 프로세서는 현재와 비슷한 계산하는 역할이었고, 프린터는 입력에 대한 결과를 종이에 찍어서 보여주었다. 이 시기에는 운영체제도 존재하지 않았으므로, 오퍼레이터(operator)라는 컴퓨터를 사용하는 직업이 따로 있었고, 컴퓨터의 크기 또한 너무 커서 건물 전체를 사용해야할 정도였다.&lt;/p&gt;
+&lt;p&gt;이처럼 CPU가 하나인 환경에서 여러 쓰레드가 스위칭에 의해 동시에 수행되는 효과를 &lt;strong&gt;concurrent&lt;/strong&gt; 라 한다. 반면에 여러 CPU 환경에서 여러 쓰레드가 실제로 동시에 수행되는 것은 &lt;strong&gt;simultaneous&lt;/strong&gt; 라고 한다.&lt;/p&gt;
 
-&lt;h1 id=&quot;batch-processing-system일괄-처리-시스템&quot;&gt;Batch processing system(일괄 처리 시스템)&lt;/h1&gt;
-&lt;p&gt;위에서 초기 컴퓨터의 상황을 살펴보았는데, 프로그램을 수행할 때마다 컴파일-&amp;gt;링크-&amp;gt;로딩 순서를 오퍼레이터가 직접 입력해주었다. 이러한 과정을 &lt;strong&gt;자동화&lt;/strong&gt; 한 것이 batch processing system 이다. 위 과정을 하나의 프로그램으로 작성하여 프로세서의 메모리안에 할당해주었는데, 이 프로그램을 resident monitor라고 불렀다.&lt;/p&gt;
+&lt;p&gt;다중 쓰레드를 사용하는 대표적인 예는 Web browser 이다. 화면을 출력하는 쓰레드와 데이터를 읽어오는 쓰레드가 기본적으로 따로 수행하고 있다. 그 외에도 Word processor, Media player 등 현재 대부분의 프로그램은 다중 쓰레드로 동작한다.&lt;/p&gt;
 
-&lt;p&gt;resident는 “거주” 라는 의미로 이 프로그램이 항상 프로세서안에서 거주한다는 의미로 이러한 이름을 사용하였다. 그리고 이것이 최초의 운영체제로 알려져 있다.&lt;/p&gt;
+&lt;p&gt;이전의 CPU 스케줄링에서 하나의 프로세스가 수행하다가 다른 프로세스로 넘어간다고 하였는데, 이는 예전의 방식이다. 현재 운영체제에서는 대부분 다중 쓰레드를 지원하기 때문에 하나의 프로세스 안에서 여러 쓰레드를 수행하다가 다른 프로세스로 넘어가서 그 프로세스의 쓰레드를 수행한다. 그러므로 현대 운영체제의 &lt;strong&gt;context switching 단위는 프로세스가 아닌 쓰레드 단위&lt;/strong&gt; 이다.&lt;/p&gt;
 
-&lt;h1 id=&quot;multiprogramming-system다중-프로그래밍&quot;&gt;Multiprogramming system(다중 프로그래밍)&lt;/h1&gt;
-&lt;p&gt;과거에는 컴퓨터가 매우 비싼 장비였다. 그리고 초창기 메모리의 상태는 resident monitor를 제외하고 단 하나의 애플리케이션만을 할당하여 사용하였다. 하지만 이는 매우 비효율적인 방법이었다.&lt;/p&gt;
+&lt;h2 id=&quot;thread-vs-precess&quot;&gt;Thread VS Precess&lt;/h2&gt;
+&lt;p&gt;한 프로세스에는 기본적으로 하나의 쓰레드가 존재한다. 프로세스는 &lt;strong&gt;code, data&lt;/strong&gt; 메모리 공간이 존재하는데, 이는 여러 쓰레드가 공유한다. 이외에도 프로세스의 자원인 file, I/O 등은 여러 쓰레드가 공유하지만, 각 쓰레드가 고유하게 가지고 있는 것은 PC(Program Counter), SP(Stack Pointer), registers, &lt;strong&gt;stack&lt;/strong&gt; 등이 있다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-06</summary></entry><entry><title type="html">[운영체제] # 8 프로세스 동기화 - 1</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-8%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1/" rel="alternate" type="text/html" title="[운영체제] # 8 프로세스 동기화 - 1" /><published>2019-03-07T03:09:00+09:00</published><updated>2019-03-07T03:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-8%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%20%EB%8F%99%EA%B8%B0%ED%99%94-1</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-8%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-1/">&lt;p&gt;현대 컴퓨터의 메모리에는 여러 프로세스가 존재하는데, 이러한 프로세스들이 하나의 공유 메모리나 또 다른 프로세스에 접근할 때는 매우 신중해야 한다. 이처럼 한 프로세스가 다른 프로세스에게 영향을 받거나 주는 프로세스를 &lt;strong&gt;Cooperating process&lt;/strong&gt; 라한다. 반대로 아무런 영향을 미치지 않는 독립적인 프로세스는  &lt;strong&gt;Independent process&lt;/strong&gt; 이다.&lt;/p&gt;
 
-&lt;p&gt;프로그램을 수행하는 도중에는 계산을 하는 CPU 외에도 입출력을 담당하는 I/O장치가 수행한다. 즉, &lt;strong&gt;CPU와 I/O장치가 교대로 동작&lt;/strong&gt; 하는데 I/O장치가 수행하는 동안에는 CPU가 아무것도 할 일이 없었다. CPU가 아무일도 안하는 상태를 &lt;strong&gt;idle&lt;/strong&gt; 상태라고 말한다. 그리고 I/O장치는 CPU에 비해 매우 느리기때문에 idle 상태의 비율이 너무 높았다. 이러한 비효율적인 수행을 해결하기 위해 multiprogramming system이 나왔다.&lt;/p&gt;
+&lt;p&gt;현대 컴퓨터 환경에는 cooperating process 가 훨씬 많이 존재하고, 이들은 서로 영향을 미치기 때문에 데이터나 흐름에 대한 &lt;strong&gt;동기화&lt;/strong&gt; 가 매우 중요하다. 프로세스 사이에 동기화를 하는 것을 &lt;strong&gt;프로세스 동기화(Process Synchronization)&lt;/strong&gt; 라 한다.(현재에는 대부분 쓰레드 기준으로 스위칭을 하므로, &lt;strong&gt;Thread synchronization&lt;/strong&gt; 으로 많이 불린다.)&lt;/p&gt;
 
-&lt;p&gt;Multiprogramming system은 메모리에 여러 애플리케이션(프로그램)을 올리는 시스템이다. 예를 들어 user1, user2 두 개의 애플리케이션이 있을 떄, 처음에는 user1에서 CPU 수행을 하다가 I/O장치 수행으로 넘어간다. 이 순간 CPU는 idle 상태에 있지 않고 user2가 있다는 것을 보고 user2의 CPU 수행을 시작한다. 이렇게 &lt;strong&gt;idle상태의 시간을 최대한 줄이고자 하였다.&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;예를 들어, 기차표 예매가 대표적이다. 어느 시간에 한 좌석의 기차표는 반드시 하나만 존재해야한다. 그런데 이를 예매하려는 사용자(프로세스)는 여러 명이다. 이 사용자들이 동시에 하나의 좌석 기차표를 구매하려고 하면 어떠한 일이 발생할까? 실제 환경에서는 당연하게도 동기화 문제를 해결한 시스템이므로 한 사람만이 기차표를 예매할 수 있을 것이다. 만약 동기화에 문제가 발생한다면 한 기차표를 여러 사람이 예매하는 불상사가 발생할 수 있다.&lt;/p&gt;
 
-&lt;p&gt;하지만 메모리에 여러 프로그램을 올리면서 많은 문제점이 발생했다. 가장 큰 문제점은 CPU가 어느 프로그램을 수행해야하는지 선택하는 것이다. 이러한 작업을 &lt;strong&gt;CPU 스케줄링&lt;/strong&gt; 이라고 하며, 이는 운영체제의 중요한 역할 중 하나이다. 그리고 새로 들어온 프로그램을 어느 메모리 공간에 할당해야하는지도 큰 문제였다. 이 역시 운영체제 역할 중 하나이다.&lt;/p&gt;
+&lt;p&gt;프로세스 동기화는 여러 프로세스가 &lt;strong&gt;공유하는 자원의 일관성&lt;/strong&gt; 을 유지하는 것이다. 가령 여러 프로세스가 동시에 하나의 공유된 자원에 접근하려고 할 때 이 프로세스들의 순서를 정하여 데이터의 일관성을 유지시켜주어야 한다.&lt;/p&gt;
 
-&lt;h1 id=&quot;time-sharing-system시분할-시스템&quot;&gt;Time-sharing system(시분할 시스템)&lt;/h1&gt;
-&lt;p&gt;시간이 지나 모니터와 키보드를 사용하면서 사용자와 컴퓨터 사이에 &lt;strong&gt;대화 형식&lt;/strong&gt; 이 가능해졌다. 하지만 여전히 컴퓨터 자체가 너무 비쌌기 때문에 아래와 같이 단말기(terminal) 형태로 사용하였다.&lt;/p&gt;
+&lt;h1 id=&quot;bank-account-problem은행-계좌-문제&quot;&gt;Bank Account Problem(은행 계좌 문제)&lt;/h1&gt;
+&lt;p&gt;동기화 문제 중에서 대표적인 은행 계좌 문제를 살펴보자. 은행에는 하나의 계좌에 입금, 출금을 할 수 있다. 여기서 계좌는 &lt;strong&gt;공유하는 자원&lt;/strong&gt; 이고, 입금과 출금은 각각 프로세스라고 볼 수 있다. 이를 자바로 구현한 코드는 아래와 같다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879652-5b9ca800-4052-11e9-9c96-e6e4175b0118.png&quot; alt=&quot;os02-1&quot; /&gt;&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// Test.java&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Test&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[]&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt;
+		&lt;span class=&quot;kd&quot;&gt;throws&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;BankAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;BankAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;Parent&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;p&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Parent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;c&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Child&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// start(): 쓰레드를 실행하는 메서드&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;start&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;p&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// join(): 쓰레드가 마치기를 기다리는 메서드&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;c&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;join&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;\nbalance = &quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;getBalance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-&lt;p&gt;각 사용자(User)들은 모니터와 키보드만을 가지고, 실제 프로세서는 하나의 단말기에 존재하여 이를 공유하여 사용하였다. 멀티프로그래밍에서는 이와 같은 단말기 형태에서 문제가 생긴다.&lt;/p&gt;
+&lt;span class=&quot;c1&quot;&gt;// 계좌&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BankAccount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getBalance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-&lt;p&gt;예를 들어, 단말기 메모리에 User1 프로그램, User2 프로그램, User3 프로그램이 할당되어 있고 User1이 먼저 CPU를 사용한다고 하자. 멀티프로그래밍에서는 User1이 CPU를 수행하고 있는 도중에는 다른 사용자는 CPU자체를 사용할 수 없다. (CPU가 하나인 환경) 그러므로 다른 사용자들은 User1이 CPU수행을 모두 마칠 때까지(또는 I/O를 만날 때까지) 기다려야한다. 하지만 이는 매우 비효율적이다.&lt;/p&gt;
+&lt;span class=&quot;c1&quot;&gt;// 입금 프로세스&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Parent&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;BankAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;Parent&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BankAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// run(): 쓰레드가 실제로 동작하는 부분(치환)&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
 
-&lt;p&gt;이를 해결하기 위해 나온 것이 time-sharing system이다. 시분할 시스템은 CPU가 하나의 &lt;strong&gt;프로그램을 수행하는 시간을 제한&lt;/strong&gt; 하는 것이다. 예를 들어, User1 프로그램을 일정 시간 수행하면 반드시 다음 프로그램으로 넘어가서(스위칭, switching) 또 다시 일정 시간을 수행한다. 이렇게 일정 시간을 두어 프로그램들을 번갈아 수행하면서 모든 프로그램이 공평하게 수행이 되도록 한다. 그리고 이 일정 시간은 매우 짧은 시간(ms)이므로 CPU가 한 개인 환경에서도 여러 사용자가 동시에 사용하는 듯한 효과를 가져온다.&lt;/p&gt;
+&lt;span class=&quot;c1&quot;&gt;// 출금 프로세스&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Child&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;extends&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Thread&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;BankAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;Child&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;BankAccount&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;this&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;run&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;100&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++)&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1000&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;시분할 시스템을 사용하면서 여러 사용자(프로세스)간에 통신이 가능해졌다. 하지만 여기서도 역시 멀티프로그래밍에서와 같은 스케줄링과 메모리 문제가 있었다. 이를 해결하기 위해 동기화 기술, 가상 메모리 등이 이후에 나왔다.&lt;/p&gt;
+&lt;p&gt;위의 코드를 실행시키면 대부분 아래와 같은 결과를 얻을 수 있다.&lt;/p&gt;
 
-&lt;h1 id=&quot;인터럽트-기반-시스템interrupt-based-system&quot;&gt;인터럽트 기반 시스템(Interrupt based system)&lt;/h1&gt;
-&lt;p&gt;현대 운영체제는 인터럽트 기반 시스템이다. 그렇다면 인터럽트는 무엇인가?&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;balance = 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h2 id=&quot;인터럽트&quot;&gt;인터럽트&lt;/h2&gt;
-&lt;p&gt;컴퓨터에 전원이 들어오면 위에서 말했듯이 부팅이 시작된다. 먼저, POST과정이 시작되고 그 후에 부트 로더가 하드 디스크에 있는 운영체제 프로그램을 RAM에 가져와 할당한다. 할당된 운영체제는 컴퓨터의 전원이 꺼질 때까지 상주(resident)한다.&lt;/p&gt;
+&lt;p&gt;이 결과는 정상적이다. 100번 1,000원을 입금하고, 100번 1,000원을 출금하면 잔액은 0원이 남는다. 위 코드는 매우 간단한 코드 이므로 2개의 쓰레드가 동작하고 있지만 동기화 문제가 발생할 확률은 매우 낮다. 이를 조금 더 실제 상황과 비슷하게 만들기 위해 &lt;strong&gt;시간 지연&lt;/strong&gt; 을 시켜보도록 하자.&lt;/p&gt;
 
-&lt;p&gt;부팅이 끝나고 운영체제가 동작하는 동안 수 많은 인터럽트가 발생할 수 있다. 예를 들어, 사용자가 마우스를 움직인다고 가정하자. 이 동작을 컴퓨터는 어떻게 알 수 있을까? 바로 &lt;strong&gt;인터럽트&lt;/strong&gt; 를 통해 알 수 있다. 마우스를 움직이는 순간, 마우스에서 인터럽트 전기 신호가 발생하여 이를 CPU에게 보낸다. CPU는 이를 감지하고, 자신이 하던 일을 멈춘 후에 이 인터럽트 신호를 처리하기 위해 운영체제 내부에 있는 &lt;strong&gt;인터럽트를 처리하는 코드(interrupt service routine, ISR)&lt;/strong&gt; 로 이동한다. 이 곳에 마우스가 움직일 때 어떻게 동작해야하는지가 내포되어 있어 이를 수행한다.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// 계좌&lt;/span&gt;
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BankAccount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getBalance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;마우스 뿐만 아니라 키보드 역시 동일하게 동작한다. 이러한 하드웨어에서 발생한 인터럽트를 &lt;strong&gt;하드웨어 인터럽트(Hardwore Interrupt)&lt;/strong&gt; 라고 한다. 인터럽트라고 하면 기본적으로 하드웨어 인터럽트를 말하지만, 소프트웨어에서도 인터럽트를 요청을 할 수 있다. 이를 &lt;strong&gt;소프트웨어 인터럽트(Software Interrupt)&lt;/strong&gt; 라고 한다. 소프트웨어 인터럽트는 명령어로 직접 인터럽트 전기 신호를 CPU에게 보낼 수 있다. 즉, 프로그램에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;swi&lt;/code&gt;, &lt;code class=&quot;highlighter-rouge&quot;&gt;int&lt;/code&gt; 와 같은 어셈블리어 명령어를 수행하는 것이다.(명령어는 운영체제마다 다르다.)&lt;/p&gt;
+&lt;p&gt;위 코드는 입금, 출금 기능을 담당하는 &lt;code class=&quot;highlighter-rouge&quot;&gt;BankAccount&lt;/code&gt; 클래스에서 입금과 출금을 수행하는 동작에 약간의 시간 지연을 추가하였다.(화면에 출력하는 동작, 변수 대입 동작 추가) 그리고 입출금 횟수를 100에서 1000으로 늘려주었다. 이 코드를 실행시키면 결과는 다음과 같다.&lt;/p&gt;
 
-&lt;p&gt;예를 들어, 마우스로 워드 작성 프로그램을 실행시킨다고 하자. 워드 작성 프로그램을 실행시키는 것까지는 하드웨어 인터럽트가 수행된다.(마우스가 이동하여 더블 클릭으로 실행하는 경우이다.) 이 프로그램에서 사용자가 하드디스크에 있는 다른 워드 파일을 읽고 싶은 경우, 소프트웨어 인터럽트를 발생시킨다. 소프트웨어 인터럽트 역시 하드웨어 인터럽트와 동일하게 운영체제 내부에 해당 인터럽트를 처리하는 코드(ISR)가 존재하여 이 곳으로 이동한다. 여기서 하드디스크에서 읽을 파일을 찾아서 반환해주는 수행을 처리하는 것이다.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;++++++++++++++++++++++++++++++++++----------------------------------------------
+--------------------------------------------------------------------------++++++
++++----------------------------------------------+++++++++++++++++++++++++++++++
++----+++++++-+++++----+++-------------------------------------------------------
+-+++++++-++++-+++++++++-------++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++---------------+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
++-++++++++++++-------------------++++++++++++++++++++-++++++++++++++++++++++++++
+++++++-+------------------------------------------------------------------------
+-+++++++++++-+++++++----------------------------------------+-------+-----------
+-+------+-----------------------------------------------------------------------
+-+------------------------------------------------------------------------------
+-+------------------------------------------------------------------------------
+-------------------+-------+----------------------------------------------------
+------------------------------+-------------------------------------------------
+------------------------------------------------------+-------------------------
+-+------------------------------------------------------------------------------
+-++---------------------------------------++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-&lt;p&gt;마지막으로 &lt;strong&gt;내부 인터럽트(Internal Interrupt)&lt;/strong&gt; 가 있다. 내부 인터럽트는 프로그램을 수행하는 도중에 발생하는 예외 상황을 처리한다. 대표적인 예로 0으로 나누는 동작이다. 프로그램의 내부에 &lt;code class=&quot;highlighter-rouge&quot;&gt;result = a / 0;&lt;/code&gt; 이와 같은 코드가 있을 때, CPU는 내부 인터럽트를 발생시켜 운영체제안에 있는 ISR로 이동한다. 이 경우에는 &lt;code class=&quot;highlighter-rouge&quot;&gt;DividedByZero&lt;/code&gt; 라는 ISR로 이동한다. 여기서 잘못된 동작을 수행한 프로그램을 강제로 종료시킨다.&lt;/p&gt;
+balance = 1000000
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;운영체제는 평소에는 대기 상태에 있으면서 인터럽트가 발생하는 순간 작업을 수행한다. 그 인터럽트의 종류에 따라 운영체제 내부에 위치한 ISR로 이동하여 그에 맞는 처리를 한다. 위에서 설명한 하드웨어 인터럽트 과정을 그림으로 간단히 표현하면 아래와 같다.&lt;/p&gt;
+&lt;p&gt;+는 입금을 한 경우, -는 출금을 한 경우이고, 주목할 점은 &lt;strong&gt;balance값이 0이 아닌&lt;/strong&gt; 1000000이라는 알 수 없는 값이 출력되었다. 약간의 시간 지연을 준 것만으로도 여러 쓰레드가 하나의 공유 자원을 사용하는 프로그램은 망가지게 된다. 이는 동기화 문제를 해결하지 못하였기 때문에 생기는 문제점이다. +, - 출력되는 결과는 운영체제에서 쓰레드를 스위칭하는 패턴이 매번 다르므로 수행할 때마다 다르게 출력될 수 있다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879653-5b9ca800-4052-11e9-8766-32d6902b5a43.png&quot; alt=&quot;os02-2&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;이러한 문제가 발생하는 원인은 &lt;strong&gt;공통변수(common variable)에 대한 동시 업데이트(concurrent update)&lt;/strong&gt; 때문이다.&lt;/p&gt;
 
-&lt;p&gt;사용자 애플리케이션을 실행하기 위해 하드웨어를 사용하는 모습이다. 애플리케이션이 실행하는 중에도 계속해서 인터럽트는 발생한다. 워드 작성 프로그램을 예를 들면 키보드로 글을 작성하는 경우, 하드디스크에 있는 파일을 불러오는 경우 모두 인터럽트가 발생한다. 그러므로 CPU는 &lt;strong&gt;애플리케이션과 운영체제 내부를 교대로 수행&lt;/strong&gt; 하는 모습을 볼 수 있다.&lt;/p&gt;
+&lt;p&gt;위 예제에서 공통 변수는 계좌의 잔액이다. 이에 접근하는 프로세스의 코드를 보면 다음과 같다.&lt;/p&gt;
 
-&lt;p&gt;정리하면, 인터럽트는 CPU에게 보내는 전기 신호로서 인터럽트가 발생하면 CPU는 하던 일을 중지하고 해당 인터럽트를 처리하기 위해 운영체제 내부에 있는 ISR로 이동하여 수행한다. 그리고 수행이 끝나면 원래 위치로 돌아간다. 인터럽트는 하드웨어 인터럽트, 소프트웨어 인터럽트, 내부 인터럽트로 총 세 가지가 존재한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-06</summary></entry><entry><title type="html">[운영체제] # 1 운영체제 서론</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-1%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%A1%A0/" rel="alternate" type="text/html" title="[운영체제] # 1 운영체제 서론" /><published>2019-03-06T21:09:00+09:00</published><updated>2019-03-06T21:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-1%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%20%EC%84%9C%EB%A1%A0</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-1%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%A1%A0/">&lt;h1 id=&quot;운영체제란&quot;&gt;운영체제란?&lt;/h1&gt;
-&lt;p&gt;운영체제(Operating System)는 사용자가 컴퓨터를 사용하기 위해 필요한 소프트웨어이다. 우리가 일반적으로 컴퓨터를 사용하면서 실행한 모든 프로그램들은 운영체제에서 관리하고 제어한다.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 입금&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 출금&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;대표적인 운영체제는 Windows, Linux, Mac OSX, iOS 등이 있다.&lt;/p&gt;
+&lt;p&gt;이는 자바 문법에서는 한 줄이라 문제가 없어 보이지만, 로우 레벨(어셈블리어)로 내려가면 여러 줄로 구현된다. 위 코드를 사용한 예제에서는 문제가 발생할 확률이 매우 낮았지만, 두 번째로 본 예제와 같이 공통변수에 접근하는 공간에서 조금만 시간 지연을 발생시켜도 비정상적인 결과값이 나온 것을 확인하였다.&lt;/p&gt;
 
-&lt;h2 id=&quot;운영체제-목적&quot;&gt;운영체제 목적&lt;/h2&gt;
-&lt;p&gt;운영체제를 사용하는 가장 주된 목적은 &lt;strong&gt;컴퓨터의 하드웨어를 관리&lt;/strong&gt; 하는 것이다. 컴퓨터에는 수 많은 하드웨어가 존재한다. CPU, 메모리, 디스크, 키보드, 마우스, 모니터, 네트워크 등이 있으며 이를 잘 관리해주어야 컴퓨터를 효율적으로 사용할 수 있다. 운영체제의 성능이 좋을수록 컴퓨터의 성능 역시 좋아진다고 할 수 있다.&lt;/p&gt;
+&lt;p&gt;해결 방법은 공통변수에 접근하는 쓰레드는 하나만 존재하도록 관리해야 한다. 이러한 공통변수 구역을 &lt;strong&gt;임계구역&lt;/strong&gt; 이라한다.&lt;/p&gt;
 
-&lt;p&gt;운영체제는 &lt;strong&gt;사용자에게 편의를 제공&lt;/strong&gt; 하는 목적도 가지고 있다. 운영체제가 없다면 위에서 말한 하드웨어에 관한 모든 관리를 사용자가 해야한다는 점과 같이 컴퓨터를 사용하는데 매우 불편함을 겪을 것이다. 하지만 현재 많은 발전을 거쳐온 운영체제가 설치된 컴퓨터는 사용하기에 매우 편리하다는 것을 느낄 수 있다. 대표적으로 스마트폰이 있다. 스마트폰 역시 컴퓨터의 일종이고 운영체제가 설치되어 있다. 그리고 스마트폰은 남녀노소 누구나 할 것 없이 사용법을 빠르게 익힐 수 있다.&lt;/p&gt;
+&lt;h1 id=&quot;임계구역critical-section-문제&quot;&gt;임계구역(Critical section) 문제&lt;/h1&gt;
+&lt;p&gt;임계구역은 여러 개의 쓰레드가 수행되는 시스템에서 각 쓰레드들이 &lt;strong&gt;공유하는 데이터(변수, 테이블, 파일 등)를 변경하는 코드 영역&lt;/strong&gt; 을 말한다. 이는 동기화에서 중요한 문제 중 하나이다.&lt;/p&gt;
 
-&lt;p&gt;정리하면 운영체제는 컴퓨터의 성능을 높이고(&lt;strong&gt;performance&lt;/strong&gt;), 사용자에게 편의성 제공(&lt;strong&gt;Convenience&lt;/strong&gt;)을 목적으로 하는 &lt;strong&gt;컴퓨터 하드웨어 관리하는 프로그램&lt;/strong&gt; 이다.&lt;/p&gt;
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;h1 id=&quot;부팅booting&quot;&gt;부팅(Booting)&lt;/h1&gt;
-&lt;p&gt;컴퓨터의 구조를 단순화하면 아래의 그림과 같다.&lt;/p&gt;
+&lt;p&gt;위 코드는 은행계좌 문제에서의 임계구역이다.&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879645-5a6b7b00-4052-11e9-84ad-25a4dc7c1306.png&quot; alt=&quot;os01-1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;Processor는 일반적으로 CPU를 말한다. main memory를 보면 ROM과 RAM으로 나누어져 있다.&lt;/p&gt;
+&lt;p&gt;임계구역을 해결하기 위해서는 3가지 조건이 만족해야한다.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;ROM: &lt;strong&gt;비휘발성&lt;/strong&gt; 으로 메모리에서 극히 일부를 차지한다.(수 KB)&lt;/li&gt;
-  &lt;li&gt;RAM: &lt;strong&gt;휘발성&lt;/strong&gt; 으로 메모리의 대부분을 차지하며 실제 프로그램이 할당되는 곳이다.(수 MB ~ 수 GB)&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Mutual exclusion(상호배타)&lt;/strong&gt;: 오직 한 쓰레드만이 진입 가능하다. 한 쓰레드가 임계구역에서 수행 중인 상태에서는 다른 쓰레드는 절대 이 구역에 접근할 수 없다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Progress(진행)&lt;/strong&gt;: 한 임계구역에 접근하는 쓰레드를 결정하는 것은 유한 시간 이내에 이루어져야한다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;Bounded waiting(유한대기)&lt;/strong&gt;: 임계구역으로 진입하기 위해 대기하는 모든 쓰레드는 유한 시간 이내에 해당 임계구역으로 진입할 수 있어야 한다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;ROM은 하드디스크와 같이 비휘발성으로 전원이 꺼져도 그 안의 내용이 계속 유지된다. RAM은 휘발성이므로 전원이 꺼지면 메모리안의 모든 내용이 지워진다.&lt;/p&gt;
-
-&lt;p&gt;컴퓨터의 전원이 켜지면 프로세서(CPU)에서 ROM에 있는 내용을 읽는다. ROM안에는 POST(Power-On Self-Test), 부트 로더(boot loader)가 저장되어 있다. POST는 전원이 켜지면 가장 처음에 실행되는 프로그램으로 현재 컴퓨터의 상태를 검사한다.  POST 작업이 끝나면 부트 로더가 실행된다. 부트 로더는 하드디스크에 저장되어 있는 운영체제를 찾아서 메인 메모리(RAM)에 가지고 온다. 이러한 부트 로더의 과정을 &lt;strong&gt;부팅&lt;/strong&gt; 이라고 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879648-5b041180-4052-11e9-9642-6bf80de33a3e.png&quot; alt=&quot;os01-2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 부트 로더가 진행하는 모습이다. 위와 같은 상태가 되면 운영체제가 수행할 준비를 마친 것이다. 운영체제가 종료하는 시점은 컴퓨터의 전원이 꺼지는 시점이다.&lt;/p&gt;
-
-&lt;p&gt;운영체제는 크게 &lt;strong&gt;커널(kernel)&lt;/strong&gt; 과 &lt;strong&gt;명령어 해석기(Command interpreter, shell)&lt;/strong&gt; 로 나뉜다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879650-5b041180-4052-11e9-8950-ca9cca586d82.png&quot; alt=&quot;os01-3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;커널은 말그대로 운영체제의 핵심으로 &lt;strong&gt;운영체제가 수행하는 모든 것&lt;/strong&gt; 이 저장되어있다. 명령어 해석기는 사용자가 &lt;strong&gt;커널(운영체제)에 요청하는 명령어를 해석하여 커널에 요청하고 그 결과를 출력&lt;/strong&gt; 한다. 사용자는 GUI(Graphical User Interface)나 CLI(Command Line Interface) 같은 방식으로 운영체제에 명령을 요청할 수 있는데, 예를 들어 현재 디렉토리의 파일 리스트 불러오기, 프로그램 실행하기, 디스크 용량 확인 등 다양하게 존재한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;운영체제의-위치&quot;&gt;운영체제의 위치&lt;/h1&gt;
-&lt;p&gt;&lt;strong&gt;사용자 프로그램(Application)&lt;/strong&gt; 은 특정 운영체제에 맞춰서 만든다. 그러므로 한 애플리케이션은 서로 다른 운영체제에서 수행할 수 없다.(하드웨어가 같은 것은 전혀 상관이 없다.) 예를 들면 Windows에서 수행하는 프로그램을 그대로 Linux에 옮기면 수행되지 않는다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879651-5b041180-4052-11e9-9b04-065091bd3199.png&quot; alt=&quot;os01-4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;애플리케이션은 위의 그림과 같이 운영체제 위에서 수행한다. 즉, 하드웨어 자원을 직접적으로 사용하지 않고 &lt;strong&gt;운영체제가 제공하는 자원만을 사용할 수 있다.&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;운영체제는 실제 세상의 정부(Goverment)와 유사하다. 정부가 하는 일은 다음과 같다.&lt;/p&gt;
+&lt;h2 id=&quot;프로세스쓰레드-동기화&quot;&gt;프로세스/쓰레드 동기화&lt;/h2&gt;
+&lt;p&gt;프로세스(쓰레드) 동기화를 통해 이루고자 하는 목적은 다음과 같다.&lt;/p&gt;
 &lt;ul&gt;
-  &lt;li&gt;국토, 인력, 예산과같은 자원이 존재하며 이를 효율적으로 사용해야한다.&lt;/li&gt;
-  &lt;li&gt;효율적인 자원 관리를 위해 행정부, 국토부, 교육부, 국방부 등 부서로 나눠 관리한다.&lt;/li&gt;
-  &lt;li&gt;각 부서들은 국민들에게 자원을 요청받고 적절히 배분한다.&lt;/li&gt;
+  &lt;li&gt;원하는 결과값을 도출하도록 &lt;strong&gt;임계구역 문제를 해결&lt;/strong&gt; 한다.&lt;/li&gt;
+  &lt;li&gt;프로세스의 &lt;strong&gt;실행 순서&lt;/strong&gt; 를 원하는대로 제어한다.&lt;/li&gt;
+  &lt;li&gt;Busy wait 등과 같은 비효율성을 제거한다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;운영체제가 하는 일은 다음과 같다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;프로세스, 메모리, 하드디스크 등 하드웨어 자원이 존재하고, 이를 효율적으로 사용해야한다.&lt;/li&gt;
-  &lt;li&gt;자원 관리를 위해 프로세스 관리, 메모리 관리, 디스크 관리, 네트워크, 보안 등 기능이 나눠져 있다.&lt;/li&gt;
-  &lt;li&gt;애플리케이션들의 요청에 따라 각 기능들이 수행하여 적절히 자원을 분배한다.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-06</summary></entry><entry><title type="html">[OS] 4장 운영체제 서비스</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-4%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4/" rel="alternate" type="text/html" title="[OS] 4장 운영체제 서비스" /><published>2019-03-06T00:00:00+09:00</published><updated>2019-03-06T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-4%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%20%EC%84%9C%EB%B9%84%EC%8A%A4</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-4%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4/">&lt;p&gt;운영체제의 주요 서비스는 하드웨어 자원을 각 사용자 애플리케이션에 적절히 분배해주는 것이다. 하드웨어 자원은 CPU, 메인 메모리, 하드디스크, 키보드, 마우스, 프린터 등이 존재한다. 이러한 하드웨어 자원을 사용자 애플리케이션이 요구하거나 운영체제 내의 규칙에 의해 적절히 분배하여 컴퓨터의 성능을 최대한 효율적으로 사용해야 한다.&lt;/p&gt;
+&lt;h1 id=&quot;semaphore세마포&quot;&gt;Semaphore(세마포)&lt;/h1&gt;
+&lt;p&gt;세마포는 동기화를 해결하기위 만들어진 소프트웨어로서, 대표적인 &lt;strong&gt;동기화 도구&lt;/strong&gt; 이다. 사전적 의미로는 역이나 군대에서 사용하는 수신호라는 뜻이다.&lt;/p&gt;
 
-&lt;p&gt;이를 실현하기 위해 운영체제 내에서는 각 하드웨어를 관리하는 기능을 다음과 같이 나눈다.&lt;/p&gt;
+&lt;p&gt;세마포는 두 가지 동작이 존재하는데, 초기에는 P, V로 불렸다.(네덜란드에서 만들어져 네덜란드어의 약자이다.) 현재에는 P는 test를 의미하며 &lt;strong&gt;acquire()&lt;/strong&gt; 로 사용하고, V는 increment를 의미하며 &lt;strong&gt;release()&lt;/strong&gt; 로 사용한다.&lt;/p&gt;
+
+&lt;p&gt;자바를 통해 세마포 구조를 간단히 살펴보면 아래와 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;Semaphore&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;      &lt;span class=&quot;c1&quot;&gt;// number of permits&lt;/span&gt;
+  &lt;span class=&quot;n&quot;&gt;Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;c1&quot;&gt;// ...&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;--;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;add&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;this&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;/&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;thread&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;to&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;block&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+    &lt;span class=&quot;n&quot;&gt;value&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;++;&lt;/span&gt;
+    &lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;value&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;remove&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;process&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;from&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;list&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+      &lt;span class=&quot;n&quot;&gt;wakeup&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;P&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+    &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 코드에서 &lt;code class=&quot;highlighter-rouge&quot;&gt;acquire()&lt;/code&gt; 는 value값을 감소시키고 만약 value값이 0보다 작으면 이미 해당 임계구역에 어느 프로세스가 존재한다는 의미이므로 현재 프로세스는 접근하지 못하도록 막아야한다. 이를 list라는 기다리는 줄에 추가한 뒤 block을 걸어준다.(list는 일반적으로 큐로 되어있다.)&lt;/p&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;release()&lt;/code&gt; 는 value값을 증가시키고, 만약 value값이 0보다 같거나 작으면 임계구역에 진입하려고 대기하는 프로세스가 list에 남아있다는 의미이므로 그 중에서 하나를 꺼내어 임계구역을 수행할 수 있도록 해주어야 한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879679-5f302f00-4052-11e9-947a-5b048da2ea82.png&quot; alt=&quot;os08-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;세마포를 그림으로 나타내면 위와 같다. list는 실제로 &lt;strong&gt;큐&lt;/strong&gt; 로 볼 수 있다. acquire()에 의해 block되는 프로세스는 세마포 내부에 있는 큐에 삽입된 후, 다른 프로세스가 임계구역을 나오면서 release()를 호출하여 세마포 큐에 있는 프로세스를 깨워주어야 한다.(다시 ready queue로 보낸다.)&lt;/p&gt;
+
+&lt;p&gt;위에서 살펴본 것처럼 세마포는 일반적으로 &lt;strong&gt;Mutual exclusion&lt;/strong&gt; 을 위해 사용된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;bank-account-problem은행-계좌-문제-1&quot;&gt;Bank Account Problem(은행 계좌 문제)&lt;/h3&gt;
+&lt;p&gt;처음에 살펴본 은행계좌 문제에 세마포를 적용해보자. 위에서 임계구역은 &lt;code class=&quot;highlighter-rouge&quot;&gt;BankAccount&lt;/code&gt; 클래스 내부의 입출력하는 부분인 것을 보았다. 여기에 세마포를 적용해보면 아래와 같다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.concurrent.Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// 세마포를 사용하기 위해 파일 가장 위에 추가해야 한다.&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BankAccount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+	&lt;span class=&quot;n&quot;&gt;Semaphore&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;BankAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// BankAccount 클래스의 생성자가 호출되면 세마포를 만든다.&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// value 값을 1로 초기화한다.&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 임계구역에 들어가기를 요청한다.&lt;/span&gt;
+		&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+    &lt;span class=&quot;cm&quot;&gt;/* 임계 구역 */&lt;/span&gt;  
+		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 임계구역에서 나간다.&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+		&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+    &lt;span class=&quot;cm&quot;&gt;/* 임계 구역 */&lt;/span&gt;  
+		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getBalance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;value&lt;/code&gt; 값은 임계구역에 몇 개의 프로세스를 접근할 것인지 정하는 것과 같다. 지금은 임계 구역에 하나의 프로세스만 접근가능하기 때문에 1로 초기화 한다.(위 코드를 제외한 부분은 동일하다.) 이 코드를 수행하면 아래와 같은 결과가 나온다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;// +,- 출력 생략
+balance = 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;정상적으로 잔액이 0원이 나온 것을 확인할 수 있다. 이 코드는 임계구역의 문제를 해결하였으므로 몇 번을 수행하여도 같은 결과값이 출력된다.&lt;/p&gt;
+
+&lt;h3 id=&quot;ordering&quot;&gt;Ordering&lt;/h3&gt;
+&lt;p&gt;세마포는 mutual exclusion뿐 아니라 ordering을 하기 위해서도 사용한다. 즉, &lt;strong&gt;프로세스의 실행 순서를 원하는 순서로 설정&lt;/strong&gt; 할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 프로세스가 P1, P2 두 개가 있다고 가정하자. 원하는 순서는 P1, P2 순으로 실행하기를 원한다. 그러면 아래와 같이 설정해줄 수 있다.&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;프로세스 관리&lt;/li&gt;
-  &lt;li&gt;주기억장치 관리&lt;/li&gt;
-  &lt;li&gt;파일 관리&lt;/li&gt;
-  &lt;li&gt;보조기억장치 관리&lt;/li&gt;
-  &lt;li&gt;입출력 장치 관리&lt;/li&gt;
-  &lt;li&gt;네트워킹&lt;/li&gt;
-  &lt;li&gt;보호&lt;/li&gt;
-  &lt;li&gt;기타…&lt;/li&gt;
+  &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sem value = 0;&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;프로세스-관리process-management&quot;&gt;프로세스 관리(Process management)&lt;/h2&gt;
-&lt;p&gt;프로세스 관리는 운영체제 기능 중 가장 중요한 기능 중 하나이다. 프로세스와 프로그램은 기본적으로 구분된다. 프로세스는 실제 메인 메모리에서 &lt;strong&gt;실행 중인 프로그램(program in execution)&lt;/strong&gt; 을 말한다. 프로그램은 하드디스크와 같은 보조기억장치에서 &lt;strong&gt;아무런 동작을 하지 않는 상태&lt;/strong&gt; 이다. 이를 어떠한 요청에 의해 메인 메모리에 할당하여 CPU를 사용하면서 실행하게 되는데 이를 프로세스라 부른다.&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;P1&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;P2&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;sem.acquire()&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Section1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;Section2&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;sem.release()&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt; &lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
 
-&lt;p&gt;프로세스 관리의 주요 기능은 다음과 같다.&lt;/p&gt;
+&lt;p&gt;먼저, 세마포로 감싼 구역에 들어갈 수 있는 프로세스 개수를 정하는 value값을 0으로 설정한다.&lt;/p&gt;
+&lt;ol&gt;
+  &lt;li&gt;P1이 먼저 실행된 경우
+    &lt;ul&gt;
+      &lt;li&gt;Section1에 이전에 아무런 동작이 없으므로 바로 수행한다.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sem.release()&lt;/code&gt; 를 만나면 value값을 1 증가시키고, 세마포 큐에 있는 프로세스를 깨워주는데 현재에는 큐에 프로세스가 없으므로 아무 동작도 하지 않는다.&lt;/li&gt;
+      &lt;li&gt;P2가 실행된다.&lt;/li&gt;
+      &lt;li&gt;P2의 &lt;code class=&quot;highlighter-rouge&quot;&gt;sem.acquire()&lt;/code&gt; 를 만나면 현재 value값은 1이고 이를 1감소시키면 0이 된다. value = 0이면 block을 하지 않으므로, 무사히 Section2가 수행된다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;P2가 먼저 실행된 경우
+    &lt;ul&gt;
+      &lt;li&gt;Section2 이전에 &lt;code class=&quot;highlighter-rouge&quot;&gt;sem.acquire()&lt;/code&gt; 가 있으므로 이를 수행하는데, 현재 value값은 0이고 이를 1 감소 시키면 -1이된다. value값이 음수면 해당 프로세스를 block시킨다.(세마포 큐에 삽입한다.)&lt;/li&gt;
+      &lt;li&gt;P1이 실행되면 Section1이 바로 수행된다.&lt;/li&gt;
+      &lt;li&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;sem.release()&lt;/code&gt; 를 만나면 value값을 1증가시키고, 세마포 큐에 있는 P2 프로세스를 깨워준다.(현재 value = 0)&lt;/li&gt;
+      &lt;li&gt;P2의 Section2가 수행된다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;위에서 두 가지 경우를 살펴보았듯이, P1, P2 둘 중 어느 것을 먼저 실행하여도 결과적으로 P1 -&amp;gt; P2 순서로 수행하는 것을 알 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;입금-출금-순서로-은행계좌-문제-해결하기&quot;&gt;입금 출금 순서로 은행계좌 문제 해결하기&lt;/h2&gt;
+&lt;p&gt;위에서 계속 살펴봤던 은행계좌 문제에서 ordering을 적용해보자. 프로세스의 실행 순서는 반드시 입금, 출금 순서로 수행해야한다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;BankAccount&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+	&lt;span class=&quot;n&quot;&gt;Semaphore&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;semOrder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;BankAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;semOrder&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// Ordeing을 위한 세마포&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+		&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;semOrder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// block된 출금 프로세스가 있다면 깨워준다.&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;semOrder&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 출금을 먼저하려고 하면 block한다.&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+		&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getBalance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위처럼 코드를 수정할 수 있다. Ordering을 위한 &lt;code class=&quot;highlighter-rouge&quot;&gt;semOrder&lt;/code&gt; 세마포 변수를 선언하고, 출금하는 동작 앞에 &lt;code class=&quot;highlighter-rouge&quot;&gt;acquire()&lt;/code&gt;, 입금하는 동작 뒤에 &lt;code class=&quot;highlighter-rouge&quot;&gt;release()&lt;/code&gt; 를 추가하였다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+++++++++++++++++++++++++------------+++++-----++++++++++++++++++++++++++++++++
++++++++++++++++++++++++++++++++++++++------------------------------------------
+----------------------------------------
+balance = 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;실행 결과는 위와 같다. +(입금)가 맨 앞에서 실행한 모습을 볼 수 있다.(입금, 출금 횟수는 100번으로 줄였다.)&lt;/p&gt;
+
+&lt;p&gt;만약, 입금, 출금, 입금, 출금, … 교대로 출력하도록 하려면 세마포를 두 개 사용하여 아래와 같이 구현할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;Semaphore&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;semDeposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;semWithraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;BankAccount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;semDeposit&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;semWithraw&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;new&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;Semaphore&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;deposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;+&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;semWithraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;semDeposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 입금후에는 반드시 출금을 해야 하므로 자신을 block한다.&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;withdraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;try&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;semWithraw&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// 입금보다 먼저 수행하는 것을 막는다.&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;acquire&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;catch&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;InterruptedException&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;e&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{}&lt;/span&gt;
+	&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;amount&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;print&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;-&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;temp&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;sem&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;
+	&lt;span class=&quot;n&quot;&gt;semDeposit&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;release&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;();&lt;/span&gt;  &lt;span class=&quot;c1&quot;&gt;// 출금 수행이 완료되면 block되었던 입금 프로세스를 깨워준다.&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;getBalance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;balance&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
++-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-
+balance = 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-06</summary></entry><entry><title type="html">[운영체제] # 6 CPU 스케줄링</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-6%EC%9E%A5-CPU%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/" rel="alternate" type="text/html" title="[운영체제] # 6 CPU 스케줄링" /><published>2019-03-07T02:09:00+09:00</published><updated>2019-03-07T02:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-6%EC%9E%A5-CPU%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-6%EC%9E%A5-CPU%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/">&lt;p&gt;CPU가 하나의 프로세스 작업이 끝나면 다음 프로세스 작업을 수행해야 한다. 이때 다음 프로세스가 어느 프로세스인지를 선택하는 알고리즘을 &lt;strong&gt;CPU Scheduling&lt;/strong&gt; 알고리즘이라고 한다. 간단히 생각해보면 먼저 온 프로세스가 먼저 실행되는 것이 가장 좋을 것이라 생각할 수 있다. 하지만 여러 상황에서 사용되는 컴퓨터 환경에서 꼭 이러한 방법이 좋다고 할 수 없다.(단순한 환경에서도 이 방법이 반드시 빠른 것도 아니다.) 그러므로 CPU 스케줄링에는 여러가지 방법이 존재한다.&lt;/p&gt;
+
+&lt;h1 id=&quot;preemptive-vs-non-preemptive&quot;&gt;Preemptive VS Non-preemptive&lt;/h1&gt;
+&lt;h2 id=&quot;preemptive&quot;&gt;Preemptive&lt;/h2&gt;
+&lt;p&gt;Preemptive(선점)은 프로세스가 CPU를 점유하고 있는 동안 I/O나 인터럽트가 발생한 것도 아니고 모든 작업을 끝내지도 않았는데, 다른 프로세스가 해당 &lt;strong&gt;CPU를 강제로 점유&lt;/strong&gt; 할 수 있다. 즉, 프로세스가 정상적으로 수행중인 가운데 다른 프로세스가 CPU를 강제로 점유하여 실행할 수 있는 것이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;non-preemptive&quot;&gt;Non-preemptive&lt;/h2&gt;
+&lt;p&gt;Non-preemptive(비선점)은 말 그대로 preemptive와 반대이다. 한 프로세스가 한 번 CPU를 점유했다면, I/O나 인터럽트 발생 또는 프로세스 종료가 될 때까지 다른 프로세스가 CPU를 점유하지 못하는 것이다.&lt;/p&gt;
+
+&lt;h1 id=&quot;scheduling-criteria&quot;&gt;Scheduling criteria&lt;/h1&gt;
+&lt;p&gt;Scheduling criteria(척도)는 스케줄링의 효율을 분석하는 기준들이다.&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;프로세스의 생성과 소멸(creation, deletion)&lt;/li&gt;
-  &lt;li&gt;프로세스 활동 일시 중지, 활동 재게(suspend, resume)&lt;/li&gt;
-  &lt;li&gt;프로세스간 통신(interprocess communication: IPC)&lt;/li&gt;
-  &lt;li&gt;프로세스간 동기화(synchronization)&lt;/li&gt;
-  &lt;li&gt;교착상태 처리(deadlock handling)&lt;/li&gt;
+  &lt;li&gt;CPU Utilization(이용률, %): CPU가 수행되는 비율&lt;/li&gt;
+  &lt;li&gt;Throughput(처리율, jobs/sec): 단위시간당 처리하는 작업의 수(처리량)&lt;/li&gt;
+  &lt;li&gt;Turnaround time(반환시간): 프로세스의 처음 시작 시간부터 모든 작업을 끝내고 종료하는데 걸린 시간이다.(CPU, waiting, I/O 등 모든 시간을 포함한다.) 반환시간은 짧을 수록 좋다.&lt;/li&gt;
+  &lt;li&gt;Waiting time(대기시간): CPU를 점유하기 위해서 ready queue에서 기다린 시간을 말한다.(다른 큐에서 대기한 시간은 제외한다.)&lt;/li&gt;
+  &lt;li&gt;Response time(응답시간): 일반적으로 대화형 시스템에서 입력에 대한 반응 시간을 말한다.&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;주기억장치-관리main-memory-management&quot;&gt;주기억장치 관리(Main memory management)&lt;/h2&gt;
-&lt;p&gt;주기억장치 즉, 메인 메모리는 프로그램이 실행되기 위한 공간이다. CPU는 오직 메인 메모리에 있는 프로그램(프로세스)하고만 소통할 수 있다. 주기억장치 관리에서는 메인 메모리를 효율적으로 사용하도록 관리한다.&lt;/p&gt;
+&lt;h1 id=&quot;cpu-scheduling-algorithms&quot;&gt;CPU Scheduling Algorithms&lt;/h1&gt;
+&lt;h2 id=&quot;first-come-first-servedfcfs&quot;&gt;First-Come, First-Served(FCFS)&lt;/h2&gt;
+&lt;p&gt;FCFS는 먼저 온 프로세스가 먼저 CPU를 점유하는 방식이다. 이는 매우 단순하고 많이 사용하는 방법이지만, 모든 부분에서 효율적인 것은 아니다.&lt;/p&gt;
+
+&lt;h3 id=&quot;gantt-chart&quot;&gt;Gantt Chart&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Burst Time(msec)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P3&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879661-5d666b80-4052-11e9-8453-bad918a563ef.png&quot; alt=&quot;os06-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;첫 번째 표는 3개의 프로세스와 각 프로세스가 CPU를 사용한 시간(burst time)을 나타낸다. 이를 간트 차트로 표현하면 표 아래의 그림과 같다.(도착시간은 모두 0초라고 가정한다.) 평균 대기시간을 계산하면 아래와 같다.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;프로세스에게 메모리 공간 할당(allocation)&lt;/li&gt;
-  &lt;li&gt;메모리의 어느 부분이 어느 프로세스에게 할당되었는가 추적 및 감시&lt;/li&gt;
-  &lt;li&gt;프로세스 종료 시 메모리 회수(deallocation)&lt;/li&gt;
-  &lt;li&gt;메모리의 효과적 사용&lt;/li&gt;
-  &lt;li&gt;가상 메모리: 물리적 실제 메모리보다 큰 용량을 사용할 수 있다.&lt;/li&gt;
+  &lt;li&gt;Average Waiting Time = $\frac{0 + 24 + 27}{3} = 17msec$&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;파일-관리file-management&quot;&gt;파일 관리(File management)&lt;/h2&gt;
-&lt;p&gt;Track과 sector로 물리적으로 구성된 디스크를 파일이라는 논리적 관점으로 바라보고 이를 관리하는 것이다.
-파일은 OS가 실행되는 컴퓨터에서 자주 볼 수 있는데, 이는 복잡한 과정으로 하드디스크에 저장되어 있는 것을 사용자가 편리하게 사용할 수 있도록 &lt;strong&gt;파일&lt;/strong&gt; 이라는 논리적 형태로 운영체제에서 관리하여 보여준다.&lt;/p&gt;
+&lt;p&gt;만약, 프로세스가 들어온 순서가 &lt;code class=&quot;highlighter-rouge&quot;&gt;P3, P2, P1&lt;/code&gt; 이라면 간트 차트는 아래 그림과 같이 바뀔 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879665-5d666b80-4052-11e9-8ad5-8639b73b13ac.png&quot; alt=&quot;os06-2&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;파일의 생성과 삭제(file creation, deletion)&lt;/li&gt;
-  &lt;li&gt;디렉토리(Directory)의 생성과 삭제&lt;/li&gt;
-  &lt;li&gt;기본 동작 지원: open, close, read, write, create, delete&lt;/li&gt;
-  &lt;li&gt;Track/sector - file 간의 매핑(mapping)&lt;/li&gt;
-  &lt;li&gt;백업(Backup)&lt;/li&gt;
+  &lt;li&gt;Average Waiting Time = $\frac{6 + 3 + 0}{3} = 3msec$&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;보조기억장치-관리secondary-storage-management&quot;&gt;보조기억장치 관리(Secondary storage management)&lt;/h2&gt;
-&lt;p&gt;보조기억장치는 대표적으로 하드 디스크, 플래시 메모리(주로 스마트폰에 사용)가 있다. 하드 디스크를 예로 들면, 하드 디스크에서 아무 것도 저장되어 있지 않는 공간을 block이라 하는데, 보조기억장치 관리는 이를 관리하는 것이다.&lt;/p&gt;
+&lt;p&gt;두 예제에서 모든 프로세스가 끝난 시간은 30msec로 같지만, 평균 대기시간으로 봤을 때는 위의 예제는 17msec이고 아래는 3msec로 차이가 난다. 즉, 들어온 순서로 수행한다고 해도 반드시 효율적인 것은 아닌 것을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;위 예제처럼 &lt;code class=&quot;highlighter-rouge&quot;&gt;P1, P2, P3&lt;/code&gt; 순서로 들어온 것을 &lt;strong&gt;Convoy Effect&lt;/strong&gt; 라고 한다. 이는 CPU 시간을 오래 사용하는 프로세스가 먼저 수행하는 동안 나머지 프로세스들은 그 만큼 오래 기다리는 것을 말한다. P1이 수행되는 동안 P2, P3는 오래 기다려야 하는 예제에서 이를 볼 수 있다. 이는 FCFS의 단점 중 하나이다. 그리고 FCFS는 &lt;strong&gt;Non-preemptive&lt;/strong&gt; 이다. 하나의 프로세스가 끝나기 전에는 다른 프로세스가 중간에 끼어들 수 없다.&lt;/p&gt;
+
+&lt;h2 id=&quot;shortest-job-firstsjf&quot;&gt;Shortest-Job-First(SJF)&lt;/h2&gt;
+&lt;p&gt;SJF는 이름에서도 나타나듯이 가장 짧게 수행되는 프로세스가 가장 먼저 수행되는 것을 말한다. FCFS에서 보았듯이 수행 시간이 짧은 프로세스가 먼저 오는 것이 평균 대기시간이 짧은 것을 알 수 있었다. 이를 이용한 것이 SJF이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;gantt-chart-1&quot;&gt;Gantt Chart&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Burst Time(msec)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;6&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P3&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;7&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P4&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879666-5d666b80-4052-11e9-93c2-86b725588403.png&quot; alt=&quot;os06-3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 간트 차트는 SJF를 사용하여 나타낸 것이다. 여기서 평균 대기시간을 계산하면 다음과 같다.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;빈 공간 관리(Free space management)&lt;/li&gt;
-  &lt;li&gt;저장공간 할당(Storage allocation)&lt;/li&gt;
-  &lt;li&gt;디스크 스케줄링(Disk scheduling)&lt;/li&gt;
+  &lt;li&gt;Average Waiting Time(AWT) = $\frac{3 + 16 + 9 + 0}{4} = 7msec$&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;입출력-장치-관리io-device-management&quot;&gt;입출력 장치 관리(I/O device management)&lt;/h2&gt;
-&lt;p&gt;입출력 장치에는 키보드, 마우스, 프린터, 스피커, 마이크 등이 있다. 입출력 장치 관리는 이와 같은 여러 입출력 장치를 사용하기 위해 존재한다.&lt;/p&gt;
+&lt;p&gt;위 표를 FCFS를 사용해서 간트 차트를 나타내보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879667-5d666b80-4052-11e9-8cd4-066aefcf3047.png&quot; alt=&quot;os06-4&quot; /&gt;&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;장치 드라이브(Device drivers)&lt;/li&gt;
-  &lt;li&gt;입출력 장치의 성능향상: buffering, caching, spooling&lt;/li&gt;
+  &lt;li&gt;Average Waiting Time(AWT) = $\frac{0 + 6 + 14 + 21}{4} = 10.25msec$&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;h2 id=&quot;시스템-콜system-call&quot;&gt;시스템 콜(System call)&lt;/h2&gt;
-&lt;p&gt;시스템 콜은 &lt;strong&gt;유저 프로세스에서 운영체제 서비스를 필요로 할 때&lt;/strong&gt; 이를 받기 위해 사용하는 호출이다.&lt;/p&gt;
+&lt;p&gt;SJF와 FCFS의 평균 대기시간을 살펴보면 SJF가 더 짧은 것을 볼 수 있다. SJF가 평균 대기시간 기준으로 어떠한 방법보다 짧은 것은 이미 수학적으로 증명되어 있다. 그러므로 어떠한 예제를 보더라도 &lt;strong&gt;SJF가 AWT는 가장 짧다.&lt;/strong&gt;&lt;/p&gt;
 
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879657-5c353e80-4052-11e9-827d-751cc9dcc0f1.png&quot; alt=&quot;os04-1&quot; /&gt;&lt;/p&gt;
+&lt;p&gt;이를 보면 SJF가 가장 효율적인 CPU 스케줄링 방법으로 이를 쓰면 될 것 같지만, 사실은 이 스케줄링 방법은 매우 &lt;strong&gt;비현실적&lt;/strong&gt; 이다. 왜냐하면 현실적인 컴퓨터 환경에서는 프로세스의 CPU 점유 시간(burst time)을 알 수 없다. 왜냐하면 한 프로세스가 실행 중에는 많은 변수가 존재하기 때문에 CPU 점유 시간을 알려면 실제로 수행하여 측정하는 수 밖에 없다. 실제 측정한 시간으로 예측해서 SJF를 사용할 수도 있지만, 이는 오버헤드가 매우 큰 작업으로 잘 사용되지 않는다.&lt;/p&gt;
 
-&lt;p&gt;위는 process1에서 프로세스 관리에 시스템 콜을 요청한 모습이다. 프로세스가 실행하는 중간에 운영체제 서비스가 필요하면 시스템 콜을 통해 운영체제 안의 해당 코드로 점프할 수 있다.&lt;/p&gt;
+&lt;p&gt;SJF는 &lt;strong&gt;preemptive와 non-preemptive 둘 다 사용가능&lt;/strong&gt; 하다. 먼저, 아래의 표를 보자.&lt;/p&gt;
 
-&lt;h3 id=&quot;주요-시스템-콜&quot;&gt;주요 시스템 콜&lt;/h3&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Arrival Time&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Burst Time(msec)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;8&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P3&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P4&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;기존의 예제와 달리 도착시간(arrival time)이 추가되었다. 첫 번째로 non-preemptive의 간트 차트를 보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879668-5dff0200-4052-11e9-8457-722778ab759d.png&quot; alt=&quot;os06-5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;가장 먼저 도착한 P1이 수행되는 동안 P2, P3, P4 모두 도착하지만, non-preemptive이므로 이미 수행중인 프로세스가 끝날 때까지 기다려야 한다.&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;Process: end(정상 종료), abort(강제 종료), load, execute, create, terminate, get/set, attributes, wait event, signal event&lt;/li&gt;
-  &lt;li&gt;Memory: allocate, free&lt;/li&gt;
-  &lt;li&gt;File: create, delete, open, close, read, write, get/set attributes&lt;/li&gt;
-  &lt;li&gt;Device: request, release, read, write, get/set attributes, attach/detach devices&lt;/li&gt;
-  &lt;li&gt;information: get/set time, get/set system data&lt;/li&gt;
-  &lt;li&gt;Communication: socket, send, receive&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry><entry><title type="html">[OS] 5장 프로세스 관리</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-5%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EA%B4%80%EB%A6%AC/" rel="alternate" type="text/html" title="[OS] 5장 프로세스 관리" /><published>2019-03-06T00:00:00+09:00</published><updated>2019-03-06T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-5%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EA%B4%80%EB%A6%AC</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-5%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EA%B4%80%EB%A6%AC/">&lt;h2 id=&quot;프로세스process&quot;&gt;프로세스(Process)&lt;/h2&gt;
+  &lt;li&gt;Average Waiting Time(AWT) = $\frac{0 + 7 + 15 + 9}{4} = 7.75msec$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;두 번째는 preemptive SJF를 살펴보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879669-5dff0200-4052-11e9-958b-44b24d756563.png&quot; alt=&quot;os06-6&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;이번에는 preemptive이므로 프로세스가 도착할 때마다, 어느 프로세스가 가장 짧은 것인지 선택해야 한다. 주목할 점은 P2 프로세스가 도착했을 때, &lt;strong&gt;현재 남은 burst time 중 가장 짧은 프로세스&lt;/strong&gt; 가 P2이므로 P1을 수행하던 것을 멈추고 P2가 수행을 시작한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Average Waiting Time(AWT) = $\frac{9 + 0 + 15 + 2}{4} = 6.5msec$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Preemptive SJF는 예제에서 살펴보았듯이 현재 남아있는 시간 중 가장 짧은 프로세스를 선택하므로 Shortest-Remaining-Time-First(최소잔여시간 우선) 이라 불리기도 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;priority&quot;&gt;Priority&lt;/h2&gt;
+&lt;p&gt;Priority 스케줄링은 말그대로 &lt;strong&gt;우선순위가 높은&lt;/strong&gt; 프로세스가 먼저 선택되는 스케줄링 알고리즘이다. 운영체제에서 일반적으로 우선순위는 정수값으로 나타내며, 작은 값이 우선순위가 높다.(Unix/Linux 기준)&lt;/p&gt;
+
+&lt;h3 id=&quot;gantt-chart-2&quot;&gt;Gantt Chart&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Burst Time(msec)&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Priority&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;10&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P3&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P4&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879671-5e979880-4052-11e9-84d3-524270cdc920.png&quot; alt=&quot;os06-7&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;표에서 우선순위 값이 가장 낮은 순서대로 수행한 모습을 간트 차트로 나타내었다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Average Waiting Time(AWT) = $\frac{6 + 0 + 16 + 18 + 1}{5} = 8.2msec$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;우선순위를 정하는 방법은 크게 내부적인 요소와 외부적인 요소 두 가지로 나뉜다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Internal: time limit, memory requirement, I/O to CPU burst(I/O작업은 길고, CPU 작업은 짧은 프로세스 우선) 등&lt;/li&gt;
+  &lt;li&gt;External: amount of funds being paid, political factors 등&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Priority 스케줄링 역시 preemprive 와 non-preemptive 두 방식 모두 사용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;Priority 스케줄링의 문제점은 &lt;strong&gt;Starvation(기아)&lt;/strong&gt; 이 있다. Starvation은 말 그대로 CPU의 점유를 오랫동안 하지 못하는 현상을 말한다. Priority 스케줄링 방식에서 우선순위가 매우 낮은 프로세스가 ready queue에서 대기하고 있다고 가정해보자. 이 프로세스는 아무리 오래 기다려도 CPU를 점유하지 못할 가능성이 매우 크다. 실제 컴퓨터 환경에서는 새로운 프로세스가 자주 ready queue에 들어온다. 이러한 프로세스가 모두 우선순위가 높은 상태라면 이미 기다리고 있던 우선순위가 낮은 프로세스는 하염없이 기다리고만 있는 상태로 남아있을 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이를 해결하는 방법 중 하나는 &lt;strong&gt;aging&lt;/strong&gt; 이 있다. 이 방식은 ready queue에서 기다리는 동안 일정 시간이 지나면 우선순위를 일정량 높여주는 것이다. 그러면 우선순위가 매우 낮은 프로세스라 하더라도, 기다리는 시간이 길어질수록 우선순위도 계속 높아지므로 수행될 가능성이 커진다.&lt;/p&gt;
+
+&lt;h2 id=&quot;round-robinrr&quot;&gt;Round-Robin(RR)&lt;/h2&gt;
+&lt;p&gt;Round-Robin은 원 모양으로 모든 프로세스가 돌아가며 스케줄링하는 것을 말한다. 이는 시분할 시스템에서 주로 사용하는 방식이다. 일정 시간을 정하여 하나의 프로세스가 이 시간동안 수행하고 다시 대기 상태로 돌아간다. 그리고 다음 프로세스가 역시 같은 시간동안 수행한 후 대기한다. 이러한 작업을 모든 프로세스가 돌아가면서 하며, 마지막 프로세스가 끝나면 다시 처음 프로세스로 돌아와서 반복한다.&lt;/p&gt;
+
+&lt;p&gt;위에서 말한 일정 시간을 &lt;strong&gt;Time Quantum(Time Slice)&lt;/strong&gt; 이라 부른다. Time Quantum은 일반적으로 10 ~ 100msec 사이의 범위를 갖는다. Round-Robin은 기본적으로 &lt;strong&gt;preemptive&lt;/strong&gt; 이다. 한 프로세스가 종료되기 전에 time quantum이 끝나면 다른 프로세스로 CPU를 넘겨주기 때문이다.&lt;/p&gt;
+
+&lt;h3 id=&quot;gantt-chart-3&quot;&gt;Gantt Chart&lt;/h3&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Process&lt;/th&gt;
+      &lt;th style=&quot;text-align: center&quot;&gt;Burst Time(msec)&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P1&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;24&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P2&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;P3&lt;/td&gt;
+      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Time Quantum = 4msec&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879672-5e979880-4052-11e9-8aa0-8170f10da210.png&quot; alt=&quot;os06-8&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;Round-Robin 방식에서는 time quantum이 끝나면 CPU는 현재 프로세스를 대기상태로 보내고 다음 프로세스를 수행한다. 예제에서 P1이 0msec에 수행을 시작하여 종료되기 전에 time quantum 시간이 끝나여 P2가 수행되는 모습을 볼 수 있다. 그리고 P2, P3는 time quantum이 끝나기전에 수행이 끝났고, 마지막 남은 P1은 다른 프로세스가 없으므로 time quantum이 끝나더라도 종료될 때까지 계속해서 수행하는 모습이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Average Waiting Time(AWT) = $\frac{6 + 4 + 7}{3} = 5.66msec$&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;RR방식은 time quantum 크기에 따라 AWT와 같은 스케줄링 척도가 바뀐다. 그러므로 RR 방식은 &lt;strong&gt;time quantum에 매우 의존적&lt;/strong&gt; 인 것을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;만약 time quantum 크기가 무한에 가깝게 설정한다면 FCFS와 동일하게 동작한다. 반대로 time quantum 크기를 0에 가깝게 설정하면 switching overhead가 매우 증가하여 비효율적이다. 결과적으로 time quantum 은 적당한 크기로 설정해주어야 하는데, 일반적으로 위에서 말했듯이 10 ~ 100msec 으로 정한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;multilevel-queue&quot;&gt;Multilevel Queue&lt;/h2&gt;
+&lt;p&gt;Multilevel Queue를 살펴보기 전에 프로세스 그룹에 대해 살펴보자. 프로세스는 기준에 따라 여러 그룹으로 나눌 수 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;System processes: 운영체제 커널 수준의 프로세스&lt;/li&gt;
+  &lt;li&gt;Interactive processes: 유저 수준의 대화형 프로세스&lt;/li&gt;
+  &lt;li&gt;Interactive editing processes&lt;/li&gt;
+  &lt;li&gt;Batch processes: 대화형 프로세스의 반대인 것으로 일정량을 한 번에 처리하는 프로세스(Ex, 컴파일러)&lt;/li&gt;
+  &lt;li&gt;Student processes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위와 같이 여러 성격에 따라 프로세스 그룹을 나눌 수 있는데 이를 하나의 큐에 사용하는 것은 비효율적이라고 판단하였다. 그래서 각 그룹에 따라 큐를 두어 여러 개의 큐를 사용하는 것이 Muitilevel Queue 방식이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879673-5e979880-4052-11e9-9f9b-e8bfec7c9be6.png&quot; alt=&quot;os06-9&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 각 그룹에 따라 큐를 나눈 것이다. 그리고 각 큐마다 다른 규칙을 지정할 수도 있다.&lt;/p&gt;
+
+&lt;p&gt;먼저, &lt;strong&gt;큐마다 우선순위를 지정해줄 수 있다.&lt;/strong&gt; 프로세스 그룹을 보면 System process는 커널 수준에서 중요한 작업이므로 우선순위가 높은 그룹이라 볼 수 있다. 위 그림에서 System process, Interactive process, Batch process 순으로 우선순위가 높은 순서이다. Batch 프로세스는 운영체제의 개입이 매우 적으므로 우선순위가 가장 낮다고 볼 수 있다.&lt;/p&gt;
+
+&lt;p&gt;위의 방식 이외에도 큐에 따라 여러 기준을 둘 수 있다. 큐마다 CPU 시간을 다르게 줄 수도 있고, 큐마다 다른 스케줄링 방식을 사용할 수도 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;multilevel-feedback-queue&quot;&gt;Multilevel Feedback Queue&lt;/h2&gt;
+&lt;p&gt;Multilevel Feedback Queue도 Multilevel Queue와 같이 여러 개의 큐를 사용한다는 점에서 유사하다. 먼저, 그림을 통해 살펴보자.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879675-5f302f00-4052-11e9-86a2-c02ee03bac64.png&quot; alt=&quot;os06-10&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림을 보면 먼저 모든 프로세스는 가장 위의 큐에서 CPU의 점유를 대기한다. 이 상태로 진행하다가 이 큐에서 기다리는 시간이 너무 오래 걸린다면 &lt;strong&gt;아래의 큐로 프로세스를 옮긴다.&lt;/strong&gt; 이와 같은 방식으로 대기 시간을 조정할 수 있다. 그리고 Multilevel Feedback Queue에서도 각 큐마다 다른 스케줄링, 다른 우선순위 등을 사용할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;만약 우선순위순으로 큐를 사용하는 상황에서 우선순위가 낮은 아래의 큐에 있는 프로세스에서 starvation 상태가 발생하면 이를 우선순위가 높은 위의 큐로 옮길 수도 있다.&lt;/p&gt;
+
+&lt;p&gt;대부분의 상용 운영체제는 여러 개의 큐를 사용하고 각 큐마다 다른 스케줄링 방식을 사용한다. 프로세스의 성격에 맞는 스케줄링 방식을 사용하여 최대한 효율을 높일 수 있는 방법을 선택한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-06</summary></entry><entry><title type="html">[운영체제] # 5 프로세스 관리</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-5%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EA%B4%80%EB%A6%AC/" rel="alternate" type="text/html" title="[운영체제] # 5 프로세스 관리" /><published>2019-03-07T01:09:00+09:00</published><updated>2019-03-07T01:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-5%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EA%B4%80%EB%A6%AC</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-5%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EA%B4%80%EB%A6%AC/">&lt;h1 id=&quot;프로세스process&quot;&gt;프로세스(Process)&lt;/h1&gt;
 &lt;p&gt;프로세스는 메인 메모리에 할당되어 &lt;strong&gt;실행중인 상태&lt;/strong&gt; 인 프로그램을 말한다. 프로그램은 일반적으로 하드디스크(보조기억장치)에 저장되어 아무 일도 하지 않는 상태이다. 프로세스는 실행하면서 stack pointer, data, text, register 등이 끊임없이 변한다. 프로세스는 job, task 등으로 불리기도 한다.&lt;/p&gt;
 
-&lt;h3 id=&quot;프로세스-상태&quot;&gt;프로세스 상태&lt;/h3&gt;
+&lt;h2 id=&quot;프로세스-상태&quot;&gt;프로세스 상태&lt;/h2&gt;
 &lt;ul&gt;
   &lt;li&gt;&lt;strong&gt;New&lt;/strong&gt;: 프로그램이 메인 메모리에 할당된다.&lt;/li&gt;
   &lt;li&gt;&lt;strong&gt;Ready&lt;/strong&gt;: 할당된 프로그램이 초기화와 같은 작업을 통해 실행되기 위한 모든 준비를 마친다.&lt;/li&gt;
@@ -1394,14 +1856,14 @@ balance = 0
 
 &lt;p&gt;위 그림은 프로세스 상태 전이도의 모습이다. new에서부터 프로세스가 어떤 작업에 의해 상태가 변하는지 나타낸다. running에서 ready로 변할 때는 time sharing system에서 해당 프로세스가 CPU시간을 모두 소진하였을 때 인터럽트에 의해 강제로 ready상태로 변하고, CPU는 다른 프로세스를 실행시킨다.&lt;/p&gt;
 
-&lt;h3 id=&quot;pcbprocess-control-block&quot;&gt;PCB(Process Control Block)&lt;/h3&gt;
+&lt;h2 id=&quot;pcbprocess-control-block&quot;&gt;PCB(Process Control Block)&lt;/h2&gt;
 &lt;p&gt;PCB는 &lt;strong&gt;프로세스에 대한 모든 정보&lt;/strong&gt; 가 모여있는 곳으로, Task Control Block(TCB) 이라고도 한다. PCB안에는 프로세스의 상태, 프로세스 번호(PID), 해당 프로세스의 program counter(pc), register값, MMU정보, CPU점유 시간 등이 포함되어 있다. PCB는 운영체제 내부의 프로세스를 관리하는 코드 부분에 저장되어 있다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879659-5ccdd500-4052-11e9-8364-5cf3a1d6c90a.png&quot; alt=&quot;os05-2&quot; /&gt;&lt;/p&gt;
 
 &lt;p&gt;CPU는 한 프로세스가 종료될 때까지 수행하는 것이 아니라 여러 프로세스를 중간 중간에 바꿔가면서 수행한다. 그러므로 CPU는 수행중인 프로세스를 나갈 때, 이 프로세스의 정보를 어딘가에 저장하고 있어야 다음에 이 프로세스를 수행할 때 이전에 수행한 그 다음부터 이어서 작업할 수 있다. 이러한 정보를 저장하는 곳이 PCB이다.&lt;/p&gt;
 
-&lt;h3 id=&quot;프로세스-큐queue&quot;&gt;프로세스 큐(Queue)&lt;/h3&gt;
+&lt;h2 id=&quot;프로세스-큐queue&quot;&gt;프로세스 큐(Queue)&lt;/h2&gt;
 &lt;p&gt;프로세스는 수행하면서 상태가 여러 번 변하는데 이에 따라 서비스를 받아야하는 곳이 다르다. 그리고 프로세스는 일반적으로 여러 개가 한 번에 수행되므로 그에 따른 순서가 필요하다. 이러한 순서를 대기하는 곳을 &lt;strong&gt;큐(queue)&lt;/strong&gt; 라고 부른다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879660-5ccdd500-4052-11e9-972d-11ba3faeb3e3.png&quot; alt=&quot;os05-3&quot; /&gt;&lt;/p&gt;
@@ -1422,13 +1884,13 @@ balance = 0
 
 &lt;p&gt;Job queue의 순서를 정해주는 job scheduler를 long-term scheduler라고도 하는데, 이는 이 스케줄링이 발생하는 시간이 비교적 오래걸리기 때문이다.(대략 초~분) 반면에 ready queue의 스케줄러를 short-term scheduler라고도 하는데, 이는 스케줄링이 발생하는 시간이 매우 짧기 때문이다. CPU scheduling은 말 그대로 프로세스가 CPU를 점유하는 순서를 정해주는데 이는 매우 빠른 시간안에 이루어져야한다. 현대 컴퓨터가 여러 프로그램을 동시에 사용하는 것과 같은 효과를 주는 이유가 이 스케줄링 속도가 매우 빠르게 이루어지기 때문이다.&lt;/p&gt;
 
-&lt;h3 id=&quot;멀티프로그래밍multiprogramming&quot;&gt;멀티프로그래밍(Multiprogramming)&lt;/h3&gt;
+&lt;h1 id=&quot;멀티프로그래밍multiprogramming&quot;&gt;멀티프로그래밍(Multiprogramming)&lt;/h1&gt;
 &lt;p&gt;멀티프로그래밍은 단일 프로세서(CPU) 환경에서 &lt;strong&gt;여러 개의 프로세스가 동시에 실행&lt;/strong&gt; 되는 것을 말한다.(실제로 동시에 실행되지는 않음) 여러 프로세스가 실행되려면 이 프로세스들은 모두 메인 메모리에 존재하고 있어야 한다. 멀티프로그래밍에 관한 몇 가지 용어와 개념에 대해 살펴보자.&lt;/p&gt;
 
-&lt;h4 id=&quot;degree-of-multiprogramming&quot;&gt;Degree of multiprogramming&lt;/h4&gt;
+&lt;h2 id=&quot;degree-of-multiprogramming&quot;&gt;Degree of multiprogramming&lt;/h2&gt;
 &lt;p&gt;Degree of multiprogramming 는 현재 메모리에 할당되어 있는 프로세스 개수를 말한다.&lt;/p&gt;
 
-&lt;h4 id=&quot;io-bound-process-vs-cpu-bound-process&quot;&gt;I/O bound process VS CPU bound process&lt;/h4&gt;
+&lt;h2 id=&quot;io-bound-process-vs-cpu-bound-process&quot;&gt;I/O bound process VS CPU bound process&lt;/h2&gt;
 &lt;p&gt;프로세스는 I/O bound process 와 CPU bound process 로 나뉜다.&lt;/p&gt;
 &lt;ul&gt;
   &lt;li&gt;I/O bound process: 해당 프로세스에서 I/O(입출력) 작업이 차지는 비중이 높은 프로세스를 말한다.&lt;/li&gt;
@@ -1437,18 +1899,99 @@ balance = 0
 
 &lt;p&gt;운영체제, 정확히 말하면 job scheduler 는 I/O bound process와 CPU bound process를 적절히 분배해서 메모리에 할당해주어야 한다.&lt;/p&gt;
 
-&lt;h4 id=&quot;medium-term-scheduler&quot;&gt;Medium-term scheduler&lt;/h4&gt;
+&lt;h2 id=&quot;medium-term-scheduler&quot;&gt;Medium-term scheduler&lt;/h2&gt;
 &lt;p&gt;Medium-term scheduler는 말그대로 short-term보다는 덜 발생하지만, long-term보다는 자주 발생하는 scheduler이다. 하는 일은 운영체제가 실행하는 동안 주기적으로 메인 메모리에 있는 전체 프로세스를 검사하여 보조기억장치로 옮길 프로세스를 찾아 옮긴다. 옮기는 기준은 여러가지 있겠지만 대표적으로 장기간 사용하지 않는 프로세스가 있다.&lt;/p&gt;
 
 &lt;p&gt;이 기준으로 동작하는 것이 &lt;strong&gt;Swapping&lt;/strong&gt; 이다. 이는 메인 메모리에서 장시간 사용하지 않는 프로세스를 하드디스크(&lt;strong&gt;Swap device&lt;/strong&gt; = Backing store, 일반적으로 하드디스크는 File system + Backing store 로 구성되어 있다.)로 옮겨주고(&lt;strong&gt;Swap out&lt;/strong&gt;), 나중에 이 프로세스가 다시 사용되려고 하면 하드디스크에서 해당 프로세스를 다시 메인 메모리에 할당해준다.(&lt;strong&gt;Swap in&lt;/strong&gt;)&lt;/p&gt;
 
 &lt;p&gt;Swap out을 통해 메인 메모리의 공간이 생기므로 이를 더욱 효율적으로 사용할 수 있다. 만약 swap out된 프로세스가 다시 swap in으로 메인 메모리에 할당하려고 할 때 이전의 공간으로 할당되는 것을 보장하지는 않는다. 왜냐하면 위에 말했듯이 swap out으로 생긴 메모리 공간은 다른 프로세스가 사용할 수 있기 때문이다.&lt;/p&gt;
 
-&lt;h4 id=&quot;context-switching문맥-전환&quot;&gt;Context Switching(문맥 전환)&lt;/h4&gt;
+&lt;h2 id=&quot;context-switching문맥-전환&quot;&gt;Context Switching(문맥 전환)&lt;/h2&gt;
 &lt;p&gt;Context switching은 CPU가 한 프로세스에서 다른 프로세스로 옮겨가는 것을 말한다. 즉, 한 프로세스가 실행중인 것을 멈추고 다른 프로세스가 실행되는 것이다.&lt;/p&gt;
 
 &lt;ul&gt;
   &lt;li&gt;Scheduler: 여기서 스케줄러는 CPU Scheduler를 말하며, CPU가 어느 프로세스를 선택할지 정한다.&lt;/li&gt;
   &lt;li&gt;Dispatcher: 실제 context switching이 발생하면 CPU의 내부 데이터를 이전 프로세스 데이터에서 새로 시작되는 데이터로 바꿔준다. 다시 말해서 현재 CPU 데이터는 이전 프로세스의 PCB에 갱신하고, 새로 시작되는 프로세스의 PCB 데이터를 CPU로 복원(restore) 해준다.&lt;/li&gt;
   &lt;li&gt;Context switching overhead: Context switching이 발생할 때마다, dispatcher에서 수행하는 작업을 매번 수행해야하며 이 모든 것은 overhead이다. 그리고 문맥 전환은 매우 자주 발생하는 작업이므로 overhead를 줄이기 위해서는 dispatcher를 구현하는 코드에 대한 효율을 최대한 높여주어야한다.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">운영체제 개념 정리</summary></entry></feed>
+&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-06</summary></entry><entry><title type="html">[운영체제] # 4 운영체제 서비스</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-4%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4/" rel="alternate" type="text/html" title="[운영체제] # 4 운영체제 서비스" /><published>2019-03-07T00:09:00+09:00</published><updated>2019-03-07T00:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-4%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%20%EC%84%9C%EB%B9%84%EC%8A%A4</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-4%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4/">&lt;p&gt;운영체제의 주요 서비스는 하드웨어 자원을 각 사용자 애플리케이션에 적절히 분배해주는 것이다. 하드웨어 자원은 CPU, 메인 메모리, 하드디스크, 키보드, 마우스, 프린터 등이 존재한다. 이러한 하드웨어 자원을 사용자 애플리케이션이 요구하거나 운영체제 내의 규칙에 의해 적절히 분배하여 컴퓨터의 성능을 최대한 효율적으로 사용해야 한다.&lt;/p&gt;
+
+&lt;p&gt;이를 실현하기 위해 운영체제 내에서는 각 하드웨어를 관리하는 기능을 다음과 같이 나눈다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;프로세스 관리&lt;/li&gt;
+  &lt;li&gt;주기억장치 관리&lt;/li&gt;
+  &lt;li&gt;파일 관리&lt;/li&gt;
+  &lt;li&gt;보조기억장치 관리&lt;/li&gt;
+  &lt;li&gt;입출력 장치 관리&lt;/li&gt;
+  &lt;li&gt;네트워킹&lt;/li&gt;
+  &lt;li&gt;보호&lt;/li&gt;
+  &lt;li&gt;기타…&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;프로세스-관리process-management&quot;&gt;프로세스 관리(Process management)&lt;/h1&gt;
+&lt;p&gt;프로세스 관리는 운영체제 기능 중 가장 중요한 기능 중 하나이다. 프로세스와 프로그램은 기본적으로 구분된다. 프로세스는 실제 메인 메모리에서 &lt;strong&gt;실행 중인 프로그램(program in execution)&lt;/strong&gt; 을 말한다. 프로그램은 하드디스크와 같은 보조기억장치에서 &lt;strong&gt;아무런 동작을 하지 않는 상태&lt;/strong&gt; 이다. 이를 어떠한 요청에 의해 메인 메모리에 할당하여 CPU를 사용하면서 실행하게 되는데 이를 프로세스라 부른다.&lt;/p&gt;
+
+&lt;p&gt;프로세스 관리의 주요 기능은 다음과 같다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;프로세스의 생성과 소멸(creation, deletion)&lt;/li&gt;
+  &lt;li&gt;프로세스 활동 일시 중지, 활동 재게(suspend, resume)&lt;/li&gt;
+  &lt;li&gt;프로세스간 통신(interprocess communication: IPC)&lt;/li&gt;
+  &lt;li&gt;프로세스간 동기화(synchronization)&lt;/li&gt;
+  &lt;li&gt;교착상태 처리(deadlock handling)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;주기억장치-관리main-memory-management&quot;&gt;주기억장치 관리(Main memory management)&lt;/h1&gt;
+&lt;p&gt;주기억장치 즉, 메인 메모리는 프로그램이 실행되기 위한 공간이다. CPU는 오직 메인 메모리에 있는 프로그램(프로세스)하고만 소통할 수 있다. 주기억장치 관리에서는 메인 메모리를 효율적으로 사용하도록 관리한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;프로세스에게 메모리 공간 할당(allocation)&lt;/li&gt;
+  &lt;li&gt;메모리의 어느 부분이 어느 프로세스에게 할당되었는가 추적 및 감시&lt;/li&gt;
+  &lt;li&gt;프로세스 종료 시 메모리 회수(deallocation)&lt;/li&gt;
+  &lt;li&gt;메모리의 효과적 사용&lt;/li&gt;
+  &lt;li&gt;가상 메모리: 물리적 실제 메모리보다 큰 용량을 사용할 수 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;파일-관리file-management&quot;&gt;파일 관리(File management)&lt;/h1&gt;
+&lt;p&gt;Track과 sector로 물리적으로 구성된 디스크를 파일이라는 논리적 관점으로 바라보고 이를 관리하는 것이다.
+파일은 OS가 실행되는 컴퓨터에서 자주 볼 수 있는데, 이는 복잡한 과정으로 하드디스크에 저장되어 있는 것을 사용자가 편리하게 사용할 수 있도록 &lt;strong&gt;파일&lt;/strong&gt; 이라는 논리적 형태로 운영체제에서 관리하여 보여준다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;파일의 생성과 삭제(file creation, deletion)&lt;/li&gt;
+  &lt;li&gt;디렉토리(Directory)의 생성과 삭제&lt;/li&gt;
+  &lt;li&gt;기본 동작 지원: open, close, read, write, create, delete&lt;/li&gt;
+  &lt;li&gt;Track/sector - file 간의 매핑(mapping)&lt;/li&gt;
+  &lt;li&gt;백업(Backup)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;보조기억장치-관리secondary-storage-management&quot;&gt;보조기억장치 관리(Secondary storage management)&lt;/h1&gt;
+&lt;p&gt;보조기억장치는 대표적으로 하드 디스크, 플래시 메모리(주로 스마트폰에 사용)가 있다. 하드 디스크를 예로 들면, 하드 디스크에서 아무 것도 저장되어 있지 않는 공간을 block이라 하는데, 보조기억장치 관리는 이를 관리하는 것이다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;빈 공간 관리(Free space management)&lt;/li&gt;
+  &lt;li&gt;저장공간 할당(Storage allocation)&lt;/li&gt;
+  &lt;li&gt;디스크 스케줄링(Disk scheduling)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;입출력-장치-관리io-device-management&quot;&gt;입출력 장치 관리(I/O device management)&lt;/h1&gt;
+&lt;p&gt;입출력 장치에는 키보드, 마우스, 프린터, 스피커, 마이크 등이 있다. 입출력 장치 관리는 이와 같은 여러 입출력 장치를 사용하기 위해 존재한다.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;장치 드라이브(Device drivers)&lt;/li&gt;
+  &lt;li&gt;입출력 장치의 성능향상: buffering, caching, spooling&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;시스템-콜system-call&quot;&gt;시스템 콜(System call)&lt;/h1&gt;
+&lt;p&gt;시스템 콜은 &lt;strong&gt;유저 프로세스에서 운영체제 서비스를 필요로 할 때&lt;/strong&gt; 이를 받기 위해 사용하는 호출이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/53879657-5c353e80-4052-11e9-827d-751cc9dcc0f1.png&quot; alt=&quot;os04-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위는 process1에서 프로세스 관리에 시스템 콜을 요청한 모습이다. 프로세스가 실행하는 중간에 운영체제 서비스가 필요하면 시스템 콜을 통해 운영체제 안의 해당 코드로 점프할 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;주요-시스템-콜&quot;&gt;주요 시스템 콜&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;Process: end(정상 종료), abort(강제 종료), load, execute, create, terminate, get/set, attributes, wait event, signal event&lt;/li&gt;
+  &lt;li&gt;Memory: allocate, free&lt;/li&gt;
+  &lt;li&gt;File: create, delete, open, close, read, write, get/set attributes&lt;/li&gt;
+  &lt;li&gt;Device: request, release, read, write, get/set attributes, attach/detach devices&lt;/li&gt;
+  &lt;li&gt;information: get/set time, get/set system data&lt;/li&gt;
+  &lt;li&gt;Communication: socket, send, receive&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">2019-03-06</summary></entry></feed>

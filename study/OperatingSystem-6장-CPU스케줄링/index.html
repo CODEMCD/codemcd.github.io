@@ -9,19 +9,19 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[OS] 6장 CPU 스케줄링 - CODEMCD’s Tech BLOG</title>
-<meta name="description" content="운영체제 개념 정리">
+<!-- begin _includes/seo.html --><title>[운영체제] # 6 CPU 스케줄링 - CODEMCD’s Tech BLOG</title>
+<meta name="description" content="2019-03-06">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech BLOG">
-<meta property="og:title" content="[OS] 6장 CPU 스케줄링">
+<meta property="og:title" content="[운영체제] # 6 CPU 스케줄링">
 <meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-6%EC%9E%A5-CPU%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81/">
 
 
-  <meta property="og:description" content="운영체제 개념 정리">
+  <meta property="og:description" content="2019-03-06">
 
 
 
@@ -29,7 +29,7 @@
 
 
 
-  <meta property="article:published_time" content="2019-03-06T00:00:00+09:00">
+  <meta property="article:published_time" content="2019-03-07T02:09:00+09:00">
 
 
 
@@ -450,15 +450,15 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[OS] 6장 CPU 스케줄링">
-    <meta itemprop="description" content="운영체제 개념 정리">
-    <meta itemprop="datePublished" content="March 06, 2019">
+    <meta itemprop="headline" content="[운영체제] # 6 CPU 스케줄링">
+    <meta itemprop="description" content="2019-03-06">
+    <meta itemprop="datePublished" content="March 07, 2019">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[OS] 6장 CPU 스케줄링
+          <h1 id="page-title" class="page__title" itemprop="headline">[운영체제] # 6 CPU 스케줄링
 </h1>
           
         </header>
@@ -510,14 +510,14 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
         
         <p>CPU가 하나의 프로세스 작업이 끝나면 다음 프로세스 작업을 수행해야 한다. 이때 다음 프로세스가 어느 프로세스인지를 선택하는 알고리즘을 <strong>CPU Scheduling</strong> 알고리즘이라고 한다. 간단히 생각해보면 먼저 온 프로세스가 먼저 실행되는 것이 가장 좋을 것이라 생각할 수 있다. 하지만 여러 상황에서 사용되는 컴퓨터 환경에서 꼭 이러한 방법이 좋다고 할 수 없다.(단순한 환경에서도 이 방법이 반드시 빠른 것도 아니다.) 그러므로 CPU 스케줄링에는 여러가지 방법이 존재한다.</p>
 
-<h2 id="preemptive-vs-non-preemptive">Preemptive VS Non-preemptive</h2>
-<h3 id="preemptive">Preemptive</h3>
+<h1 id="preemptive-vs-non-preemptive">Preemptive VS Non-preemptive</h1>
+<h2 id="preemptive">Preemptive</h2>
 <p>Preemptive(선점)은 프로세스가 CPU를 점유하고 있는 동안 I/O나 인터럽트가 발생한 것도 아니고 모든 작업을 끝내지도 않았는데, 다른 프로세스가 해당 <strong>CPU를 강제로 점유</strong> 할 수 있다. 즉, 프로세스가 정상적으로 수행중인 가운데 다른 프로세스가 CPU를 강제로 점유하여 실행할 수 있는 것이다.</p>
 
-<h3 id="non-preemptive">Non-preemptive</h3>
+<h2 id="non-preemptive">Non-preemptive</h2>
 <p>Non-preemptive(비선점)은 말 그대로 preemptive와 반대이다. 한 프로세스가 한 번 CPU를 점유했다면, I/O나 인터럽트 발생 또는 프로세스 종료가 될 때까지 다른 프로세스가 CPU를 점유하지 못하는 것이다.</p>
 
-<h2 id="scheduling-criteria">Scheduling criteria</h2>
+<h1 id="scheduling-criteria">Scheduling criteria</h1>
 <p>Scheduling criteria(척도)는 스케줄링의 효율을 분석하는 기준들이다.</p>
 
 <ul>
@@ -528,11 +528,11 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   <li>Response time(응답시간): 일반적으로 대화형 시스템에서 입력에 대한 반응 시간을 말한다.</li>
 </ul>
 
-<h2 id="cpu-scheduling-algorithms">CPU Scheduling Algorithms</h2>
-<h3 id="first-come-first-servedfcfs">First-Come, First-Served(FCFS)</h3>
+<h1 id="cpu-scheduling-algorithms">CPU Scheduling Algorithms</h1>
+<h2 id="first-come-first-servedfcfs">First-Come, First-Served(FCFS)</h2>
 <p>FCFS는 먼저 온 프로세스가 먼저 CPU를 점유하는 방식이다. 이는 매우 단순하고 많이 사용하는 방법이지만, 모든 부분에서 효율적인 것은 아니다.</p>
 
-<h4 id="gantt-chart">Gantt Chart</h4>
+<h3 id="gantt-chart">Gantt Chart</h3>
 
 <table>
   <thead>
@@ -557,7 +557,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
   </tbody>
 </table>
 
-<p><a href="https://user-images.githubusercontent.com/34755287/53879661-5d666b80-4052-11e9-8453-bad918a563ef.png">os06-1</a></p>
+<p><img src="https://user-images.githubusercontent.com/34755287/53879661-5d666b80-4052-11e9-8453-bad918a563ef.png" alt="os06-1" /></p>
 
 <p>첫 번째 표는 3개의 프로세스와 각 프로세스가 CPU를 사용한 시간(burst time)을 나타낸다. 이를 간트 차트로 표현하면 표 아래의 그림과 같다.(도착시간은 모두 0초라고 가정한다.) 평균 대기시간을 계산하면 아래와 같다.</p>
 
@@ -577,10 +577,10 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 <p>위 예제처럼 <code class="highlighter-rouge">P1, P2, P3</code> 순서로 들어온 것을 <strong>Convoy Effect</strong> 라고 한다. 이는 CPU 시간을 오래 사용하는 프로세스가 먼저 수행하는 동안 나머지 프로세스들은 그 만큼 오래 기다리는 것을 말한다. P1이 수행되는 동안 P2, P3는 오래 기다려야 하는 예제에서 이를 볼 수 있다. 이는 FCFS의 단점 중 하나이다. 그리고 FCFS는 <strong>Non-preemptive</strong> 이다. 하나의 프로세스가 끝나기 전에는 다른 프로세스가 중간에 끼어들 수 없다.</p>
 
-<h3 id="shortest-job-firstsjf">Shortest-Job-First(SJF)</h3>
+<h2 id="shortest-job-firstsjf">Shortest-Job-First(SJF)</h2>
 <p>SJF는 이름에서도 나타나듯이 가장 짧게 수행되는 프로세스가 가장 먼저 수행되는 것을 말한다. FCFS에서 보았듯이 수행 시간이 짧은 프로세스가 먼저 오는 것이 평균 대기시간이 짧은 것을 알 수 있었다. 이를 이용한 것이 SJF이다.</p>
 
-<h4 id="gantt-chart-1">Gantt Chart</h4>
+<h3 id="gantt-chart-1">Gantt Chart</h3>
 
 <table>
   <thead>
@@ -685,10 +685,10 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 <p>Preemptive SJF는 예제에서 살펴보았듯이 현재 남아있는 시간 중 가장 짧은 프로세스를 선택하므로 Shortest-Remaining-Time-First(최소잔여시간 우선) 이라 불리기도 한다.</p>
 
-<h3 id="priority">Priority</h3>
+<h2 id="priority">Priority</h2>
 <p>Priority 스케줄링은 말그대로 <strong>우선순위가 높은</strong> 프로세스가 먼저 선택되는 스케줄링 알고리즘이다. 운영체제에서 일반적으로 우선순위는 정수값으로 나타내며, 작은 값이 우선순위가 높다.(Unix/Linux 기준)</p>
 
-<h4 id="gantt-chart-2">Gantt Chart</h4>
+<h3 id="gantt-chart-2">Gantt Chart</h3>
 
 <table>
   <thead>
@@ -747,12 +747,12 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 <p>이를 해결하는 방법 중 하나는 <strong>aging</strong> 이 있다. 이 방식은 ready queue에서 기다리는 동안 일정 시간이 지나면 우선순위를 일정량 높여주는 것이다. 그러면 우선순위가 매우 낮은 프로세스라 하더라도, 기다리는 시간이 길어질수록 우선순위도 계속 높아지므로 수행될 가능성이 커진다.</p>
 
-<h3 id="round-robinrr">Round-Robin(RR)</h3>
+<h2 id="round-robinrr">Round-Robin(RR)</h2>
 <p>Round-Robin은 원 모양으로 모든 프로세스가 돌아가며 스케줄링하는 것을 말한다. 이는 시분할 시스템에서 주로 사용하는 방식이다. 일정 시간을 정하여 하나의 프로세스가 이 시간동안 수행하고 다시 대기 상태로 돌아간다. 그리고 다음 프로세스가 역시 같은 시간동안 수행한 후 대기한다. 이러한 작업을 모든 프로세스가 돌아가면서 하며, 마지막 프로세스가 끝나면 다시 처음 프로세스로 돌아와서 반복한다.</p>
 
 <p>위에서 말한 일정 시간을 <strong>Time Quantum(Time Slice)</strong> 이라 부른다. Time Quantum은 일반적으로 10 ~ 100msec 사이의 범위를 갖는다. Round-Robin은 기본적으로 <strong>preemptive</strong> 이다. 한 프로세스가 종료되기 전에 time quantum이 끝나면 다른 프로세스로 CPU를 넘겨주기 때문이다.</p>
 
-<h4 id="gantt-chart-3">Gantt Chart</h4>
+<h3 id="gantt-chart-3">Gantt Chart</h3>
 
 <table>
   <thead>
@@ -793,7 +793,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 <p>만약 time quantum 크기가 무한에 가깝게 설정한다면 FCFS와 동일하게 동작한다. 반대로 time quantum 크기를 0에 가깝게 설정하면 switching overhead가 매우 증가하여 비효율적이다. 결과적으로 time quantum 은 적당한 크기로 설정해주어야 하는데, 일반적으로 위에서 말했듯이 10 ~ 100msec 으로 정한다.</p>
 
-<h3 id="multilevel-queue">Multilevel Queue</h3>
+<h2 id="multilevel-queue">Multilevel Queue</h2>
 <p>Multilevel Queue를 살펴보기 전에 프로세스 그룹에 대해 살펴보자. 프로세스는 기준에 따라 여러 그룹으로 나눌 수 있다.</p>
 <ul>
   <li>System processes: 운영체제 커널 수준의 프로세스</li>
@@ -813,7 +813,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 <p>위의 방식 이외에도 큐에 따라 여러 기준을 둘 수 있다. 큐마다 CPU 시간을 다르게 줄 수도 있고, 큐마다 다른 스케줄링 방식을 사용할 수도 있다.</p>
 
-<h3 id="multilevel-feedback-queue">Multilevel Feedback Queue</h3>
+<h2 id="multilevel-feedback-queue">Multilevel Feedback Queue</h2>
 <p>Multilevel Feedback Queue도 Multilevel Queue와 같이 여러 개의 큐를 사용한다는 점에서 유사하다. 먼저, 그림을 통해 살펴보자.</p>
 
 <p><img src="https://user-images.githubusercontent.com/34755287/53879675-5f302f00-4052-11e9-86a2-c02ee03bac64.png" alt="os06-10" /></p>
@@ -874,7 +874,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-03-06T00:00:00+09:00">March 06, 2019</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-03-07T02:09:00+09:00">March 07, 2019</time></p>
         
       </footer>
 
@@ -883,7 +883,7 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BOS%5D+6%EC%9E%A5+CPU+%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-6%25EC%259E%25A5-CPU%25EC%258A%25A4%25EC%25BC%2580%25EC%25A4%2584%25EB%25A7%2581%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5B%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%5D+%23+6+CPU+%EC%8A%A4%EC%BC%80%EC%A4%84%EB%A7%81%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-6%25EC%259E%25A5-CPU%25EC%258A%25A4%25EC%25BC%2580%25EC%25A4%2584%25EB%25A7%2581%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-6%25EC%259E%25A5-CPU%25EC%258A%25A4%25EC%25BC%2580%25EC%25A4%2584%25EB%25A7%2581%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
@@ -896,11 +896,11 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/study/OperatingSystem-5%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EA%B4%80%EB%A6%AC/" class="pagination--pager" title="[OS] 5장 프로세스 관리
+      <a href="/pages/CODEMCD/study/OperatingSystem-5%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4%EA%B4%80%EB%A6%AC/" class="pagination--pager" title="[운영체제] # 5 프로세스 관리
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C/" class="pagination--pager" title="[OS] 7장 프로세스와 쓰레드
+      <a href="/pages/CODEMCD/study/OperatingSystem-7%EC%9E%A5-%EC%93%B0%EB%A0%88%EB%93%9C/" class="pagination--pager" title="[운영체제] # 7 프로세스와 쓰레드
 ">다음</a>
     
   </nav>
@@ -933,31 +933,12 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/" rel="permalink">[OS] 13장 페이징
+        <a href="/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/" rel="permalink">[운영체제] # 13 페이징
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">페이징(Paging)
-외부 단편화로 인한 메모리 낭비는 매우 심하다는 것을 살펴보았다. Compaction을 사용하면 외부 단편화는 해결할 수 있지만, 그로 인해 발생하는 오버헤드와 비효율적인 성능으로 사용하기는 어렵다. 그 이후에 연구를 통해 나온 것이 페이징 이다. 페이징은 h...</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/" rel="permalink">[OS] 12장 주기억장치 관리
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+    <p class="archive__item-excerpt" itemprop="description">2019-03-22
 </p>
   </article>
 </div>
@@ -971,12 +952,12 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/OperatingSystem-9%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2/" rel="permalink">[OS] 9장 프로세스 동기화 - 2
+        <a href="/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/" rel="permalink">[운영체제] # 12 주기억장치 관리
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+    <p class="archive__item-excerpt" itemprop="description">2019-03-22
 </p>
   </article>
 </div>
@@ -990,12 +971,31 @@ MathJax.Hub.Register.MessageHook("TeX Jax - parse error",function (message) {
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0/" rel="permalink">[OS] 11장 모니터
+        <a href="/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0/" rel="permalink">[운영체제] # 11 모니터
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+    <p class="archive__item-excerpt" itemprop="description">2019-03-14
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/" rel="permalink">[운영체제] # 10 프로세스 동기화 - 3
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">2019-03-14
 </p>
   </article>
 </div>

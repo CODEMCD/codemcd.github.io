@@ -9,19 +9,19 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[OS] 12장 주기억장치 관리 - CODEMCD’s Tech BLOG</title>
-<meta name="description" content="운영체제 개념 정리">
+<!-- begin _includes/seo.html --><title>[운영체제] # 12 주기억장치 관리 - CODEMCD’s Tech BLOG</title>
+<meta name="description" content="2019-03-22">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech BLOG">
-<meta property="og:title" content="[OS] 12장 주기억장치 관리">
+<meta property="og:title" content="[운영체제] # 12 주기억장치 관리">
 <meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/">
 
 
-  <meta property="og:description" content="운영체제 개념 정리">
+  <meta property="og:description" content="2019-03-22">
 
 
 
@@ -29,7 +29,7 @@
 
 
 
-  <meta property="article:published_time" content="2019-03-22T00:00:00+09:00">
+  <meta property="article:published_time" content="2019-03-22T21:09:00+09:00">
 
 
 
@@ -425,15 +425,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[OS] 12장 주기억장치 관리">
-    <meta itemprop="description" content="운영체제 개념 정리">
+    <meta itemprop="headline" content="[운영체제] # 12 주기억장치 관리">
+    <meta itemprop="description" content="2019-03-22">
     <meta itemprop="datePublished" content="March 22, 2019">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[OS] 12장 주기억장치 관리
+          <h1 id="page-title" class="page__title" itemprop="headline">[운영체제] # 12 주기억장치 관리
 </h1>
           
         </header>
@@ -467,7 +467,7 @@
 
 <p>현재에는 과거보다 훨씬 큰 메모리를 저렴하게 사용하지만, 지금도 메모리는 부족하다. 메모리가 커져온 만큼 프로그램의 크기와 처리하는 데이터의 크기는 그보다 더욱 빠른 속도로 커져왔다. 그러므로 현재에도 여전히 메모리를 최대한 효율적으로 사용하기 위해 여러 방법들이 연구되고 있고, 운영체제 기능에서도 매우 중요한 위치를 차지하고 있다.</p>
 
-<h2 id="메모리에-프로그램-할당하기">메모리에 프로그램 할당하기</h2>
+<h1 id="메모리에-프로그램-할당하기">메모리에 프로그램 할당하기</h1>
 <p>메모리는 기본적으로 <strong>주소(Address)</strong> 와 <strong>데이터(Data)</strong> 로 구성되어 있다.</p>
 
 <p><img src="https://user-images.githubusercontent.com/34755287/54821877-d74f5380-4ce6-11e9-8888-e63816796f65.png" alt="OS12-1" /></p>
@@ -505,17 +505,17 @@
 
 <p>MMU에 의해 위 그림과 같이 주소는 두 가지로 구분된다. CPU에서 사용하는 주소는 <strong>논리 주소(logical address)</strong> 라고 하고, 메모리가 사용하는 주소는 <strong>물리 주소(physical address)</strong> 라고 한다.</p>
 
-<h2 id="메모리-낭비-방지">메모리 낭비 방지</h2>
+<h1 id="메모리-낭비-방지">메모리 낭비 방지</h1>
 <p>운영체제는 메모리를 효율적으로 사용하기 위해 메모리 공간을 낭비하지 않는 것이 중요하다.</p>
 
-<h3 id="동적-적재dynamic-loading">동적 적재(Dynamic Loading)</h3>
+<h2 id="동적-적재dynamic-loading">동적 적재(Dynamic Loading)</h2>
 <p>동적 적재는 <strong>프로그램이 실행하는데 반드시 필요한 루틴/데이터만 적재(load)</strong> 하는 것이다. 프로그램의 전체 코드에서 모든 루틴이 다 사용되는 것은 아니다. 대표적으로 오류 처리 구문이다. 오류 처리 구문은 if문과 같이 오류가 발생할 때만 해당 내부 코드가 실행되는 것을 말한다. 그러므로 동적 적재를 수행하면 프로그램의 실제 메모리에는 이러한 오류 구문을 제외하고 적재한다. 이러한 상태에서 실행하다가 오류가 발생하면 그 때 해당 오류 구문을 찾아 메모리에 올린다.</p>
 
 <p>데이터도 마찬가지다. 모든 데이터가 반드시 사용되는 것이 아니기 때문에, 특히 배열과 클래스의 경우는 필요한 부분만 메모리에 올려두고, 실행 도중 필요할 때마다 해당 부분을 찾아 메모리에 올려준다.</p>
 
 <p>반대로, 모든 루틴과 데이터를 적재하는 것을 정적 적재(static loading)이라고 한다. 현대 운영체제는 대부분 동적 적재를 사용한다.</p>
 
-<h3 id="동적-연결dynamic-linking">동적 연결(Dynamic Linking)</h3>
+<h2 id="동적-연결dynamic-linking">동적 연결(Dynamic Linking)</h2>
 <p>동적 연결은 여러 프로그램에 공통으로 사용되는 라이브러리를 중복으로 메모리에 올리는 것이 아니라 <strong>하나</strong> 만 올리도록 하는 것이다.</p>
 
 <p>예를 들어, 아래와 같은 코드의 P1, P2 프로세스가 있다고 하자.</p>
@@ -542,7 +542,7 @@
 
 <p>위 그림은 예제에서 살펴 본 P1, P2 프로세스가 동적 연결을 통해 공통 라이브러리(printf() 라이브러리)를 연결한 모습을 볼 수 있다. 이러한 라이브러리를 Linux에서는 <strong>공유 라이브러리(Shared Library)</strong>, Windows에서는 <strong>동적 연결 라이브러리(Dynamic Linking Library, DLL)</strong> 라고 부른다.</p>
 
-<h3 id="swapping">Swapping</h3>
+<h2 id="swapping">Swapping</h2>
 <p>Swapping은 메모리에 적재되어 있는 프로세스 중에서 오랫동안 사용하지 않은 프로세스를 프로세스 이미지 형태로 만든 후 하드디스크(Backing store)에 내려보낸다. 메모리에서 Backing store로 가는 것을 <strong>swap-out</strong>, 다시 Backing store에서 메모리로 가는 것을 <strong>swap-in</strong> 이라고 한다.</p>
 
 <p>여기서, 프로세스 이미지는 해당 프로그램이 메모리에 적재된 후 실행되면서 데이터를 추가하거나 변경하는 등의 과정을 거치는데, 현재 데이터의 상태를 프로세스 이미지라고 부른다. 그러므로 이는 단순히, 하드디스크에 존재하는 프로그램(exe파일)과는 전혀 다른 데이터이므로, 따로 저장해야한다. 이와 같은 swapping 과정으로 인한 프로세스 이미지를 저장하기 위해 하드디스크의 일부분을 분리하여 사용하는데, 이를 <strong>backing store</strong> 또는 <strong>swap device</strong> 라고 부른다.</p>
@@ -553,7 +553,7 @@
 
 <p>현재는 프로세스의 크기가 커지고, 하드디스크는 메인 메모리보다 속도면에서 매우 느리므로 swapping 동작의 오버헤드는 크다고 볼 수 있다. 하지만 이로 인해 얻는 이득이 더 많으므로 대부분 운영체제는 이를 사용하고 있고, 속도가 중요한 서버 컴퓨터나 슈퍼 컴퓨터는 backing store를 하드디스크가 아닌 좀 더 빠른 저장 장치를 사용하기도 한다.</p>
 
-<h2 id="연속-메모리-할당contiguous-memory-allocation">연속 메모리 할당(Contiguous Memory Allocation)</h2>
+<h1 id="연속-메모리-할당contiguous-memory-allocation">연속 메모리 할당(Contiguous Memory Allocation)</h1>
 <p>과거에는 메모리에 프로세스가 하나만 올라가는 형태였다. 하지만 현재에는 메모리에 여러 프로세스가 할당되는 다중 프로그래밍 환경이 되었다.</p>
 
 <p>부팅 직후에 메모리 상태를 살펴보면, 운영체제만 할당되어 있고 비어있는 상태일 것이다. 이러한 비어있는 공간을 <strong>hole</strong> 이라 부른다. 즉, 부팅 직후에는 운영체제와 big single hole이 있는 상태이다. 시간이 지나면서 프로세스가 생성되고 종료하고를 반복하면, 여러 곳에 서로 다른 크기의 홀(hole)이 존재할 것이다. 이러한 상태를 scattered holes라고 한다.</p>
@@ -564,7 +564,7 @@
 
 <p>메모리 단편화로 인해서 여러 곳에 hole이 흩어져 있는 상태에서 하나의 프로세스가 메모리에 할당되려하면 문제가 발생할 수 있다. 예를 들어, hole이 3개가 있고 각 크기는 50byte, 50byte, 80byte이다. 그런데 할당하려는 프로세스의 크기는 150byte이다. 각 hole들을 하나로 합치면 230byte로 이 프로세스를 할당할 수 있는데 실재로는 나누어져 있으므로 할당되지 못한다. 이러한 현상을 <strong>외부 단편화(External fragmentation)</strong> 라고 한다. 외부 단편화를 줄이기 위해서는 어떤 해결 방법이 있을까?</p>
 
-<h3 id="연속-메모리-할당-방식">연속 메모리 할당 방식</h3>
+<h2 id="연속-메모리-할당-방식">연속 메모리 할당 방식</h2>
 <p>외부 단편화의 해결방법을 살펴보기 전에 연속 메모리 할당 방식을 먼저 살펴보자. 연속 메모리 할당 방식에는 3가지가 있다. First-fit, Best-fit, Worst-fit 이 있다.</p>
 
 <ul>
@@ -649,7 +649,7 @@
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-03-22T00:00:00+09:00">March 22, 2019</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-03-22T21:09:00+09:00">March 22, 2019</time></p>
         
       </footer>
 
@@ -658,7 +658,7 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BOS%5D+12%EC%9E%A5+%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98+%EA%B4%80%EB%A6%AC%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-12%25EC%259E%25A5-%25EC%25A3%25BC%25EA%25B8%25B0%25EC%2596%25B5%25EC%259E%25A5%25EC%25B9%2598-%25EA%25B4%2580%25EB%25A6%25AC%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5B%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%5D+%23+12+%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98+%EA%B4%80%EB%A6%AC%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-12%25EC%259E%25A5-%25EC%25A3%25BC%25EA%25B8%25B0%25EC%2596%25B5%25EC%259E%25A5%25EC%25B9%2598-%25EA%25B4%2580%25EB%25A6%25AC%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-12%25EC%259E%25A5-%25EC%25A3%25BC%25EA%25B8%25B0%25EC%2596%25B5%25EC%259E%25A5%25EC%25B9%2598-%25EA%25B4%2580%25EB%25A6%25AC%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
@@ -671,11 +671,11 @@
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/study/OperatingSystem-9%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2/" class="pagination--pager" title="[OS] 9장 프로세스 동기화 - 2
+      <a href="/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0/" class="pagination--pager" title="[운영체제] # 11 모니터
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/" class="pagination--pager" title="[OS] 13장 페이징
+      <a href="/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/" class="pagination--pager" title="[운영체제] # 13 페이징
 ">다음</a>
     
   </nav>
@@ -708,31 +708,12 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/" rel="permalink">[OS] 13장 페이징
+        <a href="/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/" rel="permalink">[운영체제] # 13 페이징
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">페이징(Paging)
-외부 단편화로 인한 메모리 낭비는 매우 심하다는 것을 살펴보았다. Compaction을 사용하면 외부 단편화는 해결할 수 있지만, 그로 인해 발생하는 오버헤드와 비효율적인 성능으로 사용하기는 어렵다. 그 이후에 연구를 통해 나온 것이 페이징 이다. 페이징은 h...</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/study/OperatingSystem-9%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2/" rel="permalink">[OS] 9장 프로세스 동기화 - 2
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+    <p class="archive__item-excerpt" itemprop="description">2019-03-22
 </p>
   </article>
 </div>
@@ -746,12 +727,12 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0/" rel="permalink">[OS] 11장 모니터
+        <a href="/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0/" rel="permalink">[운영체제] # 11 모니터
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+    <p class="archive__item-excerpt" itemprop="description">2019-03-14
 </p>
   </article>
 </div>
@@ -765,12 +746,31 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/" rel="permalink">[OS] 10장 프로세스 동기화 - 3
+        <a href="/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/" rel="permalink">[운영체제] # 10 프로세스 동기화 - 3
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">운영체제 개념 정리
+    <p class="archive__item-excerpt" itemprop="description">2019-03-14
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/OperatingSystem-9%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-2/" rel="permalink">[운영체제] # 9 프로세스 동기화 - 2
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">2019-03-14
 </p>
   </article>
 </div>
