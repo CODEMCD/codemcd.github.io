@@ -1,5 +1,5 @@
 ---
-title: "Operating System POSTS"
+title: "운영체제 POSTS"
 layout: archive
 permalink: /tags/study-operatingsystem
 author_profile: true
