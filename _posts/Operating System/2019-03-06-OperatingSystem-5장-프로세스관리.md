@@ -1,6 +1,7 @@
 ---
-title: "[OS] 5장 프로세스 관리"
-excerpt: "운영체제 개념 정리"
+title: "[운영체제] # 5 프로세스 관리"
+excerpt: "2019-03-06"
+date: 2019-03-06 16:09:00
 categories:
   - Study
 tags:
@@ -10,10 +11,10 @@ toc: true
 sidebar_main: true
 ---
 
-## 프로세스(Process)
+# 프로세스(Process)
 프로세스는 메인 메모리에 할당되어 **실행중인 상태** 인 프로그램을 말한다. 프로그램은 일반적으로 하드디스크(보조기억장치)에 저장되어 아무 일도 하지 않는 상태이다. 프로세스는 실행하면서 stack pointer, data, text, register 등이 끊임없이 변한다. 프로세스는 job, task 등으로 불리기도 한다.
 
-### 프로세스 상태
+## 프로세스 상태
 - **New**: 프로그램이 메인 메모리에 할당된다.
 - **Ready**: 할당된 프로그램이 초기화와 같은 작업을 통해 실행되기 위한 모든 준비를 마친다.
 - **Running**: CPU가 해당 프로세스를 실행한다.
@@ -24,14 +25,14 @@ sidebar_main: true
 
 위 그림은 프로세스 상태 전이도의 모습이다. new에서부터 프로세스가 어떤 작업에 의해 상태가 변하는지 나타낸다. running에서 ready로 변할 때는 time sharing system에서 해당 프로세스가 CPU시간을 모두 소진하였을 때 인터럽트에 의해 강제로 ready상태로 변하고, CPU는 다른 프로세스를 실행시킨다.
 
-### PCB(Process Control Block)
+## PCB(Process Control Block)
 PCB는 **프로세스에 대한 모든 정보** 가 모여있는 곳으로, Task Control Block(TCB) 이라고도 한다. PCB안에는 프로세스의 상태, 프로세스 번호(PID), 해당 프로세스의 program counter(pc), register값, MMU정보, CPU점유 시간 등이 포함되어 있다. PCB는 운영체제 내부의 프로세스를 관리하는 코드 부분에 저장되어 있다.
 
 ![os05-2](https://user-images.githubusercontent.com/34755287/53879659-5ccdd500-4052-11e9-8364-5cf3a1d6c90a.png)
 
 CPU는 한 프로세스가 종료될 때까지 수행하는 것이 아니라 여러 프로세스를 중간 중간에 바꿔가면서 수행한다. 그러므로 CPU는 수행중인 프로세스를 나갈 때, 이 프로세스의 정보를 어딘가에 저장하고 있어야 다음에 이 프로세스를 수행할 때 이전에 수행한 그 다음부터 이어서 작업할 수 있다. 이러한 정보를 저장하는 곳이 PCB이다.
 
-### 프로세스 큐(Queue)
+## 프로세스 큐(Queue)
 프로세스는 수행하면서 상태가 여러 번 변하는데 이에 따라 서비스를 받아야하는 곳이 다르다. 그리고 프로세스는 일반적으로 여러 개가 한 번에 수행되므로 그에 따른 순서가 필요하다. 이러한 순서를 대기하는 곳을 **큐(queue)** 라고 부른다.
 
 ![os05-3](https://user-images.githubusercontent.com/34755287/53879660-5ccdd500-4052-11e9-972d-11ba3faeb3e3.png)
@@ -48,27 +49,28 @@ CPU는 한 프로세스가 종료될 때까지 수행하는 것이 아니라 여
 
 Job queue의 순서를 정해주는 job scheduler를 long-term scheduler라고도 하는데, 이는 이 스케줄링이 발생하는 시간이 비교적 오래걸리기 때문이다.(대략 초~분) 반면에 ready queue의 스케줄러를 short-term scheduler라고도 하는데, 이는 스케줄링이 발생하는 시간이 매우 짧기 때문이다. CPU scheduling은 말 그대로 프로세스가 CPU를 점유하는 순서를 정해주는데 이는 매우 빠른 시간안에 이루어져야한다. 현대 컴퓨터가 여러 프로그램을 동시에 사용하는 것과 같은 효과를 주는 이유가 이 스케줄링 속도가 매우 빠르게 이루어지기 때문이다.
 
-### 멀티프로그래밍(Multiprogramming)
+
+# 멀티프로그래밍(Multiprogramming)
 멀티프로그래밍은 단일 프로세서(CPU) 환경에서 **여러 개의 프로세스가 동시에 실행** 되는 것을 말한다.(실제로 동시에 실행되지는 않음) 여러 프로세스가 실행되려면 이 프로세스들은 모두 메인 메모리에 존재하고 있어야 한다. 멀티프로그래밍에 관한 몇 가지 용어와 개념에 대해 살펴보자.
 
-#### Degree of multiprogramming
+## Degree of multiprogramming
 Degree of multiprogramming 는 현재 메모리에 할당되어 있는 프로세스 개수를 말한다.
 
-#### I/O bound process VS CPU bound process
+## I/O bound process VS CPU bound process
 프로세스는 I/O bound process 와 CPU bound process 로 나뉜다.
 - I/O bound process: 해당 프로세스에서 I/O(입출력) 작업이 차지는 비중이 높은 프로세스를 말한다.
 - CPU bound process: 해당 프로세스에서 CPU 작업(계산)이 차지는 비중이 높은 프로세스를 말한다.
 
 운영체제, 정확히 말하면 job scheduler 는 I/O bound process와 CPU bound process를 적절히 분배해서 메모리에 할당해주어야 한다.
 
-#### Medium-term scheduler
+## Medium-term scheduler
 Medium-term scheduler는 말그대로 short-term보다는 덜 발생하지만, long-term보다는 자주 발생하는 scheduler이다. 하는 일은 운영체제가 실행하는 동안 주기적으로 메인 메모리에 있는 전체 프로세스를 검사하여 보조기억장치로 옮길 프로세스를 찾아 옮긴다. 옮기는 기준은 여러가지 있겠지만 대표적으로 장기간 사용하지 않는 프로세스가 있다.
 
 이 기준으로 동작하는 것이 **Swapping** 이다. 이는 메인 메모리에서 장시간 사용하지 않는 프로세스를 하드디스크(**Swap device** = Backing store, 일반적으로 하드디스크는 File system + Backing store 로 구성되어 있다.)로 옮겨주고(**Swap out**), 나중에 이 프로세스가 다시 사용되려고 하면 하드디스크에서 해당 프로세스를 다시 메인 메모리에 할당해준다.(**Swap in**)
 
 Swap out을 통해 메인 메모리의 공간이 생기므로 이를 더욱 효율적으로 사용할 수 있다. 만약 swap out된 프로세스가 다시 swap in으로 메인 메모리에 할당하려고 할 때 이전의 공간으로 할당되는 것을 보장하지는 않는다. 왜냐하면 위에 말했듯이 swap out으로 생긴 메모리 공간은 다른 프로세스가 사용할 수 있기 때문이다.
 
-#### Context Switching(문맥 전환)
+## Context Switching(문맥 전환)
 Context switching은 CPU가 한 프로세스에서 다른 프로세스로 옮겨가는 것을 말한다. 즉, 한 프로세스가 실행중인 것을 멈추고 다른 프로세스가 실행되는 것이다.
 
 - Scheduler: 여기서 스케줄러는 CPU Scheduler를 말하며, CPU가 어느 프로세스를 선택할지 정한다.

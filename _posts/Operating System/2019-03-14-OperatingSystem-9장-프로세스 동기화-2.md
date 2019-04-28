@@ -1,6 +1,7 @@
 ---
-title: "[OS] 9장 프로세스 동기화 - 2"
-excerpt: "운영체제 개념 정리"
+title: "[운영체제] # 9 프로세스 동기화 - 2"
+excerpt: "2019-03-14"
+date: 2019-03-14 12:09:00
 categories:
   - Study
 tags:

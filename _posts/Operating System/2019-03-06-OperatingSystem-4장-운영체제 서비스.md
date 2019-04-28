@@ -1,6 +1,7 @@
 ---
-title: "[OS] 4장 운영체제 서비스"
-excerpt: "운영체제 개념 정리"
+title: "[운영체제] # 4 운영체제 서비스"
+excerpt: "2019-03-06"
+date: 2019-03-06 15:09:00
 categories:
   - Study
 tags:
@@ -23,7 +24,7 @@ sidebar_main: true
 - 기타...
 
 
-## 프로세스 관리(Process management)
+# 프로세스 관리(Process management)
 프로세스 관리는 운영체제 기능 중 가장 중요한 기능 중 하나이다. 프로세스와 프로그램은 기본적으로 구분된다. 프로세스는 실제 메인 메모리에서 **실행 중인 프로그램(program in execution)** 을 말한다. 프로그램은 하드디스크와 같은 보조기억장치에서 **아무런 동작을 하지 않는 상태** 이다. 이를 어떠한 요청에 의해 메인 메모리에 할당하여 CPU를 사용하면서 실행하게 되는데 이를 프로세스라 부른다.
 
 프로세스 관리의 주요 기능은 다음과 같다.
@@ -34,7 +35,7 @@ sidebar_main: true
 - 교착상태 처리(deadlock handling)
 
 
-## 주기억장치 관리(Main memory management)
+# 주기억장치 관리(Main memory management)
 주기억장치 즉, 메인 메모리는 프로그램이 실행되기 위한 공간이다. CPU는 오직 메인 메모리에 있는 프로그램(프로세스)하고만 소통할 수 있다. 주기억장치 관리에서는 메인 메모리를 효율적으로 사용하도록 관리한다.
 
 - 프로세스에게 메모리 공간 할당(allocation)
@@ -44,7 +45,7 @@ sidebar_main: true
 - 가상 메모리: 물리적 실제 메모리보다 큰 용량을 사용할 수 있다.
 
 
-## 파일 관리(File management)
+# 파일 관리(File management)
 Track과 sector로 물리적으로 구성된 디스크를 파일이라는 논리적 관점으로 바라보고 이를 관리하는 것이다.
 파일은 OS가 실행되는 컴퓨터에서 자주 볼 수 있는데, 이는 복잡한 과정으로 하드디스크에 저장되어 있는 것을 사용자가 편리하게 사용할 수 있도록 **파일** 이라는 논리적 형태로 운영체제에서 관리하여 보여준다.
 
@@ -55,7 +56,7 @@ Track과 sector로 물리적으로 구성된 디스크를 파일이라는 논리
 - 백업(Backup)
 
 
-## 보조기억장치 관리(Secondary storage management)
+# 보조기억장치 관리(Secondary storage management)
 보조기억장치는 대표적으로 하드 디스크, 플래시 메모리(주로 스마트폰에 사용)가 있다. 하드 디스크를 예로 들면, 하드 디스크에서 아무 것도 저장되어 있지 않는 공간을 block이라 하는데, 보조기억장치 관리는 이를 관리하는 것이다.
 
 - 빈 공간 관리(Free space management)
@@ -63,21 +64,21 @@ Track과 sector로 물리적으로 구성된 디스크를 파일이라는 논리
 - 디스크 스케줄링(Disk scheduling)
 
 
-## 입출력 장치 관리(I/O device management)
+# 입출력 장치 관리(I/O device management)
 입출력 장치에는 키보드, 마우스, 프린터, 스피커, 마이크 등이 있다. 입출력 장치 관리는 이와 같은 여러 입출력 장치를 사용하기 위해 존재한다.
 
 - 장치 드라이브(Device drivers)
 - 입출력 장치의 성능향상: buffering, caching, spooling
 
 
-## 시스템 콜(System call)
+# 시스템 콜(System call)
 시스템 콜은 **유저 프로세스에서 운영체제 서비스를 필요로 할 때** 이를 받기 위해 사용하는 호출이다.
 
 ![os04-1](https://user-images.githubusercontent.com/34755287/53879657-5c353e80-4052-11e9-827d-751cc9dcc0f1.png)
 
 위는 process1에서 프로세스 관리에 시스템 콜을 요청한 모습이다. 프로세스가 실행하는 중간에 운영체제 서비스가 필요하면 시스템 콜을 통해 운영체제 안의 해당 코드로 점프할 수 있다.
 
-### 주요 시스템 콜
+## 주요 시스템 콜
 - Process: end(정상 종료), abort(강제 종료), load, execute, create, terminate, get/set, attributes, wait event, signal event
 - Memory: allocate, free
 - File: create, delete, open, close, read, write, get/set attributes

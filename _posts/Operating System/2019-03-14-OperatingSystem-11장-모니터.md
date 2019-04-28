@@ -1,6 +1,7 @@
 ---
-title: "[OS] 11장 모니터"
-excerpt: "운영체제 개념 정리"
+title: "[운영체제] # 11 모니터"
+excerpt: "2019-03-14"
+date: 2019-03-14 14:09:00
 categories:
   - Study
 tags:
@@ -12,7 +13,7 @@ sidebar_main: true
 
 세마포는 실제로 매우 오래된 동기화 도구이다. 현재에는 모니터(monitor)라는 동기화 도구를 주로 사용하며, 이는 좀 더 고수준의 동기화 기능을 제공한다.
 
-## 모니터 구조
+# 모니터 구조
 
 ![OS11-1](https://user-images.githubusercontent.com/34755287/54345852-3bd73680-4687-11e9-8c99-236870a019d9.png)
 
@@ -20,7 +21,8 @@ sidebar_main: true
 
 상호배타 큐는 말그대로 공유 자원에 하나의 프로세스만 진입하도록 하기 위한 큐이다. 조건동기 큐는 이미 공유자원을 사용하고 있는 프로세스가 특정한 호출(```wait()```)을 통해 조건동기 큐로 들어갈 수 있다. 조건동기 큐에 들어가 있는 프로세스는 공유자원을 사용하고 있는 다른 프로세스에 의해 깨워줄 수 있다. 이 역시 깨워주는 프로세스에서 특정한 호출(```notify()```)을 해주며, 깨워주더라도 이미 공유자원을 사용하고 있는 프로세스가 해당 구역을 나가야 비로소 큐에 있던 프로세스가 실행된다.
 
-### 자바 모니터
+
+# 자바 모니터
 자바는 모니터를 제공하는 대표적인 언어이며, 자바의 모든 개체는 모니터가 될 수 있다. 그렇다면 자바를 통해 모니터에 대한 예제를 살펴보자.
 
 ```java
@@ -49,10 +51,10 @@ Foo함수와 Goo함수는 synchronized 키워드를 통해 상호배타 함수�
 
 모니터 역시, 세마포에서 할 수 있는 기능인 Mutual exclusion, Ordering을 모두 할 수 있다. 예제를 통해 이를 살펴보자.
 
-#### BankAccount Problem
+## BankAccount Problem
 이전에 세마포에서 살펴본 은행계좌 문제를 통해 세마포 대신 모니터를 사용해서 Mutual exclusion, Ordering을 구현해보자.
 
-1. Mutual Exclusion
+### 1. Mutual Exclusion
 
 ```java
 class Test {
@@ -121,7 +123,7 @@ balance = 0
 
 실행 결과는 위와 같고, balance값이 정상적으로 0을 출력하는 것을 볼 수 있다.
 
-2. Ordeing
+### 2. Ordeing
 은행계좌 문제를 살펴보기전에, ordering을 하기 위해 모니터를 어떻게 사용하는지 보자.
 
 |    P1    	|    P2    	|
@@ -238,8 +240,8 @@ class BankAccount {
 balance = 0
 ```
 
-#### 전통적 동기화 문제
-1. Producer-Consumer Problem
+## 전통적 동기화 문제
+### 1. Producer-Consumer Problem
 
 ```java
 class Buffer {
@@ -320,7 +322,7 @@ class Test {
 Number of items in the buf is 0
 ```
 
-2. The Dining Philosopher Problem
+### 2. The Dining Philosopher Problem
 
 ```java
 class Philosopher extends Thread {
