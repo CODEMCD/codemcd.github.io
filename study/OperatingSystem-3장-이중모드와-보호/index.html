@@ -9,19 +9,19 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>[OS] 3장 이중모드와 보호 - CODEMCD’s Tech BLOG</title>
-<meta name="description" content="운영체제 개념 정리">
+<!-- begin _includes/seo.html --><title>[운영체제] # 3 이중모드와 보호 - CODEMCD’s Tech BLOG</title>
+<meta name="description" content="2019-03-06">
 
 
 
 <meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech BLOG">
-<meta property="og:title" content="[OS] 3장 이중모드와 보호">
+<meta property="og:title" content="[운영체제] # 3 이중모드와 보호">
 <meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-3%EC%9E%A5-%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80-%EB%B3%B4%ED%98%B8/">
 
 
-  <meta property="og:description" content="운영체제 개념 정리">
+  <meta property="og:description" content="2019-03-06">
 
 
 
@@ -29,7 +29,7 @@
 
 
 
-  <meta property="article:published_time" content="2019-03-06T00:00:00+09:00">
+  <meta property="article:published_time" content="2019-03-06T23:09:00+09:00">
 
 
 
@@ -425,15 +425,15 @@
 
 
   <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
-    <meta itemprop="headline" content="[OS] 3장 이중모드와 보호">
-    <meta itemprop="description" content="운영체제 개념 정리">
+    <meta itemprop="headline" content="[운영체제] # 3 이중모드와 보호">
+    <meta itemprop="description" content="2019-03-06">
     <meta itemprop="datePublished" content="March 06, 2019">
     
 
     <div class="page__inner-wrap">
       
         <header>
-          <h1 id="page-title" class="page__title" itemprop="headline">[OS] 3장 이중모드와 보호
+          <h1 id="page-title" class="page__title" itemprop="headline">[운영체제] # 3 이중모드와 보호
 </h1>
           
         </header>
@@ -464,7 +464,7 @@
 
 <p>이런 문제점을 해결하기 위해 일반 사용자가 위와 같은 치명적인 명령어들을 요청하는 것을 막을 필요가 생겼다. 여기서 <strong>이중 모드</strong> 라는 것이 나왔다.</p>
 
-<h2 id="이중-모드dual-mode">이중 모드(Dual mode)</h2>
+<h1 id="이중-모드dual-mode">이중 모드(Dual mode)</h1>
 <p>이중 모드는 말 그대로 모드를 아래와 같이 둘로 나누는 것이다.</p>
 <ul>
   <li><strong>사용자(User) 모드</strong></li>
@@ -500,10 +500,10 @@
 
 <p>애플리케이션이 실행하는 동안에는 위와 같은 모드 변경이 반복적으로 일어나는 것을 볼 수 있다. 대부분의 CPU는 이중 모드를 지원한다.</p>
 
-<h2 id="하드웨어-보호">하드웨어 보호</h2>
+<h1 id="하드웨어-보호">하드웨어 보호</h1>
 <p>이중 모드는 운영체제 기능 중에서 보호에 해당된다. 운영체제에서 보호할 대상은 입출력 장치, 메모리, CPU 총 세 가지가 존재한다.</p>
 
-<h3 id="입출력-장치-보호">입출력 장치 보호</h3>
+<h2 id="입출력-장치-보호">입출력 장치 보호</h2>
 <p>여러 정보들은 입출력 장치를 통해 컴퓨터로 입력되고, 외부 장치로 출력이 된다. 여기서 크게 두 가지의 문제점이 발생한다.</p>
 <ul>
   <li>여러 입출력 장치의 사용으로 인한 혼선</li>
@@ -515,7 +515,7 @@
 
 <p>만약 A, B 사용자가 있는 상황에서 A가 B의 데이터를 읽기 위해 운영체제에게 소프트웨어 인터럽트를 발생하였다고 하자. 그러면 운영체제 내부의 해당 ISR로 이동하게 되는데, 여기서 현재 사용자가 해당 데이터가 접근할 수 있는 여부를 판단하는 과정이 있으므로 이는 거부된다.</p>
 
-<h3 id="메모리-보호">메모리 보호</h3>
+<h2 id="메모리-보호">메모리 보호</h2>
 <p>메모리에는 운영체제뿐만 아니라 여러 개의 사용자 애플리케이션이 존재한다. 한 애플리케이션이 자신의 메모리 영역이 아닌 운영체제나 다른 애플리케이션의 메모리 영역에 침범하려하면 매우 위험하다.</p>
 
 <p><img src="https://user-images.githubusercontent.com/34755287/53879655-5c353e80-4052-11e9-8ec6-8b247850f347.png" alt="os03-2" /></p>
@@ -530,7 +530,7 @@
 
 <p>만약 해당 프로그램의 주소 범위 밖의 주소값이 MMU에 들어온다면, MMU에서 <strong>내부 인터럽트</strong> 를 발생시켜 CPU에 신호를 준다. 그러면 CPU는 그에 맞는 ISR로 이동하여 해당 프로그램을 강제로 종료시킨다. 이과 같은 잘못된 메모리 접근을 Segment violation 이라 한다.</p>
 
-<h3 id="cpu-보호">CPU 보호</h3>
+<h2 id="cpu-보호">CPU 보호</h2>
 <p>CPU 보호는 사용자의 실수 또는 고의로 인한 CPU 독점을 방지해야 한다. 하나의 프로그램이 CPU를 독점하게 되면 다른 프로그램은 수행되지 못한다.</p>
 
 <div class="language-cpp highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">while</span><span class="p">(</span><span class="n">n</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
@@ -595,7 +595,7 @@
 
 
         
-          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-03-06T00:00:00+09:00">March 06, 2019</time></p>
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-03-06T23:09:00+09:00">March 06, 2019</time></p>
         
       </footer>
 
@@ -604,7 +604,7 @@
     <h4 class="page__share-title">공유하기</h4>
   
 
-  <a href="https://twitter.com/intent/tweet?text=%5BOS%5D+3%EC%9E%A5+%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80+%EB%B3%B4%ED%98%B8%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-3%25EC%259E%25A5-%25EC%259D%25B4%25EC%25A4%2591%25EB%25AA%25A8%25EB%2593%259C%25EC%2599%2580-%25EB%25B3%25B4%25ED%2598%25B8%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+  <a href="https://twitter.com/intent/tweet?text=%5B%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C%5D+%23+3+%EC%9D%B4%EC%A4%91%EB%AA%A8%EB%93%9C%EC%99%80+%EB%B3%B4%ED%98%B8%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-3%25EC%259E%25A5-%25EC%259D%25B4%25EC%25A4%2591%25EB%25AA%25A8%25EB%2593%259C%25EC%2599%2580-%25EB%25B3%25B4%25ED%2598%25B8%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
 
   <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FOperatingSystem-3%25EC%259E%25A5-%25EC%259D%25B4%25EC%25A4%2591%25EB%25AA%25A8%25EB%2593%259C%25EC%2599%2580-%25EB%25B3%25B4%25ED%2598%25B8%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
 
@@ -617,11 +617,11 @@
       
   <nav class="pagination">
     
-      <a href="/pages/CODEMCD/study/OperatingSystem-2%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%97%AD%EC%82%AC/" class="pagination--pager" title="[OS] 2장 운영체제 역사
+      <a href="/pages/CODEMCD/study/OperatingSystem-2%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%97%AD%EC%82%AC/" class="pagination--pager" title="[운영체제] # 2 운영체제 역사
 ">이전</a>
     
     
-      <a href="/pages/CODEMCD/study/OperatingSystem-4%EC%9E%A5-%EC%9A%B4%EC%98%81%EC%B2%B4%EC%A0%9C-%EC%84%9C%EB%B9%84%EC%8A%A4/" class="pagination--pager" title="[OS] 4장 운영체제 서비스
+      <a href="/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/" class="pagination--pager" title="[OS] 10장 프로세스 동기화 - 3
 ">다음</a>
     
   </nav>
