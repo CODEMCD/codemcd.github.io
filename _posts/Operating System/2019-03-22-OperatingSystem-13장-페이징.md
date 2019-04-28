@@ -1,6 +1,5 @@
 ---
 title: "[OS] 13장 페이징"
-excerpt: "운영체제 개념 정리"
 categories:
   - Study
 tags:
