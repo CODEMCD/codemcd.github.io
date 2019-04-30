@@ -26,7 +26,7 @@ sidebar_main: true
 ---
 ## POSTS
 
-{% assign posts = site.tags.Toy_jsdsLib | sort:"date" %}
+{% assign posts = site.tags.Toy_jsdsLib | sort:"date" | reverse  %}
 
 {% for post in posts %}
   {% include archive-single.html type=page.entries_layout %}

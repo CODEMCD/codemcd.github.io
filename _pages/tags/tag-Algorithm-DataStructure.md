@@ -8,7 +8,7 @@ sidebar_main: true
 
 ---
 
-{% assign posts = site.tags.Algorithm_DataStructure | sort:"date" %}
+{% assign posts = site.tags.Algorithm_DataStructure | sort:"date" | reverse  %}
 
 {% for post in posts %}
   {% include archive-single.html type=page.entries_layout %}
