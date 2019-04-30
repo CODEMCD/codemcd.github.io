@@ -1,7 +1,7 @@
 ---
 title: "LCS 알고리즘"
 excerpt: "최신 업데이트 날짜: 2019-04-30"
-date: 2019-04-30 12:09:00
+date: 2019-04-30 14:00:00
 categories:
   - Algorithm
 tags:
