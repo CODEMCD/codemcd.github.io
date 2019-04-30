@@ -6,7 +6,15 @@ author_profile: true
 sidebar_main: true
 ---
 
-- [POST 바로가기](#posts)
+# POSTS
+
+{% assign posts = site.tags.Toy_Blog | sort:"date" | reverse  %}
+
+{% for post in posts %}
+  {% include archive-single.html type=page.entries_layout %}
+{% endfor %}
+
+---
 
 ## Blog Spec
 - Github + Jekyll
@@ -32,13 +40,3 @@ sidebar_main: true
 - [Minimal mistakes 테마 적용](https://junhobaik.github.io/jekyll-apply-theme/)
 - [Travis CI, algolia 등 적용](https://imreplay.com/blogging/minimal-mistakes-%ED%85%8C%EB%A7%88%EB%A5%BC-%EC%9D%B4%EC%9A%A9%ED%95%B4-githubio-%EB%B8%94%EB%A1%9C%EA%B7%B8-%EA%B5%AC%EC%B6%95%ED%95%98%EA%B8%B0/)
 - [Jekyll 분석](http://jihyeleee.com/blog/third-designer-can-make-jekyll-blog/)
-
-
----
-# POSTS
-
-{% assign posts = site.tags.Toy_Blog | sort:"date" | reverse  %}
-
-{% for post in posts %}
-  {% include archive-single.html type=page.entries_layout %}
-{% endfor %}

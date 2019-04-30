@@ -6,7 +6,15 @@ author_profile: true
 sidebar_main: true
 ---
 
-- [POST 바로가기](#posts)
+## POSTS
+
+{% assign posts = site.tags.Toy_jsdsLib | sort:"date" | reverse  %}
+
+{% for post in posts %}
+  {% include archive-single.html type=page.entries_layout %}
+{% endfor %}
+
+---
 
 ## jsdsLib
 - 자바스크립트로 구현된 자료구조 라이브러리
@@ -21,13 +29,3 @@ sidebar_main: true
 - 자료구조의 데이터 상황을 시각적으로 표현하는 웹 서비스
 - 자료구조 목록: Stack, Queue
 - [Visualization 사용하기](https://github.com/CODEMCD/jsdsLib-Visualization)
-
-
----
-## POSTS
-
-{% assign posts = site.tags.Toy_jsdsLib | sort:"date" | reverse  %}
-
-{% for post in posts %}
-  {% include archive-single.html type=page.entries_layout %}
-{% endfor %}
