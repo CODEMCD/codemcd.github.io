@@ -1,6 +1,6 @@
 ---
 title: "[운영체제] # 6 CPU 스케줄링"
-excerpt: "2019-03-06"
+excerpt: "최신 업데이트 날짜: 2019-03-06"
 date: 2019-03-06 17:09:00
 categories:
   - Study
