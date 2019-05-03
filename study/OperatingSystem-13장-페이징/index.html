@@ -451,6 +451,12 @@
       <li><a href="#주소-변환address-translation">주소 변환(Address Translation)</a></li>
       <li><a href="#내부단편화internal-fragment">내부단편화(Internal Fragment)</a></li>
       <li><a href="#페이지-테이블-만들기">페이지 테이블 만들기</a></li>
+      <li><a href="#보호와-공유">보호와 공유</a>
+        <ul>
+          <li><a href="#보호protection">보호(Protection)</a></li>
+          <li><a href="#공유sharing">공유(Sharing)</a></li>
+        </ul>
+      </li>
     </ul>
   </li>
 </ul>
@@ -545,6 +551,17 @@ d = 0010
 <p>실제 유효한 메모리에 접근하는 시간은 위와 같다. TLB에 유효한 페이지가 있다면 TLB를 읽는 시간과 실제 메모리를 읽는 시간만 있으면 된다. 하지만, TLB에 유효한 페이지가 없다면 이를 다시 메모리에서 가져와야 하므로 메모리를 총 2번 읽어야 한다.</p>
 
 <p>예제를 계산해보면, <code class="highlighter-rouge">0.8 * (20 + 100) + 0.2 * (20 + 100 + 100) = 140ns</code> 이다. hit ratio는 실제로 평균 95%이상이므로 충분히 효율적으로 동작한다고 볼 수 있다.</p>
+
+<h2 id="보호와-공유">보호와 공유</h2>
+<h3 id="보호protection">보호(Protection)</h3>
+<p>모든 주소는 페이지 테이블을 경유하므로, 테이블을 이용해서 보호 기능을 수행할 수 있다. 대표적으로 페이지 테이블마다 r(read), w(write), x(execute) 비트를 두어, 해당 비트가 켜져있을 때 그 수행이 가능하도록한다.</p>
+
+<p><img src="https://user-images.githubusercontent.com/34755287/57119533-f6410b00-6da5-11e9-884d-00e325b21912.png" alt="OS13-3" /></p>
+
+<p>위 그림은 페이지 테이블에 r,w,x 비트를 추가한 모습이다. 만약, 1번 페이지 엔트리처럼 쓰기 비트가 꺼져있는 페이지에 쓰기 작업을 시도하면 CPU에 인터럽트가 발생하여 ISR에서 강제로 해당 프로세스를 종료시킨다.</p>
+
+<h3 id="공유sharing">공유(Sharing)</h3>
+<p>공유는 메모리 낭비를 방지하기 위함이다. 같은 프로그램을 쓰는 복수 개의 프로세스가 있다면, 프로세스의 메모리는 code + data + stack 영역으로 나뉘는데 프로그램이 같다면 code 영역은 같을 것이다. 그러므로 하나의 code 영역을 복수 개의 프로세스가 공유하여 메모리 낭비를 줄이는 것이다. 단, code가 공유되려면 code가 변하지 않는 프로그램이어야 한다. 이를 <strong>non-self-modifying code = reentrant code(재진입가능 코드) = pure code</strong> 라고 한다.</p>
 
         
       </section>
