@@ -410,7 +410,7 @@
           
             
               
-                <li><a href="/tags/study-operatingsystem" class="">OperatingSystem (17)</a></li>
+                <li><a href="/tags/study-operatingsystem" class="">OperatingSystem (18)</a></li>
             
           
         </ul>
@@ -505,11 +505,12 @@
     <ul>
       <li>(2, 0 + 7),   <code class="highlighter-rouge">min(INF, 7) = 7</code></li>
       <li>(3, 0 + 9),   <code class="highlighter-rouge">min(INF, 9) = 9</code></li>
-      <li>(6, 0 + 14),  <code class="highlighter-rouge">min(INF, 14) = 14</code>
-1번 정점과 인접한 정점까지 거리를 계산하여 표와 비교한 후 더 짧은 거리로 갱신한다. 그 다음 <strong>확정되지 않은 정점 중 가장 짧은 거리를 가진 정점으로 이동한다.</strong> 선택된 정점은 시작점과 최단 거리임을 확정하고 그 정점에서 위와 같이 인접한 정점과 거리 계산 과정을 반복한다.</li>
+      <li>(6, 0 + 14),  <code class="highlighter-rouge">min(INF, 14) = 14</code></li>
     </ul>
   </li>
 </ul>
+
+<p>1번 정점과 인접한 정점까지 거리를 계산하여 표와 비교한 후 더 짧은 거리로 갱신한다. 그 다음 <strong>확정되지 않은 정점 중 가장 짧은 거리를 가진 정점으로 이동한다.</strong> 선택된 정점은 시작점과 최단 거리임을 확정하고 그 정점에서 위와 같이 인접한 정점과 거리 계산 과정을 반복한다.</p>
 
 <table>
   <thead>
@@ -716,12 +717,13 @@
 </ul>
 
 <h3 id="시간복잡도">시간복잡도</h3>
-<p>간선의 개수를 E라고 할 때, 각 정점마다 인접한 간선들을 모두 검사하는 작업은 O(|E|) 이고, 우선 순위 큐에 추가 및 삭제하는 연산은 O(logE)이다. 따라서 전체 시간복잡도는 <strong>O(ElogE)</strong> 이다. 여기서 대부분의 그래프에서 <strong>간선의 개수는 정점의 개수(V) 제곱보다 작으므로</strong> 최대 원소의 개수가 전체 간선의 수가 아닌 전체 정점의 수로 볼 수 있다. 따라서, 시간복잡도를 <strong>O(ElogV)</strong> 로 계산할 수도 있다.</p>
+<p>간선의 개수를 E라고 할 때, 각 정점마다 인접한 간선들을 모두 검사하는 작업은 O(E) 이고, 우선 순위 큐에 추가 및 삭제하는 연산은 O(logE)이다. 따라서 전체 시간복잡도는 <strong>O(ElogE)</strong> 이다. 여기서 대부분의 그래프에서 <strong>간선의 개수는 정점의 개수(V) 제곱보다 작으므로</strong> 최대 원소의 개수가 전체 간선의 수가 아닌 전체 정점의 수로 볼 수 있다. 따라서, 시간복잡도를 <strong>O(ElogV)</strong> 로 계산할 수도 있다.</p>
 
 <ul>
-  <li>O(VlogV) 다익스트라 알고리즘
-중복 원소를 우선순위 큐에 넣지 않도록 수정하면 시간복잡도는 O(VlogV)로 만들 수 있다. 이를 위해 피보나치 힙이나 이진 검색 트리를 사용해서 우선 순위 큐를 구현하면 중복 원소를 제거할 수 있지만, 구현이 복잡하고 실제로 시간이 더 오래 걸리는 경우가 많다.</li>
+  <li>O(VlogV) 다익스트라 알고리즘</li>
 </ul>
+
+<p>중복 원소를 우선순위 큐에 넣지 않도록 수정하면 시간복잡도는 O(VlogV)로 만들 수 있다. 이를 위해 피보나치 힙이나 이진 검색 트리를 사용해서 우선 순위 큐를 구현하면 중복 원소를 제거할 수 있지만, 구현이 복잡하고 실제로 시간이 더 오래 걸리는 경우가 많다.</p>
 
         
       </section>
@@ -832,6 +834,25 @@
     
     <h2 class="archive__item-title" itemprop="headline">
       
+        <a href="/pages/CODEMCD/study/OperatingSystem-18%EC%9E%A5-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9/" rel="permalink">[운영체제] # 18 파일 할당(Allocation of Files)
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-05
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
         <a href="/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/" rel="permalink">[운영체제] # 17 프레임 할당(Allocation of Frames)
 </a>
       
@@ -871,25 +892,6 @@
     <h2 class="archive__item-title" itemprop="headline">
       
         <a href="/pages/CODEMCD/study/OperatingSystem-15%EC%9E%A5-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC/" rel="permalink">[운영체제] # 15 가상메모리(Virtual Memory)
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-03
-</p>
-  </article>
-</div>
-        
-          
-
-
-
-<div class="grid__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/study/OperatingSystem-14%EC%9E%A5-%EC%84%B8%EA%B7%B8%EB%A8%BC%ED%85%8C%EC%9D%B4%EC%85%98/" rel="permalink">[운영체제] # 14 세그먼테이션(Segmentation)
 </a>
       
     </h2>

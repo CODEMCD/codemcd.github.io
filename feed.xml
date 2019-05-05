@@ -1,4 +1,145 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-05-05T17:18:02+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s Tech BLOG</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[운영체제] # 17 프레임 할당(Allocation of Frames)</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/" rel="alternate" type="text/html" title="[운영체제] # 17 프레임 할당(Allocation of Frames)" /><published>2019-05-04T07:30:00+09:00</published><updated>2019-05-04T07:30:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84%20%ED%95%A0%EB%8B%B9</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/">&lt;h1 id=&quot;global-vs-local-replacement&quot;&gt;Global VS Local Replacement&lt;/h1&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-05-05T19:24:34+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s Tech BLOG</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[운영체제] # 18 파일 할당(Allocation of Files)</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-18%EC%9E%A5-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9/" rel="alternate" type="text/html" title="[운영체제] # 18 파일 할당(Allocation of Files)" /><published>2019-05-05T19:10:00+09:00</published><updated>2019-05-05T19:10:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-18%EC%9E%A5-%ED%8C%8C%EC%9D%BC%20%ED%95%A0%EB%8B%B9</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-18%EC%9E%A5-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9/">&lt;p&gt;컴퓨터 시스템 자원 중 가장 중요한 것은 CPU이다. CPU 자원 관리에 대해서는 맨 처음 부분에서 다루었으며 CPU 스케줄링, 프로세스 동기화 등에 대해서 배웠다. CPU 다음으로 중요한 자원은 메인 메모리와 같은 주기억장치이다. 메인 메모리 관리에 대한 주요 이슈는 페이징, 가상 메모리(요구 페이징) 등이 있었다.&lt;/p&gt;
+
+&lt;p&gt;CPU, 주기억장치 다음 중요한 컴퓨터 시스템 자원은 하드디스크와 같은 보조기억장치이다. 하드디스크가 데이터를 관리하는 방식은 &lt;strong&gt;파일 시스템&lt;/strong&gt; 이다. 파일은 컴퓨터에서 운영체제를 사용해본 사용자라면 매우 익숙한 단어일 것이다. 대표적인 windows 운영체제를 보면 폴더(디렉토리) 내부에 또 다른 폴더 또는 어떠한 파일이 존재한다. 이러한 폴더 및 파일은 트리 구조를 이루어 관리할 수 있다.&lt;/p&gt;
+
+&lt;p&gt;이번 장에서는 보조기억장치 중 컴퓨터에서 주로 사용하는 하드디스크의 파일이 할당되는 방법에 대해서 살펴볼 것이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57186865-72139280-6f21-11e9-8d3a-ba7554aff1ac.png&quot; alt=&quot;OS18-1&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 하드디스크의 구조이다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;platter&lt;/strong&gt;: 실제 데이터를 기록하는 자성을 가진 원판이다. platter는 그림과 같이 여러 개가 존재하고 앞뒤로 사용할 수 있다. 한 platter는 여러 개의 track으로 이루어져 있다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;track&lt;/strong&gt;: platter의 동심원을 이루는 하나의 영역이다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;sector&lt;/strong&gt;: 하나의 track을 여러 개로 나눈 영역을 sector라 한다. sector size는 일반적으로 512 bytes이며 주로 여러 개를 묶어서 사용한다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;cylinder&lt;/strong&gt;: 한 cylinder는 모든 platter에서 같은 track 위치의 집합을 말한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;앞서 sector는 여러 개로 묶어서 사용한다고 했는데, 이를 &lt;strong&gt;블록(block)&lt;/strong&gt; 이라 한다. 하드디스크는 &lt;strong&gt;블록 단위로 읽고 쓰기&lt;/strong&gt; 때문에 block device 라고 불리기도 한다.&lt;/p&gt;
+
+&lt;p&gt;하드디스크가 블록 단위로 읽고 쓰는 것을 확인할 수 있는 간단한 방법은 메모장 프로그램에서 알파벳 a만을 적고 저장해보자. a는 character로 1byte 크기를 갖는데, 실제 저장된 텍스트 파일의 속성을 확인하면 디스크에 &lt;strong&gt;4KB(하나의 block size)&lt;/strong&gt; 가 할당되는 것을 확인할 수 있다.(실제 디스크 할당 크기는 운영체제마다 다르다.)&lt;/p&gt;
+
+&lt;p&gt;따라서 디스크는 비어있는 블록들의 집합이라고 볼 수 있다.(pool of free blocks) 그렇다면 운영체제는 각각의 파일에 대해 &lt;strong&gt;free block&lt;/strong&gt; 을 어떻게 할당할까?&lt;/p&gt;
+
+&lt;h1 id=&quot;파일-할당&quot;&gt;파일 할당&lt;/h1&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57186866-72139280-6f21-11e9-898a-d2deeb334286.png&quot; alt=&quot;OS18-2&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 pool of free blocks를 논리적인 그림으로 나타낸 모습이고 블록마다 인덱스 번호를 설정하였다. 블록들이 위와 같이 있을 때 파일을 할당하는 방법은 크게 연속 할당, 연결 할당, 색인 할당 세 가지가 존재한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;연속-할당-contiguous-allocation&quot;&gt;연속 할당 (Contiguous Allocation)&lt;/h2&gt;
+&lt;p&gt;연속 할당은 말그대로 &lt;strong&gt;연속된 블록에 파일을 할당&lt;/strong&gt; 하는 것이다. 예를 들어, 블록 크기가 1KB이고, 할당할 파일은 f1, f2, f3 3개가 있고 각각의 크기는 5KB, 3KB, 4KB이다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57186867-72ac2900-6f21-11e9-9542-e68d1eef7e27.png&quot; alt=&quot;OS18-3&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;앞선 예제로 연속 할당을 수행하면 위의 그림과 같은 모습이 나온다.&lt;/p&gt;
+
+&lt;p&gt;연속 할당의 장점은 &lt;strong&gt;디스크 헤더의 이동을 최소화&lt;/strong&gt; 할 수 있어 I/O 성능을 높일 수 있다. 이 방식은 예전의 IBM에서 사용하던 방법이며 주로 동영상, 음악, VOD 등에 적합하다.&lt;/p&gt;
+
+&lt;p&gt;또한, 연속 할당에는 두 가지 특징이 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;&lt;strong&gt;순차 접근(Sequential Access)&lt;/strong&gt; 이 가능하다.
+이는 말그대로 순서대로 파일을 읽을 수 있다는 의미이다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;직접 접근(Direct Access)&lt;/strong&gt; 이 가능하다.
+운영체제는 파일의 정보를 &lt;strong&gt;디렉토리(directory)&lt;/strong&gt; 라는 테이블에 저장한다. 디렉토리에서 사용자가 접근가능한 정보는 파일의 이름, 크기, 날짜 등이 있고, 운영체제 내부에서 접근하는 정보는 해당 &lt;strong&gt;파일의 시작 블록 번호&lt;/strong&gt; 와 같은 것이 있다. 예를 들어, 위 예제의 f1 파일의 디렉토리 정보는 아래와 같다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f1
+file size: 5 bytes
+...
+-----------------
+block number: 0
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;연속 할당은 순차적으로 저장되어 있으므로 운영체제는 디렉토리에서 얻은 시작 블록 번호로 원하는 블록에 바로 접근할 수 있다. 예를 들어, 위 예제에서 f1 파일의 3번째 블록에 접근하고 싶다고 가정하자. 운영체제는 f1의 시작 블록 번호가 0번인 것을 알고 있기 때문에 2번 블록에 접근하면 f1의 3번째 블록이라는 것을 알 수 있다.&lt;/p&gt;
+
+&lt;p&gt;연속 할당은 현재에는 거의 사용하지 않는 방식인데, 이 방법에는 큰 단점이 존재하기 때문이다. 파일을 할당하고 지우고를 반복하다보면 중간 중간에 빈 공간(hole)이 생기는데 연속 할당은 연속된 공간을 찾아야 하기 때문에 이전 메인 메모리 할당에서 살펴본 것과 같이 &lt;strong&gt;외부 단편화&lt;/strong&gt; 문제가 발생한다.&lt;/p&gt;
+
+&lt;p&gt;외부 단편화로 인해 디스크 공간의 낭비가 매우 심해진다. 이전 메모리 할당에서 외부 단편화로 인해 메모리의 약 1/3을 낭비한다고 하였는데, 디스크의 연속 할당도 같은 낭비가 발생한다.&lt;/p&gt;
+
+&lt;p&gt;또 다른 문제는 파일을 저장할 때 &lt;strong&gt;실제 크기를 알 수 없다.&lt;/strong&gt; 특히, 계속해서 사용하는 파일의 경우 &lt;strong&gt;크기가 계속 증가&lt;/strong&gt; 할 수 있기 때문에 이를 지속해서 연속적으로 할당하기에는 매우 부적절하다.&lt;/p&gt;
+
+&lt;h2 id=&quot;연결-할당-linked-allocation&quot;&gt;연결 할당 (Linked Allocation)&lt;/h2&gt;
+&lt;p&gt;연결 할당은 연속 할당의 문제점을 해결하기 위해 나온 방법으로, 연속적으로 할당하는 것이 아니라 &lt;strong&gt;링크드 리스트(linked list)&lt;/strong&gt; 와 같은 방식으로 파일을 할당한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57186868-72ac2900-6f21-11e9-94a6-40054c58852b.png&quot; alt=&quot;OS18-4&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 block 크기가 1 byte, 파일 f1의 크기가 5 bytes 일 때 연결 할당을 수행한 모습이다. 각 블록의 마지막에 &lt;strong&gt;주소를 저장하는 포인터 공간(4bytes)&lt;/strong&gt; 이 존재하며, 여기서 다음 블록을 가리키고 있다. 마지막 블록의 포인터 공간에는 끝임을 나타내는 값이 저장되어 있다.&lt;/p&gt;
+
+&lt;p&gt;이러한 파일을 &lt;strong&gt;linked list of data blocks&lt;/strong&gt; 라고 하며, f1의 파일 디렉토리 정보는 아래와 같다.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f1
+file size: 5 bytes
+...
+-----------------
+block number: 6
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;연결 할당을 사용해서 새로운 파일을 할당할 때는 비어있는 임의의 블록을 첫 블록으로 선택하며, 만약 파일이 커지는 경우 다른 블록을 할당해서 기존의 블록과 연결만 해주면 된다. 연결 할당은 위치와 상관없이 할당이 가능하므로 &lt;strong&gt;외부 단편화 문제가 없다.&lt;/strong&gt; (= 디스크 낭비가 없다.)&lt;/p&gt;
+
+&lt;p&gt;하지만, 연결 할당 역시 여러 문제점을 가지고 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;순차 접근은 가능하지만 &lt;strong&gt;직접 접근은 불가능하다.&lt;/strong&gt; : 파일의 블록들은 모두 흩어져 있으므로 시작 블록 번호를 가지고는 원하는 위치의 블록에 바로 접근할 수는 없다.&lt;/li&gt;
+  &lt;li&gt;포인터를 저장하는 4 bytes 이상의 손해가 발생한다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;낮은 신뢰성&lt;/strong&gt; : 중간 블록의 포인터가 끊어지면 그 이후의 모든 블록에 접근하지 못한다.&lt;/li&gt;
+  &lt;li&gt;&lt;strong&gt;느린 속도&lt;/strong&gt; : 블록이 모두 흩어져 있으므로 디스크 헤더의 움직임이 그 만큼 많이 발생한다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;위 문제점을 개선하기 위해 나온 것이 같은 연결 할당 방식인 &lt;strong&gt;FAT(File Allocation Table) 시스템&lt;/strong&gt; 이다. FAT 시스템은 &lt;strong&gt;다음 블록으르 가리키는 포인터들만 모아서 하나의 테이블(FAT)&lt;/strong&gt; 을 만들어 한 블록에 저장한다.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57186869-72ac2900-6f21-11e9-98db-e780d2db15ea.png&quot; alt=&quot;OS18-5&quot; /&gt;&lt;/p&gt;
+
+&lt;p&gt;위 그림은 앞선 예제의 f1 파일을 FAT 파일 시스템 방식으로 저장한 모습이다. 0번 블록에 저장된 FAT를 보면 테이블의 인덱스는 전체 디스크의 블록 번호이며, &lt;strong&gt;각 인덱스마다 다음 블록 번호를 저장&lt;/strong&gt; 하고 있다.&lt;/p&gt;
+
+&lt;p&gt;FAT 시스템을 사용하면 기존의 연결 할당의 문제점 대부분을 해결할 수 있다. FAT를 한 번만 읽으면 &lt;strong&gt;직접 접근이 가능&lt;/strong&gt; 하고, FAT만 문제가 없다면 중간 블록에 문제가 생겨도 FAT를 통해 그 다음 블록은 여전히 읽을 수 있다. 그리고 FAT는 일반적으로 메모리 캐싱을 사용하여 블록 위치를 찾는데는 빠르지만 실제 디스크 헤더가 움직는 것은 블록이 흩어져 있으므로 여전히 느리다고 볼 수 있다. 마지막으로 FAT는 매우 중요한 정보이므로 &lt;strong&gt;손실 시 복구를 위해 이중 저장&lt;/strong&gt; 을 한다.&lt;/p&gt;
+
+&lt;p&gt;FAT의 각 인덱스 크기는 전체 블록의 개수를 저장할 만큼의 크기를 가지고 있어야 하는데, 현재는 일반적으로 32bit 크기를 사용한다. 이를 FAT32라고 부른다.(이전에는 FAT16, FAT12 등이 있었다.)&lt;/p&gt;
+
+&lt;h2 id=&quot;색인-할당-indexed-allocation&quot;&gt;색인 할당 (Indexed Allocation)&lt;/h2&gt;
+&lt;p&gt;색인 할당 역시 연결 할당과 같이 데이터를 랜덤한 블록 번호에 할당하지만 할당된 블록 번호(포인터)를 하나의 블록에 따로 저장한다. 이러한 블록을 &lt;strong&gt;인덱스 블록&lt;/strong&gt; 이라고 부르며, 파일 당 하나의 인덱스 블록이 존재한다. 색인 할당은 디렉토리 정보가 다른 할당과 다른데, 시작 블록 번호를 저장하는 것이 아니라 &lt;strong&gt;인덱스 블록 번호를 저장한다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;예제
+block size = 1 byte, f1 = 5 bytes, f2 = 2 bytes&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57186870-72ac2900-6f21-11e9-8b3b-531b44ea89ce.png&quot; alt=&quot;OS18-6&quot; /&gt;&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f1
+file size: 5 bytes
+...
+-----------------
+index block number: 11
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;file name: f2
+file size: 2 bytes
+...
+-----------------
+index block number: 27
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;색인 할당은 인덱스 블록에 할당된 블록을 순서대로 저장하기 때문에 직접 접근이 가능하다. 그리고 연속적으로 할당할 필요가 없으므로 외부 단편화 문제 또한 발생하지 않는다. 색인 할당은 Unix/Linux에서 주로 사용한다.&lt;/p&gt;
+
+&lt;p&gt;색인 할당의 단점은 작은 크기의 파일인 경우에도 하나의 블록을 인덱스 블록으로 사용하기 때문에 저장 공간이 손실된다. 그리고 &lt;strong&gt;하나의 인덱스 블록을 가지고는 크기가 큰 파일을 저장할 수 없다.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;예를 들어, 하나의 블록 크기가 512 bytes인 블록은 최대 저장할 수 있는 블록 인덱스 개수는 512 / 4 bytes(포인터 크기) = 128개이다. 즉 파일의 최대 크기는 128 * 512bytes = 64KB로 아주 작은 크기이다. 블록 크기가 1KB이라 하더라도 최대 인덱스 개수는 256개(1000/4)이고 최대 파일의 크기는 256KB(256*1KB)이다.&lt;/p&gt;
+
+&lt;p&gt;이를 해결하기 위한 여러 가지 방법이 있다.&lt;/p&gt;
+&lt;ul&gt;
+  &lt;li&gt;Linked: 이 방식은 인덱스 블록을 여러 개 만들어 연결 할당을 하는 것과 같다. 즉, 각 인덱스 블록의 마지막은 다음 인덱스 블록을 가리키는 포인터가 저장되어 있다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57186871-7344bf80-6f21-11e9-93a2-ded535b8b74b.png&quot; alt=&quot;OS18-7&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Multilevel index: 이 방식은 계층을 두는 방법으로 하나의 인덱스 블록의 &lt;strong&gt;모든 포인터&lt;/strong&gt; 가 다른 인덱스 블록을 가리킨다. 만약 이것으로 부족하면 계층을 더 만들어 간다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57186872-7344bf80-6f21-11e9-84ac-4fe150977f63.png&quot; alt=&quot;OS18-8&quot; /&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;Combined: 이 방식은 Linked와 Multilevel index를 합친 방법으로 한 인덱스 블록의 포인터들은 데이터 블록과 또 다른 인덱스 블록 둘 다 가리킬 수 있다.(리눅스는 combined 방식을 사용한다.)&lt;/li&gt;
+&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">최신 업데이트 날짜: 2019-05-05</summary></entry><entry><title type="html">[운영체제] # 17 프레임 할당(Allocation of Frames)</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/" rel="alternate" type="text/html" title="[운영체제] # 17 프레임 할당(Allocation of Frames)" /><published>2019-05-04T07:30:00+09:00</published><updated>2019-05-04T07:30:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84%20%ED%95%A0%EB%8B%B9</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/">&lt;h1 id=&quot;global-vs-local-replacement&quot;&gt;Global VS Local Replacement&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;Global Replacement: 메모리 상의 모든 프로세스 페이지에 대한 교체 작업을 수행한다.&lt;/li&gt;
   &lt;li&gt;Local Replacement: 메모리 상의 자기 자신의 프로세스 페이지에 대해서만 교체 작업을 수행한다.
@@ -429,11 +570,12 @@ Page reference string = {1, 4, 6, 1, 6}
     &lt;ul&gt;
       &lt;li&gt;(2, 0 + 7),   &lt;code class=&quot;highlighter-rouge&quot;&gt;min(INF, 7) = 7&lt;/code&gt;&lt;/li&gt;
       &lt;li&gt;(3, 0 + 9),   &lt;code class=&quot;highlighter-rouge&quot;&gt;min(INF, 9) = 9&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;(6, 0 + 14),  &lt;code class=&quot;highlighter-rouge&quot;&gt;min(INF, 14) = 14&lt;/code&gt;
-1번 정점과 인접한 정점까지 거리를 계산하여 표와 비교한 후 더 짧은 거리로 갱신한다. 그 다음 &lt;strong&gt;확정되지 않은 정점 중 가장 짧은 거리를 가진 정점으로 이동한다.&lt;/strong&gt; 선택된 정점은 시작점과 최단 거리임을 확정하고 그 정점에서 위와 같이 인접한 정점과 거리 계산 과정을 반복한다.&lt;/li&gt;
+      &lt;li&gt;(6, 0 + 14),  &lt;code class=&quot;highlighter-rouge&quot;&gt;min(INF, 14) = 14&lt;/code&gt;&lt;/li&gt;
     &lt;/ul&gt;
   &lt;/li&gt;
 &lt;/ul&gt;
+
+&lt;p&gt;1번 정점과 인접한 정점까지 거리를 계산하여 표와 비교한 후 더 짧은 거리로 갱신한다. 그 다음 &lt;strong&gt;확정되지 않은 정점 중 가장 짧은 거리를 가진 정점으로 이동한다.&lt;/strong&gt; 선택된 정점은 시작점과 최단 거리임을 확정하고 그 정점에서 위와 같이 인접한 정점과 거리 계산 과정을 반복한다.&lt;/p&gt;
 
 &lt;table&gt;
   &lt;thead&gt;
@@ -640,12 +782,13 @@ Page reference string = {1, 4, 6, 1, 6}
 &lt;/ul&gt;
 
 &lt;h3 id=&quot;시간복잡도&quot;&gt;시간복잡도&lt;/h3&gt;
-&lt;p&gt;간선의 개수를 E라고 할 때, 각 정점마다 인접한 간선들을 모두 검사하는 작업은 O(|E|) 이고, 우선 순위 큐에 추가 및 삭제하는 연산은 O(logE)이다. 따라서 전체 시간복잡도는 &lt;strong&gt;O(ElogE)&lt;/strong&gt; 이다. 여기서 대부분의 그래프에서 &lt;strong&gt;간선의 개수는 정점의 개수(V) 제곱보다 작으므로&lt;/strong&gt; 최대 원소의 개수가 전체 간선의 수가 아닌 전체 정점의 수로 볼 수 있다. 따라서, 시간복잡도를 &lt;strong&gt;O(ElogV)&lt;/strong&gt; 로 계산할 수도 있다.&lt;/p&gt;
+&lt;p&gt;간선의 개수를 E라고 할 때, 각 정점마다 인접한 간선들을 모두 검사하는 작업은 O(E) 이고, 우선 순위 큐에 추가 및 삭제하는 연산은 O(logE)이다. 따라서 전체 시간복잡도는 &lt;strong&gt;O(ElogE)&lt;/strong&gt; 이다. 여기서 대부분의 그래프에서 &lt;strong&gt;간선의 개수는 정점의 개수(V) 제곱보다 작으므로&lt;/strong&gt; 최대 원소의 개수가 전체 간선의 수가 아닌 전체 정점의 수로 볼 수 있다. 따라서, 시간복잡도를 &lt;strong&gt;O(ElogV)&lt;/strong&gt; 로 계산할 수도 있다.&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;O(VlogV) 다익스트라 알고리즘
-중복 원소를 우선순위 큐에 넣지 않도록 수정하면 시간복잡도는 O(VlogV)로 만들 수 있다. 이를 위해 피보나치 힙이나 이진 검색 트리를 사용해서 우선 순위 큐를 구현하면 중복 원소를 제거할 수 있지만, 구현이 복잡하고 실제로 시간이 더 오래 걸리는 경우가 많다.&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algorithm_Algorithm" /><summary type="html">최신 업데이트 날짜: 2019-05-03</summary></entry><entry><title type="html">LIS(Longest Increasing Subsequence) 알고리즘</title><link href="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-LIS%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="alternate" type="text/html" title="LIS(Longest Increasing Subsequence) 알고리즘" /><published>2019-05-01T00:45:00+09:00</published><updated>2019-05-01T00:45:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-LIS%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-LIS%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">&lt;p&gt;LIS 알고리즘은 &lt;strong&gt;가장 긴 증가하는(최장증가) 부분 수열&lt;/strong&gt; 이다. 아래의 그림 처럼 부분 수열이므로 연속적이지 않아도 된다. (2번 째 배열의 노란색 박스가 LIS이다.)&lt;/p&gt;
+  &lt;li&gt;O(VlogV) 다익스트라 알고리즘&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;중복 원소를 우선순위 큐에 넣지 않도록 수정하면 시간복잡도는 O(VlogV)로 만들 수 있다. 이를 위해 피보나치 힙이나 이진 검색 트리를 사용해서 우선 순위 큐를 구현하면 중복 원소를 제거할 수 있지만, 구현이 복잡하고 실제로 시간이 더 오래 걸리는 경우가 많다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algorithm_Algorithm" /><summary type="html">최신 업데이트 날짜: 2019-05-03</summary></entry><entry><title type="html">LIS(Longest Increasing Subsequence) 알고리즘</title><link href="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-LIS%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="alternate" type="text/html" title="LIS(Longest Increasing Subsequence) 알고리즘" /><published>2019-05-01T00:45:00+09:00</published><updated>2019-05-01T00:45:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-LIS%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-LIS%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">&lt;p&gt;LIS 알고리즘은 &lt;strong&gt;가장 긴 증가하는(최장증가) 부분 수열&lt;/strong&gt; 이다. 아래의 그림 처럼 부분 수열이므로 연속적이지 않아도 된다. (2번 째 배열의 노란색 박스가 LIS이다.)&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/46916274-410a5980-cff3-11e8-948a-31488df44de1.JPG&quot; alt=&quot;lis&quot; /&gt;&lt;/p&gt;
 
@@ -1152,138 +1295,4 @@ d = 0010
 &lt;p&gt;위 그림은 페이지 테이블에 r,w,x 비트를 추가한 모습이다. 만약, 1번 페이지 엔트리처럼 쓰기 비트가 꺼져있는 페이지에 쓰기 작업을 시도하면 CPU에 인터럽트가 발생하여 ISR에서 강제로 해당 프로세스를 종료시킨다.&lt;/p&gt;
 
 &lt;h3 id=&quot;공유sharing&quot;&gt;공유(Sharing)&lt;/h3&gt;
-&lt;p&gt;공유는 메모리 낭비를 방지하기 위함이다. 같은 프로그램을 쓰는 복수 개의 프로세스가 있다면, 프로세스의 메모리는 code + data + stack 영역으로 나뉘는데 프로그램이 같다면 code 영역은 같을 것이다. 그러므로 하나의 code 영역을 복수 개의 프로세스가 공유하여 메모리 낭비를 줄이는 것이다. 단, code가 공유되려면 code가 변하지 않는 프로그램이어야 한다. 이를 &lt;strong&gt;non-self-modifying code = reentrant code(재진입가능 코드) = pure code&lt;/strong&gt; 라고 한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">최신 업데이트 날짜: 2019-03-22</summary></entry><entry><title type="html">[운영체제] # 12 주기억장치 관리</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/" rel="alternate" type="text/html" title="[운영체제] # 12 주기억장치 관리" /><published>2019-03-22T21:09:00+09:00</published><updated>2019-03-22T21:09:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98%20%EA%B4%80%EB%A6%AC</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/">&lt;p&gt;메모리는 CPU 자원만큼 컴퓨터를 사용하는데 매우 중요한 자원 중 하나이다. 이전에는 운영체제에서 CPU 자원을 관리하는 프로세스 관리에 대해 살펴보았고, 지금부터는 메인 메모리를 관리하는 기능에 대해 살펴볼 것이다. 특히, 과거에는 메모리가 매우 비싼 자원이었고 크기 또한 작았기 때문에, 운영체제에서 메모리에 대한 관리가 지금보다 더 중요하였다.&lt;/p&gt;
-
-&lt;p&gt;현재에는 과거보다 훨씬 큰 메모리를 저렴하게 사용하지만, 지금도 메모리는 부족하다. 메모리가 커져온 만큼 프로그램의 크기와 처리하는 데이터의 크기는 그보다 더욱 빠른 속도로 커져왔다. 그러므로 현재에도 여전히 메모리를 최대한 효율적으로 사용하기 위해 여러 방법들이 연구되고 있고, 운영체제 기능에서도 매우 중요한 위치를 차지하고 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;메모리에-프로그램-할당하기&quot;&gt;메모리에 프로그램 할당하기&lt;/h1&gt;
-&lt;p&gt;메모리는 기본적으로 &lt;strong&gt;주소(Address)&lt;/strong&gt; 와 &lt;strong&gt;데이터(Data)&lt;/strong&gt; 로 구성되어 있다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821877-d74f5380-4ce6-11e9-8888-e63816796f65.png&quot; alt=&quot;OS12-1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;CPU와 메모리는 양방향으로 위 그림과 같이 주고 받는다. CPU는 주소를 가지고 메인 메모리에 요청을하거나 해당 주소에 계산 결과를 저장하고, 메모리는 요구하는 주소에 저장되어 있는 데이터를 CPU에게 전달한다.&lt;/p&gt;
-
-&lt;p&gt;프로그램을 빌드하는 과정은 소스파일, 목적파일, 실행파일 순서로 생성된다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;소스파일(Source file): 고수준언어 또는 어셈블리어&lt;/li&gt;
-  &lt;li&gt;목적파일(Object file): 컴파일 또는 어셈블 결과&lt;/li&gt;
-  &lt;li&gt;실행파일(Executable file): 링크 결과&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821878-d74f5380-4ce6-11e9-98e8-a43b086a4837.png&quot; alt=&quot;OS12-2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 프로그램이 만들어지는 과정을 그림으로 표현한 것이다. 소스파일은 컴파일러(compiler)에 의해 컴파일 수행 결과로 목적 파일을 생성한다.(어셈블리어는 어셈블러가 어셈블을 수행하여 기계어로 변환한다.) 프로그래밍을 하면서 외부의 라이브러리를 사용할 때가 빈번한데, 컴파일 단계에서는 이를 추가하지 않기 때문에 목적파일에는 이에 대한 정보가 없다. 그대신 위 그림에서 보이듯이, 링크 단계에서 하드디스크에서 프로그래머가 추가한 라이브러리를 찾아 정보를 추가하여, 실행 파일을 만든다.(링크 단계는 링커(linker)가 수행한다.) 이 프로그램을 실행하면 로더(loader)에 의해 메인 메모리에 할당된다.&lt;/p&gt;
-
-&lt;p&gt;그리고 생성된 프로그램은 code, data, stack 영역으로 나뉘어져 있다. 단순히 생성된 프로그램에는 code와 data영역만 존재하며, 메모리에 적재되었을 때는 실제로 실행을 해야하므로 stack영역에 추가되어야 한다.&lt;/p&gt;
-
-&lt;p&gt;그러면, 프로그램을 실제로 메모리에 올리기 위해서는 좀 더 복잡한 과정이 필요하다. 먼저, 이 프로그램은 메모리에 몇 번지에 할당될까? 이 질문은 운영체제가 없다면, 프로그래머가 직접 이를 처리해주어야 할 것이다. 하지만 운영체제가 존재하므로 실제 프로그래머는 이를 신경쓸 필요가 없다. 그러므로 프로그래밍을 할 때 주소를 사용하는 경우가 있는데, 프로그램이 메모리에 올라가는 주소를 고려하지 않고 프로그래밍이 가능한 것이다.(고수준언어에서는 직접 주소를 다루지 않는 경우가 많다.)&lt;/p&gt;
-
-&lt;p&gt;또한, 다중 프로그래밍 환경에서는 여러 프로그램이 메모리에 올라가고 내려가고를 반복하기 때문에, 한 프로그램은 고정적인 공간을 사용할 수 없다. 이러한 여러 고려 사항을 해결해주는 것이 전에도 살펴봤던 MMU이다. 그리고 MMU에는 프로그램이 메모리에 할당될 때마다 다른 주소공간을 사용하기 때문에 &lt;strong&gt;재배치 레지스터(Relocation register)&lt;/strong&gt; 가 별도로 존재한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821879-d7e7ea00-4ce6-11e9-9ad0-ffe02008d6a9.png&quot; alt=&quot;OS12-3&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 MMU의 모습이다. 프로그램은 메인 메모리에 해당 주소를 사용할 수 있는지 여부를 생각하지 않고 주소를 사용한다. 만약 해당 프로그램이 사용하는 시작주소가 0번지라고 할 때, 실제 메인 메모리에서는 할당되는 주소가 유동적이기 때문에 0번지이라는 주소를 실제 할당된 주소로 변경해주어야 한다. 이때 재배치 레지스터를 이용한다.&lt;/p&gt;
-
-&lt;p&gt;만약, 프로그램이 메인 메모리 500번지에 할당되어 재배치 레지스터값이 500으로 설정되었다면, CPU에서 프로그램의 0번지를 사용할 때 MMU를 통과하면 재배치 레지스터에 의해 500번지로 변경된다. 그 결과 CPU는 0번지를 사용하는 것으로 알고 있지만, 실제 메모리에서는 MMU에 의해 500번지를 사용하고 있는 것이다.&lt;/p&gt;
-
-&lt;p&gt;MMU(Memory Management Unit)의 기능을 살펴보면, 이전에 메모리 보호를 위해 base와 limit 레지스터가 있었다. 이는 CPU에서 주소를 사용하는데 이 주소가 해당 프로그램의 base나 limit 범위를 벗어나면 인터럽트가 발생하여 그 프로그램을 강제로 종료시킨다.&lt;/p&gt;
-
-&lt;p&gt;MMU는 이 기능 이외에도 재배치 레지스터를 사용해서 프로그램이 어느 주소를 사용하더라도 실제 메인 메모리에 할당된 주소를 찾아갈 수 있도록 &lt;strong&gt;address translation&lt;/strong&gt; 동작을 수행한다. 즉, CPU는 프로그램에 설정된 주소를 계속 사용하고 메모리에 명령을 보내지만, MMU에 의해 실제로 프로그램이 할당된 메모리 주소로 변환해서 사용할 수 있는 것이다. 그 결과, &lt;strong&gt;프로그램의 실제 메모리 주소 공간의 위치는 CPU에 전혀 영향을 미치지 않고&lt;/strong&gt; 정상적으로 사용할 수 있는 것이다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821880-d7e7ea00-4ce6-11e9-944e-3be89338213f.png&quot; alt=&quot;OS12-4&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;MMU에 의해 위 그림과 같이 주소는 두 가지로 구분된다. CPU에서 사용하는 주소는 &lt;strong&gt;논리 주소(logical address)&lt;/strong&gt; 라고 하고, 메모리가 사용하는 주소는 &lt;strong&gt;물리 주소(physical address)&lt;/strong&gt; 라고 한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;메모리-낭비-방지&quot;&gt;메모리 낭비 방지&lt;/h1&gt;
-&lt;p&gt;운영체제는 메모리를 효율적으로 사용하기 위해 메모리 공간을 낭비하지 않는 것이 중요하다.&lt;/p&gt;
-
-&lt;h2 id=&quot;동적-적재dynamic-loading&quot;&gt;동적 적재(Dynamic Loading)&lt;/h2&gt;
-&lt;p&gt;동적 적재는 &lt;strong&gt;프로그램이 실행하는데 반드시 필요한 루틴/데이터만 적재(load)&lt;/strong&gt; 하는 것이다. 프로그램의 전체 코드에서 모든 루틴이 다 사용되는 것은 아니다. 대표적으로 오류 처리 구문이다. 오류 처리 구문은 if문과 같이 오류가 발생할 때만 해당 내부 코드가 실행되는 것을 말한다. 그러므로 동적 적재를 수행하면 프로그램의 실제 메모리에는 이러한 오류 구문을 제외하고 적재한다. 이러한 상태에서 실행하다가 오류가 발생하면 그 때 해당 오류 구문을 찾아 메모리에 올린다.&lt;/p&gt;
-
-&lt;p&gt;데이터도 마찬가지다. 모든 데이터가 반드시 사용되는 것이 아니기 때문에, 특히 배열과 클래스의 경우는 필요한 부분만 메모리에 올려두고, 실행 도중 필요할 때마다 해당 부분을 찾아 메모리에 올려준다.&lt;/p&gt;
-
-&lt;p&gt;반대로, 모든 루틴과 데이터를 적재하는 것을 정적 적재(static loading)이라고 한다. 현대 운영체제는 대부분 동적 적재를 사용한다.&lt;/p&gt;
-
-&lt;h2 id=&quot;동적-연결dynamic-linking&quot;&gt;동적 연결(Dynamic Linking)&lt;/h2&gt;
-&lt;p&gt;동적 연결은 여러 프로그램에 공통으로 사용되는 라이브러리를 중복으로 메모리에 올리는 것이 아니라 &lt;strong&gt;하나&lt;/strong&gt; 만 올리도록 하는 것이다.&lt;/p&gt;
-
-&lt;p&gt;예를 들어, 아래와 같은 코드의 P1, P2 프로세스가 있다고 하자.&lt;/p&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// P1
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;// P2
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;1&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;2&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;n&quot;&gt;printf&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;%d&lt;/span&gt;&lt;span class=&quot;se&quot;&gt;\n&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;a&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;*&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;b&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;이 두 소스파일을 컴파일하면 목적파일이 생성되고, 여기서 사용된 라이브러리를 링크하여 실행파일을 만든 다음 메모리에 적재한다. 두 프로세스가 적재되었을 때, &lt;code class=&quot;highlighter-rouge&quot;&gt;printf()&lt;/code&gt; 를 사용하는 라이브러리는 메모리에 중복되어서 적재되어있다.&lt;/p&gt;
-
-&lt;p&gt;이와 같이, 똑같은 라이브러리를 사용하는 프로그램은 흔히 볼 수 있다. 이러한 같은 라이브러리를 하나만 메모리에 올린 후, 이를 사용하는 프로그램이 하나의 메모리에 접근하도록 하면 메모리 낭비를 줄일 수 있다.&lt;/p&gt;
-
-&lt;p&gt;동적 연결은 같은 라이브러리가 중복으로 메모리에 올라가는 것을 방지하기 위해 &lt;strong&gt;프로그램이 메모리에 적재된 후에 링크(link) 작업을 수행한다.&lt;/strong&gt; 기존에는 실행 파일이 만들어지기 전에 링크 과정을 수행하였는데, 이를 정적 연결이라고 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821881-d7e7ea00-4ce6-11e9-9038-3359ab7d12f2.png&quot; alt=&quot;OS12-5&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 예제에서 살펴 본 P1, P2 프로세스가 동적 연결을 통해 공통 라이브러리(printf() 라이브러리)를 연결한 모습을 볼 수 있다. 이러한 라이브러리를 Linux에서는 &lt;strong&gt;공유 라이브러리(Shared Library)&lt;/strong&gt;, Windows에서는 &lt;strong&gt;동적 연결 라이브러리(Dynamic Linking Library, DLL)&lt;/strong&gt; 라고 부른다.&lt;/p&gt;
-
-&lt;h2 id=&quot;swapping&quot;&gt;Swapping&lt;/h2&gt;
-&lt;p&gt;Swapping은 메모리에 적재되어 있는 프로세스 중에서 오랫동안 사용하지 않은 프로세스를 프로세스 이미지 형태로 만든 후 하드디스크(Backing store)에 내려보낸다. 메모리에서 Backing store로 가는 것을 &lt;strong&gt;swap-out&lt;/strong&gt;, 다시 Backing store에서 메모리로 가는 것을 &lt;strong&gt;swap-in&lt;/strong&gt; 이라고 한다.&lt;/p&gt;
-
-&lt;p&gt;여기서, 프로세스 이미지는 해당 프로그램이 메모리에 적재된 후 실행되면서 데이터를 추가하거나 변경하는 등의 과정을 거치는데, 현재 데이터의 상태를 프로세스 이미지라고 부른다. 그러므로 이는 단순히, 하드디스크에 존재하는 프로그램(exe파일)과는 전혀 다른 데이터이므로, 따로 저장해야한다. 이와 같은 swapping 과정으로 인한 프로세스 이미지를 저장하기 위해 하드디스크의 일부분을 분리하여 사용하는데, 이를 &lt;strong&gt;backing store&lt;/strong&gt; 또는 &lt;strong&gt;swap device&lt;/strong&gt; 라고 부른다.&lt;/p&gt;
-
-&lt;p&gt;Backing store의 크기는 대략 메인 메모리 크기 정도로 예상할 수 있다. 메모리의 모든 프로세스가 쫓겨난다고 해도 메인 메모리 크기를 넘지 않기 때문이다. 메인 메모리 크기가 크지 않는 PC나 스마트폰은 하드디스크의 일부를 backing store로 사용하지만, 메모리 크기가 크다면 따로 하드디스크 자체를 backing store로 사용하는 경우도 있다.&lt;/p&gt;
-
-&lt;p&gt;Swap-out된 프로세스는 다시 swap-in을 할 때, 이전의 메모리 주소 공간이 아닌 새로운 주소 공간으로 갈 수도 있다. 이는 해당 프로세스가 backing store에 있는 동안 다른 프로세스가 해당 주소 공간을 사용할 수 있기 때문에다. 하지만 이는 MMU의 재배치 레지스터로 인해 어디에 적재되는지 상관없이 정상적으로 수행할 수 있다.&lt;/p&gt;
-
-&lt;p&gt;현재는 프로세스의 크기가 커지고, 하드디스크는 메인 메모리보다 속도면에서 매우 느리므로 swapping 동작의 오버헤드는 크다고 볼 수 있다. 하지만 이로 인해 얻는 이득이 더 많으므로 대부분 운영체제는 이를 사용하고 있고, 속도가 중요한 서버 컴퓨터나 슈퍼 컴퓨터는 backing store를 하드디스크가 아닌 좀 더 빠른 저장 장치를 사용하기도 한다.&lt;/p&gt;
-
-&lt;h1 id=&quot;연속-메모리-할당contiguous-memory-allocation&quot;&gt;연속 메모리 할당(Contiguous Memory Allocation)&lt;/h1&gt;
-&lt;p&gt;과거에는 메모리에 프로세스가 하나만 올라가는 형태였다. 하지만 현재에는 메모리에 여러 프로세스가 할당되는 다중 프로그래밍 환경이 되었다.&lt;/p&gt;
-
-&lt;p&gt;부팅 직후에 메모리 상태를 살펴보면, 운영체제만 할당되어 있고 비어있는 상태일 것이다. 이러한 비어있는 공간을 &lt;strong&gt;hole&lt;/strong&gt; 이라 부른다. 즉, 부팅 직후에는 운영체제와 big single hole이 있는 상태이다. 시간이 지나면서 프로세스가 생성되고 종료하고를 반복하면, 여러 곳에 서로 다른 크기의 홀(hole)이 존재할 것이다. 이러한 상태를 scattered holes라고 한다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821882-d8808080-4ce6-11e9-8ff3-193fa79c04a3.png&quot; alt=&quot;OS12-6&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 부팅 직후 상태에서 시간이 경과하면서 프로세스들이 생성, 종료를 반복한 후의 상태이다. 이와 같이 hole들이 불연속하게 흩어져 있는 상태를 &lt;strong&gt;메모리 단편화(Memory fragmentation)&lt;/strong&gt; 라고 한다.&lt;/p&gt;
-
-&lt;p&gt;메모리 단편화로 인해서 여러 곳에 hole이 흩어져 있는 상태에서 하나의 프로세스가 메모리에 할당되려하면 문제가 발생할 수 있다. 예를 들어, hole이 3개가 있고 각 크기는 50byte, 50byte, 80byte이다. 그런데 할당하려는 프로세스의 크기는 150byte이다. 각 hole들을 하나로 합치면 230byte로 이 프로세스를 할당할 수 있는데 실재로는 나누어져 있으므로 할당되지 못한다. 이러한 현상을 &lt;strong&gt;외부 단편화(External fragmentation)&lt;/strong&gt; 라고 한다. 외부 단편화를 줄이기 위해서는 어떤 해결 방법이 있을까?&lt;/p&gt;
-
-&lt;h2 id=&quot;연속-메모리-할당-방식&quot;&gt;연속 메모리 할당 방식&lt;/h2&gt;
-&lt;p&gt;외부 단편화의 해결방법을 살펴보기 전에 연속 메모리 할당 방식을 먼저 살펴보자. 연속 메모리 할당 방식에는 3가지가 있다. First-fit, Best-fit, Worst-fit 이 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;&lt;strong&gt;First-fit(최초 적합)&lt;/strong&gt;: 최초 적합은 할당할 프로세스 크기보다 크거나 같은 hole을 탐색하는 순서 중에서 가장 먼저 찾은 hole에 프로세스를 할당하는 것이다.&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Best-fit(최적 적합)&lt;/strong&gt;: 최적 적합은 할당할 프로세스 크기와 hole 크기의 차이가 가장 작은 hole에 프로세스를 할당하는 것이다.(hole크기는 프로세스 크기보다 반드시 커야 한다.)&lt;/li&gt;
-  &lt;li&gt;&lt;strong&gt;Worst-fit(최악 적합)&lt;/strong&gt;: 최적 적합과 반대로, 할당할 프로세스 크기와 hole 크기의 차이가 가장 큰 hole에 프로세스를 할당하는 것이다.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;그러면 예제를 살펴보자. Hole은 100KB, 500KB, 600KB, 300KB, 200KB 총 5개가 있고, 프로세스는 P1, P2, P3, P4 총 4개가 있는데 각 크기는 212KB, 417KB, 112KB, 426KB이다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;First-fit&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821883-d8808080-4ce6-11e9-8c2d-c84b878d21ea.png&quot; alt=&quot;OS12-7&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Best-fit&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821885-d8808080-4ce6-11e9-9473-db032d7eeb3a.png&quot; alt=&quot;OS12-8&quot; /&gt;&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;Worst-fit&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/54821887-d9191700-4ce6-11e9-9b00-fa92272b8b7d.png&quot; alt=&quot;OS12-9&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;각 3가지 방식대로 프로세스를 할당한 모습을 볼 수 있다. 예제의 결과를 보면 Best-fit은 4개의 프로세스를 모두 할당할 수 있었고, 나머지 2개는 마지막 P4를 할당하지 못했다. 모든 hole을 합치면 P4를 할당할 수 있지만, hole들은 각각 나눠져 있기 때문에 할당할 수 없었다.(외부 단편화)&lt;/p&gt;
-
-&lt;p&gt;각 할당 방식의 일반적인 성능을 비교해보면, 속도면에서는 first-fit이 가장 빠르다. 메모리 이용률면에서는 first-fit, best-fit이 비슷한 성능을 낸다고 알려져있다. 하지만 여러 실험을 통해 best-fit을 사용하더라도 외부 단편화로 인해 &lt;strong&gt;전체 메모리의 1/3 정도를 낭비&lt;/strong&gt; 한다고 한다. 이는 거의 사용이 불가능한 수준이다.&lt;/p&gt;
-
-&lt;p&gt;이를 해결하는 방법 중 하나는 &lt;strong&gt;Compaction&lt;/strong&gt; 이다. compaction은 여러 곳에 흩어져있는 hole들을 강제로 하나로 합치는 것이다. 하지만 hole을 옮기는 오버헤드가 너무 크고, 어느 hole을 옮겨야 빠르게 합칠 수 있는지에 대한 최적 알고리즘이 존재하지 않는 큰 단점이 존재한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">최신 업데이트 날짜: 2019-03-22</summary></entry></feed>
+&lt;p&gt;공유는 메모리 낭비를 방지하기 위함이다. 같은 프로그램을 쓰는 복수 개의 프로세스가 있다면, 프로세스의 메모리는 code + data + stack 영역으로 나뉘는데 프로그램이 같다면 code 영역은 같을 것이다. 그러므로 하나의 code 영역을 복수 개의 프로세스가 공유하여 메모리 낭비를 줄이는 것이다. 단, code가 공유되려면 code가 변하지 않는 프로그램이어야 한다. 이를 &lt;strong&gt;non-self-modifying code = reentrant code(재진입가능 코드) = pure code&lt;/strong&gt; 라고 한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">최신 업데이트 날짜: 2019-03-22</summary></entry></feed>
