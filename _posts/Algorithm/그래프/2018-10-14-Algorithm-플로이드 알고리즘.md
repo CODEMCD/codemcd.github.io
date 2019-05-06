@@ -1,16 +1,15 @@
 ---
-title: "[Algorithm]플로이드 알고리즘"
-excerpt: "최단 경로 알고리즘"
-search: true
+title: "플로이드(Floyd)의 모든 쌍 최단 거리 알고리즘"
+excerpt: "최신 업데이트 날짜: 2019-05-05"
+date: 2019-05-05 12:06:00
 categories:
   - Algorithm
 tags:
   - Algorithm_Algorithm
+search: true
 toc: true
 sidebar_main: true
 ---
-
-# 플로이드(Floyd)의 모든 쌍 최단 거리 알고리즘
 
 ## 플로이드 알고리즘의 특징
 - 모든 쌍의 최단 거리를 구할 수 있다.
