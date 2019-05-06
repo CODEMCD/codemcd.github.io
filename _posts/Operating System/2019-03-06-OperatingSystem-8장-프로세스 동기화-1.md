@@ -26,17 +26,15 @@ sidebar_main: true
 ```java
 // Test.java
 class Test {
-	public static void main(String[] args)
-		throws InterruptedException {
-		BankAccount b = new
-		BankAccount();
+	public static void main(String[] args) throws InterruptedException {
+		BankAccount b = new BankAccount();
 		Parent p = new Parent(b);
 		Child c = new Child(b);
 		p.start();   // start(): 쓰레드를 실행하는 메서드
 		c.start();
 		p.join();    // join(): 쓰레드가 마치기를 기다리는 메서드
 		c.join();
-		System.out.println("\nbalance = " + b.getBalance());
+		System.out.println("balance = " + b.getBalance());
 	}
 }
 
@@ -61,8 +59,8 @@ class Parent extends Thread {
 		this.b = b;
 	}
 	public void run() {   // run(): 쓰레드가 실제로 동작하는 부분(치환)
-		for (int i=0; i<100; i++)
-		b.deposit(1000);
+		for (int i = 0; i < 100; i++)
+		  b.deposit(1000);
 	}
 }
 
@@ -73,8 +71,8 @@ class Child extends Thread {
 		this.b = b;
 	}
 	public void run() {
-		for (int i=0; i<100; i++)
-		b.withdraw(1000);
+		for (int i = 0; i < 100; i++)
+		  b.withdraw(1000);
 	}
 }
 ```
