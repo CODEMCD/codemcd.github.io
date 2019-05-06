@@ -9,16 +9,19 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>CODEMCD's Tech BLOG - 페이지 3</title>
-<meta name="description" content="My Tech Blog">
+<!-- begin _includes/seo.html --><title>[데이터베이스] 트랜잭션(Transaction) - CODEMCD’s Tech BLOG</title>
+<meta name="description" content="최신 업데이트 날짜: 2019-05-05">
 
 
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech BLOG">
-<meta property="og:title" content="CODEMCD’s Tech BLOG">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/page3/">
+<meta property="og:title" content="[데이터베이스] 트랜잭션(Transaction)">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/study/Database-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/">
+
+
+  <meta property="og:description" content="최신 업데이트 날짜: 2019-05-05">
 
 
 
@@ -26,6 +29,7 @@
 
 
 
+  <meta property="article:published_time" content="2019-05-06T00:09:00+09:00">
 
 
 
@@ -36,13 +40,9 @@
   
 
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/page3/">
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/study/Database-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/">
 
 
-  <link rel="prev" href="https://codemcd.github.io/pages/CODEMCD/page2/">
-
-
-  <link rel="next" href="https://codemcd.github.io/pages/CODEMCD/page4/">
 
 
 
@@ -106,7 +106,7 @@
     
   </head>
 
-  <body class="layout--home">
+  <body class="layout--single">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -424,179 +424,225 @@
   </div>
 
 
-  <div class="archive">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="[데이터베이스] 트랜잭션(Transaction)">
+    <meta itemprop="description" content="최신 업데이트 날짜: 2019-05-05">
+    <meta itemprop="datePublished" content="May 06, 2019">
     
-      <h1 id="page-title" class="page__title"></h1>
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">[데이터베이스] 트랜잭션(Transaction)
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+          <aside class="sidebar__right sticky">
+              <a href="#page-title" class="back-to-top">Back to Top &uarr;</a>
+            <nav class="toc">
+              <header><h4 class="nav__title"><i class="fas fa-file-alt"></i> Contents</h4></header>
+              <ul class="toc__menu">
+  <li><a href="#트랜잭션-특징">트랜잭션 특징</a></li>
+</ul>
+            </nav>
+          </aside>
+        
+        <p>트랜잭션은 데이터베이스의 상태를 변화시키기 위해 수행하는 작업의 <strong>논리적인 단위</strong> 로 일련의 연산들의 집합이다. 예를 들어, 계좌 간의 자금 이체가 있다. 입금 할 때, 데이터베이스 내부의 상대방 계좌 정보를 검색하고 자신과 상대방의 계좌 금액을 변경하는 등 여러 가지 연산이 필요하다. 하지만 이러한 작업의 중간 단계에서 멈추거나 오류가 발생하면 데이터에 매우 큰 영향을 미친다. 그러므로 이러한 작업은 정상적으로 전체 작업이 완료되거나 그럴 수 없는 경우 아무 것도 실행하지 않은 처음 상태로 되돌려져야 한다. 이러한 작업 단위를 트랜잭션이라 하고 이는 사람이 정하는 기준에 따라 달라 질 수 있다.</p>
+
+<h2 id="트랜잭션-특징">트랜잭션 특징</h2>
+<p>트랜잭션의 특징은 4 가지가 있다. 일반적으로 <strong>ACID</strong> 성질이라고 하며, 다음과 같다.</p>
+<ul>
+  <li><strong>Atomicity(원자성)</strong>: 트랜잭션의 모든 연산들이 정상적으로 수행 완료되거나 아니면 어떠한 연산도 수행되지 않은 상태를 보장해야 한다. 입금 과정에서 트랜잭션이 실패하여 어느 한 계좌에만 작업이 적용되거나 하는 경우가 발생하면 안되기 때문에, 실패하면 어느 작업도 적용되지 않고 트랜잭션이 수행되기 전의 상태로 유지되어야 한다.</li>
+  <li><strong>Consistency(일관성)</strong>: 트랜잭션의 수행이 데이터베이스의 일관성을 유지해야 한다. 즉, 성공적으로 수행된 트랜잭션은 정당한 데이터들만을 데이터베이스에 반영해야 한다. 트랜잭션이 수행이 보존해야할 일관성은 기본 키, 외래 키 제약과 같은 <strong>명시적인 무결성 제약 조건</strong> 과 자금 이체에서 두 계좌 간의 잔고 합은 이체 전후가 같아야 한다는 <strong>비명시적인 일관성 조건</strong> 들도 있다.</li>
+  <li><strong>Isolation(독립성)</strong>: 여러 트랜잭션이 동시에 수행되더라도 각각의 트랜잭션은 다른 트랜잭션의 수행에 영향을 받지 않고 독립적으로 수행되어야 한다. 이는 한 트랜잭션의 중간 결과가 다른 트랜잭션에게는 숨겨져야 한다는 의미이며, 이러한 성질이 보장되지 않으면 트랜잭션이 원래 상태로 되돌아갈 수 없게 된다.</li>
+  <li><strong>Durability(지속성)</strong>: 트랜잭션이 성공적으로 완료되어 커밋(commit)되고 나면, 해당 트랜잭션에 의한 모든 변경은 향후 어떠한 소프트웨어나 하드웨어 장애가 발생되더라도 보존되어야 한다.</li>
+</ul>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
+  
+
+
+  
+  
+  
+
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-tags" aria-hidden="true"></i> 태그: </strong>
+    <span itemprop="keywords">
     
-    <h3 class="archive__subtitle">최근 포스트</h3>
+      
+      
+      <a href="/pages/CODEMCD/tags/#study-database" class="page__taxonomy-item" rel="tag">
+        
+        Database
+      </a>
+    
+    </span>
+  </p>
+
+
 
 
   
 
 
+  
+  
+  
 
-<div class="list__item">
+  <p class="page__taxonomy">
+    <strong><i class="fas fa-fw fa-folder-open" aria-hidden="true"></i> 카테고리: </strong>
+    <span itemprop="keywords">
+    
+      
+      
+      <a href="/pages/CODEMCD/categories/#study" class="page__taxonomy-item" rel="tag">Study</a>
+    
+    </span>
+  </p>
+
+
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-05-06T00:09:00+09:00">May 06, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
+  
+
+  <a href="https://twitter.com/intent/tweet?text=%5B%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B2%A0%EC%9D%B4%EC%8A%A4%5D+%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98%28Transaction%29%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FDatabase-%25ED%258A%25B8%25EB%259E%259C%25EC%259E%25AD%25EC%2585%2598%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FDatabase-%25ED%258A%25B8%25EB%259E%259C%25EC%259E%25AD%25EC%2585%2598%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FDatabase-%25ED%258A%25B8%25EB%259E%259C%25EC%259E%25AD%25EC%2585%2598%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2Fstudy%2FDatabase-%25ED%258A%25B8%25EB%259E%259C%25EC%259E%25AD%25EC%2585%2598%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
+
+
+      
+  <nav class="pagination">
+    
+      <a href="/pages/CODEMCD/study/OperatingSystem-19%EC%9E%A5-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" class="pagination--pager" title="[운영체제] # 19 디스크 스케줄 알고리즘(Disk Schedule Algorithm)
+">이전</a>
+    
+    
+      <a href="#" class="pagination--pager disabled">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">댓글남기기</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/algorithm/Algorithm-LCS%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="permalink">LCS 알고리즘
+        <a href="/pages/CODEMCD/study/OperatingSystem-19%EC%9E%A5-%EB%94%94%EC%8A%A4%ED%81%AC-%EC%8A%A4%EC%BC%80%EC%A4%84-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="permalink">[운영체제] # 19 디스크 스케줄 알고리즘(Disk Schedule Algorithm)
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-04-30
+    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-05
 </p>
   </article>
 </div>
+        
+          
 
-  
 
 
-
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/OperatingSystem-13%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%95/" rel="permalink">[운영체제] # 13 페이징
+        <a href="/pages/CODEMCD/study/OperatingSystem-18%EC%9E%A5-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9/" rel="permalink">[운영체제] # 18 파일 할당(Allocation of Files)
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-03-22
+    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-05
 </p>
   </article>
 </div>
+        
+          
 
-  
 
 
-
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/OperatingSystem-12%EC%9E%A5-%EC%A3%BC%EA%B8%B0%EC%96%B5%EC%9E%A5%EC%B9%98-%EA%B4%80%EB%A6%AC/" rel="permalink">[운영체제] # 12 주기억장치 관리
+        <a href="/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/" rel="permalink">[운영체제] # 17 프레임 할당(Allocation of Frames)
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-03-22
+    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-03
 </p>
   </article>
 </div>
+        
+          
 
-  
 
 
-
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/OperatingSystem-11%EC%9E%A5-%EB%AA%A8%EB%8B%88%ED%84%B0/" rel="permalink">[운영체제] # 11 모니터
+        <a href="/pages/CODEMCD/study/OperatingSystem-16%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="permalink">[운영체제] # 16 페이지 교체 알고리즘(Page Replacement Algorithm)
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-03-14
+    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-03
 </p>
   </article>
 </div>
-
+        
+      </div>
+    </div>
   
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/study/OperatingSystem-10%EC%9E%A5-%ED%94%84%EB%A1%9C%EC%84%B8%EC%8A%A4-%EB%8F%99%EA%B8%B0%ED%99%94-3/" rel="permalink">[운영체제] # 10 프로세스 동기화 - 3
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-03-14
-</p>
-  </article>
+  
 </div>
 
-
-
-<nav class="pagination">
-  
-  <ul>
-    
-    
-      
-        <li><a href="/pages/CODEMCD/page2/">이전</a></li>
-      
-    
-
-    
-    
-      <li><a href="/pages/CODEMCD/">1</a></li>
-    
-
-    
-    
-
-    
-    
-    
-
-    
-      
-        
-        
-        
-        <li><a href="/pages/CODEMCD/page2/">2</a></li>
-      
-    
-      
-        <li><a href="/pages/CODEMCD/page3/" class="disabled current">3</a></li>
-      
-    
-      
-        
-        
-        
-        <li><a href="/pages/CODEMCD/page4/">4</a></li>
-      
-    
-      
-        
-        
-        
-        <li><a href="/pages/CODEMCD/page5/">5</a></li>
-      
-    
-
-    
-    
-      <li><a href="#" class="disabled">&hellip;</a></li>
-    
-
-    
-      <li><a href="/pages/CODEMCD/page14/">14</a></li>
-    
-
-    
-    
-      <li><a href="/pages/CODEMCD/page4/">다음</a></li>
-    
-  </ul>
-</nav>
-
-
-
-  </div>
-</div>
     </div>
 
     
@@ -704,6 +750,25 @@ search.start();
 
 
 
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/study/Database-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/study/Database-트랜잭션"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://CODEMCD.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
