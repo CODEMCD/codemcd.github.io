@@ -476,17 +476,15 @@
 
 <div class="language-java highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// Test.java</span>
 <span class="kd">class</span> <span class="nc">Test</span> <span class="o">{</span>
-	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span>
-		<span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
-		<span class="n">BankAccount</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span>
-		<span class="n">BankAccount</span><span class="o">();</span>
+	<span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">InterruptedException</span> <span class="o">{</span>
+		<span class="n">BankAccount</span> <span class="n">b</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BankAccount</span><span class="o">();</span>
 		<span class="n">Parent</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Parent</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
 		<span class="n">Child</span> <span class="n">c</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Child</span><span class="o">(</span><span class="n">b</span><span class="o">);</span>
 		<span class="n">p</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>   <span class="c1">// start(): 쓰레드를 실행하는 메서드</span>
 		<span class="n">c</span><span class="o">.</span><span class="na">start</span><span class="o">();</span>
 		<span class="n">p</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>    <span class="c1">// join(): 쓰레드가 마치기를 기다리는 메서드</span>
 		<span class="n">c</span><span class="o">.</span><span class="na">join</span><span class="o">();</span>
-		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"\nbalance = "</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="na">getBalance</span><span class="o">());</span>
+		<span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">"balance = "</span> <span class="o">+</span> <span class="n">b</span><span class="o">.</span><span class="na">getBalance</span><span class="o">());</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 
@@ -511,8 +509,8 @@
 		<span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span>
 	<span class="o">}</span>
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>   <span class="c1">// run(): 쓰레드가 실제로 동작하는 부분(치환)</span>
-		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
-		<span class="n">b</span><span class="o">.</span><span class="na">deposit</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+		  <span class="n">b</span><span class="o">.</span><span class="na">deposit</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 
@@ -523,8 +521,8 @@
 		<span class="k">this</span><span class="o">.</span><span class="na">b</span> <span class="o">=</span> <span class="n">b</span><span class="o">;</span>
 	<span class="o">}</span>
 	<span class="kd">public</span> <span class="kt">void</span> <span class="nf">run</span><span class="o">()</span> <span class="o">{</span>
-		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="o">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="mi">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
-		<span class="n">b</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
+		<span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="mi">100</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span>
+		  <span class="n">b</span><span class="o">.</span><span class="na">withdraw</span><span class="o">(</span><span class="mi">1000</span><span class="o">);</span>
 	<span class="o">}</span>
 <span class="o">}</span>
 </code></pre></div></div>
