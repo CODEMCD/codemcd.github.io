@@ -1,4 +1,137 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-05-12T16:57:46+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s Tech BLOG</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">벨만-포드(Bellman-Ford)의 최단 경로 알고리즘</title><link href="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%B2%A8%EB%A7%8C-%ED%8F%AC%EB%93%9C-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="alternate" type="text/html" title="벨만-포드(Bellman-Ford)의 최단 경로 알고리즘" /><published>2019-05-06T19:36:00+09:00</published><updated>2019-05-06T19:36:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%B2%A8%EB%A7%8C-%ED%8F%AC%EB%93%9C%20%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%B2%A8%EB%A7%8C-%ED%8F%AC%EB%93%9C-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">&lt;p&gt;벨만-포드 알고리즘은 다익스트라 알고리즘과 같은 &lt;strong&gt;단일 시작점 최단 경로 알고리즘&lt;/strong&gt; 이지만, &lt;strong&gt;음수 간선&lt;/strong&gt; 이 있는 그래프에서도 최단 경로를 찾을 수 있다. 그리고 그래프에 음수 사이클이 있어서 최단 경로를 찾을 수 없는 경우에도 이를 알려줄 수 있다.&lt;/p&gt;
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="3.8.5">Jekyll</generator><link href="https://codemcd.github.io/pages/CODEMCD/feed.xml" rel="self" type="application/atom+xml" /><link href="https://codemcd.github.io/pages/CODEMCD/" rel="alternate" type="text/html" /><updated>2019-05-20T17:48:01+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/feed.xml</id><title type="html">CODEMCD’s Tech BLOG</title><subtitle>My Tech Blog</subtitle><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><entry><title type="html">[Java] # 1 package와 import</title><link href="https://codemcd.github.io/pages/CODEMCD/language/Java-11.-package%EC%99%80-import/" rel="alternate" type="text/html" title="[Java] # 1 package와 import" /><published>2019-05-13T02:54:00+09:00</published><updated>2019-05-13T02:54:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/language/Java-11.%20package%EC%99%80%20import</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/language/Java-11.-package%EC%99%80-import/">&lt;h1 id=&quot;패키지package&quot;&gt;패키지(package)&lt;/h1&gt;
+&lt;p&gt;패키지란, &lt;strong&gt;클래스의 묶음&lt;/strong&gt; 으로서 서로 관련된 클래스 및 인터페이스들끼리 그룹 단위로 묶는 것을 말한다. 따라서 클래스의 실제 이름(full name)은 패키지명을 포함한 것이다. 클래스가 물리적으로 하나의 클래스 파일(.class)인 것과 같이 패키지는 물리적으로 하나의 디렉토리이다.&lt;/p&gt;
+
+&lt;h2 id=&quot;패키지의-특징&quot;&gt;패키지의 특징&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;같은 이름의 클래스 일지라도 서로 다른 패키지에 존재하는 것이 가능하다.
+    &lt;ul&gt;
+      &lt;li&gt;자신만의 패키지 체계를 유지할 수 있으며, 다른 개발자가 개발한 라이브러리의 클래스 이름과 충돌하는 것을 피할 수 있다. (C++에서 네임스페이스와 유사하다.)&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;하나의 소스파일에는 첫 번째 문장으로 단 한 번의 패키지 선언만을 허용한다.&lt;/li&gt;
+  &lt;li&gt;모든 클래스는 반드시 하나의 클래스에 속해야 한다.
+    &lt;ul&gt;
+      &lt;li&gt;패키지를 선언하지 않으면 &lt;strong&gt;이름없는 패키지(unnamed package)&lt;/strong&gt; 에 속하게 된다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;패키지는 점(.)을 구분자로 하여 계층 구조로 구성할 수 있다.
+    &lt;ul&gt;
+      &lt;li&gt;예를 들어, String 클래스의 실제 이름은 java.lang.String이다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;패키지는 물리적으로 클래스 파일(.class)을 포함하는 하나의 디렉토리이다.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;패키지-선언&quot;&gt;패키지 선언&lt;/h2&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;패키지명&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;패키지 선언문은 클래스나 인터페이스의 소스파일(.java)에서 반드시 주석과 공백을 제외한 &lt;strong&gt;첫 번째 문장에 선언해야 한다.&lt;/strong&gt; 그리고 하나의 소스파일에 단 한번만 선언될 수 있으며, 해당 소스파일에 포함된 모든 클래스나 인터페이스는 선언된 패키지에 속하게 된다. 패키지명은 대소문자를 모두 허용하지만, 클래스명과 구분하기 위해 일반적으로 &lt;strong&gt;소문자&lt;/strong&gt; 로 하는 것을 원칙으로 한다.&lt;/p&gt;
+
+&lt;h2 id=&quot;이름없는-패키지unnamed-package&quot;&gt;이름없는 패키지(Unnamed Package)&lt;/h2&gt;
+&lt;p&gt;이름없는 패키지는 default package, anonymous package 등으로도 불리며, 패키지를 선언하지 않는 상태이다. 소스파일에서 패키지를 선언하지 않으면 오류가 아닌 이름없는 패키지에 속하게 된다. 다른 패키지에서 이름없는 패키지를 import할 수 없지만, 이름없는 패키지에서는 다른 패키지를 import할 수 있다.(import는 아래에서 살펴볼 예정이다.)&lt;/p&gt;
+
+&lt;h2 id=&quot;새로운-패키지-생성-순서&quot;&gt;새로운 패키지 생성 순서&lt;/h2&gt;
+&lt;ul&gt;
+  &lt;li&gt;패키지 예제&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;예제 코드&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;package&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;com&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;javachobo&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;book&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+
+&lt;span class=&quot;kd&quot;&gt;class&lt;/span&gt; &lt;span class=&quot;nc&quot;&gt;PackageTest&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+	&lt;span class=&quot;kd&quot;&gt;public&lt;/span&gt; &lt;span class=&quot;kd&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;void&lt;/span&gt; &lt;span class=&quot;nf&quot;&gt;main&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;String&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;args&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;[])&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+		&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;s&quot;&gt;&quot;Hello World!&quot;&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;);&lt;/span&gt;
+	&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;컴파일: &lt;code class=&quot;highlighter-rouge&quot;&gt;C:\Program Files\Java\jdk1.8.0_171\work&amp;gt;javac -d . PackageTest.java&lt;/code&gt;
+    &lt;ul&gt;
+      &lt;li&gt;‘-d’ 옵션
+        &lt;ol&gt;
+          &lt;li&gt;소스파일에 지정된 경로를 통해 패키지의 위치를 찾아서 클래스 파일을 생성한다. (일치하는 디렉토리가 없다면 자동생성)&lt;/li&gt;
+          &lt;li&gt;‘-d’옵션 뒤에는 해당 패키지의 루트(root)디렉토리의 경로를 적어준다.&lt;/li&gt;
+          &lt;li&gt;‘-d’옵션을 사용하지 않으면, 프로그래머가 직접 계층구조를 만들어야 한다.&lt;/li&gt;
+        &lt;/ol&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;해당 패키지의 루트 디렉토리를 클래스패스(classpath)에 포함시킨다.
+    &lt;ul&gt;
+      &lt;li&gt;클래스패스는 컴파일러(javac.exe)나 JVM 등이 클래스의 위치를 찾는데 사용되는 경로이다.&lt;/li&gt;
+      &lt;li&gt;com.javachobo.book 패키지의 루트 디렉토리는 ‘com’의 상위 디렉토리인 ‘C:\Program Files\Java\jdk1.8.0_171\work’이다.&lt;/li&gt;
+      &lt;li&gt;‘제어판 - 시스템 - 고급 시스템 설정 - 환경변수 - 새로 만들기’를 하면 ‘새 시스템 변수’ 팝업창이 뜬다.
+        &lt;ul&gt;
+          &lt;li&gt;변수 이름: CLASSPATH&lt;/li&gt;
+          &lt;li&gt;변수 값: .;C:\Program Files\Java\jdk1.8.0_171\work;&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;클래스패스를 지정해주지 않으면 기본적으로 현재 디렉토리(.)로 지정되지만, 클래스패스를 따로 지정해주는 경우에는 직접 추가해주어야 한다.&lt;/li&gt;
+      &lt;li&gt;클래스패스 확인 명령어: &lt;code class=&quot;highlighter-rouge&quot;&gt;C:...&amp;gt;echo %classpath%&lt;/code&gt;&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;실행 결과&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;C:/...&amp;gt;java com.javachobo.book.PackageTest
+Hello World!
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;위의 방법으로 클래스패스를 이용하면, 클래스패스를 따로 설정하지 않아도 된다.
+    &lt;ul&gt;
+      &lt;li&gt;새로 추가하고자 하는 클래스는 ‘JDK설치디렉토리\jre\classes’디렉토리에 추가한다.
+        &lt;ul&gt;
+          &lt;li&gt;classes디렉토리는 사용자가 직접 생성해야한다.&lt;/li&gt;
+        &lt;/ul&gt;
+      &lt;/li&gt;
+      &lt;li&gt;jar파일은 ‘JDK설치디렉토리\jre\lib\ext’디렉토리에 추가한다.&lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/li&gt;
+  &lt;li&gt;‘-cp’옵션을 이용해서 일시적으로 클래스패스를 지정할 수도 있다. &lt;code class=&quot;highlighter-rouge&quot;&gt;C:...&amp;gt;java -cp C:\Program Files\Java\jdk1.8.0_171\work com.javachobo.book.PackageTest&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&quot;import문&quot;&gt;import문&lt;/h1&gt;
+&lt;p&gt;import문은 컴파일러에게 소스파일에 사용된 클래스의 패키지에 대한 정보를 제공한다. 이를 통해 소스코드에 사용되는 &lt;strong&gt;클래스이름에서 패키지명을 생략할 수 있다.&lt;/strong&gt; 컴파일러는 import문을 통해 소스파일에 사용된 클래스들의 패키지를 알아낸 다음, 모든 클래스 이름 앞에 패키지명을 붙여준다. 이는 &lt;strong&gt;프로그램의 성능에 전혀 영향을 미치지 않으며,&lt;/strong&gt; 컴파일 시간이 아주 조금 더 걸릴 뿐이다.&lt;/p&gt;
+
+&lt;p&gt;import문의 위치는 모든 소스파일(.java)에서 &lt;strong&gt;package문 다음, 클래스 선언문 이전에&lt;/strong&gt; 위치해야 한다. 한 소스파일에서 여러 번의 import문이 사용될 수 있다. 따라서 일반적으로 소스파일의 구성은 package문, import문, class 순으로 구성되어 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;import문-선언&quot;&gt;import문 선언&lt;/h2&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;패키지명&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;err&quot;&gt;클래스명&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;err&quot;&gt;패키지명&lt;/span&gt;&lt;span class=&quot;nn&quot;&gt;.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;import문은 위와 같이 사용될 수 있다. 그리고 동일한 패키지의 모든 클래스를 포함하고 싶다면 와일드카드(*) 문자를 사용할 수 있다. 단, 주의할 점은 하위 패키지를 대신해서 와일드카드 문자는 사용할 수 없다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.util.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;java.text.*&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;
+&lt;span class=&quot;c1&quot;&gt;//import java.*;로 대신할 수 없다!&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위 예제는 &lt;code class=&quot;highlighter-rouge&quot;&gt;java.util&lt;/code&gt; 패키지와 &lt;code class=&quot;highlighter-rouge&quot;&gt;java.test&lt;/code&gt; 패키지에 와일드카드 문자를 사용하여 여기에 포함된 모든 클래스를 import한 것이다. 하지만 상위 패키지 &lt;code class=&quot;highlighter-rouge&quot;&gt;java.*&lt;/code&gt; 으로 하위 패키지는 포함시킬 수 없다.&lt;/p&gt;
+
+&lt;p&gt;자바는 기본적으로 &lt;code class=&quot;highlighter-rouge&quot;&gt;java.lang&lt;/code&gt; 패키지를 포함하고 있기 때문에 String과 같은 클래스를 import문 없이 사용할 수 있다.&lt;/p&gt;
+
+&lt;h2 id=&quot;static-import문&quot;&gt;static import문&lt;/h2&gt;
+&lt;p&gt;static import문은 정적 메소드를 import하는 것으로 이를 통해 static 멤버를 호출할 때 클래스 이름을 생략할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Integer&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.*;&lt;/span&gt;     &lt;span class=&quot;c1&quot;&gt;// Integer클래스의 모든 static 메서드&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// Math.random()만 . 괄호 안붙임&lt;/span&gt;
+&lt;span class=&quot;kn&quot;&gt;import&lt;/span&gt; &lt;span class=&quot;nn&quot;&gt;static&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;java&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;lang&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;;&lt;/span&gt;    &lt;span class=&quot;c1&quot;&gt;// System.out을 out만으로 참조가능&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;위와 같이 선언하였다면, 아래와 같이 클래스 이름을 생략할 수 있다.&lt;/p&gt;
+
+&lt;div class=&quot;language-java highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;n&quot;&gt;System&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;Math&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;   &lt;span class=&quot;c1&quot;&gt;// 생략 전&lt;/span&gt;
+&lt;span class=&quot;n&quot;&gt;out&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;na&quot;&gt;println&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;random&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;());&lt;/span&gt;               &lt;span class=&quot;c1&quot;&gt;// 생략 후&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;static import문은 &lt;strong&gt;매우 드물게&lt;/strong&gt; 사용된다. 그리고 이를 남용하면 코드를 매우 읽기 힘들게 하므로 유지보수하기 어렵다. 그러므로 다음과 같은 경우가 아닐 때는 static import문 사용을 지양해야 한다. 이를 사용하는 경우는 한 두개의 클래스에서 정적 멤버를 빈번하게 접근해야 할 때 이용한다.(이 부분은 좀 더 알아봐야 할 듯 하다.)&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Language_Java" /><summary type="html">최신 업데이트 날짜: 2019-05-12</summary></entry><entry><title type="html">벨만-포드(Bellman-Ford)의 최단 경로 알고리즘</title><link href="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%B2%A8%EB%A7%8C-%ED%8F%AC%EB%93%9C-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="alternate" type="text/html" title="벨만-포드(Bellman-Ford)의 최단 경로 알고리즘" /><published>2019-05-06T19:36:00+09:00</published><updated>2019-05-06T19:36:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%B2%A8%EB%A7%8C-%ED%8F%AC%EB%93%9C%20%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%B2%A8%EB%A7%8C-%ED%8F%AC%EB%93%9C-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">&lt;p&gt;벨만-포드 알고리즘은 다익스트라 알고리즘과 같은 &lt;strong&gt;단일 시작점 최단 경로 알고리즘&lt;/strong&gt; 이지만, &lt;strong&gt;음수 간선&lt;/strong&gt; 이 있는 그래프에서도 최단 경로를 찾을 수 있다. 그리고 그래프에 음수 사이클이 있어서 최단 경로를 찾을 수 없는 경우에도 이를 알려줄 수 있다.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57224305-fe1ddb00-7043-11e9-8a7b-6d5cf80bce7a.png&quot; alt=&quot;bellmanford-1&quot; /&gt;&lt;/p&gt;
 
@@ -566,7 +699,9 @@ index block number: 27
 
 &lt;ul&gt;
   &lt;li&gt;Combined: 이 방식은 Linked와 Multilevel index를 합친 방법으로 한 인덱스 블록의 포인터들은 데이터 블록과 또 다른 인덱스 블록 둘 다 가리킬 수 있다.(리눅스는 combined 방식을 사용한다.)&lt;/li&gt;
-&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">최신 업데이트 날짜: 2019-05-05</summary></entry><entry><title type="html">[운영체제] # 17 프레임 할당(Allocation of Frames)</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/" rel="alternate" type="text/html" title="[운영체제] # 17 프레임 할당(Allocation of Frames)" /><published>2019-05-04T07:30:00+09:00</published><updated>2019-05-04T07:30:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84%20%ED%95%A0%EB%8B%B9</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/">&lt;h1 id=&quot;global-vs-local-replacement&quot;&gt;Global VS Local Replacement&lt;/h1&gt;
+&lt;/ul&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">최신 업데이트 날짜: 2019-05-05</summary></entry><entry><title type="html">Database 인덱스</title><link href="https://codemcd.github.io/pages/CODEMCD/Database-%EC%9D%B8%EB%8D%B1%EC%8A%A4/" rel="alternate" type="text/html" title="Database 인덱스" /><published>2019-05-05T00:00:00+09:00</published><updated>2019-05-05T00:00:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/Database-%EC%9D%B8%EB%8D%B1%EC%8A%A4</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/Database-%EC%9D%B8%EB%8D%B1%EC%8A%A4/">&lt;p&gt;DBMS는 저장되어 있는 데이터를 효율적으로 검색할 수 있게 인덱스를 사용한다. 인덱스는 색인으로 해당 테이블의 컬럼을 색인화(따로 파일에 저장)하여 검색시 해당 테이블의 레코드를 full scan 하는 것이 아니라 색인화된 파일을 검색하여 검색속도를 높인다. 인덱스의 구조는 트리로 되어 있으며, 이 트리는 &lt;strong&gt;Balance Search Tree&lt;/strong&gt; 이다.&lt;/p&gt;
+
+&lt;p&gt;웹 애플리케이션의 백엔드 성능을 높이려고 종종 실행하는 &lt;strong&gt;SQL 튜닝&lt;/strong&gt; 이란, SQL이 DBMS의 인덱스를 활용하도록 SQL을 수정하는 것을 말한다. 따라서, 인덱스를 잘 이해하고 있다면 더 좋은 SQL을 작성할 수 있으며 이는 애플리케이션의 성능을 높여줄 수 있다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><summary type="html">DBMS는 저장되어 있는 데이터를 효율적으로 검색할 수 있게 인덱스를 사용한다. 인덱스는 색인으로 해당 테이블의 컬럼을 색인화(따로 파일에 저장)하여 검색시 해당 테이블의 레코드를 full scan 하는 것이 아니라 색인화된 파일을 검색하여 검색속도를 높인다. 인덱스의 구조는 트리로 되어 있으며, 이 트리는 Balance Search Tree 이다.</summary></entry><entry><title type="html">[운영체제] # 17 프레임 할당(Allocation of Frames)</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/" rel="alternate" type="text/html" title="[운영체제] # 17 프레임 할당(Allocation of Frames)" /><published>2019-05-04T07:30:00+09:00</published><updated>2019-05-04T07:30:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84%20%ED%95%A0%EB%8B%B9</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/">&lt;h1 id=&quot;global-vs-local-replacement&quot;&gt;Global VS Local Replacement&lt;/h1&gt;
 &lt;ul&gt;
   &lt;li&gt;Global Replacement: 메모리 상의 모든 프로세스 페이지에 대한 교체 작업을 수행한다.&lt;/li&gt;
   &lt;li&gt;Local Replacement: 메모리 상의 자기 자신의 프로세스 페이지에 대해서만 교체 작업을 수행한다.
@@ -915,304 +1050,4 @@ Page reference string = {1, 4, 6, 1, 6}
 
 &lt;p&gt;위 그림은 modified bit를 추가한 페이지 테이블의 모습이다. 여기서 수정되지 않은 페이지는 0, 2, 3번 3개의 페이지가 존재하는데 이 중에서는 어떤 페이지를 선택해야 할까?&lt;/p&gt;
 
-&lt;p&gt;제일 간단한 방법은 랜덤하게 선택하는 것이지만, 이는 성능을 보장할 수 없다. 그 다음은 가장 먼저 메모리에 올라온 페이지를 희생양 페이지로 선택하는 것이다. 이는 아주 유명한 FIFO(First-In First-Out) 방식이다. 이 외에도 여러가지 방법이 존재한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">최신 업데이트 날짜: 2019-05-03</summary></entry><entry><title type="html">[운영체제] # 14 세그먼테이션(Segmentation)</title><link href="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-14%EC%9E%A5-%EC%84%B8%EA%B7%B8%EB%A8%BC%ED%85%8C%EC%9D%B4%EC%85%98/" rel="alternate" type="text/html" title="[운영체제] # 14 세그먼테이션(Segmentation)" /><published>2019-05-03T21:30:00+09:00</published><updated>2019-05-03T21:30:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-14%EC%9E%A5-%EC%84%B8%EA%B7%B8%EB%A8%BC%ED%85%8C%EC%9D%B4%EC%85%98</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/study/OperatingSystem-14%EC%9E%A5-%EC%84%B8%EA%B7%B8%EB%A8%BC%ED%85%8C%EC%9D%B4%EC%85%98/">&lt;p&gt;지금까지 살펴본 페이징은 프로세스를 물리적으로 일정한 크기로 나눠서 메모리에 할당하였다. 반면에 세그먼테이션은 프로세스를 &lt;strong&gt;논리적 내용을 기반&lt;/strong&gt; 으로 나눠서 메모리에 배치하는 것을 말한다.&lt;/p&gt;
-
-&lt;p&gt;세그먼테이션은 프로세스를 세그먼트(segment)의 집합으로 만들고, 각 세그먼트의 크기는 일반적으로 같지 않다. 프로세스를 code + data + stack 으로 나누는 것 역시 세그먼테이션의 모습이다. 물론 code, data, stack 각각 내부에서 더 작은 세그먼트로 나눌 수도 있다.&lt;/p&gt;
-
-&lt;p&gt;세그먼트를 메모리에 할당할 때는 페이지를 할당하는 것과 동일하다. 하지만 테이블은 조금 다른데, 세그먼테이션을 위한 테이블은 &lt;strong&gt;세그먼트 테이블&lt;/strong&gt; 이라고한다. 그리고 세그먼트 테이블은 세그먼트 번호와 시작 주소(base), 세그먼트 크기(limit)를 엔트리로 갖는다.&lt;/p&gt;
-
-&lt;p&gt;세그먼트에서 주소변환 역시, 페이징과 유사하다. 한 가지 주의할 점은 세그먼트의 크기는 일정하지 않기 때문에, 테이블에 &lt;strong&gt;limit&lt;/strong&gt; 정보가 주어진다. 그리고 CPU에서 해당 세그먼트의 크기를 넘어서는 주소가 들어오면 인터럽트가 발생해서 해당 프로세스를 강제로 종료시킨다. 그러면 세그먼트 주소변환 예제를 하나 살펴보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57119448-47043400-6da5-11e9-95da-91cb808de992.png&quot; alt=&quot;OS14-1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그림은 세그먼트 테이블과 프로세스가 할당된 메모리의 모습이다. 페이징 주소변환과 동일하게 d는 논리주소와 물리주소가 동일하다. 물리주소 a는 &lt;strong&gt;base[s] + d&lt;/strong&gt; 로 계산된다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;논리주소 (2, 100) =&amp;gt; 물리주소 4400번지&lt;/li&gt;
-  &lt;li&gt;논리주소 (1, 500) =&amp;gt; 인터럽트로 인해 프로세스 강제 종료(범위를 벗어남)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&quot;세그먼테이션에서-보호와-공유&quot;&gt;세그먼테이션에서 보호와 공유&lt;/h1&gt;
-&lt;p&gt;먼저, 결론부터 말하면 페이징보다 세그먼테이션에서의 보호와 공유는 더 효율적이다.&lt;/p&gt;
-
-&lt;p&gt;보호에서는 세그먼테이션 역시 r, w, x 비트를 테이블에 추가하는데, 세그먼테이션은 논리적으로 나누기 때문에 해당 비트를 설정하기 매우 간단하고 안전하다. 페이징은 code + data + stack 영역이 있을 때 이를 일정한 크기로 나누므로 두 가지 영역이 섞일 수가 있다. 그러면 비트를 설정하기가 매우 까다롭다.&lt;/p&gt;
-
-&lt;p&gt;공유에서도 마찬가지다. 페이징에서는 code 영역을 나눈다해도 다른 영역이 포함될 확률이 매우 높다. 하지만 세그먼테이션은 정확히 code 영역만 나누기 때문에 더 효율적으로 공유를 수행할 수 있다.&lt;/p&gt;
-
-&lt;h1 id=&quot;세그먼테이션과-페이징&quot;&gt;세그먼테이션과 페이징&lt;/h1&gt;
-&lt;p&gt;세그먼테이션은 페이징과 유사하고 보호와 공유에서는 더 나은 성능을 보여주었지만, 현재 &lt;strong&gt;대부분은 페이징 기법을 사용한다.&lt;/strong&gt; 그 이유는 세그먼테이션에는 치명적인 단점이 있기 때문이다.&lt;/p&gt;
-
-&lt;p&gt;메모리 할당을 처음 시작할 때 다중 프로그래밍에서의 문제는 크기가 서로 다른 프로세스로 인해 여러 크기의 hole이 발생한다. 이로 인해 어느 hole에 프로세스를 할당하는 것에 대한 최적화 알고리즘이 존재하지 않고, 외부 단편화로 인해 메모리 낭비가 크다고 했었다.&lt;/p&gt;
-
-&lt;p&gt;세그먼테이션도 똑같은 문제점이 발생한다. 왜냐하면 세그먼테이션은 논리적인 단위로 나누기 때문에 세그먼트의 &lt;strong&gt;크기가 다양하다.&lt;/strong&gt; 이로 인해 다양한 크기의 hole이 발생하므로 같은 문제가 발생한다.&lt;/p&gt;
-
-&lt;p&gt;결론적으로 세그먼테이션은 보호와 공유에서 효율적이고, 페이징은 외부 단편화 문제를 해결할 수 있다. 그러므로 두 가지를 합쳐서 사용하는 방법이 나왔다. 두 장점을 합치기 위해서는 &lt;strong&gt;세그먼트를 페이징 기법으로 나누는 것이다.(Paged segmentation)&lt;/strong&gt;&lt;/p&gt;
-
-&lt;p&gt;하지만 이 역시 단점이 존재한다. 세그먼트와 페이지가 동시에 존재하기 때문에 주소 변환도 두 번해야한다. 즉 CPU에서 세그먼트 테이블에서 주소 변환을 하고, 그 다음 페이지 테이블에서 또 주소 변환을 해야한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">최신 업데이트 날짜: 2019-05-03</summary></entry><entry><title type="html">다익스트라(Dijkstra) 알고리즘</title><link href="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="alternate" type="text/html" title="다익스트라(Dijkstra) 알고리즘" /><published>2019-05-03T21:06:00+09:00</published><updated>2019-05-03T21:06:00+09:00</updated><id>https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC%20%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98</id><content type="html" xml:base="https://codemcd.github.io/pages/CODEMCD/algorithm/Algorithm-%EB%8B%A4%EC%9D%B5%EC%8A%A4%ED%8A%B8%EB%9D%BC-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/">&lt;p&gt;다익스트라 알고리즘은 &lt;strong&gt;단일 시작점 최단 경로 알고리즘&lt;/strong&gt; 으로, 시작 정점 s에서부터 다른 정점들까지의 최단 거리를 계산한다. 하지만 이 알고리즘은 음수 간선이 있는 그래프(특히, 음수 사이클)에 대해서는 최단거리를 계산하지 못한다. 만약 음수 간선이 사이클을 이루지 않는다면, 계산을 할 수 있는 경우가 있지만 시간복잡도는 지수적으로 증가한다.&lt;/p&gt;
-&lt;blockquote&gt;
-  &lt;blockquote&gt;
-    &lt;p&gt;이에 대한 부분은 https://www.acmicpc.net/board/view/19865 이 링크에서 자세하게 토론을 하고 있다. 한 번 읽어보면 좋을 듯 하다.&lt;/p&gt;
-  &lt;/blockquote&gt;
-&lt;/blockquote&gt;
-
-&lt;h2 id=&quot;기본적인-다익스트라-알고리즘&quot;&gt;기본적인 다익스트라 알고리즘&lt;/h2&gt;
-&lt;p&gt;다익스트라 알고리즘은 너비 우선 탐색(BFS)처럼 시작점에서 가까운 순서대로 정점을 방문한다. BFS와 다른 점은 가중치가 있는 그래프에 적용하며, BFS로는 아래와 같은 그래프에서 최단 거리를 찾을 수 없다.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57118124-297e9c80-6d9c-11e9-90c4-21ebb461c96d.JPG&quot; alt=&quot;dijkstra1&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그래프에서 최단 경로는 &lt;strong&gt;s-a-b-c&lt;/strong&gt; 이다. 하지만 BFS를 사용하면 시작점과 인접한 정점을 방문하므로 b정점을 통한 최단 경로를 계산할 수 없다. 이러한 경우 다익스트라 알고리즘을 사용할 수 있다. 그러면 기본적으로 다익스트라 알고리즘이 어떻게 동작하는지 예제를 통해 살펴보자.&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&quot;https://user-images.githubusercontent.com/34755287/57118125-2a173300-6d9c-11e9-9fd2-dccf0a61fdd3.JPG&quot; alt=&quot;dijkstra2&quot; /&gt;&lt;/p&gt;
-
-&lt;p&gt;위 그래프에서 시작점은 1번 정점으로 하여 모든 정점에 대해서 최단 거리를 구해보자. 다익스트라 알고리즘은 위에서 말했듯이 BFS와 같이 인접한 정점에서 가장 가까운 정점을 선택한다. 그리고 그 정점 중 최단 거리를 갱신해나아간다. 그러기 위해 시작점을 제외한 아직 방문하지 않은 정점은 &lt;strong&gt;가장 큰 수(INF)&lt;/strong&gt; 로 초기화 한다. 따라서 초기 모습은 다음과 같다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;횟수/정점&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;표에서 확정된 정점의 최단 거리는 &lt;strong&gt;진한 검정색&lt;/strong&gt; 으로 표시한다. 그리고 인접한 정점까지의 거리와 현재 표의 거리 중 &lt;strong&gt;더 짧은 거리로 갱신한다.&lt;/strong&gt; 그 다음 확정되지 않은 정점 중 가장 짧은 정점으로 이동한다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;1번 정점과 인접한 정점 (정점, 거리)
-    &lt;ul&gt;
-      &lt;li&gt;(2, 0 + 7),   &lt;code class=&quot;highlighter-rouge&quot;&gt;min(INF, 7) = 7&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;(3, 0 + 9),   &lt;code class=&quot;highlighter-rouge&quot;&gt;min(INF, 9) = 9&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;(6, 0 + 14),  &lt;code class=&quot;highlighter-rouge&quot;&gt;min(INF, 14) = 14&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;1번 정점과 인접한 정점까지 거리를 계산하여 표와 비교한 후 더 짧은 거리로 갱신한다. 그 다음 &lt;strong&gt;확정되지 않은 정점 중 가장 짧은 거리를 가진 정점으로 이동한다.&lt;/strong&gt; 선택된 정점은 시작점과 최단 거리임을 확정하고 그 정점에서 위와 같이 인접한 정점과 거리 계산 과정을 반복한다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;횟수/정점&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;14&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;2번 정점과 인접한 정점
-    &lt;ul&gt;
-      &lt;li&gt;(3, 7 + 10),   &lt;code class=&quot;highlighter-rouge&quot;&gt;min(9, 17) = 9&lt;/code&gt;&lt;/li&gt;
-      &lt;li&gt;(4, 7 + 15),   &lt;code class=&quot;highlighter-rouge&quot;&gt;min(INF, 22) = 22&lt;/code&gt;&lt;/li&gt;
-    &lt;/ul&gt;
-  &lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;횟수/정점&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;14&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;9&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;22&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;14&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;그 결과, 최단 거리로 확정되지 않은 정점 중 3번 정점이 가장 짧으므로 이를 확정시키고 3번 정점과 인접한 정점을 계산한다. 이와 같은 계산 과정을 모든 정점이 최단 거리로 확정될 때까지 반복한다. 모든 결과를 표로 나타내면 다음과 같다.&lt;/p&gt;
-
-&lt;table&gt;
-  &lt;thead&gt;
-    &lt;tr&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;횟수/정점&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;1&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;2&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;3&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;4&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;5&lt;/th&gt;
-      &lt;th style=&quot;text-align: center&quot;&gt;6&lt;/th&gt;
-    &lt;/tr&gt;
-  &lt;/thead&gt;
-  &lt;tbody&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;0&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;1&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;9&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;14&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;2&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;9&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;22&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;14&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;3&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;9&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;20&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;INF&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;11&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;4&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;9&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;20&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;20&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;11&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-    &lt;tr&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;5&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;0&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;7&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;9&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;20&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;20&lt;/strong&gt;&lt;/td&gt;
-      &lt;td style=&quot;text-align: center&quot;&gt;&lt;strong&gt;11&lt;/strong&gt;&lt;/td&gt;
-    &lt;/tr&gt;
-  &lt;/tbody&gt;
-&lt;/table&gt;
-
-&lt;p&gt;하지만 이 방법은 확정되지 않은 정점 중 가장 짧은 거리의 정점을 찾기 위해 시간복잡도 O(N)으로 순차적으로 탐색한다. 이를 최적화하기 위해 &lt;strong&gt;우선 순위 큐&lt;/strong&gt; 를 사용하여 가장 짧은 거리의 정점을 시간복잡도 O(logN) 으로 찾을 수 있다.&lt;/p&gt;
-
-&lt;h2 id=&quot;우선-순위-큐를-이용한-다익스트라-알고리즘&quot;&gt;우선 순위 큐를 이용한 다익스트라 알고리즘&lt;/h2&gt;
-&lt;p&gt;우선 순위 큐를 사용하더라도 알고리즘 로직은 바뀌지 않는다. 다만, 확정할 정점을 찾는데 소요되는 시간을 O(N)에서 O(logN)으로 줄인 것이다. 그러면 이를 구현한 코드를 살펴보자.&lt;/p&gt;
-
-&lt;div class=&quot;language-cpp highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&lt;span class=&quot;c1&quot;&gt;//정점의 개수
-&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//그래프의 인접 리스트 (연결된 정점 번호, 간선 가중치) 쌍을 담는다.
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;adj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;MAX_V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;];&lt;/span&gt;
-&lt;span class=&quot;c1&quot;&gt;//다익스트라, 최단 거리 배열을 반환한다.
-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dijkstra&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//INF: 매우 큰 값
-&lt;/span&gt;	&lt;span class=&quot;n&quot;&gt;vector&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;V&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;INF&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;);&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;c1&quot;&gt;//(해당 정점까지 최단 거리, 해당 정점)쌍
-&lt;/span&gt;  	&lt;span class=&quot;c1&quot;&gt;//STL내부에서 pair의 첫번째 원소부터 크기 비교를 하기 때문에, 거리값을 첫 원소로 해야 한다.
-&lt;/span&gt;	&lt;span class=&quot;n&quot;&gt;priority_queue&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pair&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;&amp;gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-	&lt;span class=&quot;n&quot;&gt;pq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_pair&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;src&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-	&lt;span class=&quot;k&quot;&gt;while&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;!&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;empty&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;())&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-    		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;here&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;pq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;top&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;().&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;n&quot;&gt;pq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;pop&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt;
-		&lt;span class=&quot;c1&quot;&gt;//만약 지금 꺼낸 것보다 더 짧은 경로를 알고 있다면 지금 꺼낸 것을 무시한다.
-&lt;/span&gt;		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;here&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;continue&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-		&lt;span class=&quot;c1&quot;&gt;//인접한 정점들을 모두 검사한다.
-&lt;/span&gt;		&lt;span class=&quot;k&quot;&gt;for&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;mi&quot;&gt;0&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;i&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;lt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;adj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;here&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;size&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;();&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;++&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-			&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;there&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;adj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;here&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;first&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-			&lt;span class=&quot;kt&quot;&gt;int&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nextDist&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;cost&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;+&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;adj&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;here&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;][&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;i&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;].&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;second&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-			&lt;span class=&quot;c1&quot;&gt;//더 짧은 경로를 발견하면, dist[]를 갱신하고 우선순위 큐에 넣는다.
-&lt;/span&gt;			&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;there&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;gt;&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nextDist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;p&quot;&gt;{&lt;/span&gt;
-				&lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;[&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;there&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;nextDist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-				&lt;span class=&quot;n&quot;&gt;pq&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;.&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;push&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;make_pair&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;(&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;-&lt;/span&gt;&lt;span class=&quot;n&quot;&gt;nextDist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;,&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;there&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;));&lt;/span&gt;
-			&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-		&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-	&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-  &lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;n&quot;&gt;dist&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;;&lt;/span&gt;
-&lt;span class=&quot;p&quot;&gt;}&lt;/span&gt;
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;코드를 살펴보면 &lt;code class=&quot;highlighter-rouge&quot;&gt;dist[]&lt;/code&gt;은 매개변수로 전달받은 시작점 &lt;code class=&quot;highlighter-rouge&quot;&gt;src&lt;/code&gt; 정점에서 모든 정점까지 최단 거리를 저장한 배열이다. 그리고 구현의 편의성을 위해 몇가지 사용한 방법이 있다.&lt;/p&gt;
-&lt;ul&gt;
-  &lt;li&gt;C++ STL pair는 첫 번째 원소를 비교하므로 (거리, 정점) 쌍으로 저장한다.&lt;/li&gt;
-  &lt;li&gt;C++ STL 우선순위 큐는 기본적으로 내림차순이므로 거리의 부호를 바꾸는 것으로 간단하게 사용할 수 있다.&lt;/li&gt;
-  &lt;li&gt;중복된 정점의 계산을 피하기 위해 현재 거리보다 긴 경우는 모두 무시한다.(따라서, 저장할 때 정점 중복 검사는 하지 않아도 된다.)&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h3 id=&quot;시간복잡도&quot;&gt;시간복잡도&lt;/h3&gt;
-&lt;p&gt;간선의 개수를 E라고 할 때, 각 정점마다 인접한 간선들을 모두 검사하는 작업은 O(E) 이고, 우선 순위 큐에 추가 및 삭제하는 연산은 O(logE)이다. 따라서 전체 시간복잡도는 &lt;strong&gt;O(ElogE)&lt;/strong&gt; 이다. 여기서 대부분의 그래프에서 &lt;strong&gt;간선의 개수는 정점의 개수(V) 제곱보다 작으므로&lt;/strong&gt; 최대 원소의 개수가 전체 간선의 수가 아닌 전체 정점의 수로 볼 수 있다. 따라서, 시간복잡도를 &lt;strong&gt;O(ElogV)&lt;/strong&gt; 로 계산할 수도 있다.&lt;/p&gt;
-
-&lt;ul&gt;
-  &lt;li&gt;O(VlogV) 다익스트라 알고리즘&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;중복 원소를 우선순위 큐에 넣지 않도록 수정하면 시간복잡도는 O(VlogV)로 만들 수 있다. 이를 위해 피보나치 힙이나 이진 검색 트리를 사용해서 우선 순위 큐를 구현하면 중복 원소를 제거할 수 있지만, 구현이 복잡하고 실제로 시간이 더 오래 걸리는 경우가 많다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Algorithm_Algorithm" /><summary type="html">최신 업데이트 날짜: 2019-05-03</summary></entry></feed>
+&lt;p&gt;제일 간단한 방법은 랜덤하게 선택하는 것이지만, 이는 성능을 보장할 수 없다. 그 다음은 가장 먼저 메모리에 올라온 페이지를 희생양 페이지로 선택하는 것이다. 이는 아주 유명한 FIFO(First-In First-Out) 방식이다. 이 외에도 여러가지 방법이 존재한다.&lt;/p&gt;</content><author><name>CODEMCD</name><email>psbum1609@gmail.com</email></author><category term="Study_OperatingSystem" /><summary type="html">최신 업데이트 날짜: 2019-05-03</summary></entry></feed>

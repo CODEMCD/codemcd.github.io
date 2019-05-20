@@ -9,16 +9,19 @@
   <head>
     <meta charset="utf-8">
 
-<!-- begin _includes/seo.html --><title>CODEMCD's Tech BLOG - 페이지 2</title>
-<meta name="description" content="My Tech Blog">
+<!-- begin _includes/seo.html --><title>Database 인덱스 - CODEMCD’s Tech BLOG</title>
+<meta name="description" content="DBMS는 저장되어 있는 데이터를 효율적으로 검색할 수 있게 인덱스를 사용한다. 인덱스는 색인으로 해당 테이블의 컬럼을 색인화(따로 파일에 저장)하여 검색시 해당 테이블의 레코드를 full scan 하는 것이 아니라 색인화된 파일을 검색하여 검색속도를 높인다. 인덱스의 구조는 트리로 되어 있으며, 이 트리는 Balance Search Tree 이다.">
 
 
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="article">
 <meta property="og:locale" content="ko_KR">
 <meta property="og:site_name" content="CODEMCD's Tech BLOG">
-<meta property="og:title" content="CODEMCD’s Tech BLOG">
-<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/page2/">
+<meta property="og:title" content="Database 인덱스">
+<meta property="og:url" content="https://codemcd.github.io/pages/CODEMCD/Database-%EC%9D%B8%EB%8D%B1%EC%8A%A4/">
+
+
+  <meta property="og:description" content="DBMS는 저장되어 있는 데이터를 효율적으로 검색할 수 있게 인덱스를 사용한다. 인덱스는 색인으로 해당 테이블의 컬럼을 색인화(따로 파일에 저장)하여 검색시 해당 테이블의 레코드를 full scan 하는 것이 아니라 색인화된 파일을 검색하여 검색속도를 높인다. 인덱스의 구조는 트리로 되어 있으며, 이 트리는 Balance Search Tree 이다.">
 
 
 
@@ -26,6 +29,7 @@
 
 
 
+  <meta property="article:published_time" content="2019-05-05T00:00:00+09:00">
 
 
 
@@ -36,13 +40,9 @@
   
 
 
-<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/page2/">
+<link rel="canonical" href="https://codemcd.github.io/pages/CODEMCD/Database-%EC%9D%B8%EB%8D%B1%EC%8A%A4/">
 
 
-  <link rel="prev" href="https://codemcd.github.io/pages/CODEMCD/">
-
-
-  <link rel="next" href="https://codemcd.github.io/pages/CODEMCD/page3/">
 
 
 
@@ -106,7 +106,7 @@
     
   </head>
 
-  <body class="layout--home">
+  <body class="layout--single">
 
     <!--[if lt IE 9]>
 <div class="notice--danger align-center" style="margin: 0;">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade your browser</a> to improve your experience.</div>
@@ -273,174 +273,138 @@
   
   <!-- Add category side bar -->
   
-    <nav class="nav__list">
-  <input id="ac-toc" name="accordion-toc" type="checkbox" />
-  <label for="ac-toc">토글 메뉴</label>
-  <ul class="nav__items" id="category_tag_menu">
-      <li>
-
-        <span class="nav__sub-title" v-on:click='togglec1()'>Toy</span>
-        <ul v-show="flag_c1">
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-              
-                <li><a href="/tags/toy-blog" class="">Blog (2)</a></li>
-            
-          
-            
-              
-                <li><a href="/tags/toy-jsdslib" class="">jsdsLib (4)</a></li>
-            
-          
-            
-          
-        </ul>
-
-        <span class="nav__sub-title" v-on:click='togglec2()'>Algorithm</span>
-        <ul v-show="flag_c2">
-          
-            
-              
-                <li><a href="/tags/algorithm-algorithm" class="">Algorithm (10)</a></li>
-            
-          
-            
-              
-                <li><a href="/tags/algorithm-datastructure" class="">DataStructure (8)</a></li>
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-        </ul>
-
-        <span class="nav__sub-title" v-on:click='togglec3()'>Language</span>
-        <ul v-show="flag_c3">
-          
-            
-          
-            
-          
-            
-          
-            
-              
-                
-                  <li><a href="/tags/language-java" class="">Java (15)</a></li>
-                
-            
-          
-            
-              
-                
-                  <li><a href="/tags/language-kotlin" class="">Kotlin (6)</a></li>
-                
-            
-          
-            
-              
-                
-                  <li><a href="/tags/language-ccpp" class="">C/C++ (2)</a></li>
-                
-            
-          
-            
-          
-            
-          
-            
-          
-            
-          
-        </ul>
-
-        <span class="nav__sub-title" v-on:click='togglec4()'>Study</span>
-        <ul v-show="flag_c4">
-          
-            
-          
-            
-          
-            
-              
-                <li><a href="/tags/study-database" class="">Database (3)</a></li>
-            
-          
-            
-          
-            
-          
-            
-          
-            
-              
-                <li><a href="/tags/study-cloud" class="">Cloud (1)</a></li>
-            
-          
-            
-          
-            
-          
-            
-              
-                <li><a href="/tags/study-operatingsystem" class="">OperatingSystem (19)</a></li>
-            
-          
-        </ul>
-
-      </li>
-  </ul>
-</nav>
-
-  
   
   </div>
 
 
-  <div class="archive">
+  <article class="page" itemscope itemtype="http://schema.org/CreativeWork">
+    <meta itemprop="headline" content="Database 인덱스">
+    <meta itemprop="description" content="DBMS는 저장되어 있는 데이터를 효율적으로 검색할 수 있게 인덱스를 사용한다. 인덱스는 색인으로 해당 테이블의 컬럼을 색인화(따로 파일에 저장)하여 검색시 해당 테이블의 레코드를 full scan 하는 것이 아니라 색인화된 파일을 검색하여 검색속도를 높인다. 인덱스의 구조는 트리로 되어 있으며, 이 트리는 Balance Search Tree 이다.">
+    <meta itemprop="datePublished" content="May 05, 2019">
     
-      <h1 id="page-title" class="page__title"></h1>
-    
-    <h3 class="archive__subtitle">최근 포스트</h3>
+
+    <div class="page__inner-wrap">
+      
+        <header>
+          <h1 id="page-title" class="page__title" itemprop="headline">Database 인덱스
+</h1>
+          
+        </header>
+      
+
+      <section class="page__content" itemprop="text">
+        
+        <p>DBMS는 저장되어 있는 데이터를 효율적으로 검색할 수 있게 인덱스를 사용한다. 인덱스는 색인으로 해당 테이블의 컬럼을 색인화(따로 파일에 저장)하여 검색시 해당 테이블의 레코드를 full scan 하는 것이 아니라 색인화된 파일을 검색하여 검색속도를 높인다. 인덱스의 구조는 트리로 되어 있으며, 이 트리는 <strong>Balance Search Tree</strong> 이다.</p>
+
+<p>웹 애플리케이션의 백엔드 성능을 높이려고 종종 실행하는 <strong>SQL 튜닝</strong> 이란, SQL이 DBMS의 인덱스를 활용하도록 SQL을 수정하는 것을 말한다. 따라서, 인덱스를 잘 이해하고 있다면 더 좋은 SQL을 작성할 수 있으며 이는 애플리케이션의 성능을 높여줄 수 있다.</p>
+
+        
+      </section>
+
+      <footer class="page__meta">
+        
+        
 
 
+        
+          <p class="page__date"><strong><i class="fas fa-fw fa-calendar-alt" aria-hidden="true"></i> 업데이트:</strong> <time datetime="2019-05-05T00:00:00+09:00">May 05, 2019</time></p>
+        
+      </footer>
+
+      <section class="page__share">
+  
+    <h4 class="page__share-title">공유하기</h4>
   
 
+  <a href="https://twitter.com/intent/tweet?text=Database+%EC%9D%B8%EB%8D%B1%EC%8A%A4%20https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2FDatabase-%25EC%259D%25B8%25EB%258D%25B1%25EC%258A%25A4%2F" class="btn btn--twitter" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Twitter"><i class="fab fa-fw fa-twitter" aria-hidden="true"></i><span> Twitter</span></a>
+
+  <a href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2FDatabase-%25EC%259D%25B8%25EB%258D%25B1%25EC%258A%25A4%2F" class="btn btn--facebook" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Facebook"><i class="fab fa-fw fa-facebook" aria-hidden="true"></i><span> Facebook</span></a>
+
+  <a href="https://plus.google.com/share?url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2FDatabase-%25EC%259D%25B8%25EB%258D%25B1%25EC%258A%25A4%2F" class="btn btn--google-plus" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 Google Plus"><i class="fab fa-fw fa-google-plus" aria-hidden="true"></i><span> Google+</span></a>
+
+  <a href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A%2F%2Fcodemcd.github.io%2Fpages%2FCODEMCD%2FDatabase-%25EC%259D%25B8%25EB%258D%25B1%25EC%258A%25A4%2F" class="btn btn--linkedin" onclick="window.open(this.href, 'window', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0'); return false;" title="공유하기 LinkedIn"><i class="fab fa-fw fa-linkedin" aria-hidden="true"></i><span> LinkedIn</span></a>
+</section>
 
 
-<div class="list__item">
+      
+  <nav class="pagination">
+    
+      <a href="/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/" class="pagination--pager" title="[운영체제] # 17 프레임 할당(Allocation of Frames)
+">이전</a>
+    
+    
+      <a href="/pages/CODEMCD/study/OperatingSystem-18%EC%9E%A5-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9/" class="pagination--pager" title="[운영체제] # 18 파일 할당(Allocation of Files)
+">다음</a>
+    
+  </nav>
+
+    </div>
+
+    
+      <div class="page__comments">
+  
+  
+      <h4 class="page__comments-title">댓글남기기</h4>
+      <section id="disqus_thread"></section>
+    
+</div>
+    
+  </article>
+
+  
+  
+    <div class="page__related">
+      <h4 class="page__related-title">참고</h4>
+      <div class="grid__wrapper">
+        
+          
+
+
+
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/study/OperatingSystem-18%EC%9E%A5-%ED%8C%8C%EC%9D%BC-%ED%95%A0%EB%8B%B9/" rel="permalink">[운영체제] # 18 파일 할당(Allocation of Files)
+        <a href="/pages/CODEMCD/language/Java-11.-package%EC%99%80-import/" rel="permalink">[Java] # 1 package와 import
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-12
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/algorithm/Algorithm-%EB%B2%A8%EB%A7%8C-%ED%8F%AC%EB%93%9C-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="permalink">벨만-포드(Bellman-Ford)의 최단 경로 알고리즘
+</a>
+      
+    </h2>
+    
+    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-06
+</p>
+  </article>
+</div>
+        
+          
+
+
+
+<div class="grid__item">
+  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
+    
+    <h2 class="archive__item-title" itemprop="headline">
+      
+        <a href="/pages/CODEMCD/study/Database-%ED%8A%B8%EB%9E%9C%EC%9E%AD%EC%85%98/" rel="permalink">[데이터베이스] 트랜잭션(Transaction)
 </a>
       
     </h2>
@@ -449,146 +413,32 @@
 </p>
   </article>
 </div>
+        
+          
 
-  
 
 
-
-<div class="list__item">
+<div class="grid__item">
   <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
     
     <h2 class="archive__item-title" itemprop="headline">
       
-        <a href="/pages/CODEMCD/Database-%EC%9D%B8%EB%8D%B1%EC%8A%A4/" rel="permalink">Database 인덱스
+        <a href="/pages/CODEMCD/algorithm/Algorithm-%ED%94%8C%EB%A1%9C%EC%9D%B4%EB%93%9C-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="permalink">플로이드(Floyd)의 모든 쌍 최단 거리 알고리즘
 </a>
       
     </h2>
     
-    <p class="archive__item-excerpt" itemprop="description">DBMS는 저장되어 있는 데이터를 효율적으로 검색할 수 있게 인덱스를 사용한다. 인덱스는 색인으로 해당 테이블의 컬럼을 색인화(따로 파일에 저장)하여 검색시 해당 테이블의 레코드를 full scan 하는 것이 아니라 색인화된 파일을 검색하여 검색속도를 높인다. 인덱스의 구조는 트리...</p>
-  </article>
-</div>
-
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/study/OperatingSystem-17%EC%9E%A5-%ED%94%84%EB%A0%88%EC%9E%84-%ED%95%A0%EB%8B%B9/" rel="permalink">[운영체제] # 17 프레임 할당(Allocation of Frames)
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-03
+    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-05
 </p>
   </article>
 </div>
-
+        
+      </div>
+    </div>
   
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/study/OperatingSystem-16%EC%9E%A5-%ED%8E%98%EC%9D%B4%EC%A7%80-%EA%B5%90%EC%B2%B4-%EC%95%8C%EA%B3%A0%EB%A6%AC%EC%A6%98/" rel="permalink">[운영체제] # 16 페이지 교체 알고리즘(Page Replacement Algorithm)
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-03
-</p>
-  </article>
+  
 </div>
 
-  
-
-
-
-<div class="list__item">
-  <article class="archive__item" itemscope itemtype="http://schema.org/CreativeWork">
-    
-    <h2 class="archive__item-title" itemprop="headline">
-      
-        <a href="/pages/CODEMCD/study/OperatingSystem-15%EC%9E%A5-%EA%B0%80%EC%83%81%EB%A9%94%EB%AA%A8%EB%A6%AC/" rel="permalink">[운영체제] # 15 가상메모리(Virtual Memory)
-</a>
-      
-    </h2>
-    
-    <p class="archive__item-excerpt" itemprop="description">최신 업데이트 날짜: 2019-05-03
-</p>
-  </article>
-</div>
-
-
-
-<nav class="pagination">
-  
-  <ul>
-    
-    
-      
-        <li><a href="/pages/CODEMCD/">이전</a></li>
-      
-    
-
-    
-    
-      <li><a href="/pages/CODEMCD/">1</a></li>
-    
-
-    
-    
-
-    
-    
-    
-
-    
-      
-        <li><a href="/pages/CODEMCD/page2/" class="disabled current">2</a></li>
-      
-    
-      
-        
-        
-        
-        <li><a href="/pages/CODEMCD/page3/">3</a></li>
-      
-    
-      
-        
-        
-        
-        <li><a href="/pages/CODEMCD/page4/">4</a></li>
-      
-    
-
-    
-    
-      <li><a href="#" class="disabled">&hellip;</a></li>
-    
-
-    
-      <li><a href="/pages/CODEMCD/page15/">15</a></li>
-    
-
-    
-    
-      <li><a href="/pages/CODEMCD/page3/">다음</a></li>
-    
-  </ul>
-</nav>
-
-
-
-  </div>
-</div>
     </div>
 
     
@@ -696,6 +546,25 @@ search.start();
 
 
 
+
+
+    
+  <script>
+    var disqus_config = function () {
+      this.page.url = "https://codemcd.github.io/pages/CODEMCD/Database-%EC%9D%B8%EB%8D%B1%EC%8A%A4/";  // Replace PAGE_URL with your page's canonical URL variable
+      this.page.identifier = "/Database-인덱스"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+    };
+    (function() { // DON'T EDIT BELOW THIS LINE
+      var d = document, s = d.createElement('script');
+      s.src = 'https://CODEMCD.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', +new Date());
+      (d.head || d.body).appendChild(s);
+    })();
+  </script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+
+  
 
 
 <script src="https://cdn.jsdelivr.net/npm/vue"></script>
